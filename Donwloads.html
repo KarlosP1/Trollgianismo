@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download — Trollgianismo</title>
+  <style>
+    /* Fonte, background e reset do site original */
+    * { margin:0; padding:0; box-sizing:border-box; font-family: Arial; }
+
+    body {
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)),
+                  url('https://i.imgur.com/mJoCBsb.png') no-repeat center top;
+      background-size: 100% 100%;
+      background-color: #2b2b2b;
+      color:#e5e5e5;
+      transition: background 0.5s;
+      min-height: 100vh;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    @font-face {
+      font-family: 'DropShade';
+      src: url('https://files.catbox.moe/bsplgq.ttf');
+    }
+
+    header {
+      background:#3a3a3a;
+      padding:30px;
+      text-align:center;
+      font-size:28px;
+      font-weight:bold;
+      border-radius:0 0 25px 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      animation: fadeDown 0.6s ease;
+      margin-bottom: 60px;
+    }
+
+    header span {
+      font-family: 'DropShade', Arial;
+    }
+
+    /* Estilo do botão do site original */
+    .download-button {
+      background: linear-gradient(145deg, #444, #2f2f2f);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #e5e5e5;
+      font-size: 18px;
+      box-shadow: 4px 4px 12px #1f1f1f, -4px -4px 12px #4a4a4a;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .download-button:hover {
+      transform: scale(1.05);
+      box-shadow: 6px 6px 15px #1a1a1a, -6px -6px 15px #505050;
+    }
+
+    /* Ajuste do espaçamento do parágrafo */
+    .download-text {
+      margin-bottom: 40px; /* aumenta o espaço entre o texto e o botão */
+      font-size: 18px;
+    }
+
+    @keyframes fadeDown {
+      from { opacity:0; transform: translateY(-20px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span>TROLLGIANISMO — DOWNLOAD</span>
+</header>
+
+<p class="download-text">Baixe o arquivo oficial clicando no botão abaixo:</p>
+<!-- Botão agora usa onclick para chamar a função de download do Drive -->
+<a href="#" class="download-button" onclick="baixarDrive('ID_DO_ARQUIVO_DO_DRIVE')">Baixar Arquivo</a>
+
+<script>
+  function baixarDrive(id) {
+    // Cria um link temporário para forçar download em nova aba
+    const link = document.createElement('a');
+    link.href = `https://www.mediafire.com/folder/lmx9p01zqv9lt/Resenha`;
+    link.target = "_blank"; // abre em nova aba
+    link.click();
+  }
+</script>
+
+</body>
+</html>
