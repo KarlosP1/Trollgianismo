@@ -5,19 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Download — Trollgianismo</title>
   <style>
-    /* Fonte, background e reset do site original */
-    * { margin:0; padding:0; box-sizing:border-box; font-family: Arial; }
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0e0d0b;
+      --surface: #161410;
+      --surface2: #1e1c18;
+      --border: #2e2b22;
+      --gold: #c8963e;
+      --gold-light: #e8b86a;
+      --gold-dim: #7a5a22;
+      --text: #d4cfc5;
+      --text-dim: #7a756a;
+    }
 
     body {
-      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)),
-                  url('https://i.imgur.com/mJoCBsb.png') no-repeat center top;
-      background-size: 100% 100%;
-      background-color: #2b2b2b;
-      color:#e5e5e5;
-      transition: background 0.5s;
+      background-color: var(--bg);
+      background-image:
+        url('https://i.imgur.com/mJoCBsb.png'),
+        radial-gradient(ellipse at 20% 0%, rgba(200,150,62,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(200,150,62,0.04) 0%, transparent 60%);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
       min-height: 100vh;
-      text-align: center;
-      padding: 80px 20px;
+    }
+
+    /* dark overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,9,7,0.72) 0%, rgba(14,13,11,0.88) 40%, rgba(14,13,11,0.97) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
     }
 
     @font-face {
@@ -25,74 +62,201 @@
       src: url('https://files.catbox.moe/bsplgq.ttf');
     }
 
+    /* ── WRAPPER ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ── HEADER ── */
     header {
-      background:#3a3a3a;
-      padding:30px;
-      text-align:center;
-      font-size:28px;
-      font-weight:bold;
-      border-radius:0 0 25px 25px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-      animation: fadeDown 0.6s ease;
+      padding: 50px 0 40px;
+      text-align: center;
+      animation: fadeDown 0.8s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .header-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto 18px;
+    }
+
+    header h1 {
+      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-size: clamp(26px, 6vw, 48px);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(200,150,62,0.35));
+    }
+
+    header p {
+      margin-top: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(10px, 2vw, 12px);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .header-line-bottom {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 18px auto 0;
+    }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 60px;
-    }
-
-    header span {
-      font-family: 'DropShade', Arial;
-    }
-
-    /* Estilo do botão do site original */
-    .download-button {
-      background: linear-gradient(145deg, #444, #2f2f2f);
-      border: none;
-      padding: 15px 30px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      color: #e5e5e5;
-      font-size: 18px;
-      box-shadow: 4px 4px 12px #1f1f1f, -4px -4px 12px #4a4a4a;
-      transition: all 0.3s ease;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
       text-decoration: none;
-      display: inline-block;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 4px;
+      background: var(--surface2);
+      transition: all 0.2s ease;
     }
 
-    .download-button:hover {
-      transform: scale(1.05);
-      box-shadow: 6px 6px 15px #1a1a1a, -6px -6px 15px #505050;
+    .back-link:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-dim);
     }
 
-    /* Ajuste do espaçamento do parágrafo */
-    .download-text {
-      margin-bottom: 40px; /* aumenta o espaço entre o texto e o botão */
-      font-size: 18px;
+    /* ── DOWNLOAD CARD ── */
+    .download-card {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 50px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) both;
     }
 
+    .download-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+
+    .download-card::after {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,150,62,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .download-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 12px rgba(200,150,62,0.3));
+    }
+
+    .download-card h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(14px, 3vw, 20px);
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .download-card p {
+      font-size: clamp(13px, 2vw, 15px);
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    /* ── DOWNLOAD BUTTON ── */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 36px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #2a2010, #1e1a0e);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: clamp(11px, 2vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 24px rgba(200,150,62,0.15), inset 0 0 20px rgba(200,150,62,0.04);
+      position: relative;
+      z-index: 1;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 36px rgba(200,150,62,0.3), inset 0 0 20px rgba(200,150,62,0.08);
+      color: #fff8e8;
+    }
+
+    .download-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* ── ANIMATIONS ── */
     @keyframes fadeDown {
-      from { opacity:0; transform: translateY(-20px); }
-      to { opacity:1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .wrapper { padding: 0 14px 60px; }
+      .download-card { padding: 36px 20px; }
     }
   </style>
 </head>
 <body>
+<div class="wrapper">
 
-<header>
-  <span>TROLLGIANISMO — DOWNLOAD</span>
-</header>
+  <header>
+    <div class="header-line"></div>
+    <h1>TROLLGIANISMO</h1>
+    <p>Arquivos Oficiais</p>
+    <div class="header-line-bottom"></div>
+  </header>
 
-<p class="download-text">Baixe o arquivo oficial clicando no botão abaixo:</p>
-<!-- Botão agora usa onclick para chamar a função de download do Drive -->
-<a href="#" class="download-button" onclick="baixarDrive('ID_DO_ARQUIVO_DO_DRIVE')">Baixar Arquivo</a>
+  <a href="index.html" class="back-link">← Voltar ao início</a>
 
-<script>
-  function baixarDrive(id) {
-    // Cria um link temporário para forçar download em nova aba
-    const link = document.createElement('a');
-    link.href = `https://www.mediafire.com/folder/lmx9p01zqv9lt/Resenha`;
-    link.target = "_blank"; // abre em nova aba
-    link.click();
-  }
-</script>
+  <div class="download-card">
+    <div class="download-icon">📁</div>
+    <h2>Arquivos de Resenha</h2>
+    <p>Baixe o arquivo oficial do Trollgianismo.<br>Todos os registros, históricos e documentos do universo.</p>
+    <a href="https://www.mediafire.com/folder/lmx9p01zqv9lt/Resenha" target="_blank" class="download-btn">
+      ⬇ Baixar Arquivo
+    </a>
+  </div>
 
+</div>
 </body>
 </html>
