@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trollgianismo</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: Arial; }
+
+    body {
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)),
+                  url('https://i.imgur.com/mJoCBsb.png') no-repeat center top;
+      background-size: 100% 100%;
+      background-color: #2b2b2b;
+      background-attachment: scroll;
+      color:#e5e5e5;
+      transition: background 0.5s;
+      min-height: 200vh;
+    }
+
+    @font-face {
+      font-family: 'DropShade';
+      src: url('https://files.catbox.moe/bsplgq.ttf');
+    }
+
+    header {
+      background:#3a3a3a;
+      padding:30px;
+      text-align:center;
+      font-size:28px;
+      font-weight:bold;
+      border-radius:0 0 25px 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      animation: fadeDown 0.6s ease;
+    }
+
+    header span {
+      font-family: 'DropShade', Arial;
+    }
+
+    nav {
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      padding:20px;
+      flex-wrap:wrap;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    nav button {
+      background: linear-gradient(145deg, #444, #2f2f2f);
+      border:none;
+      padding:12px 20px;
+      border-radius:30px;
+      cursor:pointer;
+      font-weight:bold;
+      color:#e5e5e5;
+      transition: all 0.25s ease;
+      box-shadow: 4px 4px 12px #1f1f1f, -4px -4px 12px #4a4a4a;
+      outline: none;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    nav button:focus,
+    nav button:focus-visible {
+      outline: none;
+      box-shadow: 4px 4px 12px #1f1f1f, -4px -4px 12px #4a4a4a;
+    }
+
+    nav button::after {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 35px;
+      border: 2px solid transparent;
+      transition: 0.25s ease;
+    }
+
+    nav button.active::after {
+      border-color: #4da3ff;
+      box-shadow: 0 0 10px rgba(77,163,255,0.6);
+    }
+
+    nav button:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 6px 6px 18px #1a1a1a, -6px -6px 18px #505050;
+    }
+
+    nav button:active {
+      transform: scale(0.95);
+      box-shadow: inset 4px 4px 10px #1f1f1f, inset -4px -4px 10px #4a4a4a;
+    }
+
+    .section {
+      display:none;
+      padding:40px 20px;
+      animation: fadeIn 0.5s ease;
+      max-width:1100px;
+      margin:auto;
+    }
+
+    .active { display:block; }
+
+    .card {
+      background: linear-gradient(145deg, #3a3a3a, #2b2b2b);
+      padding:30px;
+      border-radius:30px;
+      box-shadow: 10px 10px 25px #1a1a1a, -10px -10px 25px #4a4a4a;
+      white-space: pre-line;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-size:18px;
+      line-height:1.6;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 14px 14px 30px #1a1a1a, -14px -14px 30px #505050;
+    }
+
+    @media (min-width: 1024px) {
+      .card { font-size:20px; padding:40px; }
+      header { font-size:32px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { gap:10px; }
+      nav button { padding:10px 14px; font-size:14px; }
+      .card { font-size:16px; padding:20px; }
+    }
+
+    @media (max-width: 480px) {
+      header { font-size:22px; padding:20px; }
+      nav button { font-size:12px; padding:8px 10px; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity:0; transform: translateY(10px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity:0; transform: translateY(-20px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    /* FOOTER E BOTÕES SOCIAIS */
+    .footer {
+      margin-top: 40px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .socials {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      background: linear-gradient(145deg, #444, #2f2f2f);
+      box-shadow: 4px 4px 12px #1f1f1f, -4px -4px 12px #4a4a4a;
+      transition: 0.3s;
+      outline: none;
+      -webkit-tap-highlight-color: transparent; /* remove retângulo azul mobile */
+      user-select: none; /* remove highlight ao clicar */
+    }
+
+    .socials a:focus,
+    .socials a:focus-visible,
+    .socials a:active {
+      outline: none;
+      box-shadow: 4px 4px 12px #1f1f1f, -4px -4px 12px #4a4a4a;
+    }
+
+    .yt-btn svg {
+      width:28px;
+      height:28px;
+      fill:#ff0000;
+    }
+
+    .custom-btn img {
+      width:32px;
+      height:32px;
+      border-radius:50%;
+    }
+
+    .videos-btn {
+      display:inline-block;
+      margin-top:20px;
+      padding:12px 25px;
+      border-radius:25px;
+      background: linear-gradient(145deg, #444, #2f2f2f);
+      color:#e5e5e5;
+      text-decoration:none;
+      font-weight:bold;
+      box-shadow: 4px 4px 12px #1f1f1f, -4px -4px 12px #4a4a4a;
+      transition:0.3s;
+    }
+
+    .videos-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .socials a:hover {
+      transform: translateY(-3px) scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span>TROLLGIANISMO — HISTÓRIA COMPLETA</span>
+</header>
+
+<nav>
+  <button onclick="showSection('origem')">Origem</button>
+  <button onclick="showSection('poder')">Sistema de Poder</button>
+  <button onclick="showSection('social')">Estrutura Social</button>
+  <button onclick="showSection('ranking')">Ranking</button>
+  <button onclick="showSection('trolljologia')">Trolljologia</button>
+  <button onclick="showSection('filosofia')">Filosofia</button>
+  <button onclick="showSection('elementos')">Elementos</button>
+  <button onclick="showSection('essencia')">Essência Final</button>
+</nav>
+
+<!-- Seções mantidas exatamente como você enviou -->
+
+<div id="origem" class="section active"><div class="card">TROLLGIANISMO — HISTÓRIA COMPLETA (VERSÃO ATUALIZADA)
+
+Origem do Universo
+
+O Trollgianismo é um sistema de existência originado a partir de dois seres lendários:
+
+Kauan e Emanuel
+
+A partir deles, toda a estrutura do universo foi formada, incluindo:
+
+Aura
+Resenha
+Resenhas Obscuras
+Jack Craft
+
+Esse universo não é apenas sobre força física, mas sobre presença, impacto social e domínio mental.</div></div>
+
+<div id="poder" class="section"><div class="card">Sistema de Poder
+
+Aura
+
+A essência vital de cada Trollger.
+
+Define o nível bruto de poder
+
+Pode ser perdida, quebrada ou esmagada (principalmente em situações de Cringísse extrema)
+
+A perda de aura é o maior sinal de fraqueza dentro do universo
+
+
+---
+
+Resenha
+
+Uma habilidade única que mistura humor com domínio psicológico.
+
+Permite controlar ambientes sociais
+
+Pode afetar diretamente a mente dos outros
+
+Um Trollger com boa resenha pode vencer sem precisar de força
+
+
+---
+
+Resenhas Obscuras
+
+Uma variação mais complexa da Resenha.
+
+Mais pesada e difícil de lidar
+
+Capaz de causar desconforto, pressão e destruição mental
+
+Poucos conseguem dominar plenamente
+
+
+---
+
+Aura Obscura
+
+Um tipo de Aura diferente da convencional.
+
+Não é corrupção, mas sim uma forma mais complexa
+
+Poucos conseguem compreender ou utilizar
+
+Plebeus são incapazes de aprender, por limitação natural
+
+
+---
+
+Jack Craft
+
+O nível mais alto de técnica.
+
+Manipula Aura e Resenha ao mesmo tempo
+
+Pode alterar situações e até a percepção da realidade
+
+Apenas Trollgers de alto nível conseguem se aproximar disso</div></div>
+
+<div id="social" class="section"><div class="card">Estrutura Social
+
+Dentro dos Trollgers existem duas classes principais:
+
+Supremacia
+
+Grupo dominante
+
+Onde estão praticamente todos os Trollgers
+
+Representa autoridade máxima, poder e presença
+
+
+---
+
+Plebeus
+
+Classe inferior
+
+Atualmente existem apenas DOIS Plebeus:
+
+Juan
+Bryan
+
+Ser Plebeu define fraqueza dentro do sistema, sendo uma condição de limitação real.</div></div>
+
+<div id="ranking" class="section"><div class="card">Ranking Oficial dos Trollgers (Atualizado)
+
+1. Kauan (Trollger nº1)
+
+O mais forte de todos
+
+Origem do Trollgianismo
+
+Referência máxima do universo
+
+
+---
+
+2. José
+
+Atual segundo mais forte
+
+Substituiu Emanuel
+
+Extremamente poderoso dentro da hierarquia
+
+
+---
+
+3. Professora Duda (P3)
+
+Terceira mais forte
+
+Características:
+
+ÚNICA a alcançar o P3 sem Aura Obscura
+
+ÚNICA a alcançar o P3 sem Resenhas Obscuras
+
+Um feito considerado ABSURDO dentro do Trollgianismo
+
+
+---
+
+4. Davi (P4)
+
+Quarto mais forte
+
+Anteriormente ocupava o P3
+
+
+---
+
+5. Juan
+
+Quinto mais forte
+
+Plebeu
+
+Título:
+
+Possui a maior Cringísse/perda de aura da história dos Trollgers
+
+
+---
+
+6. Breno
+
+Sexto mais forte
+
+Características:
+
+Fiel ao grupo há 3 anos
+
+Conta boas piadas
+
+Faz edits boas
+
+
+---
+
+7. Bryan
+
+Sétimo mais forte
+
+Plebeu
+
+Características:
+
+Aparência de bulldog
+
+
+---
+
+8. Kevin
+
+Oitavo mais forte
+
+Características:
+
+Usa óculos
+
+Aparência = fusão de Bryan + Kauan + José
+
+Melhor jogador de futebol entre os Trollgers (Top 1 absoluto)
+
+
+---
+
+9. José Fernando
+
+Nono mais forte
+
+Características:
+
+Considerado um “vagabundo”
+
+Porém extremamente forte em resenha
+
+Consegue conversar sobre qualquer tema
+
+Importante:
+José Fernando ≠ José Eduardo (são pessoas diferentes)
+
+
+---
+
+Emanuel — O Aposentado
+
+Um dos dois lendários fundadores
+
+Antigo segundo mais forte
+
+Agora possui o título de:
+
+Ex-Trollger P2</div></div>
+
+<div id="trolljologia" class="section"><div class="card">Trolljologia
+
+A ciência oficial do universo.
+
+Estuda:
+
+Aura
+Resenha
+Hierarquia
+Eventos históricos
+
+Poucos conseguem compreender esse estudo.
+
+Plebeus são incapazes por destino.</div></div>
+
+<div id="filosofia" class="section"><div class="card">Filosofia do Mundo
+
+O Trollgianismo segue regras absolutas:
+
+A Cringísse é a maior destruídora de Aura
+
+Resenha pode superar força
+
+Presença define superioridade
+
+A Supremacia é a autoridade máxima</div></div>
+
+<div id="elementos" class="section"><div class="card">Elementos Únicos da História
+
+Juan possui o maior colapso de aura já registrado
+
+Kevin domina completamente o futebol (único nesse aspecto)
+
+José Fernando domina o campo da resenha social
+
+Breno representa lealdade e consistência
+
+Professora Duda representa domínio absoluto do básico sem depender do complexo</div></div>
+
+<div id="essencia" class="section"><div class="card">Essência Final
+
+O Trollgianismo não é apenas um sistema de poder — é um ecossistema absoluto onde:
+
+força, resenha e status social se misturam
+
+a Cringísse pode destruir completamente um indivíduo
+
+a hierarquia define o valor de cada um
+
+e cada Trollger carrega uma identidade única dentro da existência</div></div>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+
+    document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+</script>
+
+<footer class="footer">
+  <p>Seguir nas redes sociais</p>
+  <div class="socials">
+    <a href="https://youtube.com/@kauanzinho311?si=s54--4zO0ZXG0hq8" target="_blank" class="yt-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M23.5 6.2s-.2-1.7-.9-2.5c-.9-1-1.9-1-2.4-1.1C16.8 2.3 12 2.3 12 2.3h0s-4.8 0-8.2.3c-.5.1-1.5.1-2.4 1.1C.7 4.5.5 6.2.5 6.2S.2 8.2.2 10.1v1.8c0 1.9.3 3.9.3 3.9s.2 1.7.9 2.5c.9 1 2.1 1 2.6 1.1 1.9.2 8 .3 8 .3s4.8 0 8.2-.3c.5-.1 1.5-.1 2.4-1.1.7-.8.9-2.5.9-2.5s.3-2 .3-3.9v-1.8c0-1.9-.3-3.9-.3-3.9zM9.5 14.5v-5l5 2.5-5 2.5z"/>
+      </svg>
+    </a>
+    <a href="https://trollgianismo-trollgers.blogspot.com/?m=1" target="_blank" class="custom-btn">
+      <img src="https://play-lh.googleusercontent.com/cWG9-bk2_zLdKsN9vsYEdbCReVfzgXU6FeHUmLI8a24FoZ05TpOLYXInCQ278FTwCw" alt="Trollgianismo">
+    </a>
+  </div>
+  <a href="videos.html" class="videos-btn">Todas as Resenhas em vídeo</a>
+</footer>
+
+</body>
+</html>
