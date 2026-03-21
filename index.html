@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trollgianismo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap');
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --bg: #0e0d0b;
@@ -21,8 +21,6 @@
       --text-dim: #7a756a;
       --red: #cc3333;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg);
@@ -41,55 +39,35 @@
       overflow-x: hidden;
     }
 
-    /* grain overlay */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    /* dark overlay on bg image */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(10,9,7,0.72) 0%, rgba(14,13,11,0.85) 40%, rgba(14,13,11,0.97) 100%);
-      pointer-events: none;
-      z-index: 0;
+      position: fixed; inset: 0;
+      background: linear-gradient(to bottom, rgba(10,9,7,0.72) 0%, rgba(14,13,11,0.88) 40%, rgba(14,13,11,0.97) 100%);
+      pointer-events: none; z-index: 0;
     }
 
-    /* ── CUSTOM FONT ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
     @font-face {
       font-family: 'DropShade';
       src: url('https://files.catbox.moe/bsplgq.ttf');
     }
 
-    /* ── WRAPPER ── */
-    .wrapper { position: relative; z-index: 1; }
-
-    /* ── HEADER ── */
-    header {
-      padding: 50px 20px 40px;
-      text-align: center;
-      animation: fadeDown 0.8s cubic-bezier(0.16,1,0.3,1) both;
-      position: relative;
+    .page {
+      position: relative; z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
     }
 
-    .header-inner {
-      display: inline-block;
-      position: relative;
-    }
-
-    .header-line {
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      margin: 0 auto 18px;
-    }
-
+    /* HEADER */
+    header { padding: 50px 0 36px; text-align: center; }
+    .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
     header h1 {
       font-family: 'DropShade', 'Cinzel Decorative', serif;
       font-size: clamp(26px, 6vw, 52px);
@@ -98,30 +76,12 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: none;
       filter: drop-shadow(0 0 24px rgba(200,150,62,0.35));
     }
+    header p { margin-top: 10px; font-family: 'Cinzel', serif; font-size: clamp(10px, 2vw, 13px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
 
-    header p {
-      margin-top: 10px;
-      font-family: 'Cinzel', serif;
-      font-size: clamp(10px, 2vw, 13px);
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-
-    /* ── NAV ── */
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 0 20px 30px;
-      flex-wrap: wrap;
-      max-width: 900px;
-      margin: auto;
-      animation: fadeUp 0.8s 0.15s cubic-bezier(0.16,1,0.3,1) both;
-    }
+    /* NAV */
+    nav { display: flex; justify-content: center; gap: 8px; padding: 0 0 28px; flex-wrap: wrap; }
 
     .nav-btn {
       background: var(--surface2);
@@ -135,79 +95,24 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-dim);
-      text-decoration: none;
-      transition: all 0.2s ease;
+      transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.15s;
       outline: none;
       -webkit-tap-highlight-color: transparent;
-      position: relative;
-      display: inline-block;
     }
-
-    .nav-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 4px;
-      opacity: 0;
-      background: linear-gradient(135deg, rgba(200,150,62,0.08), transparent);
-      transition: opacity 0.2s;
-    }
-
-    .nav-btn:hover {
-      color: var(--gold-light);
-      border-color: var(--gold-dim);
-      transform: translateY(-2px);
-    }
-
-    .nav-btn:hover::before { opacity: 1; }
-    .nav-btn:active { transform: scale(0.97); }
-
-    /* active state driven purely by :target on the section */
-    .nav-btn[href="#origem"]:not([href*="poder"]):not([href*="social"]):not([href*="ranking"]):not([href*="trolljologia"]):not([href*="filosofia"]):not([href*="elementos"]):not([href*="essencia"]) { color: var(--gold-light); border-color: var(--gold); background: linear-gradient(135deg, #1e1a10, #191610); box-shadow: 0 0 20px rgba(200,150,62,0.2), inset 0 0 20px rgba(200,150,62,0.04); }
-
-    body:has(#origem:target) .nav-btn[href="#origem"],
-    body:has(#poder:target) .nav-btn[href="#poder"],
-    body:has(#social:target) .nav-btn[href="#social"],
-    body:has(#ranking:target) .nav-btn[href="#ranking"],
-    body:has(#trolljologia:target) .nav-btn[href="#trolljologia"],
-    body:has(#filosofia:target) .nav-btn[href="#filosofia"],
-    body:has(#elementos:target) .nav-btn[href="#elementos"],
-    body:has(#essencia:target) .nav-btn[href="#essencia"] {
+    .nav-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); transform: translateY(-2px); }
+    .nav-btn:active { transform: scale(0.96); }
+    .nav-btn.ativo {
       background: linear-gradient(135deg, #1e1a10, #191610);
       border-color: var(--gold);
       color: var(--gold-light);
-      box-shadow: 0 0 20px rgba(200,150,62,0.2), inset 0 0 20px rgba(200,150,62,0.04);
+      box-shadow: 0 0 18px rgba(200,150,62,0.2), inset 0 0 16px rgba(200,150,62,0.05);
     }
 
-    /* when any section other than origem is targeted, remove default active from origem link */
-    body:has(#poder:target) .nav-btn[href="#origem"],
-    body:has(#social:target) .nav-btn[href="#origem"],
-    body:has(#ranking:target) .nav-btn[href="#origem"],
-    body:has(#trolljologia:target) .nav-btn[href="#origem"],
-    body:has(#filosofia:target) .nav-btn[href="#origem"],
-    body:has(#elementos:target) .nav-btn[href="#origem"],
-    body:has(#essencia:target) .nav-btn[href="#origem"] {
-      background: var(--surface2);
-      border-color: var(--border);
-      color: var(--text-dim);
-      box-shadow: none;
-    }
+    /* SEÇÕES */
+    .section { display: none; animation: fadeIn 0.35s ease both; padding-bottom: 60px; }
+    .section.ativo { display: block; }
 
-    /* ── SECTIONS — CSS :target navigation (zero JS needed) ── */
-    .sections-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
-
-    .section { display: none; animation: fadeIn 0.4s ease both; }
-    .section:target { display: block; }
-
-    /* default: show origem when no hash is active */
-    #origem { display: block; }
-    body:has(.section:target) #origem:not(:target) { display: none; }
-
-    /* ── CARD ── */
+    /* CARD */
     .card {
       background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
       border: 1px solid var(--border);
@@ -216,281 +121,57 @@
       position: relative;
       overflow: hidden;
     }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
+    .card::after { content: ''; position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(200,150,62,0.06) 0%, transparent 70%); pointer-events: none; }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
-    }
+    .card-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(16px, 3vw, 22px); color: var(--gold-light); margin-bottom: 28px; letter-spacing: 0.05em; }
 
-    .card::after {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 180px; height: 180px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(200,150,62,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* ── CARD CONTENT STYLES ── */
-    .card-title {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(16px, 3vw, 22px);
-      color: var(--gold-light);
-      margin-bottom: 28px;
-      letter-spacing: 0.05em;
-    }
-
-    .entry {
-      margin-bottom: 32px;
-    }
-
+    .entry { margin-bottom: 32px; }
     .entry:last-child { margin-bottom: 0; }
+    .entry-title { font-family: 'Cinzel', serif; font-size: clamp(13px, 2.2vw, 15px); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+    .entry-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold-dim), transparent); }
+    .entry-body { font-size: clamp(14px, 2vw, 16px); line-height: 1.8; color: var(--text); }
+    .entry-body ul { list-style: none; padding: 0; }
+    .entry-body ul li { padding: 4px 0 4px 18px; position: relative; }
+    .entry-body ul li::before { content: '▸'; position: absolute; left: 0; color: var(--gold-dim); font-size: 11px; top: 7px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
 
-    .entry-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(13px, 2.2vw, 15px);
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .entry-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, var(--gold-dim), transparent);
-    }
-
-    .entry-body {
-      font-size: clamp(14px, 2vw, 16px);
-      line-height: 1.8;
-      color: var(--text);
-    }
-
-    .entry-body ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .entry-body ul li {
-      padding: 4px 0 4px 18px;
-      position: relative;
-      color: var(--text);
-    }
-
-    .entry-body ul li::before {
-      content: '▸';
-      position: absolute;
-      left: 0;
-      color: var(--gold-dim);
-      font-size: 11px;
-      top: 7px;
-    }
-
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 28px 0;
-    }
-
-    /* rank items */
-    .rank-item {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-      margin-bottom: 24px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    /* RANKING */
+    .rank-item { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
     .rank-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-    .rank-num {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(20px, 4vw, 30px);
-      color: var(--gold-dim);
-      line-height: 1;
-      min-width: 40px;
-      text-align: center;
-      padding-top: 2px;
-    }
-
+    .rank-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(20px, 4vw, 30px); color: var(--gold-dim); line-height: 1; min-width: 40px; text-align: center; padding-top: 2px; }
     .rank-num.top1 { color: var(--gold-light); filter: drop-shadow(0 0 8px rgba(232,184,106,0.5)); }
     .rank-num.top2 { color: #a0a0a0; }
     .rank-num.top3 { color: #c87532; }
-
-    .rank-content {}
-    .rank-name {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(13px, 2.5vw, 16px);
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 0.05em;
-    }
-
-    .rank-tags {
-      margin-top: 5px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .tag {
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 3px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      letter-spacing: 0.05em;
-    }
-
+    .rank-name { font-family: 'Cinzel', serif; font-size: clamp(13px, 2.5vw, 16px); font-weight: 600; color: var(--text); letter-spacing: 0.05em; }
+    .rank-tags { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { font-size: 11px; padding: 3px 9px; border-radius: 3px; background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); }
     .tag.gold { border-color: var(--gold-dim); color: var(--gold); }
     .tag.blue { border-color: #2a4a6a; color: var(--blue-glow); }
-    .tag.red { border-color: #5a2020; color: var(--red); }
+    .tag.red  { border-color: #5a2020; color: var(--red); }
+    .rank-desc { margin-top: 8px; font-size: 14px; color: var(--text-dim); line-height: 1.6; }
 
-    .rank-desc {
-      margin-top: 8px;
-      font-size: 14px;
-      color: var(--text-dim);
-      line-height: 1.6;
-    }
-
-    /* ── PHILOSOPHY PILLARS ── */
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-top: 8px;
-    }
-
-    .pillar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-top: 2px solid var(--gold-dim);
-      border-radius: 4px;
-      padding: 20px 16px;
-      text-align: center;
-    }
-
+    /* PILLARS */
+    .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 8px; }
+    .pillar { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--gold-dim); border-radius: 4px; padding: 20px 16px; text-align: center; }
     .pillar-icon { font-size: 24px; margin-bottom: 10px; }
-    .pillar-name {
-      font-family: 'Cinzel', serif;
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
+    .pillar-name { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
     .pillar-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
 
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 30px 20px 50px;
-      border-top: 1px solid var(--border);
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    .footer-label {
-      font-family: 'Cinzel', serif;
-      font-size: 11px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 20px;
-    }
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .socials a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      transition: all 0.25s ease;
-      outline: none;
-      -webkit-tap-highlight-color: transparent;
-      text-decoration: none;
-    }
-
-    .socials a:hover {
-      border-color: var(--gold-dim);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(200,150,62,0.15);
-    }
-
+    /* FOOTER */
+    footer { text-align: center; padding: 30px 0 50px; border-top: 1px solid var(--border); }
+    .footer-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; }
+    .socials { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
+    .socials a { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); transition: all 0.25s ease; outline: none; -webkit-tap-highlight-color: transparent; text-decoration: none; }
+    .socials a:hover { border-color: var(--gold-dim); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(200,150,62,0.15); }
     .yt-btn svg { width: 24px; height: 24px; fill: #ff4040; }
+    .custom-btn img { width: 28px; height: 28px; border-radius: 50%; }
+    .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .footer-btn { display: inline-block; padding: 11px 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease; }
+    .footer-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
 
-    .custom-btn img {
-      width: 28px; height: 28px; border-radius: 50%;
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .footer-btn {
-      display: inline-block;
-      padding: 11px 24px;
-      border-radius: 4px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      text-decoration: none;
-      font-family: 'Cinzel', serif;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: all 0.2s ease;
-    }
-
-    .footer-btn:hover {
-      border-color: var(--gold-dim);
-      color: var(--gold-light);
-      box-shadow: 0 0 16px rgba(200,150,62,0.1);
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .card { padding: 24px 18px; }
       .rank-item { gap: 14px; }
@@ -499,165 +180,167 @@
   </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="page">
 
-  <!-- HEADER -->
   <header>
     <div class="header-line"></div>
-    <div class="header-inner">
-      <h1>TROLLGIANISMO</h1>
-      <p>História Completa — Versão Atualizada</p>
-    </div>
+    <h1>TROLLGIANISMO</h1>
+    <p>História Completa — Versão Atualizada</p>
   </header>
 
-  <!-- NAV -->
   <nav>
-    <a href="#origem" class="nav-btn">Origem</a>
-    <a href="#poder" class="nav-btn">Sistema de Poder</a>
-    <a href="#social" class="nav-btn">Estrutura Social</a>
-    <a href="#ranking" class="nav-btn">Ranking</a>
-    <a href="#trolljologia" class="nav-btn">Trolljologia</a>
-    <a href="#filosofia" class="nav-btn">Filosofia</a>
-    <a href="#elementos" class="nav-btn">Elementos</a>
-    <a href="#essencia" class="nav-btn">Essência Final</a>
+    <button class="nav-btn ativo" onclick="mostrar('origem', this)">Origem</button>
+    <button class="nav-btn" onclick="mostrar('poder', this)">Sistema de Poder</button>
+    <button class="nav-btn" onclick="mostrar('social', this)">Estrutura Social</button>
+    <button class="nav-btn" onclick="mostrar('ranking', this)">Ranking</button>
+    <button class="nav-btn" onclick="mostrar('trolljologia', this)">Trolljologia</button>
+    <button class="nav-btn" onclick="mostrar('filosofia', this)">Filosofia</button>
+    <button class="nav-btn" onclick="mostrar('elementos', this)">Elementos</button>
+    <button class="nav-btn" onclick="mostrar('essencia', this)">Essência Final</button>
   </nav>
 
-  <!-- SECTIONS -->
-  <div class="sections-wrap">
+  <!-- ORIGEM -->
+  <div id="origem" class="section ativo">
+    <div class="card">
+      <div class="card-title">Origem do Universo</div>
+      <div class="entry"><div class="entry-body">O Trollgianismo é um sistema de existência originado a partir de dois seres lendários:</div></div>
+      <div class="entry">
+        <div class="entry-title">Os Fundadores</div>
+        <div class="entry-body"><ul><li><strong>Kauan</strong> — Trollger nº1, origem máxima</li><li><strong>Emanuel</strong> — Co-fundador lendário, agora aposentado</li></ul></div>
+      </div>
+      <div class="entry">
+        <div class="entry-title">O que foi criado</div>
+        <div class="entry-body">A partir deles, toda a estrutura do universo foi formada, incluindo <strong>Aura</strong>, <strong>Resenha</strong>, <strong>Resenhas Obscuras</strong> e <strong>Jack Craft</strong>.<br><br>Esse universo não é apenas sobre força física, mas sobre <em>presença</em>, <em>impacto social</em> e <em>domínio mental</em>.</div>
+      </div>
+    </div>
+  </div>
 
-    <!-- ORIGEM -->
-    <div id="origem" class="section active">
-      <div class="card">
-        <div class="card-title">Origem do Universo</div>
-        <div class="entry">
-          <div class="entry-body">
-            O Trollgianismo é um sistema de existência originado a partir de dois seres lendários:
-          </div>
-        </div>
-        <div class="entry">
-          <div class="entry-title">Os Fundadores</div>
-          <div class="entry-body">
-            <ul>
-              <li><strong>Kauan</strong> — Trollger nº1, origem máxima</li>
-              <li><strong>Emanuel</strong> — Co-fundador lendário, agora aposentado</li>
-            </ul>
-          </div>
-        </div>
-        <div class="entry">
-          <div class="entry-title">O que foi criado</div>
-          <div class="entry-body">
-            A partir deles, toda a estrutura do universo foi formada, incluindo <strong>Aura</strong>, <strong>Resenha</strong>, <strong>Resenhas Obscuras</strong> e <strong>Jack Craft</strong>.
-            <br><br>
-            Esse universo não é apenas sobre força física, mas sobre <em>presença</em>, <em>impacto social</em> e <em>domínio mental</em>.
-          </div>
+  <!-- PODER -->
+  <div id="poder" class="section">
+    <div class="card">
+      <div class="card-title">Sistema de Poder</div>
+      <div class="entry"><div class="entry-title">Aura</div><div class="entry-body">A essência vital de cada Trollger. Define o nível bruto de poder — pode ser perdida, quebrada ou esmagada em situações de Cringísse extrema. A perda de aura é o maior sinal de fraqueza dentro do universo.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">Resenha</div><div class="entry-body">Uma habilidade única que mistura humor com domínio psicológico. Permite controlar ambientes sociais e afetar diretamente a mente dos outros. Um Trollger com boa resenha pode vencer sem precisar de força bruta.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">Resenhas Obscuras</div><div class="entry-body">Uma variação mais complexa da Resenha — mais pesada, difícil de lidar. Capaz de causar desconforto, pressão e destruição mental. Poucos conseguem dominar plenamente.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">Aura Obscura</div><div class="entry-body">Um tipo de Aura diferente da convencional. Não é corrupção, mas uma forma mais complexa de existência. Poucos conseguem compreender — Plebeus são incapazes por limitação natural.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">Jack Craft</div><div class="entry-body">O nível mais alto de técnica. Manipula Aura e Resenha simultaneamente, podendo alterar situações e até a percepção da realidade. Apenas Trollgers de alto nível conseguem se aproximar disso.</div></div>
+    </div>
+  </div>
+
+  <!-- SOCIAL -->
+  <div id="social" class="section">
+    <div class="card">
+      <div class="card-title">Estrutura Social</div>
+      <div class="entry"><div class="entry-title">Supremacia</div><div class="entry-body">Grupo dominante — onde estão praticamente todos os Trollgers. Representa autoridade máxima, poder e presença dentro do universo.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">Plebeus</div><div class="entry-body">Classe inferior. Ser Plebeu define fraqueza dentro do sistema — uma condição de limitação real. Atualmente existem apenas <strong>dois</strong> Plebeus:<ul style="margin-top:10px"><li>Juan</li><li>Bryan</li></ul></div></div>
+    </div>
+  </div>
+
+  <!-- RANKING -->
+  <div id="ranking" class="section">
+    <div class="card">
+      <div class="card-title">Ranking Oficial dos Trollgers</div>
+      <div class="rank-item"><div class="rank-num top1">1</div><div class="rank-content"><div class="rank-name">Kauan</div><div class="rank-tags"><span class="tag gold">Trollger nº1</span><span class="tag gold">Fundador</span></div><div class="rank-desc">O mais forte de todos. Origem do Trollgianismo. Referência máxima do universo.</div></div></div>
+      <div class="rank-item"><div class="rank-num top2">2</div><div class="rank-content"><div class="rank-name">José</div><div class="rank-tags"><span class="tag gold">P2</span></div><div class="rank-desc">Atual segundo mais forte. Substituiu Emanuel. Extremamente poderoso dentro da hierarquia.</div></div></div>
+      <div class="rank-item"><div class="rank-num top3">3</div><div class="rank-content"><div class="rank-name">Professora Duda</div><div class="rank-tags"><span class="tag gold">P3</span><span class="tag blue">Sem Aura Obscura</span><span class="tag blue">Sem Resenhas Obscuras</span></div><div class="rank-desc">Terceira mais forte. ÚNICA a alcançar o P3 sem Aura Obscura e sem Resenhas Obscuras — um feito considerado ABSURDO dentro do Trollgianismo.</div></div></div>
+      <div class="rank-item"><div class="rank-num">4</div><div class="rank-content"><div class="rank-name">Davi</div><div class="rank-tags"><span class="tag">P4</span></div><div class="rank-desc">Quarto mais forte. Anteriormente ocupava o P3.</div></div></div>
+      <div class="rank-item"><div class="rank-num">5</div><div class="rank-content"><div class="rank-name">Juan</div><div class="rank-tags"><span class="tag red">Plebeu</span></div><div class="rank-desc">Quinto mais forte. Possui a maior Cringísse / perda de aura da história dos Trollgers.</div></div></div>
+      <div class="rank-item"><div class="rank-num">6</div><div class="rank-content"><div class="rank-name">Breno</div><div class="rank-tags"><span class="tag">3 anos de fidelidade</span></div><div class="rank-desc">Sexto mais forte. Fiel ao grupo há 3 anos. Conta boas piadas e faz edits de qualidade.</div></div></div>
+      <div class="rank-item"><div class="rank-num">7</div><div class="rank-content"><div class="rank-name">Bryan</div><div class="rank-tags"><span class="tag red">Plebeu</span></div><div class="rank-desc">Sétimo mais forte. Aparência de bulldog.</div></div></div>
+      <div class="rank-item"><div class="rank-num">8</div><div class="rank-content"><div class="rank-name">Kevin</div><div class="rank-tags"><span class="tag blue">Top 1 Futebol</span></div><div class="rank-desc">Oitavo mais forte. Usa óculos. Aparência = fusão de Bryan + Kauan + José. Melhor jogador de futebol entre os Trollgers — Top 1 absoluto.</div></div></div>
+      <div class="rank-item"><div class="rank-num">9</div><div class="rank-content"><div class="rank-name">José Fernando</div><div class="rank-tags"><span class="tag gold">Mestre da Resenha</span></div><div class="rank-desc">Nono mais forte. Considerado um "vagabundo", porém extremamente forte em resenha. <em>Nota: José Fernando ≠ José Eduardo.</em></div></div></div>
+      <div class="rank-item"><div class="rank-num" style="color:var(--text-dim);font-size:18px">—</div><div class="rank-content"><div class="rank-name">Emanuel</div><div class="rank-tags"><span class="tag">Aposentado</span><span class="tag">Ex-P2</span><span class="tag gold">Co-Fundador</span></div><div class="rank-desc">Um dos dois lendários fundadores. Antigo segundo mais forte. Agora carrega o título de Ex-Trollger P2.</div></div></div>
+    </div>
+  </div>
+
+  <!-- TROLLJOLOGIA -->
+  <div id="trolljologia" class="section">
+    <div class="card">
+      <div class="card-title">Trolljologia</div>
+      <div class="entry"><div class="entry-body">A ciência oficial do universo Trollgianista. Um campo de estudo reservado aos que possuem capacidade real de compreensão.</div></div>
+      <div class="entry"><div class="entry-title">Campos de Estudo</div><div class="entry-body"><ul><li>Aura e seus estados</li><li>Resenha e suas variações</li><li>Hierarquia e movimentações de rank</li><li>Eventos históricos do universo</li></ul></div></div>
+      <div class="entry"><div class="entry-title">Acesso</div><div class="entry-body">Poucos conseguem compreender esse estudo. Plebeus são incapazes por destino — uma limitação inscrita em sua natureza.</div></div>
+    </div>
+  </div>
+
+  <!-- FILOSOFIA -->
+  <div id="filosofia" class="section">
+    <div class="card">
+      <div class="card-title">Filosofia do Mundo</div>
+      <div class="entry"><div class="entry-body" style="margin-bottom:24px">O Trollgianismo segue quatro regras absolutas que sustentam toda a estrutura do universo.</div></div>
+      <div class="pillars">
+        <div class="pillar"><div class="pillar-icon">⚡</div><div class="pillar-name">Cringísse</div><div class="pillar-desc">A maior destruidora de Aura conhecida no universo</div></div>
+        <div class="pillar"><div class="pillar-icon">🗣️</div><div class="pillar-name">Resenha</div><div class="pillar-desc">Pode superar a força bruta em qualquer confronto</div></div>
+        <div class="pillar"><div class="pillar-icon">👁️</div><div class="pillar-name">Presença</div><div class="pillar-desc">Define a superioridade real de um Trollger</div></div>
+        <div class="pillar"><div class="pillar-icon">👑</div><div class="pillar-name">Supremacia</div><div class="pillar-desc">A autoridade máxima e incontestável do sistema</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ELEMENTOS -->
+  <div id="elementos" class="section">
+    <div class="card">
+      <div class="card-title">Elementos Únicos da História</div>
+      <div class="entry"><div class="entry-title">Juan</div><div class="entry-body">Possui o maior colapso de aura já registrado na história do Trollgianismo.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">Kevin</div><div class="entry-body">Domínio completo e absoluto sobre o ffutebol — único nesse aspecto entre todos os Trollgers.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">José Fernando</div><div class="entry-body">Domina o campo da resenha social com maestria incomparável.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">Breno</div><div class="entry-body">Representa lealdade e consistência — 3 anos inabaláveis ao grupo.</div></div>
+      <hr class="divider">
+      <div class="entry"><div class="entry-title">Professora Duda</div><div class="entry-body">Representa domínio absoluto do básico sem depender do complexo — um feito único na hierarquia.</div></div>
+    </div>
+  </div>
+
+  <!-- ESSENCIA -->
+  <div id="essencia" class="section">
+    <div class="card">
+      <div class="card-title">Essência Final</div>
+      <div class="entry">
+        <div class="entry-body" style="font-size:clamp(15px,2.5vw,18px);line-height:2">
+          O Trollgianismo não é apenas um sistema de poder — é um <strong style="color:var(--gold-light)">ecossistema absoluto</strong> onde força, resenha e status social se misturam.<br><br>
+          A <strong style="color:var(--gold-light)">Cringísse</strong> pode destruir completamente um indivíduo. A <strong style="color:var(--gold-light)">hierarquia</strong> define o valor de cada um. E cada Trollger carrega uma <strong style="color:var(--gold-light)">identidade única</strong> dentro da existência.
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- PODER -->
-    <div id="poder" class="section">
-      <div class="card">
-        <div class="card-title">Sistema de Poder</div>
-
-        <div class="entry">
-          <div class="entry-title">Aura</div>
-          <div class="entry-body">
-            A essência vital de cada Trollger. Define o nível bruto de poder — pode ser perdida, quebrada ou esmagada, especialmente em situações de Cringísse extrema. A perda de aura é o maior sinal de fraqueza dentro do universo.
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="entry">
-          <div class="entry-title">Resenha</div>
-          <div class="entry-body">
-            Uma habilidade única que mistura humor com domínio psicológico. Permite controlar ambientes sociais e afetar diretamente a mente dos outros. Um Trollger com boa resenha pode vencer sem precisar de força bruta.
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="entry">
-          <div class="entry-title">Resenhas Obscuras</div>
-          <div class="entry-body">
-            Uma variação mais complexa da Resenha — mais pesada, difícil de lidar. Capaz de causar desconforto, pressão e destruição mental. Poucos conseguem dominar plenamente.
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="entry">
-          <div class="entry-title">Aura Obscura</div>
-          <div class="entry-body">
-            Um tipo de Aura diferente da convencional. Não é corrupção, mas uma forma mais complexa de existência. Poucos conseguem compreender ou utilizar — Plebeus são incapazes por limitação natural.
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="entry">
-          <div class="entry-title">Jack Craft</div>
-          <div class="entry-body">
-            O nível mais alto de técnica. Manipula Aura e Resenha simultaneamente, podendo alterar situações e até a percepção da realidade. Apenas Trollgers de alto nível conseguem se aproximar disso.
-          </div>
-        </div>
-      </div>
+  <footer>
+    <div class="footer-label">Seguir nas redes sociais</div>
+    <div class="socials">
+      <a href="https://youtube.com/@kauanzinho311?si=s54--4zO0ZXG0hq8" target="_blank" class="yt-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M23.5 6.2s-.2-1.7-.9-2.5c-.9-1-1.9-1-2.4-1.1C16.8 2.3 12 2.3 12 2.3h0s-4.8 0-8.2.3c-.5.1-1.5.1-2.4 1.1C.7 4.5.5 6.2.5 6.2S.2 8.2.2 10.1v1.8c0 1.9.3 3.9.3 3.9s.2 1.7.9 2.5c.9 1 2.1 1 2.6 1.1 1.9.2 8 .3 8 .3s4.8 0 8.2-.3c.5-.1 1.5-.1 2.4-1.1.7-.8.9-2.5.9-2.5s.3-2 .3-3.9v-1.8c0-1.9-.3-3.9-.3-3.9zM9.5 14.5v-5l5 2.5-5 2.5z"/>
+        </svg>
+      </a>
+      <a href="https://trollgianismo-trollgers.blogspot.com/?m=1" target="_blank" class="custom-btn">
+        <img src="https://play-lh.googleusercontent.com/cWG9-bk2_zLdKsN9vsYEdbCReVfzgXU6FeHUmLI8a24FoZ05TpOLYXInCQ278FTwCw" alt="Trollgianismo">
+      </a>
     </div>
-
-    <!-- SOCIAL -->
-    <div id="social" class="section">
-      <div class="card">
-        <div class="card-title">Estrutura Social</div>
-
-        <div class="entry">
-          <div class="entry-title">Supremacia</div>
-          <div class="entry-body">
-            Grupo dominante — onde estão praticamente todos os Trollgers. Representa autoridade máxima, poder e presença dentro do universo.
-          </div>
-        </div>
-
-        <hr class="divider">
-
-        <div class="entry">
-          <div class="entry-title">Plebeus</div>
-          <div class="entry-body">
-            Classe inferior. Ser Plebeu define fraqueza dentro do sistema — uma condição de limitação real. Atualmente existem apenas <strong>dois</strong> Plebeus:
-            <ul style="margin-top:10px">
-              <li>Juan</li>
-              <li>Bryan</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="footer-links">
+      <a href="videos.html" class="footer-btn">Todas as Resenhas em Vídeo</a>
+      <a href="downloads.html" class="footer-btn">Baixar Arquivos de Resenha</a>
     </div>
+  </footer>
 
-    <!-- RANKING -->
-    <div id="ranking" class="section">
-      <div class="card">
-        <div class="card-title">Ranking Oficial dos Trollgers</div>
+</div>
 
-        <div class="rank-item">
-          <div class="rank-num top1">1</div>
-          <div class="rank-content">
-            <div class="rank-name">Kauan</div>
-            <div class="rank-tags">
-              <span class="tag gold">Trollger nº1</span>
-              <span class="tag gold">Fundador</span>
-            </div>
-            <div class="rank-desc">O mais forte de todos. Origem do Trollgianismo. Referência máxima do universo.</div>
-          </div>
-        </div>
+<script>
+  function mostrar(id, btn) {
+    var secoes = document.querySelectorAll('.section');
+    var botoes = document.querySelectorAll('.nav-btn');
+    for (var i = 0; i < secoes.length; i++) secoes[i].classList.remove('ativo');
+    for (var i = 0; i < botoes.length; i++) botoes[i].classList.remove('ativo');
+    document.getElementById(id).classList.add('ativo');
+    btn.classList.add('ativo');
+  }
+</script>
 
-        <div class="rank-item">
-          <div class="rank-num top2">2</div>
-          <div class="rank-content">
-            <div class="rank-name">José</div>
-            <div class="rank-tags">
-              <span class="tag gold">P2</span>
-            </div>
-            <div class="rank-desc">Atual segundo mais forte. Substituiu Emanuel. Extremamente poderoso dentro da hierarquia.</div>
-          </div>
-        </div>
-
-        <div class="rank-item">
-          <div class=
+</body>
+</html>
