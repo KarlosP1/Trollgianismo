@@ -10,15 +10,15 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #0e0d0b;
-      --surface: #161410;
-      --surface2: #1e1c18;
-      --border: #2e2b22;
-      --gold: #c8963e;
-      --gold-light: #e8b86a;
-      --gold-dim: #7a5a22;
-      --text: #d4cfc5;
-      --text-dim: #7a756a;
+      --bg: #0a090f;
+      --surface: #110f1a;
+      --surface2: #1a1726;
+      --border: #2a2540;
+      --gold: #9b6fd4;
+      --gold-light: #c49af0;
+      --gold-dim: #5a3a8a;
+      --text: #d4d0e0;
+      --text-dim: #6a6480;
     }
 
     html { scroll-behavior: smooth; }
@@ -26,20 +26,19 @@
     body {
       background-color: var(--bg);
       background-image:
-        radial-gradient(ellipse at 20% 0%, rgba(200,150,62,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 100%, rgba(200,150,62,0.04) 0%, transparent 60%);
+        radial-gradient(ellipse at 20% 0%, rgba(120,60,200,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(80,40,160,0.07) 0%, transparent 60%);
       color: var(--text);
       font-family: 'Raleway', sans-serif;
       font-weight: 300;
       min-height: 100vh;
     }
 
-    /* grain overlay */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 9999;
     }
@@ -49,7 +48,6 @@
       src: url('https://files.catbox.moe/bsplgq.ttf');
     }
 
-    /* ── WRAPPER ── */
     .wrapper {
       position: relative;
       z-index: 1;
@@ -58,7 +56,6 @@
       padding: 0 20px 80px;
     }
 
-    /* ── HEADER ── */
     header {
       padding: 50px 0 40px;
       text-align: center;
@@ -80,7 +77,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 0 24px rgba(200,150,62,0.35));
+      filter: drop-shadow(0 0 24px rgba(140,80,220,0.5));
     }
 
     header p {
@@ -99,7 +96,6 @@
       margin: 18px auto 0;
     }
 
-    /* ── BACK LINK ── */
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -116,14 +112,12 @@
       border-radius: 4px;
       background: var(--surface2);
       transition: all 0.2s ease;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
     }
+    .back-link:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .back-link:focus, .back-link:focus-visible { outline: none; }
 
-    .back-link:hover {
-      color: var(--gold-light);
-      border-color: var(--gold-dim);
-    }
-
-    /* ── SECTION LABEL ── */
     .section-label {
       font-family: 'Cinzel', serif;
       font-size: 11px;
@@ -133,7 +127,6 @@
       margin-bottom: 16px;
     }
 
-    /* ── VIDEO CARD ── */
     .video-card {
       background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
       border: 1px solid var(--border);
@@ -163,7 +156,6 @@
       display: block;
     }
 
-    /* ── SPOTIFY CARD ── */
     .spotify-card {
       background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
       border: 1px solid var(--border);
@@ -183,9 +175,7 @@
       z-index: 1;
     }
 
-    .spotify-header {
-      padding: 20px 24px 0;
-    }
+    .spotify-header { padding: 20px 24px 0; }
 
     .spotify-header h2 {
       font-family: 'Cinzel', serif;
@@ -202,7 +192,6 @@
       margin-top: 12px;
     }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeDown {
       from { opacity: 0; transform: translateY(-16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -243,6 +232,18 @@
       allowfullscreen></iframe>
   </div>
 
+  <div class="video-card">
+    <iframe src="https://www.youtube.com/embed/3cmcjhvvTak"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+
+  <div class="video-card">
+    <iframe src="https://www.youtube.com/embed/qhu2u_gmbRE"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+
   <div class="section-label" style="margin-top: 12px;">Playlist Oficial</div>
 
   <div class="spotify-card">
@@ -260,5 +261,4 @@
 
 </div>
 </body>
-    </html>
-    
+</html>
