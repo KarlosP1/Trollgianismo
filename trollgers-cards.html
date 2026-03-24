@@ -9,6 +9,15 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     button { outline: none; }
 
+    button { outline: none; }
+
+button:focus,
+button:active,
+button:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
     :root {
       --bg: #0a090f;
       --surface: #110f1a;
