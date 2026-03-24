@@ -403,7 +403,32 @@
         Ao entrar, você declara estar <strong style="color:#c49af0">ciente do que vai ler</strong> e assume total responsabilidade pelo acesso a este conteúdo.
       </p>
     </div>
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay" style="position:fixed;inset:0;z-index:9998;background:#0a0908;display:none;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:460px;width:100%;background:linear-gradient(160deg,#1e1c18,#161410);border:1px solid #2e2b22;border-radius:8px;padding:40px;text-align:center;position:relative;overflow:hidden;">
+    
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,#9b6fd4,transparent)"></div>
 
+    <h2 style="font-family:'DropShade','Cinzel Decorative',serif;font-size:22px;background:linear-gradient(135deg,#c49af0,#9b6fd4,#5a3a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px">
+      ACESSO
+    </h2>
+
+    <input id="loginEmail" placeholder="Email" style="width:100%;margin-bottom:12px;padding:12px;background:#0e0d0b;border:1px solid #2e2b22;color:#d4d0e0;border-radius:4px;font-family:'Raleway'">
+
+    <input id="loginSenha" type="password" placeholder="Senha" style="width:100%;margin-bottom:20px;padding:12px;background:#0e0d0b;border:1px solid #2e2b22;color:#d4d0e0;border-radius:4px;font-family:'Raleway'">
+
+    <button onclick="logar(loginEmail.value, loginSenha.value)" style="padding:12px 28px;border-radius:4px;background:linear-gradient(135deg,#1e1630,#160f24);border:1px solid #9b6fd4;color:#c49af0;font-family:'Cinzel';letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;margin-bottom:10px">
+      Entrar
+    </button>
+
+    <br>
+
+    <button onclick="cadastrar(loginEmail.value, loginSenha.value)" style="padding:10px 20px;border-radius:4px;background:#161410;border:1px solid #2e2b22;color:#7a756a;font-family:'Cinzel';letter-spacing:0.12em;text-transform:uppercase;cursor:pointer">
+      Criar Conta
+    </button>
+
+  </div>
+</div>
     <div style="display:flex;gap:12px;justify-content:center">
       <button onclick="aceitarTermos()" style="padding:12px 28px;border-radius:4px;background:linear-gradient(135deg,#1e1630,#160f24);border:1px solid #9b6fd4;color:#c49af0;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px rgba(140,80,220,0.25)" onmouseover="this.style.boxShadow='0 0 28px rgba(140,80,220,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(140,80,220,0.25)'">
         Aceitar e Entrar
