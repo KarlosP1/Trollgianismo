@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trollgers — Álbum de Cartas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    button { outline: none; }
+
+    :root {
+      --bg: #0a090f;
+      --surface: #110f1a;
+      --surface2: #1a1726;
+      --border: #2a2540;
+      --gold: #9b6fd4;
+      --gold-light: #c49af0;
+      --gold-dim: #5a3a8a;
+      --text: #d4d0e0;
+      --text-dim: #6a6480;
+      --red: #cc3366;
+
+      /* raridade cores */
+      --lendaria: linear-gradient(135deg, #b8860b, #ffd700, #b8860b, #ffd700);
+      --epica: linear-gradient(135deg, #6a0dad, #c49af0, #6a0dad, #c49af0);
+      --rara: linear-gradient(135deg, #1a3a6a, #4a90d9, #1a3a6a, #4a90d9);
+      --incomum: linear-gradient(135deg, #1a4a1a, #4ab04a, #1a4a1a, #4ab04a);
+      --comum: linear-gradient(135deg, #3a3a3a, #888, #3a3a3a, #888);
+      --negativa: linear-gradient(135deg, #6a0a0a, #cc3333, #6a0a0a, #cc3333);
+      --especial: linear-gradient(135deg, #4a3a0a, #d4a017, #4a3a0a, #d4a017);
+    }
+
+    @font-face {
+      font-family: 'DropShade';
+      src: url('https://files.catbox.moe/bsplgq.ttf');
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(120,60,200,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(80,40,160,0.07) 0%, transparent 60%);
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    header {
+      padding: 50px 0 36px;
+      text-align: center;
+    }
+    .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
+    header h1 {
+      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-size: clamp(26px, 6vw, 52px);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(140,80,220,0.50));
+    }
+    header p {
+      margin-top: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(10px, 2vw, 13px);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.2s;
+      margin-bottom: 36px;
+      display: block;
+      width: fit-content;
+    }
+    .back-link:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+
+    /* FILTROS */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.ativo {
+      border-color: var(--gold-dim);
+      color: var(--gold-light);
+      background: linear-gradient(135deg, #1e1630, #160f24);
+    }
+
+    /* GRID DE CARTAS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 28px;
+      justify-items: center;
+    }
+
+    /* ─── CARTA ─── */
+    .card-wrap {
+      perspective: 1000px;
+      width: 220px;
+      height: 340px;
+      cursor: pointer;
+    }
+    .card-wrap:hover .card-inner { transform: rotateY(180deg); }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    /* FRENTE DA CARTA */
+    .card-front {
+      display: flex;
+      flex-direction: column;
+      padding: 3px;
+      /* borda animada por raridade */
+    }
+
+    .card-front-inner {
+      flex: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      position: relative;
+    }
+
+    /* HEADER DA CARTA */
+    .card-header {
+      padding: 10px 12px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+    .card-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 9.5px;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      max-width: 130px;
+    }
+    .card-hp {
+      font-family: 'Bebas Neue', 'Cinzel', serif;
+      font-size: 20px;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+    .card-hp span { font-size: 9px; font-family: 'Cinzel', serif; }
+
+    /* ARTE DA CARTA */
+    .card-art {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      margin: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .card-art-emoji {
+      font-size: 62px;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+      position: relative;
+      z-index: 1;
+      animation: float 4s ease-in-out infinite;
+    }
+    .card-art-bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* TIPO E RARIDADE */
+    .card-type-bar {
+      margin: 4px 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.3);
+    }
+
+    /* STATS */
+    .card-stats {
+      padding: 8px 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .card-stat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .card-stat-label { color: var(--text-dim); min-width: 55px; }
+    .card-stat-bar {
+      flex: 1;
+      height: 3px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .card-stat-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.8s ease;
+    }
+    .card-stat-val {
+      min-width: 24px;
+      text-align: right;
+      font-size: 8px;
+    }
+
+    /* HABILIDADE */
+    .card-ability {
+      margin: 4px 10px;
+      padding: 7px 8px;
+      border-radius: 6px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .card-ability-name {
+      font-family: 'Cinzel', serif;
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .card-ability-desc {
+      font-size: 9px;
+      line-height: 1.5;
+      color: var(--text-dim);
+    }
+
+    /* RODAPÉ DA CARTA */
+    .card-footer {
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Cinzel', serif;
+      font-size: 7.5px;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .rarity-dots { display: flex; gap: 3px; }
+    .rarity-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+    /* VERSO DA CARTA */
+    .card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(160deg, #1a1726, #110f1a);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      text-align: center;
+      gap: 10px;
+    }
+    .card-back::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 11px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .card-back-logo {
+      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-size: 22px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dim));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(140,80,220,0.4));
+    }
+    .card-back-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .card-back-desc {
+      font-size: 10px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 6px;
+      background: rgba(0,0,0,0.2);
+    }
+    .card-back-pos {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+    }
+    .card-back-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+    }
+    .card-back-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 7.5px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── RARIDADES ─── */
+
+    /* LENDÁRIA — dourado, brilho intenso */
+    .rarity-lendaria .card-front {
+      background: linear-gradient(135deg, #b8860b, #ffd700, #daa520, #ffd700, #b8860b);
+      background-size: 300% 300%;
+      animation: shimmer-gold 3s linear infinite;
+      box-shadow: 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(255,215,0,0.15);
+    }
+    .rarity-lendaria .card-name { color: #ffd700; }
+    .rarity-lendaria .card-hp { color: #ffd700; }
+    .rarity-lendaria .card-art-bg { background: radial-gradient(ellipse, rgba(255,215,0,0.15) 0%, rgba(180,100,0,0.05) 60%, transparent 100%); }
+    .rarity-lendaria .card-stat-fill { background: linear-gradient(to right, #b8860b, #ffd700); }
+    .rarity-lendaria .card-ability-name { color: #ffd700; }
+    .rarity-lendaria .card-type-bar { color: #ffd700; }
+    .rarity-lendaria .rarity-dot { background: #ffd700; }
+
+    /* ÉPICA — roxo vibrante */
+    .rarity-epica .card-front {
+      background: linear-gradient(135deg, #4a1a7a, #9b6fd4, #6a2aaa, #c49af0, #4a1a7a);
+      background-size: 300% 300%;
+      animation: shimmer-gold 3s linear infinite;
+      box-shadow: 0 0 25px rgba(155,111,212,0.45), 0 0 50px rgba(155,111,212,0.15);
+    }
+    .rarity-epica .card-name { color: #c49af0; }
+    .rarity-epica .card-hp { color: #c49af0; }
+    .rarity-epica .card-art-bg { background: radial-gradient(ellipse, rgba(155,111,212,0.2) 0%, rgba(80,20,150,0.05) 60%, transparent 100%); }
+    .rarity-epica .card-stat-fill { background: linear-gradient(to right, #5a3a8a, #c49af0); }
+    .rarity-epica .card-ability-name { color: #c49af0; }
+    .rarity-epica .card-type-bar { color: #c49af0; }
+    .rarity-epica .rarity-dot { background: #9b6fd4; }
+
+    /* RARA — azul */
+    .rarity-rara .card-front {
+      background: linear-gradient(135deg, #0a2a5a, #2a6acd, #0a3a7a, #4a8ae0, #0a2a5a);
+      background-size: 300% 300%;
+      animation: shimmer-gold 3.5s linear infinite;
+      box-shadow: 0 0 20px rgba(74,138,224,0.35), 0 0 40px rgba(74,138,224,0.12);
+    }
+    .rarity-rara .card-name { color: #7ab8f5; }
+    .rarity-rara .card-hp { color: #7ab8f5; }
+    .rarity-rara .card-art-bg { background: radial-gradient(ellipse, rgba(74,138,224,0.18) 0%, rgba(10,40,100,0.05) 60%, transparent 100%); }
+    .rarity-rara .card-stat-fill { background: linear-gradient(to right, #1a4a9a, #7ab8f5); }
+    .rarity-rara .card-ability-name { color: #7ab8f5; }
+    .rarity-rara .card-type-bar { color: #7ab8f5; }
+    .rarity-rara .rarity-dot { background: #4a8ae0; }
+
+    /* INCOMUM — verde */
+    .rarity-incomum .card-front {
+      background: linear-gradient(135deg, #0a3a0a, #2a8a2a, #0a4a0a, #3aaa3a, #0a3a0a);
+      background-size: 300% 300%;
+      animation: shimmer-gold 4s linear infinite;
+      box-shadow: 0 0 15px rgba(58,170,58,0.3);
+    }
+    .rarity-incomum .card-name { color: #7ada7a; }
+    .rarity-incomum .card-hp { color: #7ada7a; }
+    .rarity-incomum .card-art-bg { background: radial-gradient(ellipse, rgba(58,170,58,0.15) 0%, rgba(10,50,10,0.05) 60%, transparent 100%); }
+    .rarity-incomum .card-stat-fill { background: linear-gradient(to right, #1a5a1a, #7ada7a); }
+    .rarity-incomum .card-ability-name { color: #7ada7a; }
+    .rarity-incomum .card-type-bar { color: #7ada7a; }
+    .rarity-incomum .rarity-dot { background: #3aaa3a; }
+
+    /* COMUM — cinza */
+    .rarity-comum .card-front {
+      background: linear-gradient(135deg, #2a2a2a, #666, #3a3a3a, #777, #2a2a2a);
+      background-size: 300% 300%;
+      animation: shimmer-gold 5s linear infinite;
+      box-shadow: 0 0 10px rgba(100,100,100,0.2);
+    }
+    .rarity-comum .card-name { color: #b0b0b0; }
+    .rarity-comum .card-hp { color: #b0b0b0; }
+    .rarity-comum .card-art-bg { background: radial-gradient(ellipse, rgba(100,100,100,0.1) 0%, transparent 100%); }
+    .rarity-comum .card-stat-fill { background: linear-gradient(to right, #444, #999); }
+    .rarity-comum .card-ability-name { color: #aaa; }
+    .rarity-comum .card-type-bar { color: #888; }
+    .rarity-comum .rarity-dot { background: #666; }
+
+    /* NEGATIVA — vermelho */
+    .rarity-negativa .card-front {
+      background: linear-gradient(135deg, #5a0a0a, #cc2222, #7a0a0a, #dd3333, #5a0a0a);
+      background-size: 300% 300%;
+      animation: shimmer-gold 3s linear infinite;
+      box-shadow: 0 0 20px rgba(200,30,30,0.35), 0 0 40px rgba(200,30,30,0.1);
+    }
+    .rarity-negativa .card-name { color: #ff8080; }
+    .rarity-negativa .card-hp { color: #ff8080; }
+    .rarity-negativa .card-art-bg { background: radial-gradient(ellipse, rgba(200,30,30,0.2) 0%, rgba(80,5,5,0.05) 60%, transparent 100%); }
+    .rarity-negativa .card-stat-fill { background: linear-gradient(to right, #7a0a0a, #ff6060); }
+    .rarity-negativa .card-ability-name { color: #ff8080; }
+    .rarity-negativa .card-type-bar { color: #ff8080; }
+    .rarity-negativa .rarity-dot { background: #cc2222; }
+
+    /* ESPECIAL — âmbar/bronze */
+    .rarity-especial .card-front {
+      background: linear-gradient(135deg, #3a2a0a, #c4820a, #4a3a0a, #d4920a, #3a2a0a);
+      background-size: 300% 300%;
+      animation: shimmer-gold 3.5s linear infinite;
+      box-shadow: 0 0 20px rgba(196,130,10,0.35);
+    }
+    .rarity-especial .card-name { color: #e8b84a; }
+    .rarity-especial .card-hp { color: #e8b84a; }
+    .rarity-especial .card-art-bg { background: radial-gradient(ellipse, rgba(196,130,10,0.18) 0%, rgba(60,40,5,0.05) 60%, transparent 100%); }
+    .rarity-especial .card-stat-fill { background: linear-gradient(to right, #5a3a0a, #e8b84a); }
+    .rarity-especial .card-ability-name { color: #e8b84a; }
+    .rarity-especial .card-type-bar { color: #e8b84a; }
+    .rarity-especial .rarity-dot { background: #c4820a; }
+
+    @keyframes shimmer-gold {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* HOVER BRILHO */
+    .card-wrap:hover .card-front {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.08);
+    }
+
+    /* SEÇÃO TÍTULO */
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin: 48px 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+      .card-wrap { width: 160px; height: 248px; }
+      .card-art { height: 90px; }
+      .card-art-emoji { font-size: 44px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="header-line"></div>
+    <h1>TROLLGERS</h1>
+    <p>Álbum de Cartas — Edição Completa</p>
+  </header>
+
+  <a href="trollgers-3.html" class="back-link">← Voltar aos Arquivos</a>
+
+  <div class="filters">
+    <button class="filter-btn ativo" onclick="filtrar('todos', this)">Todos</button>
+    <button class="filter-btn" onclick="filtrar('lendaria', this)">⭐ Lendária</button>
+    <button class="filter-btn" onclick="filtrar('epica', this)">💜 Épica</button>
+    <button class="filter-btn" onclick="filtrar('rara', this)">💙 Rara</button>
+    <button class="filter-btn" onclick="filtrar('incomum', this)">💚 Incomum</button>
+    <button class="filter-btn" onclick="filtrar('comum', this)">⬜ Comum</button>
+    <button class="filter-btn" onclick="filtrar('negativa', this)">🔴 Negativa</button>
+    <button class="filter-btn" onclick="filtrar('especial', this)">🟡 Especial</button>
+  </div>
+
+  <!-- ══ TROLLGERS OFICIAIS ══ -->
+  <div class="section-title">Trollgers Oficiais</div>
+  <div class="cards-grid">
+
+    <!-- KAUAN -->
+    <div class="card-wrap" data-rarity="lendaria">
+      <div class="card-inner">
+        <div class="card-front rarity-lendaria">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">KAUAN</div>
+              <div class="card-hp">∞<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">👑</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P1 Absoluto</span>
+              <span>★★★★★</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#ffd700">∞</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Resenha</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#ffd700">∞</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Presença</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#ffd700">∞</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">⚡ Aura Eterna Absoluta</div>
+              <div class="card-ability-desc">Imune a qualquer influência. Define o fluxo da realidade. O criador do Trollgianismo.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 001 / Fundador</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ffd700">👑 P1 — O Criador</div>
+          <div class="card-back-desc">O ser supremo do Trollgianismo. Sua existência define os limites do universo. Ninguém se aproxima.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#b8860b;color:#ffd700">Fundador</span>
+            <span class="card-back-tag" style="border-color:#b8860b;color:#ffd700">Aura Eterna</span>
+            <span class="card-back-tag" style="border-color:#b8860b;color:#ffd700">Resenha Obscura</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOSÉ -->
+    <div class="card-wrap" data-rarity="epica">
+      <div class="card-inner">
+        <div class="card-front rarity-epica">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">JOSÉ</div>
+              <div class="card-hp">∞<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">🔥</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P2 — Aura Infinita</span>
+              <span>★★★★☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#c49af0">∞</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Resenha</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:96%"></div></div>
+                <span class="card-stat-val">96</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Presença</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:98%"></div></div>
+                <span class="card-stat-val">98</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">🌌 Influência Suprema</div>
+              <div class="card-ability-desc">Único capaz de influenciar Kauan P1. A presença simplesmente acontece.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 002 / P2 Absoluto</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#c49af0">🔥 P2 — Portador da Aura Infinita</div>
+          <div class="card-back-desc">O único ser que se aproxima do impossível. Convenceu Kauan P1 a jogar futebol — uma quebra de lógica no sistema.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#5a3a8a;color:#c49af0">Aura Infinita</span>
+            <span class="card-back-tag" style="border-color:#5a3a8a;color:#c49af0">Aura Eterna</span>
+            <span class="card-back-tag" style="border-color:#5a3a8a;color:#c49af0">Resenha Obscura</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROF. DUDA -->
+    <div class="card-wrap" data-rarity="epica">
+      <div class="card-inner">
+        <div class="card-front rarity-epica">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">PROF. DUDA</div>
+              <div class="card-hp">95<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">🧠</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P3 — Anomalia</span>
+              <span>★★★★☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:95%"></div></div>
+                <span class="card-stat-val">95</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Resenha</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:94%"></div></div>
+                <span class="card-stat-val">94</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Presença</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:90%"></div></div>
+                <span class="card-stat-val">90</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">❌ Anomalia Funcional</div>
+              <div class="card-ability-desc">Alto nível sem Aura Obscura. Único Trollger que quebra o padrão e ainda funciona.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 003 / Anomalia</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#c49af0">🧠 P3 — A Anomalia Sem Obscuridade</div>
+          <div class="card-back-desc">Atingiu P3 sem Resenha Obscura — algo considerado impossível no sistema. A exceção que confirma a regra.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#5a3a8a;color:#c49af0">Sem Aura Obscura</span>
+            <span class="card-back-tag" style="border-color:#5a3a8a;color:#c49af0">Anomalia Funcional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAVI -->
+    <div class="card-wrap" data-rarity="rara">
+      <div class="card-inner">
+        <div class="card-front rarity-rara">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">DAVI</div>
+              <div class="card-hp">88<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">⚡</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P4 — Jack Absoluto</span>
+              <span>★★★☆☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:88%"></div></div>
+                <span class="card-stat-val">88</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Obscuridade</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#7ab8f5">MAX</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Versatil.</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:95%"></div></div>
+                <span class="card-stat-val">95</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">🃏 Jack Absoluto</div>
+              <div class="card-ability-desc">Mestre em todas as resenhas. Aura obscura superior ao P2 em potencial bruto.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 004 / O Mais Jack</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ab8f5">⚡ P4 — O Jack Absoluto da Obscuridade</div>
+          <div class="card-back-desc">Domina todas as formas de resenha. Aura obscura que supera o P2 em potencial bruto — mas ainda dentro da hierarquia.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#1a4a9a;color:#7ab8f5">Resenha Obscura</span>
+            <span class="card-back-tag" style="border-color:#1a4a9a;color:#7ab8f5">O Mais Jack</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUAN -->
+    <div class="card-wrap" data-rarity="especial">
+      <div class="card-inner">
+        <div class="card-front rarity-especial">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">JUAN</div>
+              <div class="card-hp">70<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">😐</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P5 — Paradoxo</span>
+              <span>★★★☆☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:70%"></div></div>
+                <span class="card-stat-val">70</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Vergonha</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#e8b84a">MAX</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Cringe</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#e8b84a">∞</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">🏐 Jabuti</div>
+              <div class="card-ability-desc">Alta aura combinada com cringisse absurdo. O paradoxo vivo do Trollgianismo.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 005 / Rei da Vergonha</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#e8b84a">😐 P5 — O Paradoxo da Vergonha e da Aura</div>
+          <div class="card-back-desc">Tem aura real, mas o nível de cringe é incompatível com qualquer Trollger. Um caso único na hierarquia.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#5a3a0a;color:#e8b84a">Maior Cringísse</span>
+            <span class="card-back-tag" style="border-color:#5a3a0a;color:#e8b84a">Jabuti</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRENO -->
+    <div class="card-wrap" data-rarity="rara">
+      <div class="card-inner">
+        <div class="card-front rarity-rara">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">BRENO</div>
+              <div class="card-hp">75<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">🤝</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P6 — O Ausente</span>
+              <span>★★★☆☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:75%"></div></div>
+                <span class="card-stat-val">75</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Obscuridade</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:92%"></div></div>
+                <span class="card-stat-val">92</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Fidelidade</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#7ab8f5">3a</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">💥 Resenha Explosiva</div>
+              <div class="card-ability-desc">Resenha obscura de altíssimo nível quando presente. 3 anos de fidelidade ao grupo.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 006 / O Gay Ausente</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ab8f5">🤝 P6 — O Gay Ausente</div>
+          <div class="card-back-desc">Presença discreta mas impactante. Resenha obscura explosiva quando ativada. 3 anos de fidelidade inabalável.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#1a4a9a;color:#7ab8f5">Resenha Obscura</span>
+            <span class="card-back-tag" style="border-color:#1a4a9a;color:#7ab8f5">3 Anos Fidelidade</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRYAN -->
+    <div class="card-wrap" data-rarity="incomum">
+      <div class="card-inner">
+        <div class="card-front rarity-incomum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">BRYAN</div>
+              <div class="card-hp">40<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">🐶</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P7 — Bulldog</span>
+              <span>★★☆☆☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:40%"></div></div>
+                <span class="card-stat-val">40</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Resenha</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:35%"></div></div>
+                <span class="card-stat-val">35</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Bulldog</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#7ada7a">MAX</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">🐕 Voz Nasal</div>
+              <div class="card-ability-desc">Alvo constante das resenhas do grupo. Aceitação passiva de bullying como modo de vida.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 007 / Plebeu Elevado</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ada7a">🐶 P7 — O Bulldog</div>
+          <div class="card-back-desc">Tecnicamente um plebeu elevado à posição de Trollger. Alvo constante, mas sempre presente. Voz nasal inconfundível.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#1a5a1a;color:#7ada7a">Bulldog</span>
+            <span class="card-back-tag" style="border-color:#1a5a1a;color:#7ada7a">Alvo Constante</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEVIN -->
+    <div class="card-wrap" data-rarity="rara">
+      <div class="card-inner">
+        <div class="card-front rarity-rara">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">KEVIN</div>
+              <div class="card-hp">72<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">⚽</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P8 — Equilíbrio</span>
+              <span>★★★☆☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:72%"></div></div>
+                <span class="card-stat-val">72</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Futebol</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#7ab8f5">Top1</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Equilíbrio</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:88%"></div></div>
+                <span class="card-stat-val">88</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">⚖️ Equilíbrio Impossível</div>
+              <div class="card-ability-desc">Top 1 em futebol. Aura padrão máxima sem obscuridade — mas perfeitamente funcional.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 008 / Top Futebol</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ab8f5">⚽ P8 — O Equilíbrio Impossível</div>
+          <div class="card-back-desc">Top 1 em futebol no universo do Trollgianismo. Aura padrão máxima, sem obscuridade — e ainda funciona perfeitamente.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#1a4a9a;color:#7ab8f5">Top 1 Futebol</span>
+            <span class="card-back-tag" style="border-color:#1a4a9a;color:#7ab8f5">Sem Obscuridade</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOSÉ FERNANDO -->
+    <div class="card-wrap" data-rarity="rara">
+      <div class="card-inner">
+        <div class="card-front rarity-rara">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">JOSÉ FERNANDO</div>
+              <div class="card-hp">65<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">🏫</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Trollger P9 — Repetente</span>
+              <span>★★★☆☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:65%"></div></div>
+                <span class="card-stat-val">65</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Resenha</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:90%"></div></div>
+                <span class="card-stat-val">90</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Manipulação</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:95%"></div></div>
+                <span class="card-stat-val">95</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">📋 Manipulação Acadêmica</div>
+              <div class="card-ability-desc">Mestre da resenha e da manipulação estratégica. O repetente com mais poder que parece.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 009 / O Repetente</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ab8f5">🏫 P9 — O Repetente</div>
+          <div class="card-back-desc">Mestre da resenha e manipulação acadêmica. Repetente com habilidades que surpreendem sua posição na hierarquia.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#1a4a9a;color:#7ab8f5">Mestre da Resenha</span>
+            <span class="card-back-tag" style="border-color:#1a4a9a;color:#7ab8f5">Manipulação</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMANUEL -->
+    <div class="card-wrap" data-rarity="especial">
+      <div class="card-inner">
+        <div class="card-front rarity-especial">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">EMANUEL</div>
+              <div class="card-hp">??<span>AU</span></div>
+            </div>
+            <div class="card-art">
+              <div class="card-art-bg"></div>
+              <div class="card-art-emoji">⚔️</div>
+            </div>
+            <div class="card-type-bar">
+              <span>Ex-P2 — Aposentado</span>
+              <span>★★★★☆</span>
+            </div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <span class="card-stat-label">Aura (passado)</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:92%"></div></div>
+                <span class="card-stat-val">92</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Legado</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div>
+                <span class="card-stat-val" style="color:#e8b84a">∞</span>
+              </div>
+              <div class="card-stat">
+                <span class="card-stat-label">Status atual</span>
+                <div class="card-stat-bar"><div class="card-stat-fill" style="width:0%"></div></div>
+                <span class="card-stat-val">—</span>
+              </div>
+            </div>
+            <div class="card-ability">
+              <div class="card-ability-name">🏛️ Aura Eterna (Passado)</div>
+              <div class="card-ability-desc">Co-fundador. Antigo P2, portador original da Aura Eterna. Aposentado do sistema.</div>
+            </div>
+            <div class="card-footer">
+              <span>Nº 010 / Co-Fundador</span>
+              <div class="rarity-dots">
+                <div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#e8b84a">⚔️ Ex-P2 — O Antigo Portador</div>
+          <div class="card-back-desc">Co-fundador do Trollgianismo. Portador original da Aura Eterna. Hoje aposentado — mas o legado permanece.</div>
+          <div class="card-back-tags">
+            <span class="card-back-tag" style="border-color:#5a3a0a;color:#e8b84a">Co-Fundador</span>
+            <span class="card-back-tag" style="border-color:#5a3a0a;color:#e8b84a">Aposentado</span>
+            <span class="card-back-tag" style="border-color:#5a3a0a;color:#e8b84a">Aura Eterna</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cards-grid trollgers -->
+
+  <!-- ══ PLEBEUS ══ -->
+  <div class="section-title">Plebeus</div>
+  <div class="cards-grid">
+
+    <!-- LÁZARO -->
+    <div class="card-wrap" data-rarity="especial">
+      <div class="card-inner">
+        <div class="card-front rarity-especial">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">LÁZARO</div>
+              <div class="card-hp">15<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🦠</div></div>
+            <div class="card-type-bar"><span>Plebeu — Burrice Anormal</span><span>★☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:15%"></div></div><span class="card-stat-val">15</span></div>
+              <div class="card-stat"><span class="card-stat-label">Aura Obs.</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:70%"></div></div><span class="card-stat-val">70</span></div>
+              <div class="card-stat"><span class="card-stat-label">Burrice</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#e8b84a">∞</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">💀 Solado por Kauan</div><div class="card-ability-desc">Derrotado sem esforço pelo P1. Erro funcional que continua existindo mesmo assim.</div></div>
+            <div class="card-footer"><span>Plebeu / Erro Funcional</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#e8b84a">🦠 Plebeu — Burrice Fora do Normal</div>
+          <div class="card-back-desc">Solado por Kauan sem esforço. Aura obscura surpreendentemente alta — mas burrice incompatível.</div>
+          <div class="card-back-tags"><span class="card-back-tag">Solado</span><span class="card-back-tag">Erro Funcional</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLÓRIA -->
+    <div class="card-wrap" data-rarity="negativa">
+      <div class="card-inner">
+        <div class="card-front rarity-negativa">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">GLÓRIA</div>
+              <div class="card-hp">12<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🦧</div></div>
+            <div class="card-type-bar"><span>Plebeu — A Quilomba</span><span>★☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:12%"></div></div><span class="card-stat-val">12</span></div>
+              <div class="card-stat"><span class="card-stat-label">Invasão</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ff8080">MAX</span></div>
+              <div class="card-stat"><span class="card-stat-label">Irritação</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:95%"></div></div><span class="card-stat-val">95</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">🔴 Erro Ativo</div><div class="card-ability-desc">Invasiva e irritante. Aura obscura fraca. Presença negativa constante no grupo.</div></div>
+            <div class="card-footer"><span>Plebeu / Erro Ativo</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ff8080">🦧 Plebeu — A Quilomba</div>
+          <div class="card-back-desc">Presença negativa dentro do Trollgianismo. Invasiva, irritante e sem aura relevante.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Invasiva</span><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Erro Ativo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DANIEL -->
+    <div class="card-wrap" data-rarity="negativa">
+      <div class="card-inner">
+        <div class="card-front rarity-negativa">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">DANIEL</div>
+              <div class="card-hp">0<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🧟</div></div>
+            <div class="card-type-bar"><span>Plebeu Nível Zero Absoluto</span><span>☆☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:0%"></div></div><span class="card-stat-val">0</span></div>
+              <div class="card-stat"><span class="card-stat-label">Resenha</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:0%"></div></div><span class="card-stat-val">0</span></div>
+              <div class="card-stat"><span class="card-stat-label">Existência</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:5%"></div></div><span class="card-stat-val">5</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">∅ Nível Zero</div><div class="card-ability-desc">Plebeu absoluto. Sem aura, sem resenha, sem relevância. O nível mais baixo documentado.</div></div>
+            <div class="card-footer"><span>Plebeu / Nível Zero</span><div class="rarity-dots"><div class="rarity-dot" style="opacity:0.2"></div><div class="rarity-dot" style="opacity:0.2"></div><div class="rarity-dot" style="opacity:0.2"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ff8080">🧟 Plebeu Nível Zero Absoluto</div>
+          <div class="card-back-desc">O caso mais extremo documentado. Aura nula, resenha nula, presença nula. Abaixo de qualquer classificação.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Aura Nula</span><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Nível Zero</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VESGO -->
+    <div class="card-wrap" data-rarity="negativa">
+      <div class="card-inner">
+        <div class="card-front rarity-negativa">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">VESGO</div>
+              <div class="card-hp">−5<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">👀</div></div>
+            <div class="card-type-bar"><span>Plebeu Negativo</span><span>☆☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:2%; background: #cc2222"></div></div><span class="card-stat-val" style="color:#ff8080">−5</span></div>
+              <div class="card-stat"><span class="card-stat-label">Chatice</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ff8080">MAX</span></div>
+              <div class="card-stat"><span class="card-stat-label">Dissonância</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ff8080">∞</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">💢 Valor Negativo</div><div class="card-ability-desc">Aura abaixo de zero. Presença piora o ambiente. Pior que Daniel em impacto social.</div></div>
+            <div class="card-footer"><span>Plebeu / Valor Negativo</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.2"></div><div class="rarity-dot" style="opacity:0.2"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ff8080">👀 Plebeu Negativo — A Dissonância Irritante</div>
+          <div class="card-back-desc">Aura negativa. Amigo do Miguel. Presença que degrada o ambiente ao redor.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Valor Negativo</span><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Chatice Anormal</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIGUEL -->
+    <div class="card-wrap" data-rarity="comum">
+      <div class="card-inner">
+        <div class="card-front rarity-comum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">MIGUEL</div>
+              <div class="card-hp">20<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">💻</div></div>
+            <div class="card-type-bar"><span>Plebeu Decadente</span><span>★☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:20%"></div></div><span class="card-stat-val">20</span></div>
+              <div class="card-stat"><span class="card-stat-label">Estagnação</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#888">MAX</span></div>
+              <div class="card-stat"><span class="card-stat-label">Potencial</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:40%"></div></div><span class="card-stat-val">40</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">↓ Decadência</div><div class="card-ability-desc">Ex-integrado que parou de evoluir. Aura padrão baixa. Estagnado indefinidamente.</div></div>
+            <div class="card-footer"><span>Plebeu / Estagnado</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#b0b0b0">💻 Plebeu Decadente — O Estagnado</div>
+          <div class="card-back-desc">Já foi mais integrado. Hoje estagnado, sem evolução aparente. Ligado ao Vesgo.</div>
+          <div class="card-back-tags"><span class="card-back-tag">Ex-Integrado</span><span class="card-back-tag">Estagnado</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DENILSON -->
+    <div class="card-wrap" data-rarity="negativa">
+      <div class="card-inner">
+        <div class="card-front rarity-negativa">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">DENILSON</div>
+              <div class="card-hp">0<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">✋</div></div>
+            <div class="card-type-bar"><span>Plebeu — Ausência Pura</span><span>☆☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:0%"></div></div><span class="card-stat-val">0</span></div>
+              <div class="card-stat"><span class="card-stat-label">Presença</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:0%"></div></div><span class="card-stat-val">0</span></div>
+              <div class="card-stat"><span class="card-stat-label">2 metros</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ff8080">SIM</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">👻 Ausência Total</div><div class="card-ability-desc">Desnutrido de 2m. Aura nula. Presença tão ausente que parece não existir.</div></div>
+            <div class="card-footer"><span>Plebeu / Ausência</span><div class="rarity-dots"><div class="rarity-dot" style="opacity:0.2"></div><div class="rarity-dot" style="opacity:0.2"></div><div class="rarity-dot" style="opacity:0.2"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ff8080">✋ Plebeu — Desnutrido de 2m</div>
+          <div class="card-back-desc">Ausência pura. Ligado ao Miguel. 2 metros de altura, aura absolutamente nula.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Aura Nula</span><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Ausência Total</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LYÉDSON -->
+    <div class="card-wrap" data-rarity="incomum">
+      <div class="card-inner">
+        <div class="card-front rarity-incomum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">LYÉDSON</div>
+              <div class="card-hp">55<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">⚽</div></div>
+            <div class="card-type-bar"><span>Civil — O Neguin Anão</span><span>★★☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:55%"></div></div><span class="card-stat-val">55</span></div>
+              <div class="card-stat"><span class="card-stat-label">Futebol</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:90%"></div></div><span class="card-stat-val">90</span></div>
+              <div class="card-stat"><span class="card-stat-label">Estatura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:10%"></div></div><span class="card-stat-val">10</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">⚽ Futebol Avançado</div><div class="card-ability-desc">Habilidade esportiva excepcional apesar da baixa estatura. Civil sem ligação social.</div></div>
+            <div class="card-footer"><span>Civil Comum</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ada7a">⚽ Civil — O Neguin Anão</div>
+          <div class="card-back-desc">Futebol excepcional para sua estatura. Civil comum sem ligação com os Trollgers.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#1a5a1a;color:#7ada7a">Futebol Avançado</span><span class="card-back-tag">Civil</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROBOCOP -->
+    <div class="card-wrap" data-rarity="comum">
+      <div class="card-inner">
+        <div class="card-front rarity-comum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">ROBOCOP</div>
+              <div class="card-hp">8<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🇧🇴</div></div>
+            <div class="card-type-bar"><span>Plebeu — O Japonego</span><span>☆☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:8%"></div></div><span class="card-stat-val">8</span></div>
+              <div class="card-stat"><span class="card-stat-label">Resenha</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:5%"></div></div><span class="card-stat-val">5</span></div>
+              <div class="card-stat"><span class="card-stat-label">Humor inv.</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:85%"></div></div><span class="card-stat-val">85</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">😂 Humor Involuntário</div><div class="card-ability-desc">"Irmão do Juan". Piada interna do grupo. Chato mas gera entretenimento sem querer.</div></div>
+            <div class="card-footer"><span>Plebeu / Irmão do Juan</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#b0b0b0">🇧🇴 Plebeu — O Japonego</div>
+          <div class="card-back-desc">Piada interna. Chamado de "irmão do Juan". Relevância apenas pelo humor involuntário.</div>
+          <div class="card-back-tags"><span class="card-back-tag">Irmão do Juan</span><span class="card-back-tag">Piada Interna</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIMO DO JUAN -->
+    <div class="card-wrap" data-rarity="especial">
+      <div class="card-inner">
+        <div class="card-front rarity-especial">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">PRIMO DO JUAN</div>
+              <div class="card-hp">78<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">⬛</div></div>
+            <div class="card-type-bar"><span>Plebeu — O PCD</span><span>★★☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:78%"></div></div><span class="card-stat-val">78</span></div>
+              <div class="card-stat"><span class="card-stat-label">Aura Obs.</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:60%"></div></div><span class="card-stat-val">60</span></div>
+              <div class="card-stat"><span class="card-stat-label">Perturbação</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#e8b84a">∞</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">🌀 Fala Sozinho</div><div class="card-ability-desc">Comportamento imprevisível e errático. Aura alta mas sem relevância formal no grupo.</div></div>
+            <div class="card-footer"><span>Plebeu / O PCD</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#e8b84a">⬛ Plebeu — O PCD</div>
+          <div class="card-back-desc">Fala sozinho de forma contínua. Aura surpreendentemente alta. Elemento excêntrico do universo.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a3a0a;color:#e8b84a">Aura Muito Alta</span><span class="card-back-tag">Excêntrico</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SENHOR BATATA -->
+    <div class="card-wrap" data-rarity="comum">
+      <div class="card-inner">
+        <div class="card-front rarity-comum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">SR. BATATA</div>
+              <div class="card-hp">45<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🥔</div></div>
+            <div class="card-type-bar"><span>Plebeu — O Cabeçudo</span><span>★☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:45%"></div></div><span class="card-stat-val">45</span></div>
+              <div class="card-stat"><span class="card-stat-label">Cabeça</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#888">∞</span></div>
+              <div class="card-stat"><span class="card-stat-label">Relevância</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:10%"></div></div><span class="card-stat-val">10</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">🪨 Cabeça Gigante</div><div class="card-ability-desc">Distinguido por uma cabeça incrivelmente grande. Função excêntrica no universo.</div></div>
+            <div class="card-footer"><span>Plebeu / O Cabeçudo</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#b0b0b0">🥔 Plebeu — O Cabeçudo</div>
+          <div class="card-back-desc">Cabeça gigante. Sem relevância direta na lore. Elemento excêntrico e curioso do universo.</div>
+          <div class="card-back-tags"><span class="card-back-tag">Cabeça Infinita</span><span class="card-back-tag">Excêntrico</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIA CHIQUINHA -->
+    <div class="card-wrap" data-rarity="negativa">
+      <div class="card-inner">
+        <div class="card-front rarity-negativa">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">TIA CHIQUINHA</div>
+              <div class="card-hp">0<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🌍</div></div>
+            <div class="card-type-bar"><span>Plebeia — 3ª Mais Chata</span><span>☆☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:0%"></div></div><span class="card-stat-val">0</span></div>
+              <div class="card-stat"><span class="card-stat-label">Chatice</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:88%"></div></div><span class="card-stat-val">88</span></div>
+              <div class="card-stat"><span class="card-stat-label">Voz irritante</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ff8080">MAX</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">🔊 Voz Mais Irritante</div><div class="card-ability-desc">Inventa coisas que ninguém disse. Insuportável e inconveniente. Impacto social negativo.</div></div>
+            <div class="card-footer"><span>Plebeia / 3ª Mais Chata</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.2"></div><div class="rarity-dot" style="opacity:0.2"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ff8080">🌍 Plebeia — Terceira Mais Chata</div>
+          <div class="card-back-desc">Representa o elemento de inconveniência social. Voz irritante, inventa coisas, cria atrito constante.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Aura Nula</span><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Voz Irritante</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROF-OEM -->
+    <div class="card-wrap" data-rarity="negativa">
+      <div class="card-inner">
+        <div class="card-front rarity-negativa">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">PROF-OEM</div>
+              <div class="card-hp">0<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🔢</div></div>
+            <div class="card-type-bar"><span>Plebeu — 1º Mais Chato</span><span>☆☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:0%"></div></div><span class="card-stat-val">0</span></div>
+              <div class="card-stat"><span class="card-stat-label">Chatice</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ff8080">MAX</span></div>
+              <div class="card-stat"><span class="card-stat-label">Sem noção</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ff8080">∞</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">😤 Acusa de Gritar</div><div class="card-ability-desc">Acusa outros de gritar sem razão. Ausência dele gera prazer. O mais chato do universo.</div></div>
+            <div class="card-footer"><span>Plebeu / #1 Mais Chato</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.2"></div><div class="rarity-dot" style="opacity:0.2"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ff8080">🔢 Plebeu — #1 Mais Chato</div>
+          <div class="card-back-desc">Incômodo formal absoluto. Incompetente socialmente. Sua ausência é celebrada pelo grupo.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Mais Chato</span><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Aura Nula</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROF-OMP -->
+    <div class="card-wrap" data-rarity="negativa">
+      <div class="card-inner">
+        <div class="card-front rarity-negativa">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">PROF-OMP</div>
+              <div class="card-hp">0<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">📒</div></div>
+            <div class="card-type-bar"><span>Plebeu — 2ª Mais Chata</span><span>☆☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:0%"></div></div><span class="card-stat-val">0</span></div>
+              <div class="card-stat"><span class="card-stat-label">Chatice</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:95%"></div></div><span class="card-stat-val">95</span></div>
+              <div class="card-stat"><span class="card-stat-label">Implicância</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ff8080">MAX</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">⚡ Implicância Aleatória</div><div class="card-ability-desc">Implica com pessoas sem motivo. Divisora de conflitos. 2ª mais chata após Prof-OEM.</div></div>
+            <div class="card-footer"><span>Plebeu / #2 Mais Chata</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.2"></div><div class="rarity-dot" style="opacity:0.2"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ff8080">📒 Plebeu — #2 Mais Chata</div>
+          <div class="card-back-desc">Conflito intelectual e social. Implica aleatoriamente, gera divisões. Semelhante à Tia Chiquinha mas pior.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Implicância</span><span class="card-back-tag" style="border-color:#5a0a0a;color:#ff8080">Conflito</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cards-grid plebeus -->
+
+  <!-- ══ CIVIS & EXTERNOS ══ -->
+  <div class="section-title">Civis &amp; Externos</div>
+  <div class="cards-grid">
+
+    <!-- BIG FAT -->
+    <div class="card-wrap" data-rarity="comum">
+      <div class="card-inner">
+        <div class="card-front rarity-comum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">BIG FAT</div>
+              <div class="card-hp">?<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🖥️</div></div>
+            <div class="card-type-bar"><span>Civil — Lotador de RAM</span><span>★☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:30%"></div></div><span class="card-stat-val">?</span></div>
+              <div class="card-stat"><span class="card-stat-label">RAM usada</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#888">∞</span></div>
+              <div class="card-stat"><span class="card-stat-label">Cabelo</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:5%"></div></div><span class="card-stat-val">🦜</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">💾 Sobrecarga de RAM</div><div class="card-ability-desc">Cabelo de periquito. Indefinido na classificação. Lotador de memória involuntário.</div></div>
+            <div class="card-footer"><span>Civil / Indefinido</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#b0b0b0">🖥️ Civil — Lotador de RAM</div>
+          <div class="card-back-desc">Aura indefinida. Cabelo de periquito. Civil comum sem classificação formal no sistema.</div>
+          <div class="card-back-tags"><span class="card-back-tag">Civil</span><span class="card-back-tag">Indefinido</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAPHAELA -->
+    <div class="card-wrap" data-rarity="incomum">
+      <div class="card-inner">
+        <div class="card-front rarity-incomum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">RAPHAELA</div>
+              <div class="card-hp">30<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🇯🇵</div></div>
+            <div class="card-type-bar"><span>Civil — A Vagabunda</span><span>★☆☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:30%"></div></div><span class="card-stat-val">30</span></div>
+              <div class="card-stat"><span class="card-stat-label">Resenha</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:45%"></div></div><span class="card-stat-val">45</span></div>
+              <div class="card-stat"><span class="card-stat-label">Postura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:10%"></div></div><span class="card-stat-val">10</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">🚫 Postura Fechada</div><div class="card-ability-desc">Resenha seletiva. Postura fechada. Civil comum com aura padrão baixa.</div></div>
+            <div class="card-footer"><span>Civil Comum</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ada7a">🇯🇵 Civil — A Vagabunda</div>
+          <div class="card-back-desc">Civil externa com aura padrão baixa. Resenha seletiva, postura fechada.</div>
+          <div class="card-back-tags"><span class="card-back-tag">Civil</span><span class="card-back-tag">Resenha Seletiva</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THIAGO -->
+    <div class="card-wrap" data-rarity="especial">
+      <div class="card-inner">
+        <div class="card-front rarity-especial">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">THIAGO</div>
+              <div class="card-hp">50<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🖋️</div></div>
+            <div class="card-type-bar"><span>Civil Neutro — A Origem</span><span>★★☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:50%"></div></div><span class="card-stat-val">50</span></div>
+              <div class="card-stat"><span class="card-stat-label">Legado</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#e8b84a">∞</span></div>
+              <div class="card-stat"><span class="card-stat-label">Atualidade</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:20%"></div></div><span class="card-stat-val">20</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">🌱 Primeiro Amigo</div><div class="card-ability-desc">Primeiro amigo de Kauan. Anterior ao Trollgianismo. Legado histórico inapagável.</div></div>
+            <div class="card-footer"><span>Civil / A Origem</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#e8b84a">🖋️ Civil — O Normal, A Origem</div>
+          <div class="card-back-desc">Primeiro amigo de Kauan, anterior ao Trollgianismo. Legado histórico que não pode ser apagado.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#5a3a0a;color:#e8b84a">Primeiro Amigo</span><span class="card-back-tag" style="border-color:#5a3a0a;color:#e8b84a">A Origem</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cards-grid civis -->
+
+  <!-- ══ DESVIADOS & PRÉ-TROLLGERS ══ -->
+  <div class="section-title">Desviados &amp; Candidatos</div>
+  <div class="cards-grid">
+
+    <!-- JOGADOR DE CS -->
+    <div class="card-wrap" data-rarity="incomum">
+      <div class="card-inner">
+        <div class="card-front rarity-incomum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">JOGADOR CS</div>
+              <div class="card-hp">48<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🎮</div></div>
+            <div class="card-type-bar"><span>Trollger Desviado</span><span>★★☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:48%"></div></div><span class="card-stat-val">48</span></div>
+              <div class="card-stat"><span class="card-stat-label">CS Skill</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:85%"></div></div><span class="card-stat-val">85</span></div>
+              <div class="card-stat"><span class="card-stat-label">Presença</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:30%"></div></div><span class="card-stat-val">30</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">🎮 Trollger Desviado</div><div class="card-ability-desc">Acima dos plebeus. Fora do ranking oficial. Desviado do caminho Trollger.</div></div>
+            <div class="card-footer"><span>Desviado / Fora do Rank</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ada7a">🎮 Trollger Desviado</div>
+          <div class="card-back-desc">Acima dos plebeus, mas fora do ranking oficial. Desviou do caminho Trollger para o CS.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#1a5a1a;color:#7ada7a">Desviado</span><span class="card-back-tag">Acima dos Plebeus</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAVI FRIENDSH -->
+    <div class="card-wrap" data-rarity="incomum">
+      <div class="card-inner">
+        <div class="card-front rarity-incomum">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">DAVI FRIENDSH</div>
+              <div class="card-hp">52<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🐒</div></div>
+            <div class="card-type-bar"><span>Pré-Trollger — Protótipo</span><span>★★☆☆☆</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:52%"></div></div><span class="card-stat-val">52</span></div>
+              <div class="card-stat"><span class="card-stat-label">Potencial</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:65%"></div></div><span class="card-stat-val">65</span></div>
+              <div class="card-stat"><span class="card-stat-label">Evolução</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:20%"></div></div><span class="card-stat-val">20</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">🔓 Quase Evoluiu</div><div class="card-ability-desc">Quase um Trollger desviado. Protótipo incompleto. Potencial não realizado.</div></div>
+            <div class="card-footer"><span>Pré-Trollger / β</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot" style="opacity:0.3"></div><div class="rarity-dot" style="opacity:0.3"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#7ada7a">🐒 Pré-Trollger — O Quase Trollger</div>
+          <div class="card-back-desc">Protótipo incompleto. Chegou perto mas não evoluiu para Trollger nem Desviado.</div>
+          <div class="card-back-tags"><span class="card-back-tag">Pré-Trollger</span><span class="card-back-tag">Protótipo β</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRANQUELÃO -->
+    <div class="card-wrap" data-rarity="lendaria">
+      <div class="card-inner">
+        <div class="card-front rarity-lendaria">
+          <div class="card-front-inner">
+            <div class="card-header">
+              <div class="card-name">BRANQUELÃO ALTÃO</div>
+              <div class="card-hp">?<span>AU</span></div>
+            </div>
+            <div class="card-art"><div class="card-art-bg"></div><div class="card-art-emoji">🟪</div></div>
+            <div class="card-type-bar"><span>Candidato — Prodígio</span><span>★★★★★</span></div>
+            <div class="card-stats">
+              <div class="card-stat"><span class="card-stat-label">Aura Híbrida</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:90%"></div></div><span class="card-stat-val">?</span></div>
+              <div class="card-stat"><span class="card-stat-label">Potencial</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ffd700">P1?</span></div>
+              <div class="card-stat"><span class="card-stat-label">Indicação</span><div class="card-stat-bar"><div class="card-stat-fill" style="width:100%"></div></div><span class="card-stat-val" style="color:#ffd700">👑</span></div>
+            </div>
+            <div class="card-ability"><div class="card-ability-name">👑 Indicado por Kauan</div><div class="card-ability-desc">Candidato ao posto de P1. Indicado pelo próprio Kauan. Potencial de Prodígio absoluto.</div></div>
+            <div class="card-footer"><span>Candidato / Prodígio</span><div class="rarity-dots"><div class="rarity-dot"></div><div class="rarity-dot"></div><div class="rarity-dot"></div></div></div>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-logo">TROLLGERS</div>
+          <div class="card-back-subtitle">Álbum Oficial</div>
+          <div class="card-back-pos" style="color:#ffd700">🟪 Candidato — Possível P1</div>
+          <div class="card-back-desc">Indicado pelo próprio Kauan. Aura híbrida nunca vista. O único candidato ao topo da hierarquia.</div>
+          <div class="card-back-tags"><span class="card-back-tag" style="border-color:#b8860b;color:#ffd700">Indicado por Kauan</span><span class="card-back-tag" style="border-color:#b8860b;color:#ffd700">Candidato P1</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cards-grid desviados -->
+
+  <footer style="text-align:center;padding:40px 0 50px;border-top:1px solid var(--border);margin-top:60px">
+    <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim)">Passe o mouse sobre as cartas para revelar o verso</p>
+    <p style="margin-top:16px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.15em;color:var(--text-dim)">Créditos ao Juan que ajudou completamente a criar isso. :)</p>
+  </footer>
+
+</div>
+
+<script>
+  function filtrar(tipo, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('ativo'));
+    btn.classList.add('ativo');
+    document.querySelectorAll('.card-wrap').forEach(card => {
+      if (tipo === 'todos' || card.dataset.rarity === tipo) {
+        card.style.display = '';
+        card.style.animation = 'fadeIn 0.3s ease both';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</script>
+<style>
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</body>
+</html>
