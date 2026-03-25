@@ -6,17 +6,12 @@
   <title>Trollgers — Álbum de Cartas</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
+    * { outline: none !important; -webkit-tap-highlight-color: transparent !important; }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     button { outline: none; }
-
-    button { outline: none; }
-
-button:focus,
-button:active,
-button:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
+    a { outline: none; }
+    input { outline: none; }
+    *:focus { outline: none; }
 
     :root {
       --bg: #0a090f;
@@ -146,16 +141,16 @@ button:focus-visible {
     /* GRID DE CARTAS */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 36px;
       justify-items: center;
     }
 
     /* ─── CARTA ─── */
     .card-wrap {
       perspective: 1000px;
-      width: 220px;
-      height: 340px;
+      width: 300px;
+      height: 460px;
       cursor: pointer;
     }
     .card-wrap:hover .card-inner { transform: rotateY(180deg); }
@@ -205,24 +200,25 @@ button:focus-visible {
     }
     .card-name {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 9.5px;
+      font-size: 12px;
       letter-spacing: 0.05em;
       line-height: 1.2;
       max-width: 130px;
     }
     .card-hp {
       font-family: 'Bebas Neue', 'Cinzel', serif;
-      font-size: 20px;
+      font-size: 26px;
       line-height: 1;
       display: flex;
       align-items: baseline;
       gap: 2px;
     }
+
     .card-hp span { font-size: 9px; font-family: 'Cinzel', serif; }
 
     /* ARTE DA CARTA */
     .card-art {
-      height: 130px;
+      height: 180px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -233,7 +229,7 @@ button:focus-visible {
       border: 1px solid rgba(255,255,255,0.08);
     }
     .card-art-emoji {
-      font-size: 62px;
+      font-size: 84px;
       filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
       position: relative;
       z-index: 1;
@@ -255,7 +251,7 @@ button:focus-visible {
       padding: 3px 8px;
       border-radius: 4px;
       font-family: 'Cinzel', serif;
-      font-size: 8px;
+      font-size: 9.5px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       display: flex;
@@ -277,14 +273,14 @@ button:focus-visible {
       align-items: center;
       gap: 6px;
       font-family: 'Cinzel', serif;
-      font-size: 8px;
+      font-size: 10px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
     .card-stat-label { color: var(--text-dim); min-width: 55px; }
     .card-stat-bar {
       flex: 1;
-      height: 3px;
+      height: 4px;
       background: rgba(255,255,255,0.07);
       border-radius: 2px;
       overflow: hidden;
@@ -295,9 +291,9 @@ button:focus-visible {
       transition: width 0.8s ease;
     }
     .card-stat-val {
-      min-width: 24px;
+      min-width: 28px;
       text-align: right;
-      font-size: 8px;
+      font-size: 10px;
     }
 
     /* HABILIDADE */
@@ -310,14 +306,14 @@ button:focus-visible {
     }
     .card-ability-name {
       font-family: 'Cinzel', serif;
-      font-size: 8.5px;
+      font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
     .card-ability-desc {
-      font-size: 9px;
+      font-size: 11px;
       line-height: 1.5;
       color: var(--text-dim);
     }
@@ -329,7 +325,7 @@ button:focus-visible {
       justify-content: space-between;
       align-items: center;
       font-family: 'Cinzel', serif;
-      font-size: 7.5px;
+      font-size: 9.5px;
       letter-spacing: 0.08em;
       color: var(--text-dim);
       border-top: 1px solid rgba(255,255,255,0.05);
@@ -395,7 +391,7 @@ button:focus-visible {
     }
     .card-back-tag {
       font-family: 'Cinzel', serif;
-      font-size: 7.5px;
+      font-size: 9.5px;
       padding: 2px 7px;
       border-radius: 10px;
       border: 1px solid var(--border);
