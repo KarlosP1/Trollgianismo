@@ -607,7 +607,8 @@ function aiGK(gk){
   if(!ballNear) tgtY=FH/2+(tgtY-FH/2)*0.3; // partial tracking when ball is far
 
   var dy=tgtY-gk.y, ad=Math.abs(dy);
-  if(ad>1.5) gk.y+=(dy/ad)*Math.min(GK_SPD,ad);
+  var spd = gk.team===0 ? 2.0 : 5.0;
+if(ad>1.5) gk.y+=(dy/ad)*Math.min(spd,ad);
 
   // Return to guard X unless ball is in shooting range
   if(ballNear){
