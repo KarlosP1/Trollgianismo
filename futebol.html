@@ -257,7 +257,7 @@ var PR=13, BR=9, GKR=15;
 var P_SPD=2.8, SPRINT=4.8;
 var CPU_SPD=2.4, CPU_SPRI=3.6;
 var GK_SPD=1.5;
-var FRIC=0.982, CDIST=22;
+var FRIC=0.99, CDIST=22;
 
 // ═══════════════════════════════════
 // STATE
@@ -510,7 +510,7 @@ function ctrlPlayer(){
   if((keys['KeyJ']||mob.chute)&&near){
     ball.owner=null; player.hasBall=false;
     var n=nrm(FW-ball.x,(FH/2-ball.y)+(Math.random()-.5)*44);
-    ball.vx=n[0]*16; ball.vy=n[1]*16+(Math.random()-.5)*2;
+    ball.vx=n[0]*25; ball.vy=n[1]*25+(Math.random()-.5)*2;
   }
   if((keys['KeyK']||mob.passe)&&near){
     // Pass to furthest teammate up the field
