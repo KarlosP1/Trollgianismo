@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Futebol — Trollgianismo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a090f; --surface: #110f1a; --surface2: #1a1726;
+      --border: #2a2540; --gold: #9b6fd4; --gold-light: #c49af0;
+      --gold-dim: #5a3a8a; --blue-glow: #a78bfa; --text: #d4d0e0;
+      --text-dim: #6a6480; --red: #cc3366;
+    }
+    @font-face { font-family: 'DropShade'; src: url('https://files.catbox.moe/bsplgq.ttf'); }
+    body {
+      background-color: var(--bg);
+      background-image: url('https://i.imgur.com/mJoCBsb.png'),
+        radial-gradient(ellipse at 20% 0%, rgba(120,60,200,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(80,40,160,0.08) 0%, transparent 60%);
+      background-repeat: no-repeat; background-position: center top;
+      background-size: cover; background-attachment: fixed;
+      color: var(--text); font-family: 'Raleway', sans-serif; font-weight: 300;
+      min-height: 100vh; overflow-x: hidden; user-select: none; -webkit-user-select: none;
+    }
+    body::before { content:''; position:fixed; inset:0; background:linear-gradient(to bottom,rgba(8,6,18,.75) 0%,rgba(10,9,15,.90) 40%,rgba(10,9,15,.97) 100%); pointer-events:none; z-index:0; }
+    body::after  { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; }
+
+    .hamburger { position:fixed; top:16px; left:16px; z-index:1000; width:42px; height:42px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; transition:border-color .2s,box-shadow .2s; outline:none; -webkit-tap-highlight-color:transparent; }
+    .hamburger:hover { border-color:var(--gold-dim); }
+    .hamburger span { display:block; width:18px; height:1.5px; background:var(--text-dim); border-radius:2px; transition:all .3s ease; }
+    .hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); background:var(--gold-light); }
+    .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); background:var(--gold-light); }
+    .drawer-overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:998; opacity:0; pointer-events:none; transition:opacity .3s ease; }
+    .drawer-overlay.open { opacity:1; pointer-events:all; }
+    .drawer { position:fixed; top:0; left:0; width:260px; height:100vh; background:var(--surface); border-right:1px solid var(--border); z-index:999; transform:translateX(-100%); transition:transform .3s ease; overflow-y:auto; padding:70px 0 40px; }
+    .drawer.open { transform:translateX(0); }
+    .drawer-title { font-family:'Cinzel',serif; font-size:10px; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); padding:0 20px 10px; border-bottom:1px solid var(--border); margin-bottom:8px; }
+    .drawer a { display:flex; align-items:center; gap:10px; margin:8px 16px 0; padding:10px 14px; border-radius:6px; background:var(--surface2); border:1px solid var(--border); text-decoration:none; transition:border-color .2s; outline:none; -webkit-tap-highlight-color:transparent; font-family:'Cinzel',serif; font-size:11px; letter-spacing:.1em; color:var(--text-dim); }
+    .drawer a:hover { border-color:var(--gold-dim); color:var(--gold-light); }
+    a:focus,a:focus-visible { outline:none; }
+
+    .page { position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:0 20px 80px; }
+    header { padding:50px 0 24px; text-align:center; }
+    .header-line { width:60px; height:1px; background:linear-gradient(to right,transparent,var(--gold),transparent); margin:0 auto 18px; }
+    header h1 { font-family:'DropShade','Cinzel Decorative',serif; font-size:clamp(26px,6vw,48px); letter-spacing:.08em; background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dim) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 24px rgba(140,80,220,.5)); }
+    header p { margin-top:8px; font-family:'Cinzel',serif; font-size:clamp(9px,2vw,12px); letter-spacing:.3em; text-transform:uppercase; color:var(--text-dim); }
+
+    .scoreboard { display:flex; justify-content:center; align-items:center; margin:0 0 10px; }
+    .score-team { background:linear-gradient(160deg,var(--surface2),var(--surface)); border:1px solid var(--border); border-radius:6px; padding:10px 24px; text-align:center; min-width:130px; position:relative; }
+    .score-team::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(to right,transparent,var(--gold-dim),transparent); }
+    .score-team-name { font-family:'Cinzel',serif; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--text-dim); margin-bottom:2px; }
+    .score-num { font-family:'Cinzel Decorative',serif; font-size:34px; color:var(--gold-light); line-height:1; filter:drop-shadow(0 0 8px rgba(196,154,240,.4)); }
+    .score-sep { font-family:'Cinzel Decorative',serif; font-size:26px; color:var(--gold-dim); padding:0 14px; padding-top:12px; }
+    .timer-box { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:5px 18px; font-family:'Cinzel',serif; font-size:13px; letter-spacing:.15em; color:var(--text-dim); text-align:center; margin:0 0 12px; }
+    #timerVal { color:var(--gold); }
+
+    .canvas-wrap { position:relative; width:100%; border:1px solid var(--border); border-radius:8px; overflow:hidden; background:#0d1a10; box-shadow:0 0 40px rgba(0,0,0,.8),inset 0 0 60px rgba(0,0,0,.4); }
+    .canvas-wrap::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,transparent,var(--gold-dim),transparent); z-index:2; pointer-events:none; }
+    canvas { display:block; width:100%; height:auto; touch-action:none; }
+
+    /* OVERLAYS */
+    .overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; background:rgba(8,6,18,.94); z-index:10; gap:14px; backdrop-filter:blur(6px); overflow-y:auto; padding:24px 20px 30px; }
+    .overlay.hidden { display:none; }
+    .overlay-title { font-family:'DropShade','Cinzel Decorative',serif; font-size:clamp(16px,4.5vw,34px); letter-spacing:.08em; background:linear-gradient(135deg,var(--gold-light),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 18px rgba(140,80,220,.6)); text-align:center; flex-shrink:0; }
+    .overlay-sub { font-family:'Cinzel',serif; font-size:clamp(9px,2vw,11px); letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); text-align:center; flex-shrink:0; }
+    .overlay-score { font-family:'Cinzel Decorative',serif; font-size:clamp(24px,6vw,48px); color:var(--gold-light); filter:drop-shadow(0 0 16px rgba(196,154,240,.5)); }
+
+    /* TEAM SELECT */
+    .select-section { width:100%; max-width:720px; }
+    .select-label { font-family:'Cinzel',serif; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:8px; text-align:center; }
+    .teams-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; width:100%; }
+    @media(max-width:600px){ .teams-grid{grid-template-columns:repeat(3,1fr);} }
+    .team-card { background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:10px 6px 8px; cursor:pointer; text-align:center; position:relative; transition:border-color .2s,box-shadow .2s,transform .15s; outline:none; -webkit-tap-highlight-color:transparent; }
+    .team-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(to right,transparent,var(--gold-dim),transparent); }
+    .team-card:hover { border-color:var(--gold-dim); transform:translateY(-2px); }
+    .team-card.selected { border-color:var(--gold); background:linear-gradient(135deg,#1e1630,#160f24); box-shadow:0 0 18px rgba(140,80,220,.3),inset 0 0 12px rgba(140,80,220,.08); }
+    .tc-badge { font-size:22px; margin-bottom:4px; }
+    .tc-name { font-family:'Cinzel',serif; font-size:clamp(8px,1.8vw,11px); font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--gold-light); margin-bottom:5px; }
+    .tc-players { font-size:9px; color:var(--text-dim); line-height:1.6; font-family:'Raleway',sans-serif; }
+    .team-card.selected .tc-players { color:var(--text); }
+
+    .play-btn { background:linear-gradient(135deg,#1e1630,#160f24); border:1px solid var(--gold); border-radius:4px; padding:12px 36px; cursor:pointer; font-family:'Cinzel',serif; font-size:clamp(11px,2.5vw,13px); font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-light); box-shadow:0 0 20px rgba(140,80,220,.28),inset 0 0 14px rgba(140,80,220,.07); transition:box-shadow .2s,transform .15s; outline:none; -webkit-tap-highlight-color:transparent; flex-shrink:0; }
+    .play-btn:hover { box-shadow:0 0 32px rgba(140,80,220,.5),inset 0 0 18px rgba(140,80,220,.12); transform:translateY(-2px); }
+    .play-btn:active { transform:scale(.97); }
+    .play-btn:disabled { opacity:.35; cursor:not-allowed; transform:none; }
+
+    .controls-row { display:flex; gap:12px; margin-top:14px; flex-wrap:wrap; align-items:flex-start; justify-content:center; }
+    .ctrl-box { background:linear-gradient(160deg,var(--surface2),var(--surface)); border:1px solid var(--border); border-radius:6px; padding:14px 18px; flex:1; min-width:190px; position:relative; }
+    .ctrl-box::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(to right,transparent,var(--gold-dim),transparent); }
+    .ctrl-title { font-family:'Cinzel',serif; font-size:10px; letter-spacing:.25em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:10px; }
+    .ctrl-list { display:flex; flex-direction:column; gap:5px; }
+    .ctrl-item { display:flex; gap:8px; align-items:center; font-size:12px; color:var(--text-dim); }
+    .ctrl-key { background:var(--surface); border:1px solid var(--border); border-radius:3px; padding:2px 6px; font-family:'Cinzel',serif; font-size:10px; color:var(--gold); white-space:nowrap; flex-shrink:0; }
+
+    #mobileControls { display:none; margin-top:14px; gap:12px; align-items:center; justify-content:space-between; }
+    .joystick-wrap { position:relative; width:120px; height:120px; flex-shrink:0; }
+    .joystick-base { position:absolute; inset:0; border-radius:50%; background:var(--surface2); border:2px solid var(--border); }
+    .joystick-knob { position:absolute; width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--gold-dim),var(--gold)); top:50%; left:50%; transform:translate(-50%,-50%); box-shadow:0 0 12px rgba(140,80,220,.4); pointer-events:none; }
+    .action-btns { display:flex; flex-direction:column; gap:10px; align-items:center; }
+    .action-btns-row { display:flex; gap:10px; }
+    .act-btn { width:54px; height:54px; border-radius:50%; border:1px solid var(--border); background:var(--surface2); cursor:pointer; font-family:'Cinzel',serif; font-size:9px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dim); outline:none; -webkit-tap-highlight-color:transparent; transition:border-color .15s,color .15s,background .15s; display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.2; }
+    .act-btn:active,.act-btn.pressed { background:linear-gradient(135deg,#1e1630,#160f24); border-color:var(--gold); color:var(--gold-light); }
+    .act-btn.chute { border-color:var(--gold-dim); color:var(--gold); }
+    .act-btn.passe { border-color:#2a2a6a; color:var(--blue-glow); }
+    @media(max-width:600px){ #mobileControls{display:flex;} .controls-row{display:none;} }
+
+    footer { text-align:center; padding:30px 0 50px; border-top:1px solid var(--border); margin-top:24px; }
+    .footer-links { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+    .footer-btn { display:inline-block; padding:11px 24px; border-radius:4px; background:var(--surface2); border:1px solid var(--border); color:var(--text-dim); text-decoration:none; font-family:'Cinzel',serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; transition:all .2s ease; outline:none; -webkit-tap-highlight-color:transparent; }
+    .footer-btn:hover { border-color:var(--gold-dim); color:var(--gold-light); }
+  </style>
+</head>
+<body>
+
+<button class="hamburger" id="hamburger" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-title">Menu</div>
+  <a href="index.html">← Voltar ao Site</a>
+  <a href="sorteador.html">🎲 Sorteador</a>
+</div>
+
+<div class="page">
+  <header>
+    <div class="header-line"></div>
+    <h1>FUTEBOL</h1>
+    <p>Trollgianismo — Arena de Batalha</p>
+  </header>
+
+  <div class="scoreboard">
+    <div class="score-team">
+      <div class="score-team-name" id="namePlayer">—</div>
+      <div class="score-num" id="scorePlayer">0</div>
+    </div>
+    <div class="score-sep">×</div>
+    <div class="score-team">
+      <div class="score-team-name" id="nameCPU">—</div>
+      <div class="score-num" id="scoreCPU">0</div>
+    </div>
+  </div>
+  <div class="timer-box">Tempo: <span id="timerVal">2:00</span></div>
+
+  <div class="canvas-wrap" id="canvasWrap">
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- START -->
+    <div class="overlay" id="startScreen">
+      <div class="overlay-title">ARENA DE FUTEBOL</div>
+      <div class="overlay-sub">Escolha os times para a batalha</div>
+
+      <div class="select-section">
+        <div class="select-label">⚽ Seu time</div>
+        <div class="teams-grid" id="gridPlayer"></div>
+      </div>
+
+      <div class="select-section">
+        <div class="select-label">🔴 Adversário</div>
+        <div class="teams-grid" id="gridCPU"></div>
+      </div>
+
+      <button class="play-btn" id="btnStart" onclick="startGame()" disabled>Iniciar Jogo</button>
+    </div>
+
+    <!-- GOAL -->
+    <div class="overlay hidden" id="goalScreen">
+      <div style="margin-top:auto"></div>
+      <div class="overlay-title" id="goalText">GOL!</div>
+      <div class="overlay-sub" id="goalSub"></div>
+      <div style="margin-bottom:auto"></div>
+    </div>
+
+    <!-- END -->
+    <div class="overlay hidden" id="endScreen">
+      <div style="margin-top:auto"></div>
+      <div class="overlay-title" id="endTitle">FIM DE JOGO</div>
+      <div class="overlay-score" id="endScore">0 × 0</div>
+      <div class="overlay-sub" id="endSub"></div>
+      <button class="play-btn" style="margin-top:8px" onclick="goToMenu()">Escolher Times</button>
+      <div style="margin-bottom:auto"></div>
+    </div>
+  </div>
+
+  <div class="controls-row">
+    <div class="ctrl-box">
+      <div class="ctrl-title">Movimento</div>
+      <div class="ctrl-list">
+        <div class="ctrl-item"><span class="ctrl-key">W A S D</span> Mover</div>
+        <div class="ctrl-item"><span class="ctrl-key">SHIFT</span> Sprint</div>
+      </div>
+    </div>
+    <div class="ctrl-box">
+      <div class="ctrl-title">Ações</div>
+      <div class="ctrl-list">
+        <div class="ctrl-item"><span class="ctrl-key">J</span> Chute ao gol</div>
+        <div class="ctrl-item"><span class="ctrl-key">K</span> Passe curto</div>
+        <div class="ctrl-item"><span class="ctrl-key">L</span> Lançamento longo</div>
+        <div class="ctrl-item"><span class="ctrl-key">ESPAÇO</span> Roubar bola</div>
+      </div>
+    </div>
+    <div class="ctrl-box">
+      <div class="ctrl-title">Dica</div>
+      <div class="ctrl-list">
+        <div class="ctrl-item" style="color:var(--text)">Jogador principal tem ponto branco acima. GK (goleiro) fica no gol automaticamente. Passe para o companheiro e chute perto do gol!</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobileControls">
+    <div class="joystick-wrap" id="joystickWrap">
+      <div class="joystick-base"></div>
+      <div class="joystick-knob" id="joystickKnob"></div>
+    </div>
+    <div class="action-btns">
+      <div class="action-btns-row">
+        <button class="act-btn chute" id="btnChute">Chute</button>
+        <button class="act-btn passe" id="btnPasse">Passe</button>
+      </div>
+      <div class="action-btns-row">
+        <button class="act-btn" id="btnLong">Longo</button>
+        <button class="act-btn" id="btnSprint" style="border-color:#5a1a40;color:var(--red)">Sprint</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="index.html" class="footer-btn">← Voltar ao Site</a>
+      <a href="sorteador.html" class="footer-btn">Sorteador</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+// ═══════════════════════════════════
+// TEAMS
+// ═══════════════════════════════════
+var TEAMS = [
+  { id:'flamengo',    name:'Flamengo',     badge:'🔴⚫', color:'#e03030', color2:'#901818', players:['Juan','Lyédson','Breno'] },
+  { id:'corinthians', name:'Corinthians',  badge:'⚫⬜', color:'#909090', color2:'#484848', players:['Davi','Bryan','José Fernando'] },
+  { id:'saopaulo',    name:'São Paulo',    badge:'🔴⚫', color:'#cc1133', color2:'#660011', players:['José','Kevin','Kauan'] },
+  { id:'fudidos',     name:'FudidosFC',    badge:'💀',   color:'#8833cc', color2:'#4a1180', players:['Emanuel','Lázaro','Glória'] },
+  { id:'pcdfc',       name:'PCD-FC',       badge:'🦾',   color:'#2255cc', color2:'#0d3388', players:['Daniel','Jogador de CS','Robocop'] }
+];
+
+var selPlayer = null, selCPU = null;
+var playerTeam = null, cpuTeam = null;
+
+// ═══════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════
+var FW=800, FH=520, GW=14, GH=130;
+var GAME_DUR=120;
+var PR=13, BR=9, GKR=15;
+var P_SPD=2.8, SPRINT=4.8;
+var CPU_SPD=2.3, CPU_SPRI=3.6;
+var GK_SPD=3.5;
+var FRIC=0.982, CDIST=22;
+
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+var canvas, ctx;
+var running=false, over=false, goalCD=false;
+var scoreP=0, scoreC=0, timeLeft=GAME_DUR;
+var timerId=null;
+var keys={}, mob={x:0,y:0,chute:false,passe:false,longo:false,sprint:false};
+var player, gkP, tm1, tm2, cpu1, cpu2, cpu3, gkC, ball;
+
+// ═══════════════════════════════════
+// CANVAS
+// ═══════════════════════════════════
+function initCanvas(){
+  canvas=document.getElementById('gameCanvas');
+  resizeCanvas();
+}
+function resizeCanvas(){
+  if(!canvas)return;
+  var wrap=document.getElementById('canvasWrap');
+  var rat=window.devicePixelRatio||1;
+  var dw=wrap.clientWidth, dh=Math.round(dw*FH/FW);
+  canvas.width=FW*rat; canvas.height=FH*rat;
+  canvas.style.width=dw+'px'; canvas.style.height=dh+'px';
+  ctx=canvas.getContext('2d'); ctx.scale(rat,rat);
+}
+window.addEventListener('resize',resizeCanvas);
+
+// ═══════════════════════════════════
+// ENTITY FACTORY
+// ═══════════════════════════════════
+function E(x,y,team,name,r,isGK){
+  return {x:x,y:y,vx:0,vy:0,team:team,name:name||'',r:r||PR,isGK:!!isGK,hasBall:false};
+}
+function B(x,y){ return {x:x,y:y,vx:0,vy:0,owner:null,r:BR}; }
+
+function resetPos(){
+  player= E(FW*.28, FH/2,   0, playerTeam.players[0]);
+  tm1   = E(FW*.22, FH/2-72,0, playerTeam.players[1]);
+  tm2   = E(FW*.22, FH/2+72,0, playerTeam.players[2]);
+  gkP   = E(FW*.05, FH/2,   0, 'GK', GKR, true);
+  cpu1  = E(FW*.72, FH/2,   1, cpuTeam.players[0]);
+  cpu2  = E(FW*.78, FH/2-62,1, cpuTeam.players[1]);
+  cpu3  = E(FW*.78, FH/2+62,1, cpuTeam.players[2]);
+  gkC   = E(FW*.95, FH/2,   1, 'GK', GKR, true);
+  ball  = B(FW/2, FH/2);
+}
+
+// ═══════════════════════════════════
+// TEAM SELECTION UI
+// ═══════════════════════════════════
+function buildGrids(){
+  var gp=document.getElementById('gridPlayer');
+  var gc=document.getElementById('gridCPU');
+  gp.innerHTML=''; gc.innerHTML='';
+  TEAMS.forEach(function(t){
+    gp.appendChild(card(t,'p'));
+    gc.appendChild(card(t,'c'));
+  });
+}
+function card(t,side){
+  var d=document.createElement('div');
+  d.className='team-card';
+  d.dataset.id=t.id; d.dataset.side=side;
+  d.innerHTML='<div class="tc-badge">'+t.badge+'</div>'+
+    '<div class="tc-name">'+t.name+'</div>'+
+    '<div class="tc-players">'+t.players.join('<br>')+'</div>';
+  d.onclick=function(){ pickTeam(t.id,side); };
+  return d;
+}
+function pickTeam(id,side){
+  document.querySelectorAll('.team-card[data-side="'+side+'"]').forEach(function(c){ c.classList.remove('selected'); });
+  var el=document.querySelector('.team-card[data-id="'+id+'"][data-side="'+side+'"]');
+  if(el) el.classList.add('selected');
+  if(side==='p') selPlayer=id; else selCPU=id;
+  document.getElementById('btnStart').disabled=!(selPlayer&&selCPU);
+}
+function getTeam(id){ for(var i=0;i<TEAMS.length;i++) if(TEAMS[i].id===id) return TEAMS[i]; return TEAMS[0]; }
+
+// ═══════════════════════════════════
+// FLOW
+// ═══════════════════════════════════
+function startGame(){
+  if(!selPlayer||!selCPU) return;
+  playerTeam=getTeam(selPlayer); cpuTeam=getTeam(selCPU);
+  document.getElementById('namePlayer').textContent=playerTeam.name;
+  document.getElementById('nameCPU').textContent=cpuTeam.name;
+  scoreP=0; scoreC=0; timeLeft=GAME_DUR;
+  document.getElementById('scorePlayer').textContent='0';
+  document.getElementById('scoreCPU').textContent='0';
+  document.getElementById('timerVal').textContent=fmt(timeLeft);
+  resetPos();
+  hide('startScreen'); hide('endScreen'); hide('goalScreen');
+  goalCD=false; over=false; running=true;
+  if(timerId) clearInterval(timerId);
+  timerId=setInterval(tick,1000);
+  requestAnimationFrame(loop);
+}
+function goToMenu(){
+  running=false; over=false;
+  if(timerId) clearInterval(timerId);
+  hide('endScreen'); hide('goalScreen');
+  show('startScreen');
+}
+function fmt(s){ var m=Math.floor(s/60),sec=s%60; return m+':'+(sec<10?'0':'')+sec; }
+function tick(){
+  if(!running||over||goalCD) return;
+  timeLeft--;
+  document.getElementById('timerVal').textContent=fmt(timeLeft);
+  if(timeLeft<=0) endGame();
+}
+function endGame(){
+  running=false; over=true;
+  if(timerId) clearInterval(timerId);
+  document.getElementById('endScore').textContent=scoreP+' × '+scoreC;
+  var et=document.getElementById('endTitle'), es=document.getElementById('endSub');
+  if(scoreP>scoreC){ et.textContent='VITÓRIA!'; es.textContent=playerTeam.name+' dominou. Supremacia confirmada.'; }
+  else if(scoreP<scoreC){ et.textContent='DERROTA'; es.textContent=cpuTeam.name+' venceu. Cringísse total.'; }
+  else { et.textContent='EMPATE'; es.textContent='Nenhum time se destacou.'; }
+  show('endScreen');
+}
+function show(id){ document.getElementById(id).classList.remove('hidden'); }
+function hide(id){ document.getElementById(id).classList.add('hidden'); }
+
+// ═══════════════════════════════════
+// GOAL CHECK
+// ═══════════════════════════════════
+function checkGoal(){
+  if(goalCD) return;
+  var y0=(FH-GH)/2, y1=y0+GH;
+  var inRight = ball.x+ball.r>=FW-GW && ball.y>y0 && ball.y<y1;
+  var inLeft  = ball.x-ball.r<=GW   && ball.y>y0 && ball.y<y1;
+  if(inRight) goal(0);
+  else if(inLeft) goal(1);
+}
+function goal(scorer){
+  goalCD=true; running=false;
+  if(scorer===0){ scoreP++; document.getElementById('scorePlayer').textContent=scoreP; }
+  else          { scoreC++; document.getElementById('scoreCPU').textContent=scoreC; }
+  document.getElementById('goalText').textContent = scorer===0 ? 'GOL! ⚽' : 'TOMOU GOL';
+  document.getElementById('goalSub').textContent  = scorer===0
+    ? playerTeam.name+' marcou!'
+    : cpuTeam.name+' marcou...';
+  show('goalScreen');
+  setTimeout(function(){
+    hide('goalScreen');
+    resetPos();
+    goalCD=false;
+    if(timeLeft<=0||over){ endGame(); return; }
+    running=true;
+    requestAnimationFrame(loop);
+  },1800);
+}
+
+// ═══════════════════════════════════
+// INPUT
+// ═══════════════════════════════════
+document.addEventListener('keydown',function(e){
+  keys[e.code]=true;
+  if(['Space','KeyJ','KeyK','KeyL','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','ShiftLeft','ShiftRight'].indexOf(e.code)!==-1) e.preventDefault();
+});
+document.addEventListener('keyup',function(e){ keys[e.code]=false; });
+
+var jActive=false,jId=null,jO={x:0,y:0};
+function initJoy(){
+  var kn=document.getElementById('joystickKnob');
+  var wr=document.getElementById('joystickWrap');
+  wr.addEventListener('touchstart',function(e){
+    e.preventDefault();
+    var t=e.changedTouches[0],r=wr.getBoundingClientRect();
+    jO.x=r.left+r.width/2; jO.y=r.top+r.height/2;
+    jActive=true; jId=t.identifier; applyJoy(t.clientX,t.clientY,kn);
+  },{passive:false});
+  document.addEventListener('touchmove',function(e){
+    if(!jActive)return;
+    for(var i=0;i<e.changedTouches.length;i++)
+      if(e.changedTouches[i].identifier===jId){ applyJoy(e.changedTouches[i].clientX,e.changedTouches[i].clientY,kn); e.preventDefault(); }
+  },{passive:false});
+  document.addEventListener('touchend',function(e){
+    for(var i=0;i<e.changedTouches.length;i++)
+      if(e.changedTouches[i].identifier===jId){ jActive=false; mob.x=0; mob.y=0; kn.style.transform='translate(-50%,-50%)'; }
+  });
+}
+function applyJoy(cx,cy,kn){
+  var dx=cx-jO.x,dy=cy-jO.y,d=Math.sqrt(dx*dx+dy*dy),mx=38;
+  if(d>mx){dx=dx/d*mx;dy=dy/d*mx;d=mx;}
+  mob.x=dx/mx; mob.y=dy/mx;
+  kn.style.transform='translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px))';
+}
+function bindBtn(id,prop){
+  var b=document.getElementById(id);
+  b.addEventListener('touchstart',function(e){e.preventDefault();mob[prop]=true;b.classList.add('pressed');},{passive:false});
+  b.addEventListener('touchend',  function(e){e.preventDefault();mob[prop]=false;b.classList.remove('pressed');},{passive:false});
+  b.addEventListener('mousedown', function(){mob[prop]=true; b.classList.add('pressed');});
+  b.addEventListener('mouseup',   function(){mob[prop]=false;b.classList.remove('pressed');});
+}
+
+// ═══════════════════════════════════
+// PHYSICS
+// ═══════════════════════════════════
+function d2(a,b){var dx=a.x-b.x,dy=a.y-b.y;return dx*dx+dy*dy;}
+function dst(a,b){return Math.sqrt(d2(a,b));}
+function nrm(vx,vy){var l=Math.sqrt(vx*vx+vy*vy);return l>0?[vx/l,vy/l]:[0,0];}
+function clamp(v,a,b){return v<a?a:v>b?b:v;}
+
+function keepIn(e){
+  if(e.isGK){
+    var gx=e.team===0?FW*0.07:FW*0.93;
+    var range=e.team===0?[e.r,FW*0.11]:[FW*0.89,FW-e.r];
+    e.x=clamp(e.x,range[0],range[1]);
+  } else {
+    e.x=clamp(e.x,e.r,FW-e.r);
+  }
+  e.y=clamp(e.y,e.r,FH-e.r);
+}
+
+function ballBounce(){
+  var y0=(FH-GH)/2,y1=y0+GH;
+  if(ball.x-ball.r<=GW){ if(!(ball.y>y0&&ball.y<y1)){ball.x=GW+ball.r;ball.vx*=-0.65;} }
+  if(ball.x+ball.r>=FW-GW){ if(!(ball.y>y0&&ball.y<y1)){ball.x=FW-GW-ball.r;ball.vx*=-0.65;} }
+  if(ball.y-ball.r<=0){ball.y=ball.r;ball.vy*=-0.65;}
+  if(ball.y+ball.r>=FH){ball.y=FH-ball.r;ball.vy*=-0.65;}
+  if(ball.x-ball.r<=0){ball.x=ball.r;ball.vx*=-0.65;}
+  if(ball.x+ball.r>=FW){ball.x=FW-ball.r;ball.vx*=-0.65;}
+}
+
+function separate(a,b){
+  var rs=a.r+b.r,d=dst(a,b);
+  if(d<rs&&d>0){var ov=(rs-d)/2,nx=(a.x-b.x)/d,ny=(a.y-b.y)/d;a.x+=nx*ov;a.y+=ny*ov;b.x-=nx*ov;b.y-=ny*ov;}
+}
+
+// ═══════════════════════════════════
+// PLAYER CONTROL
+// ═══════════════════════════════════
+function ctrlPlayer(){
+  var sp=keys['ShiftLeft']||keys['ShiftRight']||mob.sprint;
+  var spd=sp?SPRINT:P_SPD;
+  var mx=0,my=0;
+  if(keys['KeyA']||keys['ArrowLeft'])  mx-=1;
+  if(keys['KeyD']||keys['ArrowRight']) mx+=1;
+  if(keys['KeyW']||keys['ArrowUp'])    my-=1;
+  if(keys['KeyS']||keys['ArrowDown'])  my+=1;
+  if(Math.abs(mob.x)>.08||Math.abs(mob.y)>.08){mx=mob.x;my=mob.y;}
+  var l=Math.sqrt(mx*mx+my*my); if(l>1){mx/=l;my/=l;}
+  player.vx=mx*spd; player.vy=my*spd;
+
+  var near=ball.owner===player||dst(player,ball)<CDIST+5;
+
+  if((keys['KeyJ']||mob.chute)&&near){
+    ball.owner=null; player.hasBall=false;
+    var n=nrm(FW-ball.x,(FH/2-ball.y)+(Math.random()-.5)*44);
+    ball.vx=n[0]*16; ball.vy=n[1]*16+(Math.random()-.5)*2;
+  }
+  if((keys['KeyK']||mob.passe)&&near){
+    // Pass to furthest teammate up the field
+    var best=dst(tm1,{x:FW,y:FH/2})<dst(tm2,{x:FW,y:FH/2})?tm1:tm2;
+    ball.owner=null; player.hasBall=false;
+    var n2=nrm(best.x-ball.x,best.y-ball.y);
+    ball.vx=n2[0]*11; ball.vy=n2[1]*11;
+  }
+  if((keys['KeyL']||mob.longo)&&near){
+    var best2=dst(tm1,{x:FW,y:FH/2})<dst(tm2,{x:FW,y:FH/2})?tm1:tm2;
+    ball.owner=null; player.hasBall=false;
+    var tx=best2.x+(Math.random()-.5)*60,ty=best2.y+(Math.random()-.5)*60;
+    var n3=nrm(tx-ball.x,ty-ball.y);
+    ball.vx=n3[0]*15; ball.vy=n3[1]*15;
+  }
+  if(keys['Space']){
+    [cpu1,cpu2,cpu3,gkC].forEach(function(c){
+      if(dst(player,c)<30&&ball.owner===c){
+        ball.owner=null; c.hasBall=false;
+        ball.vx+=(Math.random()-.5)*9; ball.vy+=(Math.random()-.5)*9;
+      }
+    });
+  }
+}
+
+// ═══════════════════════════════════
+// TEAMMATE AI
+// ═══════════════════════════════════
+function aiTeammate(tm,yOff){
+  if(ball.owner===tm){
+    if(dst(tm,{x:FW,y:FH/2})<210){
+      var n=nrm(FW-ball.x,FH/2-ball.y+(Math.random()-.5)*34);
+      ball.vx=n[0]*13; ball.vy=n[1]*13; ball.owner=null; tm.hasBall=false;
+    } else {
+      var n2=nrm(FW-tm.x,FH/2-tm.y); tm.vx=n2[0]*P_SPD; tm.vy=n2[1]*P_SPD;
+    }
+    return;
+  }
+  var tx=ball.x>FW*.55?FW*.5:ball.x+65, ty=clamp(FH/2+yOff,tm.r,FH-tm.r);
+  tx=clamp(tx,55,FW-55);
+  var dx=tx-tm.x,dy=ty-tm.y,d=Math.sqrt(dx*dx+dy*dy);
+  if(d>3){tm.vx=(dx/d)*P_SPD*.85;tm.vy=(dy/d)*P_SPD*.85;}else{tm.vx=0;tm.vy=0;}
+}
+
+// ═══════════════════════════════════
+// CPU OUTFIELD AI
+// ═══════════════════════════════════
+function aiCPU(cpu,idx){
+  if(ball.owner===cpu){
+    if(dst(cpu,{x:0,y:FH/2})<210){
+      var n=nrm(-ball.x,FH/2-ball.y+(Math.random()-.5)*34);
+      ball.vx=n[0]*14; ball.vy=n[1]*14; ball.owner=null; cpu.hasBall=false;
+    } else {
+      var n2=nrm(-cpu.x,FH/2-cpu.y); cpu.vx=n2[0]*CPU_SPRI; cpu.vy=n2[1]*CPU_SPRI;
+    }
+    return;
+  }
+  var tgt;
+  if(!ball.owner||ball.owner.team===0){
+    tgt={x:ball.x+ball.vx*5, y:ball.y+ball.vy*5};
+  } else {
+    var offs=[[50,-65],[30,65],[-25,5]];
+    var o=offs[idx%3]; tgt={x:ball.x+o[0],y:ball.y+o[1]};
+  }
+  tgt.x=clamp(tgt.x,60,FW-60); tgt.y=clamp(tgt.y,10,FH-10);
+  var dx=tgt.x-cpu.x,dy=tgt.y-cpu.y,d=Math.sqrt(dx*dx+dy*dy);
+  if(d>3){ var spd=idx===0?CPU_SPRI:CPU_SPD; cpu.vx=(dx/d)*spd; cpu.vy=(dy/d)*spd; }
+  else {cpu.vx=0;cpu.vy=0;}
+  // Tackle chance
+  if(dst(cpu,ball)<CDIST+3&&ball.owner&&ball.owner.team===0&&Math.random()<0.045){
+    ball.owner.hasBall=false; ball.owner=null;
+    ball.vx+=(Math.random()-.5)*7; ball.vy+=(Math.random()-.5)*7;
+  }
+}
+
+// ═══════════════════════════════════
+// GOALKEEPER AI
+// ═══════════════════════════════════
+function aiGK(gk){
+  if(ball.owner===gk){
+    // Kick to a teammate
+    var dir=gk.team===0?1:-1;
+    ball.owner=null; gk.hasBall=false;
+    ball.vx=dir*13+(Math.random()-.5)*4;
+    ball.vy=(Math.random()-.5)*7;
+    return;
+  }
+  var guardX=gk.team===0?FW*0.055:FW*0.945;
+  var y0=(FH-GH)/2, y1=y0+GH;
+  var ballNear=gk.team===0?ball.x<FW*.28:ball.x>FW*.72;
+
+  // Target Y: track ball within goal area
+  var tgtY=clamp(ball.y, y0+gk.r, y1-gk.r);
+  if(!ballNear) tgtY=FH/2+(tgtY-FH/2)*0.3; // partial tracking when ball is far
+
+  var dy=tgtY-gk.y, ad=Math.abs(dy);
+  if(ad>1.5) gk.y+=(dy/ad)*Math.min(GK_SPD,ad);
+
+  // Return to guard X unless ball is in shooting range
+  if(ballNear){
+    // Slightly advance toward ball
+    var dx2=ball.x-gk.x, adx=Math.abs(dx2);
+    if(adx>20) gk.x+=(dx2/adx)*GK_SPD*0.45;
+  } else {
+    gk.x+=(guardX-gk.x)*0.1;
+  }
+  keepIn(gk);
+}
+
+// ═══════════════════════════════════
+// OWNERSHIP
+// ═══════════════════════════════════
+function ownership(){
+  if(ball.owner){
+    var off=ball.owner.team===0?ball.owner.r+ball.r:-(ball.owner.r+ball.r);
+    ball.x=ball.owner.x+off; ball.y=ball.owner.y;
+    ball.vx=0; ball.vy=0; return;
+  }
+  var best=null,bD=CDIST*CDIST;
+  [player,tm1,tm2,gkP,cpu1,cpu2,cpu3,gkC].forEach(function(e){
+    var d=d2(e,ball); if(d<bD){bD=d;best=e;}
+  });
+  if(best){ball.owner=best;best.hasBall=true;}
+}
+
+function moveE(e){ e.x+=e.vx; e.y+=e.vy; keepIn(e); }
+
+// ═══════════════════════════════════
+// LOOP
+// ═══════════════════════════════════
+function loop(){
+  if(!running){ return; }
+  ctrlPlayer();
+  aiTeammate(tm1,-80); aiTeammate(tm2,80);
+  aiCPU(cpu1,0); aiCPU(cpu2,1); aiCPU(cpu3,2);
+  aiGK(gkP); aiGK(gkC);
+  ownership();
+  [player,tm1,tm2,gkP,cpu1,cpu2,cpu3,gkC].forEach(moveE);
+  if(!ball.owner){
+    ball.x+=ball.vx; ball.y+=ball.vy;
+    ball.vx*=FRIC; ball.vy*=FRIC;
+    ballBounce();
+  }
+  // Separation
+  var all=[player,tm1,tm2,gkP,cpu1,cpu2,cpu3,gkC];
+  for(var a=0;a<all.length-1;a++) for(var b=a+1;b<all.length;b++) separate(all[a],all[b]);
+  checkGoal();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+// ═══════════════════════════════════
+// DRAW
+// ═══════════════════════════════════
+function draw(){
+  if(!ctx)return;
+  ctx.clearRect(0,0,FW,FH);
+  drawField(); drawGoals();
+  var all2=[gkP,tm1,tm2,player,cpu1,cpu2,cpu3,gkC];
+  all2.forEach(function(e){ drawShd(e); });
+  drawBShd();
+  drawEnt(gkP,  playerTeam.color,playerTeam.color2,false,true);
+  drawEnt(tm1,  playerTeam.color,playerTeam.color2,false,false);
+  drawEnt(tm2,  playerTeam.color,playerTeam.color2,false,false);
+  drawEnt(player,playerTeam.color,playerTeam.color2,true,false);
+  drawBall();
+  drawEnt(cpu1, cpuTeam.color,cpuTeam.color2,false,false);
+  drawEnt(cpu2, cpuTeam.color,cpuTeam.color2,false,false);
+  drawEnt(cpu3, cpuTeam.color,cpuTeam.color2,false,false);
+  drawEnt(gkC,  cpuTeam.color,cpuTeam.color2,false,true);
+  drawOwner();
+}
+
+function drawField(){
+  var g=ctx.createLinearGradient(0,0,0,FH);
+  g.addColorStop(0,'#1a3320');g.addColorStop(.5,'#1e3d26');g.addColorStop(1,'#1a3320');
+  ctx.fillStyle=g; ctx.fillRect(0,0,FW,FH);
+  for(var i=0;i<8;i++){
+    ctx.fillStyle=i%2===0?'rgba(255,255,255,0.025)':'transparent';
+    ctx.fillRect(i*FW/8,0,FW/8,FH);
+  }
+  var L='rgba(255,255,255,0.18)';
+  ctx.strokeStyle=L; ctx.lineWidth=1.5;
+  ctx.strokeRect(GW,0,FW-GW*2,FH);
+  ctx.beginPath();ctx.moveTo(FW/2,0);ctx.lineTo(FW/2,FH);ctx.stroke();
+  ctx.beginPath();ctx.arc(FW/2,FH/2,60,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.arc(FW/2,FH/2,3,0,Math.PI*2);ctx.fillStyle=L;ctx.fill();
+  var pw=120,ph=200,py=(FH-ph)/2;
+  ctx.strokeRect(GW,py,pw,ph); ctx.strokeRect(FW-GW-pw,py,pw,ph);
+  var gaw=50,gah=GH+30,gay=(FH-gah)/2;
+  ctx.strokeRect(GW,gay,gaw,gah); ctx.strokeRect(FW-GW-gaw,gay,gaw,gah);
+  ctx.beginPath();ctx.arc(GW+80,FH/2,3,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(FW-GW-80,FH/2,3,0,Math.PI*2);ctx.fill();
+}
+
+function drawGoals(){
+  var y0=(FH-GH)/2;
+  // Left = player defends
+  ctx.fillStyle=hexA(playerTeam.color,.1);ctx.fillRect(0,y0,GW,GH);
+  ctx.strokeStyle=playerTeam.color;ctx.lineWidth=2;ctx.strokeRect(0,y0,GW,GH);
+  // Right = CPU defends
+  ctx.fillStyle=hexA(cpuTeam.color,.1);ctx.fillRect(FW-GW,y0,GW,GH);
+  ctx.strokeStyle=cpuTeam.color;ctx.lineWidth=2;ctx.strokeRect(FW-GW,y0,GW,GH);
+}
+
+function drawShd(e){
+  ctx.beginPath();ctx.ellipse(e.x,e.y+e.r*.8,e.r*1.1,e.r*.4,0,0,Math.PI*2);
+  ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fill();
+}
+function drawBShd(){
+  ctx.beginPath();ctx.ellipse(ball.x,ball.y+ball.r*.8,ball.r*1.1,ball.r*.35,0,0,Math.PI*2);
+  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.fill();
+}
+
+function drawEnt(e,col,col2,isMain,isGK){
+  var hb=ball.owner===e;
+  if(hb){
+    var gg=ctx.createRadialGradient(e.x,e.y,e.r,e.x,e.y,e.r+11);
+    gg.addColorStop(0,hexA(col,.38));gg.addColorStop(1,hexA(col,0));
+    ctx.beginPath();ctx.arc(e.x,e.y,e.r+11,0,Math.PI*2);ctx.fillStyle=gg;ctx.fill();
+  }
+  // Body gradient
+  var usedCol=isGK?dk(col):col;
+  var bg=ctx.createRadialGradient(e.x-e.r*.3,e.y-e.r*.3,1,e.x,e.y,e.r);
+  bg.addColorStop(0,lt(usedCol));bg.addColorStop(1,usedCol);
+  ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,Math.PI*2);ctx.fillStyle=bg;ctx.fill();
+  // GK gets yellow ring
+  ctx.strokeStyle=isGK?'#ffdd00':(hb?'#fff':dk(col2));
+  ctx.lineWidth=isGK?2.2:(hb?2.5:1.2);ctx.stroke();
+
+  // Label
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  if(isGK){
+    ctx.fillStyle='#ffdd00';ctx.font='bold 9px Cinzel,serif';ctx.fillText('GK',e.x,e.y);
+  } else {
+    // Name below
+    var nm=e.name.length>10?e.name.slice(0,9)+'…':e.name;
+    ctx.font='bold 8px Raleway,sans-serif';
+    var tw=ctx.measureText(nm).width;
+    ctx.fillStyle='rgba(0,0,0,0.58)';
+    ctx.fillRect(e.x-tw/2-2,e.y+e.r+2,tw+4,11);
+    ctx.fillStyle=hb?'#fff':lt(col);
+    ctx.fillText(nm,e.x,e.y+e.r+8);
+  }
+  // Main player indicator
+  if(isMain){
+    ctx.beginPath();ctx.arc(e.x,e.y-e.r-5,3,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+  }
+}
+
+function drawBall(){
+  var bg=ctx.createRadialGradient(ball.x,ball.y,0,ball.x,ball.y,ball.r*2.5);
+  bg.addColorStop(0,'rgba(240,234,216,0.18)');bg.addColorStop(1,'rgba(240,234,216,0)');
+  ctx.beginPath();ctx.arc(ball.x,ball.y,ball.r*2.5,0,Math.PI*2);ctx.fillStyle=bg;ctx.fill();
+  var bg2=ctx.createRadialGradient(ball.x-ball.r*.3,ball.y-ball.r*.4,1,ball.x,ball.y,ball.r);
+  bg2.addColorStop(0,'#fff');bg2.addColorStop(.5,'#f0ead8');bg2.addColorStop(1,'#c8c0a0');
+  ctx.beginPath();ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);ctx.fillStyle=bg2;ctx.fill();
+  ctx.strokeStyle='#a09070';ctx.lineWidth=1;ctx.stroke();
+  ctx.strokeStyle='#808060';ctx.lineWidth=.7;
+  ctx.beginPath();
+  for(var i=0;i<5;i++){var a=(i*2*Math.PI/5)-Math.PI/2;var px=ball.x+Math.cos(a)*ball.r*.45,py=ball.y+Math.sin(a)*ball.r*.45;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}
+  ctx.closePath();ctx.stroke();
+}
+
+function drawOwner(){
+  if(!ball.owner)return;
+  var e=ball.owner;
+  var col=e.team===0?playerTeam.color:cpuTeam.color;
+  ctx.fillStyle=col;
+  ctx.beginPath();ctx.moveTo(e.x,e.y-e.r-13);ctx.lineTo(e.x-5,e.y-e.r-21);ctx.lineTo(e.x+5,e.y-e.r-21);ctx.closePath();ctx.fill();
+}
+
+// ═══════════════════════════════════
+// COLOR UTILS
+// ═══════════════════════════════════
+function hexA(h,a){
+  if(!h||h[0]!=='#')return 'rgba(150,100,200,'+a+')';
+  return 'rgba('+parseInt(h.slice(1,3),16)+','+parseInt(h.slice(3,5),16)+','+parseInt(h.slice(5,7),16)+','+a+')';
+}
+function lt(h){
+  if(!h||h[0]!=='#')return h;
+  return 'rgb('+Math.min(255,parseInt(h.slice(1,3),16)+55)+','+Math.min(255,parseInt(h.slice(3,5),16)+55)+','+Math.min(255,parseInt(h.slice(5,7),16)+55)+')';
+}
+function dk(h){
+  if(!h||h[0]!=='#')return h;
+  return 'rgb('+Math.max(0,parseInt(h.slice(1,3),16)-45)+','+Math.max(0,parseInt(h.slice(3,5),16)-45)+','+Math.max(0,parseInt(h.slice(5,7),16)-45)+')';
+}
+
+// ═══════════════════════════════════
+// DRAWER
+// ═══════════════════════════════════
+function toggleDrawer(){document.getElementById('drawer').classList.toggle('open');document.getElementById('drawerOverlay').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open');}
+function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}
+
+// ═══════════════════════════════════
+// BOOT
+// ═══════════════════════════════════
+window.addEventListener('load',function(){
+  initCanvas();
+  buildGrids();
+  bindBtn('btnChute','chute');
+  bindBtn('btnPasse','passe');
+  bindBtn('btnLong','longo');
+  bindBtn('btnSprint','sprint');
+  initJoy();
+  // Draw field behind start overlay
+  playerTeam=TEAMS[0]; cpuTeam=TEAMS[1]; resetPos(); draw();
+  playerTeam=null; cpuTeam=null;
+});
+</script>
+</body>
+</html>
