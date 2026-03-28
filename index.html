@@ -167,7 +167,7 @@
     .yt-btn svg { width: 24px; height: 24px; fill: #ff4040; }
     .custom-btn img { width: 28px; height: 28px; border-radius: 50%; }
     .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-    .footer-btn { display: inline-block; padding: 11px 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease; }
+    .footer-btn { display: inline-block; padding: 11px 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease; outline: none; -webkit-tap-highlight-color: transparent; }
     .footer-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -383,6 +383,9 @@
     <div class="footer-links">
       <a href="videos.html" class="footer-btn">Todas as Resenhas em Vídeo</a>
       <a href="downloads.html" class="footer-btn">Baixar Arquivos de Resenha</a>
+    </div>
+    <div class="footer-links" style="margin-top:12px">
+      <a href="trollgers.html" class="footer-btn">Site Ranking</a>
     </div>
   </footer>
 
