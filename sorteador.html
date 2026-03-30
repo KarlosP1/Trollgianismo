@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sorteador — Trollgianismo</title>
+  <title>Sorteador de Times — Trollgianismo</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -383,6 +383,146 @@
       text-align: center;
       min-height: 16px;
     }
+
+    /* ===== TIMES ===== */
+
+    /* Roulette animation box */
+    .roulette-box {
+      background: var(--bg);
+      border: 1px solid var(--gold-dim);
+      border-radius: 6px;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: pulseGlow 0.6s ease infinite;
+    }
+    .roulette-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+
+    .roulette-label {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+    .roulette-name {
+      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-size: clamp(18px, 4vw, 28px);
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(140,80,220,0.6));
+      min-height: 36px;
+      word-break: break-word;
+    }
+
+    /* Teams result grid */
+    .teams-result {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+    @media (max-width: 480px) {
+      .teams-result { grid-template-columns: 1fr; }
+    }
+
+    .team-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px 14px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(0.9) translateY(8px);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.3s;
+    }
+    .team-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
+    .team-box.revealed {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 20px rgba(140,80,220,0.18), inset 0 0 14px rgba(140,80,220,0.06);
+    }
+    .team-box.revealed:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 28px rgba(140,80,220,0.3), inset 0 0 18px rgba(140,80,220,0.1);
+    }
+
+    .team-label {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    .team-player {
+      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-size: clamp(14px, 3vw, 18px);
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 10px rgba(140,80,220,0.4));
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(90,58,138,0.3);
+      word-break: break-word;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .team-player:last-child { border-bottom: none; }
+    .team-player.visible { opacity: 1; transform: translateX(0); }
+
+    /* Highlighted names in list after draw */
+    .name-tag.no-time {
+      opacity: 0.38;
+    }
+    .name-tag.em-time-1 {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      background: linear-gradient(135deg, #1e1630, #160f24);
+      box-shadow: 0 0 10px rgba(140,80,220,0.2);
+    }
+    .name-tag.em-time-2 {
+      border-color: var(--blue-glow);
+      color: var(--blue-glow);
+      background: linear-gradient(135deg, #101830, #0c1020);
+      box-shadow: 0 0 10px rgba(167,139,250,0.2);
+    }
+
+    /* Novamente button */
+    .novamente-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s, border-color 0.2s, transform 0.15s;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .novamente-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); transform: translateY(-1px); }
+    .novamente-btn:active { transform: scale(0.96); }
   </style>
 </head>
 <body>
@@ -408,7 +548,7 @@
   <header>
     <div class="header-line"></div>
     <h1>SORTEADOR</h1>
-    <p>Adicione nomes ou números e sorteie</p>
+    <p>Adicione 4+ nomes e sorteie os times</p>
   </header>
 
   <div class="card">
@@ -448,11 +588,12 @@
 
         <div class="result-box" id="resultBox">
           <div class="result-label">Resultado</div>
-          <div class="result-placeholder" id="resultPlaceholder">Aguardando sorteio...</div>
+          <div class="result-placeholder" id="resultPlaceholder">Aguardando sorteio...<br><span style="font-size:10px;opacity:0.6;letter-spacing:0.15em">Mínimo 2 nomes</span></div>
         </div>
 
         <div class="btn-group">
-          <button class="sortear-btn" id="sortearBtn" onclick="sortear()" disabled>Sortear</button>
+          <button class="sortear-btn" id="sortearBtn" onclick="sortear()" disabled>Sortear Times</button>
+          <button class="novamente-btn" id="novamenteBtn" onclick="sortearNovamente()" style="display:none">Sortear Novamente</button>
         </div>
 
       </div>
@@ -469,9 +610,13 @@
 </div>
 
 <script>
+  // ─── STATE ───────────────────────────────────────────
   var names = [];
-  var lastSorteado = null;
+  var sorteadosTime1 = [];   // nomes do time 1 (índices em names[])
+  var sorteadosTime2 = [];   // nomes do time 2
+  var isAnimating = false;
 
+  // ─── INPUT ───────────────────────────────────────────
   function handleKey(e) {
     if (e.key === 'Enter') addName();
   }
@@ -484,9 +629,9 @@
   function addName() {
     var input = document.getElementById('nameInput');
     var val = input.value.trim();
-    if (!val) { setError('Digite algo antes de adicionar.'); return; }
-    if (names.length >= 50) { setError('Limite de 50 itens atingido.'); return; }
-    if (names.indexOf(val) !== -1) { setError('Esse item já está na lista.'); return; }
+    if (!val)                          { setError('Digite algo antes de adicionar.'); return; }
+    if (names.length >= 50)            { setError('Limite de 50 itens atingido.'); return; }
+    if (names.indexOf(val) !== -1)     { setError('Esse item já está na lista.'); return; }
     names.push(val);
     input.value = '';
     input.focus();
@@ -497,23 +642,23 @@
 
   function removeName(idx) {
     names.splice(idx, 1);
-    if (lastSorteado !== null && lastSorteado >= names.length) lastSorteado = null;
+    sorteadosTime1 = []; sorteadosTime2 = [];
     renderList();
     updateBtn();
   }
 
   function clearAll() {
     names = [];
-    lastSorteado = null;
+    sorteadosTime1 = []; sorteadosTime2 = [];
     renderList();
     updateBtn();
     resetResult();
   }
 
+  // ─── RENDER LIST ─────────────────────────────────────
   function renderList() {
     var ul = document.getElementById('namesList');
-    var counter = document.getElementById('counter');
-    counter.textContent = names.length;
+    document.getElementById('counter').textContent = names.length;
 
     if (names.length === 0) {
       ul.innerHTML = '<li class="empty-msg" id="emptyMsg">Nenhum nome adicionado ainda.</li>';
@@ -523,22 +668,21 @@
     ul.innerHTML = '';
     names.forEach(function(n, i) {
       var li = document.createElement('li');
-      li.className = 'name-tag' + (i === lastSorteado ? ' sorteado' : '');
+      var cls = 'name-tag';
+      if (sorteadosTime1.indexOf(i) !== -1)      cls += ' em-time-1';
+      else if (sorteadosTime2.indexOf(i) !== -1) cls += ' em-time-2';
+      else if (sorteadosTime1.length > 0)        cls += ' no-time';
+      li.className = cls;
       li.innerHTML =
         '<span>' + escapeHtml(n) + '</span>' +
         '<button class="remove-btn" onclick="removeName(' + i + ')" title="Remover">×</button>';
       ul.appendChild(li);
     });
-
-    // scroll para o sorteado
-    if (lastSorteado !== null) {
-      var items = ul.querySelectorAll('.name-tag');
-      if (items[lastSorteado]) items[lastSorteado].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
   }
 
   function updateBtn() {
-    document.getElementById('sortearBtn').disabled = names.length < 1;
+    var btn = document.getElementById('sortearBtn');
+    btn.disabled = names.length < 2 || isAnimating;
   }
 
   function resetResult() {
@@ -546,24 +690,148 @@
     box.classList.remove('has-result');
     box.innerHTML =
       '<div class="result-label">Resultado</div>' +
-      '<div class="result-placeholder" id="resultPlaceholder">Aguardando sorteio...</div>';
+      '<div class="result-placeholder" id="resultPlaceholder">Aguardando sorteio...<br>' +
+      '<span style="font-size:10px;opacity:0.6;letter-spacing:0.15em">Mínimo 2 nomes</span></div>';
+    document.getElementById('novamenteBtn').style.display = 'none';
+    sorteadosTime1 = []; sorteadosTime2 = [];
   }
 
-  function sortear() {
-    if (names.length === 0) return;
-    var idx = Math.floor(Math.random() * names.length);
-    lastSorteado = idx;
-    var chosen = names[idx];
+  // ─── FISHER-YATES SHUFFLE ────────────────────────────
+  function fisherYates(arr) {
+    var a = arr.slice();  // cópia, não muta o original
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
 
+  // ─── SORTEAR ─────────────────────────────────────────
+  function sortear() {
+    if (names.length < 2 || isAnimating) return;
+
+    // Validação: exatamente 1 jogador não faz sentido (já bloqueado, mas por segurança)
+    if (names.length === 1) { setError('Adicione pelo menos 2 nomes para sortear.'); return; }
+
+    isAnimating = true;
+    document.getElementById('sortearBtn').disabled = true;
+    document.getElementById('novamenteBtn').style.display = 'none';
+
+    // 1. Cópia + Fisher-Yates com TODOS os jogadores
+    var shuffled = fisherYates(names);
+
+    // 2. Divisão automática: ímpar → time1 fica com +1
+    //    4 → 2×2 | 5 → 3×2 | 6 → 3×3 | 9 → 5×4
+    var meio  = Math.ceil(shuffled.length / 2);
+    var time1 = shuffled.slice(0, meio);
+    var time2 = shuffled.slice(meio);
+
+    // 3. Animação de roleta com TODOS os nomes embaralhados
+    runRoulette(shuffled, function() {
+      // Revela os times reais
+      revealTeams(time1, time2);
+
+      // Marca os índices em names[] para destacar na lista
+      sorteadosTime1 = names.reduce(function(acc, n, i) {
+        if (time1.indexOf(n) !== -1) acc.push(i);
+        return acc;
+      }, []);
+      sorteadosTime2 = names.reduce(function(acc, n, i) {
+        if (time2.indexOf(n) !== -1) acc.push(i);
+        return acc;
+      }, []);
+
+      renderList();
+      isAnimating = false;
+      updateBtn();
+      document.getElementById('novamenteBtn').style.display = '';
+    });
+  }
+
+  function sortearNovamente() {
+    sorteadosTime1 = []; sorteadosTime2 = [];
+    renderList();
+    resetResult();
+    // Pequeno delay para o reset visível antes de rodar de novo
+    setTimeout(function() { sortear(); }, 120);
+  }
+
+  // ─── ROULETTE ANIMATION ──────────────────────────────
+  function runRoulette(allNames, onDone) {
+    var box = document.getElementById('resultBox');
+    box.classList.remove('has-result');
+
+    // Monta o HTML da roleta
+    box.innerHTML =
+      '<div class="roulette-box" id="rouletteBox">' +
+        '<div class="roulette-label">Sorteando...</div>' +
+        '<div class="roulette-name" id="rouletteName">—</div>' +
+      '</div>';
+
+    var nameEl = document.getElementById('rouletteName');
+    var totalMs   = 1800;   // duração total da animação
+    var intervalMs = 55;    // troca a cada 55ms
+    var elapsed   = 0;
+    var speed     = intervalMs;
+
+    var iv = setInterval(function() {
+      elapsed += speed;
+
+      // Escolhe nome aleatório da lista completa para efeito de roleta
+      var rnd = allNames[Math.floor(Math.random() * allNames.length)];
+      nameEl.textContent = rnd;
+
+      // Nos últimos 500ms desacelera gradualmente
+      if (elapsed > totalMs - 500) {
+        speed = Math.min(speed + 18, 180);
+      }
+
+      if (elapsed >= totalMs) {
+        clearInterval(iv);
+        onDone();
+      }
+    }, intervalMs);
+  }
+
+  // ─── REVEAL TEAMS ────────────────────────────────────
+  function revealTeams(time1, time2) {
     var box = document.getElementById('resultBox');
     box.classList.add('has-result');
-    box.innerHTML =
-      '<div class="result-label">Sorteado</div>' +
-      '<div class="result-name" id="resultName">' + escapeHtml(chosen) + '</div>';
 
-    renderList();
+    box.innerHTML =
+      '<div class="result-label" style="margin-bottom:12px">Times Sorteados</div>' +
+      '<div class="teams-result">' +
+        buildTeamBox('Time 1', time1, 'team-box-1') +
+        buildTeamBox('Time 2', time2, 'team-box-2') +
+      '</div>';
+
+    // Revela os boxes com delay escalonado
+    var boxes = box.querySelectorAll('.team-box');
+    boxes.forEach(function(b, bi) {
+      setTimeout(function() {
+        b.classList.add('revealed');
+        // Revela os jogadores de cada time um por um
+        var players = b.querySelectorAll('.team-player');
+        players.forEach(function(p, pi) {
+          setTimeout(function() {
+            p.classList.add('visible');
+          }, pi * 160);
+        });
+      }, bi * 200);
+    });
   }
 
+  function buildTeamBox(label, players, id) {
+    var playersHtml = players.map(function(p) {
+      return '<div class="team-player">' + escapeHtml(p) + '</div>';
+    }).join('');
+    return '<div class="team-box" id="' + id + '">' +
+      '<div class="team-label">' + label + '</div>' +
+      playersHtml +
+    '</div>';
+  }
+
+  // ─── UTILS ───────────────────────────────────────────
   function escapeHtml(str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
