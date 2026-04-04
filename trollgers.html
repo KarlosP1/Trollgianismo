@@ -381,128 +381,6 @@
     .drawer-btn:hover { background: var(--surface2); color: var(--gold-light); }
     .drawer-btn.ativo { color: var(--gold-light); background: var(--surface2); border-left: 2px solid var(--gold); }
     .drawer-divider { border: none; border-top: 1px solid var(--border); margin: 8px 0; }
-
-    /* ═══════ SISTEMA DE RG — IDENTIDADE ═══════ */
-    .rg-container {
-      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 28px 36px;
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      gap: 28px;
-      align-items: flex-start;
-    }
-    .rg-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
-    .rg-container::after  { content: '🪪'; position: absolute; top: 18px; right: 22px; font-size: 22px; opacity: 0.18; pointer-events: none; }
-
-    .rg-photo-wrap {
-      flex-shrink: 0;
-      width: 96px;
-      height: 120px;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      overflow: hidden;
-      position: relative;
-      transition: filter 0.6s ease;
-    }
-    .rg-photo-wrap.censored { filter: blur(10px); }
-    .rg-photo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .rg-photo-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      color: var(--text-dim);
-      background: var(--surface);
-    }
-
-    .rg-info { flex: 1; min-width: 0; }
-
-    .rg-header {
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .rg-field { margin-bottom: 11px; }
-    .rg-label {
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 3px;
-    }
-    .rg-value {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(12px, 2.2vw, 14px);
-      color: var(--gold-light);
-      letter-spacing: 0.06em;
-      word-break: break-all;
-      transition: opacity 0.5s ease;
-    }
-    .rg-value.censored-text { filter: blur(5px); user-select: none; transition: filter 0.6s ease; }
-
-    .rg-classe {
-      display: inline-block;
-      margin-top: 4px;
-      font-size: 10px;
-      padding: 3px 10px;
-      border-radius: 3px;
-      font-family: 'Cinzel', serif;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .rg-classe.supremacia { background: var(--surface); border: 1px solid var(--gold-dim); color: var(--gold); }
-    .rg-classe.plebeu     { background: var(--surface); border: 1px solid #5a2020; color: var(--red); }
-    .rg-classe.civil      { background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); }
-
-    .rg-btn {
-      margin-top: 16px;
-      background: linear-gradient(135deg, #1e1630, #160f24);
-      border: 1px solid var(--gold);
-      border-radius: 4px;
-      padding: 9px 20px;
-      cursor: pointer;
-      font-family: 'Cinzel', serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      box-shadow: 0 0 14px rgba(140,80,220,0.18), inset 0 0 10px rgba(140,80,220,0.06);
-      transition: box-shadow 0.2s, transform 0.15s;
-      outline: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .rg-btn:hover { box-shadow: 0 0 22px rgba(140,80,220,0.38), inset 0 0 14px rgba(140,80,220,0.1); transform: translateY(-1px); }
-    .rg-btn:active { transform: scale(0.97); }
-    .rg-btn.revealed { border-color: var(--gold-dim); color: var(--text-dim); cursor: default; box-shadow: none; }
-    .rg-btn.revealed:hover { transform: none; box-shadow: none; }
-
-    @keyframes rgReveal { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
-    .rg-revealed-anim { animation: rgReveal 0.45s ease both; }
-
-    @media (max-width: 500px) {
-      .rg-container { flex-direction: column; align-items: center; text-align: center; padding: 24px 18px; }
-      .rg-header { text-align: left; }
-    }
   </style>
 </head>
 <body>
@@ -663,10 +541,6 @@
   <button class="drawer-btn" onclick="mostrarDrawer('profiara', this)">🐡 Profª Íara</button>
   <button class="drawer-btn" onclick="mostrarDrawer('viadinho', this)">🔪 Viadinho do 7º</button>
   <button class="drawer-btn" onclick="mostrarDrawer('paidokevin', this)">🏋️‍♂️ Pai do Kevin</button>
-  <button class="drawer-btn" onclick="mostrarDrawer('sophia', this)">🇺🇸 Sophia</button>
-  <button class="drawer-btn" onclick="mostrarDrawer('elefante', this)">🐘 Elefante da Turma</button>
-  <button class="drawer-btn" onclick="mostrarDrawer('ocenot', this)">🇦🇫 Ocenot</button>
-  <button class="drawer-btn" onclick="mostrarDrawer('kimberly', this)">🇯🇵 Kimberly</button>
 
   <hr class="drawer-divider">
   <div class="drawer-section-label">Desviados &amp; Pré-Trollgers</div>
@@ -753,10 +627,6 @@
     <button class="nav-btn" onclick="mostrar('branquelao', this)">🟪 Branquelão</button>
     <button class="nav-btn" onclick="mostrar('josefernando', this)">🏫 José Fernando</button>
     <!-- Novos Trollgers serão adicionados aqui -->
-    <button class="nav-btn" onclick="mostrar('sophia', this)">🇺🇸 Sophia</button>
-    <button class="nav-btn" onclick="mostrar('elefante', this)">🐘 Elefante</button>
-    <button class="nav-btn" onclick="mostrar('ocenot', this)">🇦🇫 Ocenot</button>
-    <button class="nav-btn" onclick="mostrar('kimberly', this)">🇯🇵 Kimberly</button>
     <div style="width:100%;height:1px;background:var(--border);margin:4px 0"></div>
     <button class="nav-btn" style="border-color:#2a4060;color:#4a80a0" onclick="mostrar('objetos', this)">📜 Objetos</button>
   </nav>
@@ -953,6 +823,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">KAUAN</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-P1-38291</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM KAUAN ═══════════════════════════════════ -->
 
@@ -1081,6 +974,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">JOSÉ</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-P2-74510</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM JOSÉ ══════════════════════════════════════ -->
 
@@ -1225,6 +1141,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">PROF. DUDA</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-P3-61748</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM PROF. DUDA ═════════════════════════════════ -->
 
@@ -1376,6 +1315,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">DAVI</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-P4-29034</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM DAVI ══════════════════════════════════════ -->
 
@@ -1520,6 +1482,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">JUAN</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-55821</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM JUAN ══════════════════════════════════════ -->
 
@@ -1649,6 +1634,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">BRENO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-P6-83904</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM BRENO ══════════════════════════════════════ -->
 
@@ -1793,6 +1801,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">BRYAN</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-47263</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM BRYAN ══════════════════════════════════════ -->
 
@@ -1934,6 +1965,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">KEVIN</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-P8-10958</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM KEVIN ══════════════════════════════════════ -->
 
@@ -2079,6 +2133,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">EMANUEL</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-EXP2-92641</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM EMANUEL ═════════════════════════════════════ -->
 
@@ -2236,6 +2313,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">LÁZARO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-33715</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM LÁZARO ════════════════════════════════════ -->
 
@@ -2384,6 +2484,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">GLÓRIA</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-86024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM GLÓRIA ════════════════════════════════════ -->
 
@@ -2483,6 +2606,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">DANIEL</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-14490</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM DANIEL ════════════════════════════════════ -->
 
@@ -2601,6 +2747,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">JOGADOR DE CS</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-57382</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM JOGADOR CS ═════════════════════════════════ -->
 
@@ -2688,6 +2857,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">BIG FAT</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-20936</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM BIG FAT ══════════════════════════════════ -->
 
@@ -2697,46 +2889,44 @@
     <div class="profile-hero">
       <div class="profile-rank" style="color:#4a4a4a;font-size:clamp(24px,4vw,40px);filter:none">C</div>
       <div class="profile-name">RAPHAELA</div>
-      <div class="profile-subtitle">A Primeira Mulher do Trollgianismo — Civil</div>
+      <div class="profile-subtitle">A Vagabunda — Civil Comum</div>
       <div class="profile-tags">
-        <span class="tag gold">Primeira Mulher</span>
-        <span class="tag gold">Aura Alta</span>
-        <span class="tag blue">Resistente à Obscura</span>
-        <span class="tag">Civil</span>
+        <span class="tag" style="border-color:#3a3a3a;color:#6a6a6a">Civil Comum</span>
+        <span class="tag">Aura Padrão Baixa</span>
+        <span class="tag">Resenha Seletiva</span>
+        <span class="tag">Postura Fechada</span>
       </div>
     </div>
 
     <div class="card">
       <div class="card-title"><span class="icon">🌌</span> Identidade e Posição</div>
       <div class="entry">
-        <div class="entry-body">Raphaela é a <strong style="color:var(--gold-light)">primeira mulher registrada no Trollgianismo</strong>. Não pertence ao sistema hierárquico formal, mas sua Aura elevada e resistência à Resenha Obscura a colocam em posição de destaque entre os civis.</div>
+        <div class="entry-body">Raphaela não faz parte do sistema Trollger. É uma Civil Comum de baixo impacto — não irrelevante ao nível de Daniel, mas também sem chegar a ser uma anomalia ou desvio.</div>
       </div>
+      <div class="quote">Existe, interage às vezes, mas não influencia nada.</div>
       <div class="entry">
-        <div class="entry-title">Contatos com o Sistema</div>
-        <div class="entry-body">
-          <ul>
-            <li>Contato <strong style="color:var(--gold-light)">presencial</strong> com Emanuel</li>
-            <li>Contato <strong style="color:var(--gold-light)">virtual</strong> com Kauan</li>
-          </ul>
-        </div>
+        <div class="entry-body">Sua presença é externa ao sistema, com participações ocasionais <strong style="color:var(--text-dim)">sem impacto real na história.</strong></div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-title"><span class="icon">🧠</span> Personalidade</div>
       <div class="entry">
-        <div class="entry-body">Comportamento <strong style="color:var(--gold-light)">instável</strong>, com traços que lembram bipolaridade. Em um momento entrega resenhas de alta qualidade — no outro, ignora mensagens completamente, sem justificativa.</div>
-      </div>
-      <div class="entry">
-        <div class="entry-title">Padrão de Comportamento</div>
-        <div class="entry-body">A imprevisibilidade é sua marca principal. Não há como prever qual versão de Raphaela vai aparecer numa interação — a envolvente ou a murada.</div>
+        <div class="entry-body">Exigente e difícil de lidar. Pode ser legal em momentos específicos, mas no geral mantém uma postura <strong style="color:var(--text-dim)">mais fechada e seletiva.</strong></div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-title"><span class="icon">🗣️</span> Estilo de Resenha</div>
       <div class="entry">
-        <div class="entry-body"><strong style="color:var(--gold-light)">Variado</strong> — quando está presente e disposta, o nível é alto. Quando decide se fechar, a resenha simplesmente não existe. Totalmente dependente do próprio estado interno.</div>
+        <div class="entry-body">Variável — só entra em modo de resenha quando quer. <strong style="color:var(--gold-light)">Totalmente dependente da própria vontade.</strong></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🤝</span> Relação com os Trollgers</div>
+      <div class="entry">
+        <div class="entry-body">Não possui envolvimento direto com a estrutura do grupo. Interações são superficiais e <strong style="color:var(--text-dim)">sem impacto na hierarquia.</strong></div>
       </div>
     </div>
 
@@ -2744,40 +2934,23 @@
       <div class="card-title"><span class="icon">✨</span> Aura</div>
       <div class="stat-row">
         <span class="stat-label">Aura Padrão</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:72%"></div></div>
-        <span class="stat-val">Alta</span>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:18%"></div></div>
+        <span class="stat-val" style="color:var(--text-dim)">Baixa</span>
       </div>
       <div class="stat-row">
-        <span class="stat-label">Aura Obscura</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:55%"></div></div>
-        <span class="stat-val">Parcial</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">Resistência Obscura</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:80%"></div></div>
-        <span class="stat-val">Alta</span>
+        <span class="stat-label">Resenha</span>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:30%"></div></div>
+        <span class="stat-val" style="color:var(--text-dim)">Seletiva</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">Consistência Social</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:28%"></div></div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:20%"></div></div>
         <span class="stat-val" style="color:var(--text-dim)">Baixa</span>
       </div>
-      <hr class="divider">
-      <div class="entry">
-        <div class="entry-title">Resistência à Obscura</div>
-        <div class="entry-body">Capacidade rara entre civis. Raphaela consegue suportar Resenha Obscura sem colapso de Aura — algo que a maioria dos Plebeus não consegue.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">⚔️</span> Feitos Históricos</div>
-      <div class="entry">
-        <div class="entry-body">
-          <ul>
-            <li>Mandar algumas <strong style="color:var(--gold-light)">"fotos"</strong> para certas pessoas</li>
-            <li>Primeiro registro feminino no Trollgianismo</li>
-          </ul>
-        </div>
+      <div class="stat-row">
+        <span class="stat-label">Relevância na Lore</span>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:10%"></div></div>
+        <span class="stat-val" style="color:var(--text-dim)">Mínima</span>
       </div>
     </div>
 
@@ -2786,50 +2959,51 @@
       <div class="entry">
         <div class="entry-body">
           <ul>
-            <li>Dificuldade com assuntos desconfortáveis</li>
-            <li>Inconsistência social — desaparece sem aviso</li>
+            <li>Assuntos pessoais e familiares</li>
+            <li>Baixa consistência social</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <div class="verdict">
-      <div class="verdict-text">
-        Raphaela é a <strong>primeira mulher do Trollgianismo</strong> — com Aura alta e resistência rara à Obscura.<br><br>
-        Sua importância é histórica.<br>
-        <strong>Mas a instabilidade limita o impacto real.</strong>
+    <div class="card">
+      <div class="card-title"><span class="icon">⚔️</span> Feitos Históricos</div>
+      <div class="entry">
+        <div class="entry-body" style="color:var(--text-dim)">Interações sociais pontuais que geraram comentários dentro do grupo — sem relevância real para a lore principal.</div>
       </div>
     </div>
 
-    <!-- ═══ RG — IDENTIDADE ═══ -->
-    <!-- EDITAR: nome completo, código, classe e link da imagem abaixo -->
-    <div class="rg-container" id="rg-raphaela">
-      <div class="rg-photo-wrap censored" id="rg-raphaela-foto">
-        <!-- INSERIR LINK DA IMAGEM AQUI → src="" -->
-        <img src="" alt="Foto" onerror="this.parentElement.innerHTML='<div class=\'rg-photo-placeholder\'>🇯🇵</div>'">
+    <div class="verdict">
+      <div class="verdict-text">
+        Raphaela não possui papel relevante no Trollgianismo.<br><br>
+        Não é irrelevante como Daniel — mas também não é uma anomalia.<br><br>
+        <strong>Civil comum de baixo impacto: existe, interage às vezes, e não muda nada.</strong>
       </div>
-      <div class="rg-info">
-        <div class="rg-header">🪪 Documento de Identidade Trollgianista</div>
-        <div class="rg-field">
-          <div class="rg-label">Nome Completo</div>
-          <!-- EDITAR: nome real entre as tags rg-value -->
-          <div class="rg-value censored-text" id="rg-raphaela-nome">Raphaela *******</div>
+    </div>
+
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
-        <div class="rg-field">
-          <div class="rg-label">Código Trollger</div>
-          <!-- EDITAR: código completo abaixo -->
-          <div class="rg-value censored-text" id="rg-raphaela-codigo">TRG-CIV-00-8*****</div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">RAPHAELA</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-73158</div>
+          </div>
         </div>
-        <div class="rg-field">
-          <div class="rg-label">Classe</div>
-          <!-- EDITAR: trocar classe por "supremacia", "plebeu" ou "civil" -->
-          <span class="rg-classe civil" id="rg-raphaela-classe">Civil</span>
-        </div>
-        <button class="rg-btn" id="rg-raphaela-btn" onclick="revelarRG('raphaela')">🔓 Revelar Identidade</button>
       </div>
     </div>
     <!-- ═══ FIM RG ═══ -->
-
   </div>
   <!-- ══════════════════════════════ FIM RAPHAELA ═══════════════════════════════════ -->
 
@@ -2944,6 +3118,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">VESGO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-48807</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM VESGO ════════════════════════════════════ -->
 
@@ -3063,6 +3260,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">MIGUEL</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-65291</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM MIGUEL ═══════════════════════════════════ -->
 
@@ -3188,6 +3408,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">DAVI FRIENDSH</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-39174</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM DAVI FRIENDSH ══════════════════════════════ -->
 
@@ -3310,6 +3553,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">THIAGO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-82645</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM THIAGO ═══════════════════════════════════ -->
 
@@ -3415,6 +3681,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">DENILSON</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-71038</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════════ FIM DENILSON ══════════════════════════════════ -->
 
@@ -3539,6 +3828,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">BRANQUELÃO ALTÃO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-94517</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM BRANQUELÃO ═════════════════════════════════ -->
 
@@ -3649,6 +3961,29 @@
       </div>
     </div>
 
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">JOSÉ FERNANDO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-P9-26803</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════ FIM JOSÉ FERNANDO ═════════════════════════════════ -->
 
@@ -3988,6 +4323,29 @@
     <div class="verdict">
       <div class="verdict-text">Lyédson é um civil com destaque esportivo, mas <strong>não possui relevância direta na lore</strong> ou nas interações sociais do grupo.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">LYÉDSON</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-50629</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM LYÉDSON ══════════════════════════════════ -->
 
@@ -4044,6 +4402,29 @@
     <div class="verdict">
       <div class="verdict-text">Robocop não possui importância na lore do Trollgianismo. Serve apenas como <strong>distração ou elemento humorístico.</strong></div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">ROBOCOP</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-17483</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═════════════════════════════════ FIM ROBOCOP ════════════════════════════════ -->
 
@@ -4104,6 +4485,29 @@
     <div class="verdict">
       <div class="verdict-text">Não possui importância direta na lore. Serve principalmente como <strong>elemento humorístico ou excêntrico</strong> dentro do universo.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">PRIMO DO JUAN</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-63291</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM PRIMO DO JUAN ════════════════════════════ -->
 
@@ -4163,6 +4567,29 @@
     <div class="verdict">
       <div class="verdict-text">Senhor Batata não possui relevância na lore do Trollgianismo. Sua função é apenas como <strong>elemento excêntrico ou curioso</strong> dentro do universo.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">SENHOR BATATA</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-88045</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM SENHOR BATATA ════════════════════════════ -->
 
@@ -4232,6 +4659,29 @@
     <div class="verdict">
       <div class="verdict-text">Tia Chiquinha faz parte da lore não por força ou habilidades, mas por ser <strong>extremamente difícil de se lidar.</strong> Representa o elemento de inconveniência social dentro do universo.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">TIA CHIQUINHA</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-42176</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM TIA CHIQUINHA ════════════════════════════ -->
 
@@ -4301,6 +4751,29 @@
     <div class="verdict">
       <div class="verdict-text">Prof-OEM é importante na lore não por força ou aura, mas por seu <strong>impacto negativo e dificuldade de interação social.</strong> Representa o elemento de incômodo formal dentro do universo.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">PROF-OEM</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-59834</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM PROF-OEM ════════════════════════════════ -->
 
@@ -4365,6 +4838,29 @@
     <div class="verdict">
       <div class="verdict-text">Prof-OMP é importante na lore não por força ou aura, mas por sua <strong>habilidade de gerar irritação e divisões</strong> entre membros do universo. Representa o elemento de conflito intelectual e social dentro do sistema.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">PROF-OMP</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-31607</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM PROF-OMP ════════════════════════════════ -->
 
@@ -4413,6 +4909,29 @@
     <div class="verdict">
       <div class="verdict-text">Super Soldado não possui importância direta na lore do Trollgianismo. Sua existência é marcada mais pela <strong>presença e impressão que causa</strong> do que por ações concretas dentro do universo.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">SUPER SOLDADO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-76520</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM SUPER SOLDADO ═══════════════════════════ -->
 
@@ -4458,6 +4977,29 @@
     <div class="verdict">
       <div class="verdict-text">Femboy ainda não possui papel definido na lore. Entretanto, é considerada uma figura com <strong>potencial de crescimento e possível relevância futura</strong>, especialmente caso desenvolva relações com os Trollgers.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">FEMBOY</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-23891</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════════ FIM FEMBOY ════════════════════════════════ -->
 
@@ -4502,6 +5044,29 @@
     <div class="verdict">
       <div class="verdict-text">Mairon não possui relevância significativa dentro da lore, sendo apenas um civil com uma <strong>ligação indireta ao grupo</strong> e um evento marcante isolado.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">MAIRON</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-49263</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════════ FIM MAIRON ════════════════════════════════ -->
 
@@ -4550,6 +5115,29 @@
     <div class="verdict">
       <div class="verdict-text">Cristiano é uma figura historicamente relevante — participou da fase anterior à formação oficial dos Trollgers. Considerado um <strong>quase membro fundador indireto</strong> do universo.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">CRISTIANO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-87014</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════════ FIM CRISTIANO ════════════════════════════ -->
 
@@ -4600,6 +5188,29 @@
     <div class="verdict">
       <div class="verdict-text">Lorran é uma figura relevante para a <strong>pré-história do Trollgianismo</strong>. Lembrado por suas ações peculiares e impacto no período inicial do grupo.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">LORRAN</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-60438</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════════ FIM LORRAN ════════════════════════════════ -->
 
@@ -4656,6 +5267,29 @@
     <div class="verdict">
       <div class="verdict-text">Enzo fez parte da pré-lore do Trollgianismo, sendo um exemplo de <strong>influência negativa</strong> no período anterior à consolidação do grupo. Sua existência serve como contraste para a evolução social de Davi.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">ENZO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-15972</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════════ FIM ENZO ════════════════════════════════ -->
 
@@ -4706,6 +5340,29 @@
     <div class="verdict">
       <div class="verdict-text">O Professor de História não possui importância significativa na lore do Trollgianismo, sendo apenas uma <strong>figura neutra presente no cotidiano escolar.</strong></div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">PROF. DE HISTÓRIA</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-34806</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ══════════════════════════════ FIM PROF. DE HISTÓRIA ═════════════════════════ -->
 
@@ -4762,6 +5419,29 @@
     <div class="verdict">
       <div class="verdict-text">O Professor Substituto é uma figura quase relevante na lore. Apesar de não ser oficialmente importante, sua presença se destaca por possuir <strong>características muito próximas às de um Trollger</strong> — um caso raro de "Trollger desviado".</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">PROF. SUBSTITUTO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-92154</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═════════════════════════════ FIM PROF. SUBSTITUTO ══════════════════════════ -->
 
@@ -4816,6 +5496,29 @@
     <div class="verdict">
       <div class="verdict-text">Profª Íara é relevante na lore não por poder ou aura, mas por sua <strong>presença constante e impacto nas interações</strong> com os membros do grupo — especialmente o sermão ignorado por Kauan P1.</div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">PROFª ÍARA</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-PLB-58740</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM PROFª ÍARA ═════════════════════════════ -->
 
@@ -4872,6 +5575,29 @@
     <div class="verdict">
       <div class="verdict-text">Não possui importância dentro da lore do Trollgianismo, sendo apenas uma <strong>figura inconveniente presente no ambiente escolar.</strong></div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">VIADINHO DO 7º ANO</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-71395</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ═══════════════════════════ FIM VIADINHO DO 7º ANO ══════════════════════════ -->
 
@@ -4926,6 +5652,29 @@
     <div class="verdict">
       <div class="verdict-text">O Pai do Kevin não possui importância direta na lore, sendo apenas uma figura utilizada como <strong>elemento humorístico dentro do grupo.</strong></div>
     </div>
+
+    <!-- ═══ RG TROLLGER ═══ -->
+    <div style="background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px 36px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border)">🪪 Identificação Trollger</div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div style="width:80px;height:100px;flex-shrink:0;border:1px solid var(--border);border-radius:4px;background:var(--bg);overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <!-- INSERIR LINK DA FOTO AQUI -->
+          <img src="" alt="Foto do membro" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="margin-bottom:10px">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Nome</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(13px,2vw,15px);color:var(--gold-light);letter-spacing:0.06em">PAI DO KEVIN</div>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px">Código Trollger</div>
+            <div style="font-family:'Cinzel',serif;font-size:clamp(12px,2vw,14px);color:var(--gold);letter-spacing:0.1em;word-break:break-all">TRG-CVL-26817</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FIM RG ═══ -->
   </div>
   <!-- ════════════════════════════════ FIM PAI DO KEVIN ════════════════════════════ -->
 
@@ -5032,475 +5781,6 @@
 
   </div>
   <!-- ════════════════════════════════ FIM JOSÉ ═══════════════════════════════════ -->
-
-  <!-- ══════════════════════════════ SOPHIA ════════════════════════════════════ -->
-  <div id="sophia" class="section">
-
-    <div class="profile-hero">
-      <div class="profile-rank" style="color:#4a4a4a;font-size:clamp(24px,4vw,40px);filter:none">C</div>
-      <div class="profile-name">SOPHIA</div>
-      <div class="profile-subtitle">A Destruidora Argumentativa — Civil</div>
-      <div class="profile-tags">
-        <span class="tag">Civil</span>
-        <span class="tag">Aura Padrão Comum</span>
-        <span class="tag gold">Dominância Argumentativa</span>
-        <span class="tag">Ex de Davi</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🌌</span> Identidade e Posição</div>
-      <div class="entry">
-        <div class="entry-body">Sophia é uma Civil sem vínculo formal com o Trollgianismo. Sua relevância na lore vem exclusivamente de sua <strong style="color:var(--gold-light)">ligação com Davi</strong> e do impacto que causou em um confronto direto com ele.</div>
-      </div>
-      <div class="entry">
-        <div class="entry-title">Relação com o Sistema</div>
-        <div class="entry-body">
-          <ul>
-            <li>Ex-namorada de <strong style="color:var(--gold-light)">Davi — P4</strong></li>
-            <li>Não possui relação direta com outros membros</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🧠</span> Personalidade</div>
-      <div class="entry">
-        <div class="entry-body">Comportamento <strong style="color:var(--gold-light)">equilibrado e bem estruturado</strong>. Comunica-se com precisão e demonstra domínio argumentativo natural — sem agressividade aparente, mas com eficácia total em confrontos intelectuais.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">⚡</span> Poderes e Capacidades</div>
-      <div class="entry">
-        <div class="entry-title">Argumentação Complexa</div>
-        <div class="entry-body">Capacidade excepcional de formular argumentos em cadeia, difíceis de rebater mesmo por Trollgers com Aura elevada.</div>
-      </div>
-      <hr class="divider">
-      <div class="entry">
-        <div class="entry-title">Desestabilização pela Fala</div>
-        <div class="entry-body">Consegue desmontar posicionamentos e gerar colapso emocional no adversário apenas através da comunicação verbal. <strong style="color:var(--gold-light)">Nenhum poder físico envolvido — somente estrutura lógica.</strong></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">✨</span> Aura</div>
-      <div class="stat-row">
-        <span class="stat-label">Aura Padrão</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:42%"></div></div>
-        <span class="stat-val">Comum</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">Capacidade Argumentativa</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:88%"></div></div>
-        <span class="stat-val" style="color:var(--gold-light)">Excepcional</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">Resenha Padrão</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:55%"></div></div>
-        <span class="stat-val">Padrão</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">⚔️</span> Feitos Históricos</div>
-      <div class="entry">
-        <div class="entry-title">O Mogg em Davi</div>
-        <div class="entry-body"><strong style="color:var(--gold-light)">Moggou brutalmente Davi</strong> em um confronto argumentativo direto. Davi — P4 no ranking Trollger — não conseguiu rebater os argumentos de Sophia. Um dos raros casos em que um Civil supera um Trollger em campo intelectual.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">❌</span> Fraquezas</div>
-      <div class="entry">
-        <div class="entry-body" style="color:var(--text-dim)">Nenhuma fraqueza definida no registro atual.</div>
-      </div>
-    </div>
-
-    <div class="verdict">
-      <div class="verdict-text">
-        Sophia não é parte do sistema Trollger — mas conseguiu algo raro:<br><br>
-        <strong>Derrotou um Trollger P4 no seu próprio campo.</strong><br><br>
-        Civil com dominância argumentativa real. A lore registra.
-      </div>
-    </div>
-
-    <!-- ═══ RG — IDENTIDADE ═══ -->
-    <!-- EDITAR: nome completo, código, classe e link da imagem abaixo -->
-    <div class="rg-container" id="rg-sophia">
-      <div class="rg-photo-wrap censored" id="rg-sophia-foto">
-        <!-- INSERIR LINK DA IMAGEM AQUI → src="" -->
-        <img src="" alt="Foto" onerror="this.parentElement.innerHTML='<div class=\'rg-photo-placeholder\'>🇺🇸</div>'">
-      </div>
-      <div class="rg-info">
-        <div class="rg-header">🪪 Documento de Identidade Trollgianista</div>
-        <div class="rg-field">
-          <div class="rg-label">Nome Completo</div>
-          <!-- EDITAR: nome real entre as tags rg-value -->
-          <div class="rg-value censored-text" id="rg-sophia-nome">Sophia *******</div>
-        </div>
-        <div class="rg-field">
-          <div class="rg-label">Código Trollger</div>
-          <!-- EDITAR: código completo abaixo (ex: TRG-CIV-00-123456) -->
-          <div class="rg-value censored-text" id="rg-sophia-codigo">TRG-CIV-00-9*****</div>
-        </div>
-        <div class="rg-field">
-          <div class="rg-label">Classe</div>
-          <!-- EDITAR: trocar classe por "supremacia", "plebeu" ou "civil" -->
-          <span class="rg-classe civil" id="rg-sophia-classe">Civil</span>
-        </div>
-        <button class="rg-btn" id="rg-sophia-btn" onclick="revelarRG('sophia')">🔓 Revelar Identidade</button>
-      </div>
-    </div>
-    <!-- ═══ FIM RG ═══ -->
-
-  </div>
-  <!-- ══════════════════════════════ FIM SOPHIA ═════════════════════════════════════ -->
-
-  <!-- ══════════════════════════════ ELEFANTE ═══════════════════════════════════════ -->
-  <div id="elefante" class="section">
-
-    <div class="profile-hero">
-      <div class="profile-rank" style="color:#4a4a4a;font-size:clamp(24px,4vw,40px);filter:none">C</div>
-      <div class="profile-name">ELEFANTE DA TURMA DA MÔNICA</div>
-      <div class="profile-subtitle">A Figura Massiva — Civil</div>
-      <div class="profile-tags">
-        <span class="tag">Civil</span>
-        <span class="tag red">Aura Muito Baixa</span>
-        <span class="tag">Resenha Indefinida</span>
-        <span class="tag">Envolvimento com Davi</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🌌</span> Identidade e Posição</div>
-      <div class="entry">
-        <div class="entry-body">O Elefante da Turma da Mônica é uma figura periférica da lore. Não possui características marcantes, sem feitos registrados de peso — mas apareceu na história de forma indireta através de <strong style="color:var(--gold-light)">Davi</strong>.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🧠</span> Personalidade</div>
-      <div class="entry">
-        <div class="entry-body" style="color:var(--text-dim)">Genérica. Nenhuma característica marcante foi registrada. Existência documentada, impacto mínimo.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">⚡</span> Poderes e Capacidades</div>
-      <div class="entry">
-        <div class="entry-title">Massa Corporal Extrema</div>
-        <div class="entry-body"><strong style="color:var(--gold-light)">Massa corporal extremamente elevada.</strong> É o único atributo documentado com clareza. Não há registros de capacidades adicionais.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">✨</span> Aura</div>
-      <div class="stat-row">
-        <span class="stat-label">Aura Padrão</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:8%"></div></div>
-        <span class="stat-val" style="color:var(--text-dim)">Muito Baixa</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">Resenha</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:5%"></div></div>
-        <span class="stat-val" style="color:var(--text-dim)">Indefinida</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">⚔️</span> Feitos Históricos</div>
-      <div class="entry">
-        <div class="entry-body">Davi tentou realizar uma <strong style="color:var(--gold-light)">aproximação inadequada</strong>. O evento foi registrado como parte da lore por envolver um Trollger P4 — não pelo Elefante em si.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">❌</span> Fraquezas</div>
-      <div class="entry">
-        <div class="entry-body" style="color:var(--text-dim)">Nenhuma fraqueza específica definida.</div>
-      </div>
-    </div>
-
-    <div class="verdict">
-      <div class="verdict-text">
-        Quase relevante — mas não se consolidou na lore.<br><br>
-        <strong>Existe como registro indireto de um evento envolvendo Davi.</strong><br><br>
-        Massa corporal máxima. Impacto na lore: mínimo.
-      </div>
-    </div>
-
-    <!-- ═══ RG — IDENTIDADE ═══ -->
-    <!-- EDITAR: nome completo, código, classe e link da imagem abaixo -->
-    <div class="rg-container" id="rg-elefante">
-      <div class="rg-photo-wrap censored" id="rg-elefante-foto">
-        <!-- INSERIR LINK DA IMAGEM AQUI → src="" -->
-        <img src="" alt="Foto" onerror="this.parentElement.innerHTML='<div class=\'rg-photo-placeholder\'>🐘</div>'">
-      </div>
-      <div class="rg-info">
-        <div class="rg-header">🪪 Documento de Identidade Trollgianista</div>
-        <div class="rg-field">
-          <div class="rg-label">Nome Completo</div>
-          <!-- EDITAR: nome real entre as tags rg-value -->
-          <div class="rg-value censored-text" id="rg-elefante-nome">E******* da T*****</div>
-        </div>
-        <div class="rg-field">
-          <div class="rg-label">Código Trollger</div>
-          <!-- EDITAR: código completo abaixo -->
-          <div class="rg-value censored-text" id="rg-elefante-codigo">TRG-CIV-00-7*****</div>
-        </div>
-        <div class="rg-field">
-          <div class="rg-label">Classe</div>
-          <!-- EDITAR: trocar classe por "supremacia", "plebeu" ou "civil" -->
-          <span class="rg-classe civil" id="rg-elefante-classe">Civil</span>
-        </div>
-        <button class="rg-btn" id="rg-elefante-btn" onclick="revelarRG('elefante')">🔓 Revelar Identidade</button>
-      </div>
-    </div>
-    <!-- ═══ FIM RG ═══ -->
-
-  </div>
-  <!-- ══════════════════════════════ FIM ELEFANTE ═══════════════════════════════════ -->
-
-  <!-- ══════════════════════════════ OCENOT ════════════════════════════════════════ -->
-  <div id="ocenot" class="section">
-
-    <div class="profile-hero">
-      <div class="profile-rank" style="color:#4a4a4a;font-size:clamp(24px,4vw,40px);filter:none">C</div>
-      <div class="profile-name">OCENOT</div>
-      <div class="profile-subtitle">A Observadora Efêmera — Civil</div>
-      <div class="profile-tags">
-        <span class="tag">Civil</span>
-        <span class="tag red">Aura Nula</span>
-        <span class="tag">Presença de 1 Dia</span>
-        <span class="tag">Registro Indireto</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🌌</span> Identidade e Posição</div>
-      <div class="entry">
-        <div class="entry-body">Ocenot é uma figura <strong style="color:var(--gold-light)">efêmera</strong> na lore — sua passagem durou apenas um dia. Sem poder, sem resenha definida, sem impacto direto. Sua relevância é única: <strong style="color:var(--gold-light)">estava presente em um momento historicamente registrado.</strong></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🧠</span> Personalidade</div>
-      <div class="entry">
-        <div class="entry-body">Personalidade <strong style="color:var(--text-dim)">indefinida</strong>. Dificuldade de comunicação registrada — possivelmente por barreiras linguísticas ou sociais.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🤝</span> Relação com o Sistema</div>
-      <div class="entry">
-        <div class="entry-body">
-          <ul>
-            <li>Presença breve com interação indireta envolvendo <strong style="color:var(--gold-light)">Davi</strong></li>
-            <li>Não estabeleceu vínculo com outros membros</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">✨</span> Aura</div>
-      <div class="stat-row">
-        <span class="stat-label">Aura Padrão</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:0%"></div></div>
-        <span class="stat-val" style="color:var(--text-dim)">Nula</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">Resenha</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:0%"></div></div>
-        <span class="stat-val" style="color:var(--text-dim)">Indefinida</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">Presença na Lore</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:12%"></div></div>
-        <span class="stat-val" style="color:var(--text-dim)">Efêmera</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">⚔️</span> Feitos Históricos</div>
-      <div class="entry">
-        <div class="entry-title">A Presença de Um Dia</div>
-        <div class="entry-body">
-          <ul>
-            <li>Permaneceu apenas <strong style="color:var(--gold-light)">um dia</strong> no universo registrado</li>
-            <li>Presenciou um evento importante dentro da lore</li>
-            <li>Foi alvo de comentários provocativos durante sua passagem</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">❌</span> Fraquezas</div>
-      <div class="entry">
-        <div class="entry-body">
-          <ul>
-            <li>Barreiras linguísticas e sociais</li>
-            <li>Ausência de raízes — passou e desapareceu</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="verdict">
-      <div class="verdict-text">
-        Ocenot não deixou marca própria na lore.<br><br>
-        Mas <strong>estava lá quando algo aconteceu</strong> — e isso é o suficiente para o registro.<br><br>
-        Um dia. Uma presença. Zero poder.
-      </div>
-    </div>
-
-    <!-- ═══ RG — IDENTIDADE ═══ -->
-    <!-- EDITAR: nome completo, código, classe e link da imagem abaixo -->
-    <div class="rg-container" id="rg-ocenot">
-      <div class="rg-photo-wrap censored" id="rg-ocenot-foto">
-        <!-- INSERIR LINK DA IMAGEM AQUI → src="" -->
-        <img src="" alt="Foto" onerror="this.parentElement.innerHTML='<div class=\'rg-photo-placeholder\'>🇦🇫</div>'">
-      </div>
-      <div class="rg-info">
-        <div class="rg-header">🪪 Documento de Identidade Trollgianista</div>
-        <div class="rg-field">
-          <div class="rg-label">Nome Completo</div>
-          <!-- EDITAR: nome real entre as tags rg-value -->
-          <div class="rg-value censored-text" id="rg-ocenot-nome">O***** *******</div>
-        </div>
-        <div class="rg-field">
-          <div class="rg-label">Código Trollger</div>
-          <!-- EDITAR: código completo abaixo -->
-          <div class="rg-value censored-text" id="rg-ocenot-codigo">TRG-CIV-00-6*****</div>
-        </div>
-        <div class="rg-field">
-          <div class="rg-label">Classe</div>
-          <!-- EDITAR: trocar classe por "supremacia", "plebeu" ou "civil" -->
-          <span class="rg-classe civil" id="rg-ocenot-classe">Civil</span>
-        </div>
-        <button class="rg-btn" id="rg-ocenot-btn" onclick="revelarRG('ocenot')">🔓 Revelar Identidade</button>
-      </div>
-    </div>
-    <!-- ═══ FIM RG ═══ -->
-
-  </div>
-  <!-- ══════════════════════════════ FIM OCENOT ════════════════════════════════════ -->
-
-  <!-- ══════════════════════════════ KIMBERLY ══════════════════════════════════════ -->
-  <div id="kimberly" class="section">
-
-    <div class="profile-hero">
-      <div class="profile-rank" style="color:#4a4a4a;font-size:clamp(24px,4vw,40px);filter:none">C</div>
-      <div class="profile-name">KIMBERLY</div>
-      <div class="profile-subtitle">A Semelhante — Civil</div>
-      <div class="profile-tags">
-        <span class="tag">Civil</span>
-        <span class="tag">Aura Indefinida</span>
-        <span class="tag blue">K-pop</span>
-        <span class="tag blue">PolyIA</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🌌</span> Identidade e Posição</div>
-      <div class="entry">
-        <div class="entry-body">Kimberly é uma Civil com baixa relevância na lore. Sua existência é documentada principalmente pela <strong style="color:var(--gold-light)">semelhança com Raphaela</strong> e pelos contatos com membros do sistema Trollger — sem resultado concreto.</div>
-      </div>
-      <div class="entry">
-        <div class="entry-title">Contatos com o Sistema</div>
-        <div class="entry-body">
-          <ul>
-            <li>Contato <strong style="color:var(--gold-light)">presencial</strong> com Emanuel</li>
-            <li>Contato <strong style="color:var(--gold-light)">virtual</strong> com Kauan</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🧠</span> Personalidade</div>
-      <div class="entry">
-        <div class="entry-body">Personalidade <strong style="color:var(--gold-light)">semelhante à de Raphaela</strong>, porém com interesses mais definidos: apreciadora de <strong style="color:var(--gold-light)">PolyIA</strong> e <strong style="color:var(--gold-light)">K-pop</strong>.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">🗣️</span> Estilo de Resenha</div>
-      <div class="entry">
-        <div class="entry-body">Semelhante ao padrão de Raphaela — porém <strong style="color:var(--text-dim)">inferior</strong>. Não apresenta a mesma profundidade nem consistência.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">✨</span> Aura</div>
-      <div class="stat-row">
-        <span class="stat-label">Aura Padrão</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:30%"></div></div>
-        <span class="stat-val" style="color:var(--text-dim)">Indefinida</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">Resenha</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:22%"></div></div>
-        <span class="stat-val" style="color:var(--text-dim)">Inferior</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">⚔️</span> Feitos Históricos</div>
-      <div class="entry">
-        <div class="entry-body" style="color:var(--text-dim)">Nenhum feito registrado. Presença documentada pelos contatos com membros do sistema.</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="icon">❌</span> Fraquezas</div>
-      <div class="entry">
-        <div class="entry-body" style="color:var(--text-dim)">Indefinidas. Dados insuficientes para análise aprofundada.</div>
-      </div>
-    </div>
-
-    <div class="verdict">
-      <div class="verdict-text">
-        Kimberly é uma versão diluída de Raphaela.<br><br>
-        Esteve perto do sistema — sem entrar nele.<br><br>
-        <strong>Figura pouco desenvolvida. Relevância: baixa.</strong>
-      </div>
-    </div>
-
-    <!-- ═══ RG — IDENTIDADE ═══ -->
-    <!-- EDITAR: nome completo, código, classe e link da imagem abaixo -->
-    <div class="rg-container" id="rg-kimberly">
-      <div class="rg-photo-wrap censored" id="rg-kimberly-foto">
-        <!-- INSERIR LINK DA IMAGEM AQUI → src="" -->
-        <img src="" alt="Foto" onerror="this.parentElement.innerHTML='<div class=\'rg-photo-placeholder\'>🇯🇵</div>'">
-      </div>
-      <div class="rg-info">
-        <div class="rg-header">🪪 Documento de Identidade Trollgianista</div>
-        <div class="rg-field">
-          <div class="rg-label">Nome Completo</div>
-          <!-- EDITAR: nome real entre as tags rg-value -->
-          <div class="rg-value censored-text" id="rg-kimberly-nome">Kimberly *******</div>
-        </div>
-        <div class="rg-field">
-          <div class="rg-label">Código Trollger</div>
-          <!-- EDITAR: código completo abaixo -->
-          <div class="rg-value censored-text" id="rg-kimberly-codigo">TRG-CIV-00-5*****</div>
-        </div>
-        <div class="rg-field">
-          <div class="rg-label">Classe</div>
-          <!-- EDITAR: trocar classe por "supremacia", "plebeu" ou "civil" -->
-          <span class="rg-classe civil" id="rg-kimberly-classe">Civil</span>
-        </div>
-        <button class="rg-btn" id="rg-kimberly-btn" onclick="revelarRG('kimberly')">🔓 Revelar Identidade</button>
-      </div>
-    </div>
-    <!-- ═══ FIM RG ═══ -->
-
-  </div>
-  <!-- ══════════════════════════════ FIM KIMBERLY ═══════════════════════════════════ -->
 
   <footer>
     <div class="footer-label">Navegação</div>
@@ -5634,31 +5914,6 @@
     document.getElementById('drawer').classList.remove('open');
     document.getElementById('drawerOverlay').classList.remove('open');
     document.getElementById('hamburger').classList.remove('open');
-  }
-
-  /* ═══ SISTEMA DE RG — IDENTIDADE ═══
-   * Como usar:
-   *   - Cada personagem tem: rg-{id}-foto, rg-{id}-nome, rg-{id}-codigo, rg-{id}-btn
-   *   - O botão chama revelarRG('id-do-personagem')
-   *   - Para editar: altere o conteúdo das divs/spans correspondentes no HTML
-   */
-  function revelarRG(id) {
-    var foto   = document.getElementById('rg-' + id + '-foto');
-    var nome   = document.getElementById('rg-' + id + '-nome');
-    var codigo = document.getElementById('rg-' + id + '-codigo');
-    var btn    = document.getElementById('rg-' + id + '-btn');
-
-    if (!foto || !btn) return;
-    if (btn.classList.contains('revealed')) return; // já revelado
-
-    // Remove censura
-    if (foto)   foto.classList.remove('censored');
-    if (nome)   { nome.classList.remove('censored-text'); nome.classList.add('rg-revealed-anim'); }
-    if (codigo) { codigo.classList.remove('censored-text'); codigo.classList.add('rg-revealed-anim'); }
-
-    // Atualiza botão
-    btn.textContent = '✓ Identidade Revelada';
-    btn.classList.add('revealed');
   }
 </script>
 </body>
