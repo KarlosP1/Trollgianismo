@@ -9,14 +9,14 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #0a090f;
-      --surface: #110f1a;
-      --surface2: #1a1726;
-      --border: #2a2540;
-      --gold: #9b6fd4;
-      --gold-light: #c49af0;
-      --gold-dim: #5a3a8a;
-      --blue-glow: #a78bfa;
+      --bg: #1a0a0a;
+      --surface: #2a0f0f;
+      --surface2: #3a1515;
+      --border: #5a2a2a;
+      --gold: #d43333;
+      --gold-light: #ff5555;
+      --gold-dim: #8a2a2a;
+      --blue-glow: #ff6666;
       --text: #d4d0e0;
       --text-dim: #6a6480;
       --red: #cc3366;
@@ -26,8 +26,8 @@
       background-color: var(--bg);
       background-image:
         url('https://i.imgur.com/mJoCBsb.png'),
-        radial-gradient(ellipse at 20% 0%, rgba(120,60,200,0.1) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 100%, rgba(80,40,160,0.08) 0%, transparent 60%);
+        radial-gradient(ellipse at 20% 0%, rgba(200,30,30,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(160,20,20,0.08) 0%, transparent 60%);
       background-repeat: no-repeat;
       background-position: center top;
       background-size: cover;
@@ -76,7 +76,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 0 24px rgba(140,80,220,0.5));
+      filter: drop-shadow(0 0 24px rgba(212,51,51,0.5));
     }
     header p { margin-top: 10px; font-family: 'Cinzel', serif; font-size: clamp(10px, 2vw, 13px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
 
@@ -102,10 +102,10 @@
     .nav-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); transform: translateY(-2px); }
     .nav-btn:active { transform: scale(0.96); }
     .nav-btn.ativo {
-      background: linear-gradient(135deg, #1e1630, #160f24);
+      background: linear-gradient(135deg, #3a1515, #2a0f0f);
       border-color: var(--gold);
       color: var(--gold-light);
-      box-shadow: 0 0 18px rgba(140,80,220,0.25), inset 0 0 16px rgba(140,80,220,0.08);
+      box-shadow: 0 0 18px rgba(212,51,51,0.25), inset 0 0 16px rgba(212,51,51,0.08);
     }
 
     /* SEÇÕES */
@@ -122,7 +122,7 @@
       overflow: hidden;
     }
     .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
-    .card::after { content: ''; position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(120,60,200,0.07) 0%, transparent 70%); pointer-events: none; }
+    .card::after { content: ''; position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(200,30,30,0.07) 0%, transparent 70%); pointer-events: none; }
 
     .card-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(16px, 3vw, 22px); color: var(--gold-light); margin-bottom: 28px; letter-spacing: 0.05em; }
 
@@ -140,7 +140,7 @@
     .rank-item { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
     .rank-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .rank-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(20px, 4vw, 30px); color: var(--gold-dim); line-height: 1; min-width: 40px; text-align: center; padding-top: 2px; }
-    .rank-num.top1 { color: var(--gold-light); filter: drop-shadow(0 0 8px rgba(196,154,240,0.6)); }
+    .rank-num.top1 { color: var(--gold-light); filter: drop-shadow(0 0 8px rgba(255,85,85,0.6)); }
     .rank-num.top2 { color: #a0a0c0; }
     .rank-num.top3 { color: #9060c0; }
     .rank-name { font-family: 'Cinzel', serif; font-size: clamp(13px, 2.5vw, 16px); font-weight: 600; color: var(--text); letter-spacing: 0.05em; }
@@ -163,7 +163,7 @@
     .footer-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; }
     .socials { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
     .socials a { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); transition: all 0.25s ease; outline: none; -webkit-tap-highlight-color: transparent; text-decoration: none; }
-    .socials a:hover { border-color: var(--gold-dim); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(120,60,200,0.2); }
+    .socials a:hover { border-color: var(--gold-dim); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(200,30,30,0.2); }
     .yt-btn svg { width: 24px; height: 24px; fill: #ff4040; }
     .custom-btn img { width: 28px; height: 28px; border-radius: 50%; }
     .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
@@ -386,6 +386,9 @@
     </div>
     <div class="footer-links" style="margin-top:12px">
       <a href="trollgers.html" class="footer-btn">Site Ranking</a>
+    </div>
+    <div class="footer-links" style="margin-top:12px">
+      <a href="noticias.html" class="footer-btn" style="border-color:var(--gold-dim);color:var(--gold-light)">📰 Ver notícias Trollgers</a>
     </div>
   </footer>
 
