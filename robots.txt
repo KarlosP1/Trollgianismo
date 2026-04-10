@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://karlosp1.github.io/Trollgianismo/sitemap.xml
