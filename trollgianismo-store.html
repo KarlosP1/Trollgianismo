@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trollgianismo - Store</title>
+  <meta name="description" content="Loja oficial do Trollgianismo. Compre com Aura ou Aura Obscura.">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- SUPABASE SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── VARIÁVEIS IDÊNTICAS AO INDEX ── */
+    :root {
+      --bg: #1a0a0a;
+      --surface: #2a0f0f;
+      --surface2: #3a1515;
+      --border: #5a2a2a;
+      --gold: #d43333;
+      --gold-light: #ff5555;
+      --gold-dim: #8a2a2a;
+      --blue-glow: #ff6666;
+      --text: #d4d0e0;
+      --text-dim: #6a6480;
+      --red: #cc3366;
+
+      /* Moedas */
+      --aura-color: #d43333;
+      --aura-obscura-color: #9b59b6;
+      --aura-obscura-glow: rgba(155, 89, 182, 0.5);
+    }
+
+    @font-face {
+      font-family: 'DropShade';
+      src: url('https://files.catbox.moe/bsplgq.ttf');
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        url('https://i.imgur.com/mJoCBsb.png'),
+        radial-gradient(ellipse at 20% 0%, rgba(200,30,30,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(160,20,20,0.08) 0%, transparent 60%);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,6,18,0.75) 0%, rgba(10,9,15,0.90) 40%, rgba(10,9,15,0.97) 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative; z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ── HEADER ── */
+    header { padding: 50px 0 36px; text-align: center; }
+    .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
+
+    header h1 {
+      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-size: clamp(26px, 6vw, 52px);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(212,51,51,0.5));
+    }
+
+    header p {
+      margin-top: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(10px, 2vw, 13px);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ── SALDO DE MOEDAS ── */
+    .currency-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .currency-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      min-width: 180px;
+      justify-content: space-between;
+    }
+
+    .currency-badge .coin-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .currency-badge .coin-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .currency-badge .coin-name {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--text-dim);
+    }
+
+    .currency-badge .coin-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+
+    .currency-badge.obscura .coin-value {
+      color: var(--aura-obscura-color);
+      text-shadow: 0 0 10px var(--aura-obscura-glow);
+    }
+
+    .currency-badge.obscura {
+      border-color: #4a2a6a;
+    }
+
+    /* ── FILTRO DE MOEDA ── */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 10px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(10px, 2.5vw, 12px);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.15s;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .filter-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); transform: translateY(-2px); }
+    .filter-btn:active { transform: scale(0.96); }
+    .filter-btn.ativo {
+      background: linear-gradient(135deg, #3a1515, #2a0f0f);
+      border-color: var(--gold);
+      color: var(--gold-light);
+      box-shadow: 0 0 18px rgba(212,51,51,0.25), inset 0 0 16px rgba(212,51,51,0.08);
+    }
+    .filter-btn.ativo.obscura {
+      border-color: var(--aura-obscura-color);
+      color: var(--aura-obscura-color);
+      box-shadow: 0 0 18px var(--aura-obscura-glow), inset 0 0 16px rgba(155,89,182,0.08);
+    }
+
+    /* ── GRID DE PRODUTOS ── */
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      animation: fadeIn 0.35s ease both;
+    }
+
+    /* ── CARD DE PRODUTO ── */
+    .product-card {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(212,51,51,0.15);
+      border-color: var(--gold-dim);
+    }
+
+    .product-card.obscura:hover {
+      box-shadow: 0 12px 32px rgba(155,89,182,0.2);
+      border-color: #6a3a9a;
+    }
+
+    .product-card.obscura::before {
+      background: linear-gradient(to right, transparent, #6a3a9a, transparent);
+    }
+
+    /* ── IMAGEM DO PRODUTO ── */
+    .product-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    /* COLOQUE AQUI O LINK DA IMAGEM — substitua o src do <img> dentro de .product-img-wrap */
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .product-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+    }
+
+    .product-img-placeholder span {
+      font-size: 36px;
+      opacity: 0.3;
+    }
+
+    .product-img-placeholder p {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    /* ── BADGE DE RARIDADE (para Aura Obscura) ── */
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 3px 9px;
+      border-radius: 3px;
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .product-badge.aura {
+      background: rgba(42, 15, 15, 0.9);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold-light);
+    }
+
+    .product-badge.obscura {
+      background: rgba(30, 10, 50, 0.9);
+      border: 1px solid #6a3a9a;
+      color: var(--aura-obscura-color);
+    }
+
+    /* ── INFO DO PRODUTO ── */
+    .product-info {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    /* COLOQUE AQUI O NOME DO PRODUTO — edite o texto dentro de .product-name */
+    .product-name {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(12px, 2vw, 14px);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* COLOQUE AQUI O PREÇO — edite o texto dentro de .product-price */
+    .product-price {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(14px, 2.5vw, 17px);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .product-price.aura { color: var(--gold-light); }
+    .product-price.obscura {
+      color: var(--aura-obscura-color);
+      text-shadow: 0 0 10px var(--aura-obscura-glow);
+    }
+
+    .price-unit {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      align-self: flex-end;
+      margin-bottom: 2px;
+    }
+
+    /* ── BOTÃO DE COMPRA ── */
+    /* NOTA: Este botão é visual apenas. A lógica de compra será integrada via Supabase futuramente. */
+    .buy-btn {
+      margin-top: auto;
+      width: 100%;
+      padding: 11px;
+      border-radius: 4px;
+      border: 1px solid var(--gold-dim);
+      background: linear-gradient(135deg, rgba(212,51,51,0.12), rgba(212,51,51,0.05));
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .buy-btn:hover {
+      background: linear-gradient(135deg, rgba(212,51,51,0.25), rgba(212,51,51,0.12));
+      box-shadow: 0 0 14px rgba(212,51,51,0.2);
+      transform: translateY(-1px);
+    }
+
+    .buy-btn:active { transform: scale(0.97); }
+
+    .buy-btn.obscura {
+      border-color: #6a3a9a;
+      background: linear-gradient(135deg, rgba(155,89,182,0.12), rgba(155,89,182,0.05));
+      color: var(--aura-obscura-color);
+    }
+
+    .buy-btn.obscura:hover {
+      background: linear-gradient(135deg, rgba(155,89,182,0.25), rgba(155,89,182,0.12));
+      box-shadow: 0 0 14px var(--aura-obscura-glow);
+    }
+
+    /* ── SEPARADOR DE SEÇÃO ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 40px 0 28px;
+    }
+
+    .section-divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border));
+    }
+
+    .section-divider-line.right {
+      background: linear-gradient(to left, transparent, var(--border));
+    }
+
+    .section-divider-label {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .section-divider-label.obscura {
+      color: var(--aura-obscura-color);
+      text-shadow: 0 0 8px var(--aura-obscura-glow);
+    }
+
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 30px 0 50px; border-top: 1px solid var(--border); margin-top: 40px; }
+    .footer-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; }
+    .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .footer-btn { display: inline-block; padding: 11px 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease; outline: none; -webkit-tap-highlight-color: transparent; }
+    .footer-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+    /* ── ANIMAÇÕES ── */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(-20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    /* ── RESPONSIVIDADE ── */
+    @media (max-width: 768px) {
+      .store-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+    }
+
+    @media (max-width: 480px) {
+      .store-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .currency-badge { min-width: 150px; padding: 10px 14px; }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       AUTH — BARRA DO USUÁRIO (topo da página)
+       ════════════════════════════════════════════════════════════ */
+    .auth-bar {
+      position: relative; z-index: 10;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 14px 0 0;
+      gap: 10px;
+    }
+
+    /* Texto de boas-vindas quando logado */
+    .auth-user-email {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    /* Botões da barra (login / logout) */
+    .auth-bar-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .auth-bar-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .auth-bar-btn.logout { border-color: #4a1a1a; color: #aa4444; }
+    .auth-bar-btn.logout:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+    /* ════════════════════════════════════════════════════════════
+       AUTH — OVERLAY + MODAL
+       ════════════════════════════════════════════════════════════ */
+    .auth-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .auth-overlay.aberto {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .auth-modal {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+      animation: modalIn 0.3s ease both;
+    }
+
+    /* Linha decorativa no topo do modal — igual aos .card */
+    .auth-modal::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+
+    .auth-modal-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(16px, 3vw, 20px);
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    /* Abas Login / Cadastro */
+    .auth-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s, border-color 0.2s;
+      outline: none;
+      margin-bottom: -1px;
+    }
+    .auth-tab.ativo {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold);
+    }
+
+    /* Painéis de formulário */
+    .auth-painel { display: none; }
+    .auth-painel.ativo { display: block; }
+
+    /* Labels */
+    .auth-label {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    /* Inputs */
+    .auth-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 18px;
+    }
+    .auth-input:focus {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 10px rgba(212,51,51,0.15);
+    }
+    .auth-input::placeholder { color: var(--text-dim); opacity: 0.6; }
+
+    /* Botão principal do formulário */
+    .auth-submit {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, rgba(212,51,51,0.2), rgba(212,51,51,0.08));
+      border: 1px solid var(--gold-dim);
+      border-radius: 4px;
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      outline: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      margin-top: 4px;
+    }
+    .auth-submit:hover {
+      background: linear-gradient(135deg, rgba(212,51,51,0.35), rgba(212,51,51,0.15));
+      box-shadow: 0 0 18px rgba(212,51,51,0.25);
+      transform: translateY(-1px);
+    }
+    .auth-submit:active { transform: scale(0.97); }
+    .auth-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* Mensagem de feedback (erro / sucesso) */
+    .auth-msg {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      display: none;
+    }
+    .auth-msg.erro  { background: rgba(204,51,102,0.1); border: 1px solid #5a1a40; color: var(--red); display: block; }
+    .auth-msg.ok    { background: rgba(51,204,102,0.08); border: 1px solid #1a5a2a; color: #55cc77; display: block; }
+
+    /* Botão X para fechar o modal */
+    .auth-close {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      outline: none;
+      transition: color 0.2s;
+      padding: 4px;
+    }
+    .auth-close:hover { color: var(--gold-light); }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     MODAL DE AUTENTICAÇÃO (Login / Cadastro)
+     Controlado por abrirAuth() / fecharAuth()
+     ════════════════════════════════════════════════════════════ -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+
+    <button class="auth-close" onclick="fecharAuth()" title="Fechar">✕</button>
+
+    <div class="auth-modal-title">Acesso ao Sistema</div>
+
+    <!-- Abas -->
+    <div class="auth-tabs">
+      <button class="auth-tab ativo" id="tabLogin"   onclick="trocarAba('login')">Entrar</button>
+      <button class="auth-tab"       id="tabCadastro" onclick="trocarAba('cadastro')">Cadastrar</button>
+    </div>
+
+    <!-- ── PAINEL: LOGIN ── -->
+    <div class="auth-painel ativo" id="painelLogin">
+      <label class="auth-label" for="loginEmail">E-mail</label>
+      <input  class="auth-input" id="loginEmail" type="email" placeholder="seu@email.com" autocomplete="email">
+
+      <label class="auth-label" for="loginSenha">Senha</label>
+      <input  class="auth-input" id="loginSenha" type="password" placeholder="••••••••" autocomplete="current-password">
+
+      <button class="auth-submit" id="btnLogin" onclick="fazerLogin()">Entrar</button>
+      <div class="auth-msg" id="msgLogin"></div>
+    </div>
+
+    <!-- ── PAINEL: CADASTRO ── -->
+    <div class="auth-painel" id="painelCadastro">
+      <label class="auth-label" for="cadEmail">E-mail</label>
+      <input  class="auth-input" id="cadEmail" type="email" placeholder="seu@email.com" autocomplete="email">
+
+      <label class="auth-label" for="cadSenha">Senha</label>
+      <input  class="auth-input" id="cadSenha" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+
+      <button class="auth-submit" id="btnCadastro" onclick="fazerCadastro()">Criar Conta</button>
+      <div class="auth-msg" id="msgCadastro"></div>
+    </div>
+
+  </div>
+</div>
+<!-- /auth-overlay -->
+
+<div class="page">
+
+  <!-- ── BARRA DE AUTH (canto superior) ── -->
+  <div class="auth-bar" id="authBar">
+    <!-- Estado: deslogado -->
+    <div id="estadoDeslogado">
+      <button class="auth-bar-btn" onclick="abrirAuth()">Entrar / Cadastrar</button>
+    </div>
+    <!-- Estado: logado (oculto até autenticar) -->
+    <div id="estadoLogado" style="display:none; display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+      <span class="auth-user-email" id="userEmailDisplay"></span>
+      <button class="auth-bar-btn logout" onclick="fazerLogout()">Sair</button>
+    </div>
+  </div>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="header-line"></div>
+    <h1>TROLLGIANISMO</h1>
+    <p>Store Oficial — Aura &amp; Aura Obscura</p>
+  </header>
+
+  <!-- ── SALDO DE MOEDAS (visual — integrar ao Supabase futuramente) ── -->
+  <!--
+    TODO (SUPABASE): Buscar saldo real do usuário logado.
+    Tabela sugerida: "wallets" com campos { user_id, aura, aura_obscura }
+    Substituir os valores "—" pelos dados retornados da query.
+  -->
+  <div class="currency-bar">
+    <div class="currency-badge">
+      <span class="coin-icon">🔴</span>
+      <div class="coin-label">
+        <span class="coin-name">Aura</span>
+        <!-- SALDO DE AURA virá do Supabase -->
+        <span class="coin-value" id="saldo-aura">—</span>
+      </div>
+    </div>
+    <div class="currency-badge obscura">
+      <span class="coin-icon">🟣</span>
+      <div class="coin-label">
+        <span class="coin-name">Aura Obscura</span>
+        <!-- SALDO DE AURA OBSCURA virá do Supabase -->
+        <span class="coin-value" id="saldo-obscura">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FILTRO ── -->
+  <div class="filter-bar">
+    <button class="filter-btn ativo" onclick="filtrar('todos', this)">Todos</button>
+    <button class="filter-btn" onclick="filtrar('aura', this)">Aura</button>
+    <button class="filter-btn obscura" onclick="filtrar('obscura', this)">Aura Obscura</button>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SEÇÃO: PRODUTOS COM AURA (Moeda Padrão)
+       ════════════════════════════════════════════════════════════ -->
+  <div class="section-divider" data-categoria="aura">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">🔴 Compras com Aura</span>
+    <div class="section-divider-line right"></div>
+  </div>
+
+  <div class="store-grid" id="grid-aura" data-categoria="aura">
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 1
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!--
+          ┌─────────────────────────────────────────────────────┐
+          │  COLOQUE AQUI O LINK DA IMAGEM (Produto 1)          │
+          │  Substitua o <div> abaixo por:                      │
+          │  <img src="URL_DA_IMAGEM" alt="Nome do Produto">    │
+          └─────────────────────────────────────────────────────┘
+        -->
+        <div class="product-img-placeholder">
+          <span>🛒</span>
+          <p>Imagem aqui</p>
+        </div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 1) -->
+        <div class="product-name">Nome do Produto 01</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 1) -->
+          <span>000</span>
+          <span class="price-unit">Aura</span>
+        </div>
+        <!-- BOTÃO VISUAL — lógica de compra via Supabase futuramente -->
+        <button class="buy-btn" onclick="comprar(1)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 2
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 2) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 2) -->
+        <div class="product-name">Nome do Produto 02</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 2) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(2)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 3
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 3) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 3) -->
+        <div class="product-name">Nome do Produto 03</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 3) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(3)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 4
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 4) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 4) -->
+        <div class="product-name">Nome do Produto 04</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 4) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(4)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 5
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 5) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 5) -->
+        <div class="product-name">Nome do Produto 05</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 5) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(5)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 6
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 6) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 6) -->
+        <div class="product-name">Nome do Produto 06</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 6) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(6)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 7
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 7) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 7) -->
+        <div class="product-name">Nome do Produto 07</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 7) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(7)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 8
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 8) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 8) -->
+        <div class="product-name">Nome do Produto 08</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 8) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(8)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 9
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 9) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 9) -->
+        <div class="product-name">Nome do Produto 09</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 9) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(9)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 10
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card" data-moeda="aura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 10) -->
+        <div class="product-img-placeholder"><span>🛒</span><p>Imagem aqui</p></div>
+        <span class="product-badge aura">Aura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 10) -->
+        <div class="product-name">Nome do Produto 10</div>
+        <div class="product-price aura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 10) -->
+          <span>000</span><span class="price-unit">Aura</span>
+        </div>
+        <button class="buy-btn" onclick="comprar(10)">Comprar</button>
+      </div>
+    </div>
+
+  </div><!-- /grid-aura -->
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       SEÇÃO: PRODUTOS COM AURA OBSCURA (Moeda Rara)
+       ════════════════════════════════════════════════════════════ -->
+  <div class="section-divider" data-categoria="obscura">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label obscura">🟣 Compras com Aura Obscura</span>
+    <div class="section-divider-line right"></div>
+  </div>
+
+  <div class="store-grid" id="grid-obscura" data-categoria="obscura">
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 11
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!--
+          ┌─────────────────────────────────────────────────────┐
+          │  COLOQUE AQUI O LINK DA IMAGEM (Produto 11)         │
+          │  Substitua o <div> abaixo por:                      │
+          │  <img src="URL_DA_IMAGEM" alt="Nome do Produto">    │
+          └─────────────────────────────────────────────────────┘
+        -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 11) -->
+        <div class="product-name">Nome do Produto 11</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 11) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(11)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 12
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 12) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 12) -->
+        <div class="product-name">Nome do Produto 12</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 12) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(12)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 13
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 13) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 13) -->
+        <div class="product-name">Nome do Produto 13</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 13) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(13)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 14
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 14) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 14) -->
+        <div class="product-name">Nome do Produto 14</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 14) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(14)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 15
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 15) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 15) -->
+        <div class="product-name">Nome do Produto 15</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 15) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(15)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 16
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 16) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 16) -->
+        <div class="product-name">Nome do Produto 16</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 16) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(16)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 17
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 17) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 17) -->
+        <div class="product-name">Nome do Produto 17</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 17) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(17)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 18
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 18) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 18) -->
+        <div class="product-name">Nome do Produto 18</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 18) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(18)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 19
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 19) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 19) -->
+        <div class="product-name">Nome do Produto 19</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 19) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(19)">Comprar</button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRODUTO 20
+         ════════════════════════════════════════════════════════════ -->
+    <div class="product-card obscura" data-moeda="obscura">
+      <div class="product-img-wrap">
+        <!-- COLOQUE AQUI O LINK DA IMAGEM (Produto 20) -->
+        <div class="product-img-placeholder"><span>🟣</span><p>Imagem aqui</p></div>
+        <span class="product-badge obscura">Obscura</span>
+      </div>
+      <div class="product-info">
+        <!-- COLOQUE AQUI O NOME DO PRODUTO (Produto 20) -->
+        <div class="product-name">Nome do Produto 20</div>
+        <div class="product-price obscura">
+          <!-- COLOQUE AQUI O PREÇO (Produto 20) -->
+          <span>000</span><span class="price-unit">Aura Obscura</span>
+        </div>
+        <button class="buy-btn obscura" onclick="comprar(20)">Comprar</button>
+      </div>
+    </div>
+
+  </div><!-- /grid-obscura -->
+
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-label">Trollgianismo — Universo Oficial</div>
+    <div class="footer-links">
+      <a href="index.html" class="footer-btn">← Voltar ao Início</a>
+      <a href="trollgers.html" class="footer-btn">Site Ranking</a>
+    </div>
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+  /* ============================================================
+     CONFIGURAÇÃO DO SUPABASE
+     ============================================================ */
+  const SUPABASE_URL = 'https://jkxhqtvugpbxplsswuut.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl';
+
+  // Inicializa o client do Supabase usando o SDK v2 carregado no <head>
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  /* ============================================================
+     ESTADO GLOBAL
+     ============================================================ */
+  var usuarioAtual = null; // objeto de sessão do Supabase Auth
+
+  /* ============================================================
+     INICIALIZAÇÃO — roda ao carregar a página
+     ============================================================ */
+  document.addEventListener('DOMContentLoaded', async function () {
+
+    // 1. Verifica se já existe uma sessão ativa (ex: usuário voltou à página)
+    var { data: { session } } = await sb.auth.getSession();
+    if (session && session.user) {
+      usuarioAtual = session.user;
+      await aoLogar(usuarioAtual);
+    }
+
+    // 2. Escuta mudanças de estado de auth em tempo real
+    //    (login, logout, troca de sessão)
+    sb.auth.onAuthStateChange(async function (event, session) {
+      if (event === 'SIGNED_IN' && session) {
+        usuarioAtual = session.user;
+        await aoLogar(usuarioAtual);
+        fecharAuth();
+      } else if (event === 'SIGNED_OUT') {
+        usuarioAtual = null;
+        aoDeslogar();
+      }
+    });
+  });
+
+  /* ============================================================
+     AO LOGAR — atualiza UI e busca saldo
+     ============================================================ */
+  async function aoLogar(user) {
+    // Mostra email do usuário na barra
+    document.getElementById('estadoDeslogado').style.display = 'none';
+    var logado = document.getElementById('estadoLogado');
+    logado.style.display = 'flex';
+    document.getElementById('userEmailDisplay').textContent = user.email;
+
+    // Busca saldo na tabela "users"
+    await carregarSaldo(user.id);
+  }
+
+  /* ============================================================
+     AO DESLOGAR — reseta UI
+     ============================================================ */
+  function aoDeslogar() {
+    document.getElementById('estadoDeslogado').style.display = 'block';
+    document.getElementById('estadoLogado').style.display    = 'none';
+    document.getElementById('userEmailDisplay').textContent  = '';
+    document.getElementById('saldo-aura').textContent        = '—';
+    document.getElementById('saldo-obscura').textContent     = '—';
+  }
+
+  /* ============================================================
+     CARREGAR SALDO
+     Busca na tabela "users" pelo user_id (UUID do Supabase Auth)
+     Campos esperados: id (uuid), email (text), aura (int), aura_obscura (int)
+     ============================================================ */
+  async function carregarSaldo(userId) {
+    var { data, error } = await sb
+      .from('users')
+      .select('aura, aura_obscura')
+      .eq('id', userId)
+      .single();
+
+    if (error) {
+      console.error('[Store] Erro ao buscar saldo:', error.message);
+      document.getElementById('saldo-aura').textContent    = 'Erro';
+      document.getElementById('saldo-obscura').textContent = 'Erro';
+      return;
+    }
+
+    // Atualiza os badges de moeda no topo da loja
+    document.getElementById('saldo-aura').textContent    = data.aura          ?? 0;
+    document.getElementById('saldo-obscura').textContent = data.aura_obscura  ?? 0;
+  }
+
+  /* ============================================================
+     CADASTRO — cria conta no Supabase Auth
+     e insere registro na tabela "users" com 1000 de aura
+     ============================================================ */
+  async function fazerCadastro() {
+    var email = document.getElementById('cadEmail').value.trim();
+    var senha = document.getElementById('cadSenha').value;
+    var msg   = document.getElementById('msgCadastro');
+    var btn   = document.getElementById('btnCadastro');
+
+    // Validação básica
+    if (!email || !senha) {
+      mostrarMsg(msg, 'Preencha todos os campos.', 'erro');
+      return;
+    }
+    if (senha.length < 6) {
+      mostrarMsg(msg, 'Senha deve ter pelo menos 6 caracteres.', 'erro');
+      return;
+    }
+
+    btn.disabled      = true;
+    btn.textContent   = 'Criando conta...';
+    msg.style.display = 'none';
+
+    // 1. Cria o usuário no Supabase Auth
+    var { data: authData, error: authError } = await sb.auth.signUp({
+      email: email,
+      password: senha
+    });
+
+    if (authError) {
+      mostrarMsg(msg, traduzirErro(authError.message), 'erro');
+      btn.disabled    = false;
+      btn.textContent = 'Criar Conta';
+      return;
+    }
+
+    var novoUserId = authData.user.id;
+
+    // 2. Insere o registro na tabela "users" com 1000 de aura inicial
+    //    A tabela deve ter: id (uuid, PK), email (text), aura (int), aura_obscura (int)
+    var { error: dbError } = await sb
+      .from('users')
+      .insert([{
+        id:           novoUserId,   // vincula ao ID do Supabase Auth
+        email:        email,
+        aura:         1000,         // saldo inicial de Aura
+        aura_obscura: 0             // saldo inicial de Aura Obscura
+      }]);
+
+    if (dbError) {
+      // Auth criado mas DB falhou — avisa o usuário
+      console.error('[Store] Erro ao inserir na tabela users:', dbError.message);
+      mostrarMsg(msg, 'Conta criada! Mas houve erro ao salvar dados. Contate o admin.', 'erro');
+    } else {
+      mostrarMsg(msg, 'Conta criada com sucesso! Bem-vindo ao sistema.', 'ok');
+    }
+
+    btn.disabled    = false;
+    btn.textContent = 'Criar Conta';
+  }
+
+  /* ============================================================
+     LOGIN — autentica com email + senha
+     ============================================================ */
+  async function fazerLogin() {
+    var email = document.getElementById('loginEmail').value.trim();
+    var senha = document.getElementById('loginSenha').value;
+    var msg   = document.getElementById('msgLogin');
+    var btn   = document.getElementById('btnLogin');
+
+    if (!email || !senha) {
+      mostrarMsg(msg, 'Preencha todos os campos.', 'erro');
+      return;
+    }
+
+    btn.disabled    = true;
+    btn.textContent = 'Entrando...';
+    msg.style.display = 'none';
+
+    var { data, error } = await sb.auth.signInWithPassword({
+      email:    email,
+      password: senha
+    });
+
+    if (error) {
+      mostrarMsg(msg, traduzirErro(error.message), 'erro');
+      btn.disabled    = false;
+      btn.textContent = 'Entrar';
+      return;
+    }
+
+    // onAuthStateChange cuida do resto (aoLogar + fecharAuth)
+    btn.disabled    = false;
+    btn.textContent = 'Entrar';
+  }
+
+  /* ============================================================
+     LOGOUT
+     ============================================================ */
+  async function fazerLogout() {
+    await sb.auth.signOut();
+    // onAuthStateChange dispara aoDeslogar automaticamente
+  }
+
+  /* ============================================================
+     CONTROLE DO MODAL DE AUTH
+     ============================================================ */
+  function abrirAuth() {
+    document.getElementById('authOverlay').classList.add('aberto');
+    // Limpa mensagens anteriores
+    ['msgLogin','msgCadastro'].forEach(function(id) {
+      var el = document.getElementById(id);
+      el.className = 'auth-msg';
+      el.textContent = '';
+    });
+  }
+
+  function fecharAuth() {
+    document.getElementById('authOverlay').classList.remove('aberto');
+  }
+
+  // Fecha o modal ao clicar no overlay (fora do card)
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('authOverlay').addEventListener('click', function (e) {
+      if (e.target === this) fecharAuth();
+    });
+  });
+
+  /* ── TROCA DE ABA (Login / Cadastro) ── */
+  function trocarAba(aba) {
+    document.getElementById('tabLogin').classList.toggle('ativo',    aba === 'login');
+    document.getElementById('tabCadastro').classList.toggle('ativo', aba === 'cadastro');
+    document.getElementById('painelLogin').classList.toggle('ativo',    aba === 'login');
+    document.getElementById('painelCadastro').classList.toggle('ativo', aba === 'cadastro');
+  }
+
+  /* ── HELPER: exibe mensagem de feedback ── */
+  function mostrarMsg(el, texto, tipo) {
+    el.textContent = texto;
+    el.className   = 'auth-msg ' + tipo;
+  }
+
+  /* ── HELPER: traduz mensagens de erro do Supabase para PT-BR ── */
+  function traduzirErro(msg) {
+    if (!msg) return 'Erro desconhecido.';
+    var m = msg.toLowerCase();
+    if (m.includes('invalid login credentials') || m.includes('invalid email or password'))
+      return 'E-mail ou senha incorretos.';
+    if (m.includes('user already registered') || m.includes('email already in use'))
+      return 'Este e-mail já está cadastrado.';
+    if (m.includes('password should be at least'))
+      return 'Senha deve ter pelo menos 6 caracteres.';
+    if (m.includes('unable to validate email'))
+      return 'E-mail inválido.';
+    if (m.includes('email not confirmed'))
+      return 'Confirme seu e-mail antes de entrar.';
+    return msg;
+  }
+
+  /* ============================================================
+     FILTRO DE MOEDA (funcional — inalterado)
+     ============================================================ */
+  function filtrar(tipo, btn) {
+    document.querySelectorAll('.filter-btn').forEach(function(b) {
+      b.classList.remove('ativo');
+    });
+    btn.classList.add('ativo');
+
+    var gridAura    = document.getElementById('grid-aura');
+    var gridObscura = document.getElementById('grid-obscura');
+    var divAura     = document.querySelector('.section-divider[data-categoria="aura"]');
+    var divObscura  = document.querySelector('.section-divider[data-categoria="obscura"]');
+
+    if (tipo === 'todos') {
+      gridAura.style.display    = 'grid';
+      gridObscura.style.display = 'grid';
+      divAura.style.display     = 'flex';
+      divObscura.style.display  = 'flex';
+    } else if (tipo === 'aura') {
+      gridAura.style.display    = 'grid';
+      gridObscura.style.display = 'none';
+      divAura.style.display     = 'flex';
+      divObscura.style.display  = 'none';
+    } else if (tipo === 'obscura') {
+      gridAura.style.display    = 'none';
+      gridObscura.style.display = 'grid';
+      divAura.style.display     = 'none';
+      divObscura.style.display  = 'flex';
+    }
+  }
+
+  /* ============================================================
+     COMPRAR — verifica login antes de prosseguir
+     (lógica de débito ainda pendente — placeholder mantido)
+     ============================================================ */
+  function comprar(produtoId) {
+    if (!usuarioAtual) {
+      abrirAuth();
+      return;
+    }
+    /*
+      TODO: Implementar débito de Aura aqui.
+      1. Buscar preço do produto (tabela "products" ou hardcoded)
+      2. Verificar saldo em "users" via usuarioAtual.id
+      3. Se saldo suficiente: UPDATE users SET aura = aura - preco WHERE id = usuarioAtual.id
+      4. INSERT em "purchases" { user_id, produto_id, created_at }
+      5. Chamar carregarSaldo(usuarioAtual.id) para atualizar o display
+    */
+    console.log('[Store] Compra solicitada — produto:', produtoId, '| user:', usuarioAtual.email);
+    alert('Sistema de compra em desenvolvimento. Em breve disponível!');
+  }
+</script>
+
+</body>
+</html>
