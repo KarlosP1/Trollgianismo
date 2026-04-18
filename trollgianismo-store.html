@@ -1297,23 +1297,27 @@
      Busca na tabela "users" pelo user_id (UUID do Supabase Auth)
      Campos esperados: id (uuid), email (text), aura (int), aura_obscura (int)
      ============================================================ */
-  async function carregarSaldo(userId) {
+  async function carregarSaldo(authId) {
+    console.log('[Store] Buscando saldo para auth_id:', authId);
+
     var { data, error } = await sb
       .from('users')
-      .select('aura, aura_obscura')
-      .eq('id', userId)
+      .select('aura')
+      .eq('auth_id', authId)   // busca pelo auth_id, não pelo id interno
       .single();
 
     if (error) {
       console.error('[Store] Erro ao buscar saldo:', error.message);
       document.getElementById('saldo-aura').textContent    = 'Erro';
-      document.getElementById('saldo-obscura').textContent = 'Erro';
+      document.getElementById('saldo-obscura').textContent = '—';
       return;
     }
 
+    console.log('[Store] Saldo carregado:', data);
+
     // Atualiza os badges de moeda no topo da loja
-    document.getElementById('saldo-aura').textContent    = data.aura          ?? 0;
-    document.getElementById('saldo-obscura').textContent = data.aura_obscura  ?? 0;
+    document.getElementById('saldo-aura').textContent    = data.aura ?? 0;
+    document.getElementById('saldo-obscura').textContent = '—';   // campo futuro
   }
 
   /* ============================================================
@@ -1353,24 +1357,26 @@
       return;
     }
 
-    var novoUserId = authData.user.id;
+    var novoAuthId = authData.user.id;
 
-    // 2. Insere o registro na tabela "users" com 1000 de aura inicial
-    //    A tabela deve ter: id (uuid, PK), email (text), aura (int), aura_obscura (int)
-    var { error: dbError } = await sb
+    console.log('[Store] Auth criado — auth_id:', novoAuthId, '| email:', email);
+
+    // 2. Insere na tabela "users" usando auth_id (não id — deixar o banco gerar)
+    //    Estrutura da tabela: auth_id (uuid), email (text), aura (int)
+    var { data: dbData, error: dbError } = await sb
       .from('users')
       .insert([{
-        id:           novoUserId,   // vincula ao ID do Supabase Auth
-        email:        email,
-        aura:         1000,         // saldo inicial de Aura
-        aura_obscura: 0             // saldo inicial de Aura Obscura
-      }]);
+        auth_id: novoAuthId,  // UUID do Supabase Auth
+        email:   email,
+        aura:    1000         // saldo inicial
+      }])
+      .select();              // retorna a linha inserida para confirmar no console
 
     if (dbError) {
-      // Auth criado mas DB falhou — avisa o usuário
-      console.error('[Store] Erro ao inserir na tabela users:', dbError.message);
-      mostrarMsg(msg, 'Conta criada! Mas houve erro ao salvar dados. Contate o admin.', 'erro');
+      console.error('[Store] Erro ao inserir na tabela users:', dbError.message, '|', dbError.details, '|', dbError.hint);
+      mostrarMsg(msg, 'Conta criada! Erro ao salvar dados: ' + dbError.message, 'erro');
     } else {
+      console.log('[Store] Usuário inserido na tabela users:', dbData);
       mostrarMsg(msg, 'Conta criada com sucesso! Bem-vindo ao sistema.', 'ok');
     }
 
