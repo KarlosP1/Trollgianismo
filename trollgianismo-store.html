@@ -725,7 +725,7 @@
       <button class="auth-bar-btn" onclick="abrirAuth()">Entrar / Cadastrar</button>
     </div>
     <!-- Estado: logado (oculto até autenticar) -->
-    <div id="estadoLogado" style="display:none; display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+    <div id="estadoLogado" style="display:none; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
       <span class="auth-user-email" id="userEmailDisplay"></span>
       <button class="auth-bar-btn logout" onclick="fazerLogout()">Sair</button>
     </div>
@@ -1244,23 +1244,19 @@
   /* ============================================================
      INICIALIZAÇÃO — roda ao carregar a página
      ============================================================ */
-  document.addEventListener('DOMContentLoaded', async function () {
+  document.addEventListener('DOMContentLoaded', function () {
 
-    // 1. Verifica se já existe uma sessão ativa (ex: usuário voltou à página)
-    var { data: { session } } = await sb.auth.getSession();
-    if (session && session.user) {
-      usuarioAtual = session.user;
-      await aoLogar(usuarioAtual);
-    }
-
-    // 2. Escuta mudanças de estado de auth em tempo real
-    //    (login, logout, troca de sessão)
+    // onAuthStateChange já dispara INITIAL_SESSION na inicialização,
+    // cobrindo tanto "sessão existente ao carregar" quanto "login novo".
+    // NÃO usar getSession() separado para evitar double-fire.
     sb.auth.onAuthStateChange(async function (event, session) {
-      if (event === 'SIGNED_IN' && session) {
+      console.log('[Auth] evento:', event, '| sessão:', session ? session.user.email : 'nenhuma');
+
+      if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session && session.user) {
         usuarioAtual = session.user;
         await aoLogar(usuarioAtual);
         fecharAuth();
-      } else if (event === 'SIGNED_OUT') {
+      } else if (event === 'SIGNED_OUT' || (event === 'INITIAL_SESSION' && !session)) {
         usuarioAtual = null;
         aoDeslogar();
       }
@@ -1271,13 +1267,13 @@
      AO LOGAR — atualiza UI e busca saldo
      ============================================================ */
   async function aoLogar(user) {
-    // Mostra email do usuário na barra
+    // Esconde estado deslogado, mostra estado logado
     document.getElementById('estadoDeslogado').style.display = 'none';
     var logado = document.getElementById('estadoLogado');
     logado.style.display = 'flex';
     document.getElementById('userEmailDisplay').textContent = user.email;
 
-    // Busca saldo na tabela "users"
+    // Busca saldo passando o UUID do Supabase Auth (auth_id na tabela users)
     await carregarSaldo(user.id);
   }
 
@@ -1414,7 +1410,11 @@
       return;
     }
 
-    // onAuthStateChange cuida do resto (aoLogar + fecharAuth)
+    // Atualiza UI imediatamente sem esperar o onAuthStateChange
+    usuarioAtual = data.user;
+    await aoLogar(data.user);
+    fecharAuth();
+
     btn.disabled    = false;
     btn.textContent = 'Entrar';
   }
