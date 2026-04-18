@@ -1228,35 +1228,64 @@
 
 <script>
   /* ============================================================
-     CONFIGURAÇÃO DO SUPABASE
+     SUPABASE — CONFIGURAÇÃO
+     O client é criado dentro do DOMContentLoaded para garantir
+     que o SDK já foi carregado pelo browser antes do uso.
      ============================================================ */
-  const SUPABASE_URL = 'https://jkxhqtvugpbxplsswuut.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl';
-
-  // Inicializa o client do Supabase usando o SDK v2 carregado no <head>
-  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  var sb = null;           // client Supabase — inicializado no DOMContentLoaded
+  var usuarioAtual = null; // usuário da sessão ativa
 
   /* ============================================================
-     ESTADO GLOBAL
-     ============================================================ */
-  var usuarioAtual = null; // objeto de sessão do Supabase Auth
-
-  /* ============================================================
-     INICIALIZAÇÃO — roda ao carregar a página
+     INICIALIZAÇÃO — tudo começa aqui
      ============================================================ */
   document.addEventListener('DOMContentLoaded', function () {
 
-    // onAuthStateChange já dispara INITIAL_SESSION na inicialização,
-    // cobrindo tanto "sessão existente ao carregar" quanto "login novo".
-    // NÃO usar getSession() separado para evitar double-fire.
-    sb.auth.onAuthStateChange(async function (event, session) {
-      console.log('[Auth] evento:', event, '| sessão:', session ? session.user.email : 'nenhuma');
+    /* ── 1. Cria o client DEPOIS que o SDK está carregado ── */
+    try {
+      sb = supabase.createClient(
+        'https://jkxhqtvugpbxplsswuut.supabase.co',
+        'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl'
+      );
+      console.log('[Auth] Supabase client criado com sucesso.');
+    } catch (e) {
+      console.error('[Auth] ERRO ao criar Supabase client:', e);
+      alert('Erro ao carregar sistema de autenticação. Recarregue a página.');
+      return;
+    }
 
-      if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session && session.user) {
+    /* ── 2. addEventListener explícitos nos botões ── */
+    document.getElementById('btnLogin').addEventListener('click', fazerLogin);
+    document.getElementById('btnCadastro').addEventListener('click', fazerCadastro);
+    console.log('[Auth] Eventos de clique registrados em btnLogin e btnCadastro.');
+
+    /* ── 3. Fecha modal ao clicar fora ── */
+    document.getElementById('authOverlay').addEventListener('click', function (e) {
+      if (e.target === this) fecharAuth();
+    });
+
+    /* ── 4. Verifica sessão existente ao carregar a página ── */
+    sb.auth.getSession().then(function (result) {
+      var session = result.data.session;
+      console.log('[Auth] getSession ao carregar:', session ? session.user.email : 'sem sessão');
+      if (session && session.user) {
         usuarioAtual = session.user;
-        await aoLogar(usuarioAtual);
+        aoLogar(usuarioAtual);
+      } else {
+        aoDeslogar();
+      }
+    }).catch(function (e) {
+      console.error('[Auth] Erro no getSession:', e);
+      aoDeslogar();
+    });
+
+    /* ── 5. Escuta mudanças futuras de auth (login/logout) ── */
+    sb.auth.onAuthStateChange(function (event, session) {
+      console.log('[Auth] onAuthStateChange — evento:', event);
+      if (event === 'SIGNED_IN' && session && session.user) {
+        usuarioAtual = session.user;
+        aoLogar(usuarioAtual);
         fecharAuth();
-      } else if (event === 'SIGNED_OUT' || (event === 'INITIAL_SESSION' && !session)) {
+      } else if (event === 'SIGNED_OUT') {
         usuarioAtual = null;
         aoDeslogar();
       }
@@ -1266,21 +1295,19 @@
   /* ============================================================
      AO LOGAR — atualiza UI e busca saldo
      ============================================================ */
-  async function aoLogar(user) {
-    // Esconde estado deslogado, mostra estado logado
+  function aoLogar(user) {
+    console.log('[Auth] aoLogar chamado para:', user.email);
     document.getElementById('estadoDeslogado').style.display = 'none';
-    var logado = document.getElementById('estadoLogado');
-    logado.style.display = 'flex';
-    document.getElementById('userEmailDisplay').textContent = user.email;
-
-    // Busca saldo passando o UUID do Supabase Auth (auth_id na tabela users)
-    await carregarSaldo(user.id);
+    document.getElementById('estadoLogado').style.display    = 'flex';
+    document.getElementById('userEmailDisplay').textContent  = user.email;
+    carregarSaldo(user.id);
   }
 
   /* ============================================================
      AO DESLOGAR — reseta UI
      ============================================================ */
   function aoDeslogar() {
+    console.log('[Auth] aoDeslogar chamado.');
     document.getElementById('estadoDeslogado').style.display = 'block';
     document.getElementById('estadoLogado').style.display    = 'none';
     document.getElementById('userEmailDisplay').textContent  = '';
@@ -1289,101 +1316,42 @@
   }
 
   /* ============================================================
-     CARREGAR SALDO
-     Busca na tabela "users" pelo user_id (UUID do Supabase Auth)
-     Campos esperados: id (uuid), email (text), aura (int), aura_obscura (int)
+     CARREGAR SALDO — busca aura na tabela users via auth_id
      ============================================================ */
-  async function carregarSaldo(authId) {
-    console.log('[Store] Buscando saldo para auth_id:', authId);
+  function carregarSaldo(authId) {
+    console.log('[Store] carregarSaldo — buscando auth_id:', authId);
 
-    var { data, error } = await sb
-      .from('users')
+    sb.from('users')
       .select('aura')
-      .eq('auth_id', authId)   // busca pelo auth_id, não pelo id interno
-      .single();
+      .eq('auth_id', authId)
+      .single()
+      .then(function (result) {
+        var data  = result.data;
+        var error = result.error;
 
-    if (error) {
-      console.error('[Store] Erro ao buscar saldo:', error.message);
-      document.getElementById('saldo-aura').textContent    = 'Erro';
-      document.getElementById('saldo-obscura').textContent = '—';
-      return;
-    }
+        if (error) {
+          console.error('[Store] Erro ao buscar saldo:', error.message, error.code);
+          alert('Erro ao carregar saldo: ' + error.message);
+          document.getElementById('saldo-aura').textContent = 'Erro';
+          return;
+        }
 
-    console.log('[Store] Saldo carregado:', data);
-
-    // Atualiza os badges de moeda no topo da loja
-    document.getElementById('saldo-aura').textContent    = data.aura ?? 0;
-    document.getElementById('saldo-obscura').textContent = '—';   // campo futuro
+        console.log('[Store] Saldo recebido:', data);
+        document.getElementById('saldo-aura').textContent    = data.aura != null ? data.aura : 0;
+        document.getElementById('saldo-obscura').textContent = '—';
+      })
+      .catch(function (e) {
+        console.error('[Store] Exceção em carregarSaldo:', e);
+        alert('Exceção ao buscar saldo: ' + e.message);
+      });
   }
 
   /* ============================================================
-     CADASTRO — cria conta no Supabase Auth
-     e insere registro na tabela "users" com 1000 de aura
+     LOGIN
      ============================================================ */
-  async function fazerCadastro() {
-    var email = document.getElementById('cadEmail').value.trim();
-    var senha = document.getElementById('cadSenha').value;
-    var msg   = document.getElementById('msgCadastro');
-    var btn   = document.getElementById('btnCadastro');
+  function fazerLogin() {
+    console.log('[Auth] clicou login');
 
-    // Validação básica
-    if (!email || !senha) {
-      mostrarMsg(msg, 'Preencha todos os campos.', 'erro');
-      return;
-    }
-    if (senha.length < 6) {
-      mostrarMsg(msg, 'Senha deve ter pelo menos 6 caracteres.', 'erro');
-      return;
-    }
-
-    btn.disabled      = true;
-    btn.textContent   = 'Criando conta...';
-    msg.style.display = 'none';
-
-    // 1. Cria o usuário no Supabase Auth
-    var { data: authData, error: authError } = await sb.auth.signUp({
-      email: email,
-      password: senha
-    });
-
-    if (authError) {
-      mostrarMsg(msg, traduzirErro(authError.message), 'erro');
-      btn.disabled    = false;
-      btn.textContent = 'Criar Conta';
-      return;
-    }
-
-    var novoAuthId = authData.user.id;
-
-    console.log('[Store] Auth criado — auth_id:', novoAuthId, '| email:', email);
-
-    // 2. Insere na tabela "users" usando auth_id (não id — deixar o banco gerar)
-    //    Estrutura da tabela: auth_id (uuid), email (text), aura (int)
-    var { data: dbData, error: dbError } = await sb
-      .from('users')
-      .insert([{
-        auth_id: novoAuthId,  // UUID do Supabase Auth
-        email:   email,
-        aura:    1000         // saldo inicial
-      }])
-      .select();              // retorna a linha inserida para confirmar no console
-
-    if (dbError) {
-      console.error('[Store] Erro ao inserir na tabela users:', dbError.message, '|', dbError.details, '|', dbError.hint);
-      mostrarMsg(msg, 'Conta criada! Erro ao salvar dados: ' + dbError.message, 'erro');
-    } else {
-      console.log('[Store] Usuário inserido na tabela users:', dbData);
-      mostrarMsg(msg, 'Conta criada com sucesso! Bem-vindo ao sistema.', 'ok');
-    }
-
-    btn.disabled    = false;
-    btn.textContent = 'Criar Conta';
-  }
-
-  /* ============================================================
-     LOGIN — autentica com email + senha
-     ============================================================ */
-  async function fazerLogin() {
     var email = document.getElementById('loginEmail').value.trim();
     var senha = document.getElementById('loginSenha').value;
     var msg   = document.getElementById('msgLogin');
@@ -1396,46 +1364,129 @@
 
     btn.disabled    = true;
     btn.textContent = 'Entrando...';
-    msg.style.display = 'none';
+    msg.className   = 'auth-msg';
 
-    var { data, error } = await sb.auth.signInWithPassword({
-      email:    email,
-      password: senha
-    });
+    sb.auth.signInWithPassword({ email: email, password: senha })
+      .then(function (result) {
+        var data  = result.data;
+        var error = result.error;
 
-    if (error) {
-      mostrarMsg(msg, traduzirErro(error.message), 'erro');
-      btn.disabled    = false;
-      btn.textContent = 'Entrar';
+        console.log('[Auth] resposta login — data:', data, '| error:', error);
+
+        btn.disabled    = false;
+        btn.textContent = 'Entrar';
+
+        if (error) {
+          alert(error.message);
+          mostrarMsg(msg, traduzirErro(error.message), 'erro');
+          return;
+        }
+
+        // Sucesso — atualiza UI imediatamente
+        usuarioAtual = data.user;
+        aoLogar(data.user);
+        fecharAuth();
+      })
+      .catch(function (e) {
+        console.error('[Auth] Exceção no login:', e);
+        alert('Exceção no login: ' + e.message);
+        btn.disabled    = false;
+        btn.textContent = 'Entrar';
+      });
+  }
+
+  /* ============================================================
+     CADASTRO
+     ============================================================ */
+  function fazerCadastro() {
+    console.log('[Auth] clicou cadastro');
+
+    var email = document.getElementById('cadEmail').value.trim();
+    var senha = document.getElementById('cadSenha').value;
+    var msg   = document.getElementById('msgCadastro');
+    var btn   = document.getElementById('btnCadastro');
+
+    if (!email || !senha) {
+      mostrarMsg(msg, 'Preencha todos os campos.', 'erro');
+      return;
+    }
+    if (senha.length < 6) {
+      mostrarMsg(msg, 'Senha deve ter pelo menos 6 caracteres.', 'erro');
       return;
     }
 
-    // Atualiza UI imediatamente sem esperar o onAuthStateChange
-    usuarioAtual = data.user;
-    await aoLogar(data.user);
-    fecharAuth();
+    btn.disabled    = true;
+    btn.textContent = 'Criando conta...';
+    msg.className   = 'auth-msg';
 
-    btn.disabled    = false;
-    btn.textContent = 'Entrar';
+    sb.auth.signUp({ email: email, password: senha })
+      .then(function (result) {
+        var authData  = result.data;
+        var authError = result.error;
+
+        console.log('[Auth] resposta signUp — data:', authData, '| error:', authError);
+
+        if (authError) {
+          alert(authError.message);
+          mostrarMsg(msg, traduzirErro(authError.message), 'erro');
+          btn.disabled    = false;
+          btn.textContent = 'Criar Conta';
+          return;
+        }
+
+        var novoAuthId = authData.user.id;
+        console.log('[Auth] Auth criado — auth_id:', novoAuthId);
+
+        // Insere na tabela users
+        return sb.from('users')
+          .insert([{ auth_id: novoAuthId, email: email, aura: 1000 }])
+          .select()
+          .then(function (dbResult) {
+            var dbData  = dbResult.data;
+            var dbError = dbResult.error;
+
+            console.log('[Store] INSERT users — data:', dbData, '| error:', dbError);
+
+            btn.disabled    = false;
+            btn.textContent = 'Criar Conta';
+
+            if (dbError) {
+              alert('Conta criada, mas erro ao salvar dados: ' + dbError.message);
+              mostrarMsg(msg, 'Conta criada! Erro ao salvar dados: ' + dbError.message, 'erro');
+            } else {
+              mostrarMsg(msg, 'Conta criada com sucesso! Faça login para continuar.', 'ok');
+            }
+          });
+      })
+      .catch(function (e) {
+        console.error('[Auth] Exceção no cadastro:', e);
+        alert('Exceção no cadastro: ' + e.message);
+        btn.disabled    = false;
+        btn.textContent = 'Criar Conta';
+      });
   }
 
   /* ============================================================
      LOGOUT
      ============================================================ */
-  async function fazerLogout() {
-    await sb.auth.signOut();
-    // onAuthStateChange dispara aoDeslogar automaticamente
+  function fazerLogout() {
+    console.log('[Auth] clicou sair');
+    sb.auth.signOut().then(function () {
+      console.log('[Auth] signOut concluído.');
+    }).catch(function (e) {
+      console.error('[Auth] Erro no logout:', e);
+      alert('Erro ao sair: ' + e.message);
+    });
   }
 
   /* ============================================================
-     CONTROLE DO MODAL DE AUTH
+     CONTROLE DO MODAL
      ============================================================ */
   function abrirAuth() {
     document.getElementById('authOverlay').classList.add('aberto');
-    // Limpa mensagens anteriores
-    ['msgLogin','msgCadastro'].forEach(function(id) {
+    ['msgLogin', 'msgCadastro'].forEach(function (id) {
       var el = document.getElementById(id);
-      el.className = 'auth-msg';
+      el.className   = 'auth-msg';
       el.textContent = '';
     });
   }
@@ -1444,28 +1495,21 @@
     document.getElementById('authOverlay').classList.remove('aberto');
   }
 
-  // Fecha o modal ao clicar no overlay (fora do card)
-  document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('authOverlay').addEventListener('click', function (e) {
-      if (e.target === this) fecharAuth();
-    });
-  });
-
-  /* ── TROCA DE ABA (Login / Cadastro) ── */
+  /* ── TROCA DE ABA ── */
   function trocarAba(aba) {
-    document.getElementById('tabLogin').classList.toggle('ativo',    aba === 'login');
-    document.getElementById('tabCadastro').classList.toggle('ativo', aba === 'cadastro');
+    document.getElementById('tabLogin').classList.toggle('ativo',       aba === 'login');
+    document.getElementById('tabCadastro').classList.toggle('ativo',    aba === 'cadastro');
     document.getElementById('painelLogin').classList.toggle('ativo',    aba === 'login');
     document.getElementById('painelCadastro').classList.toggle('ativo', aba === 'cadastro');
   }
 
-  /* ── HELPER: exibe mensagem de feedback ── */
+  /* ── HELPER: mensagem de feedback ── */
   function mostrarMsg(el, texto, tipo) {
     el.textContent = texto;
     el.className   = 'auth-msg ' + tipo;
   }
 
-  /* ── HELPER: traduz mensagens de erro do Supabase para PT-BR ── */
+  /* ── HELPER: traduz erros do Supabase ── */
   function traduzirErro(msg) {
     if (!msg) return 'Erro desconhecido.';
     var m = msg.toLowerCase();
@@ -1483,10 +1527,10 @@
   }
 
   /* ============================================================
-     FILTRO DE MOEDA (funcional — inalterado)
+     FILTRO DE MOEDA — inalterado
      ============================================================ */
   function filtrar(tipo, btn) {
-    document.querySelectorAll('.filter-btn').forEach(function(b) {
+    document.querySelectorAll('.filter-btn').forEach(function (b) {
       b.classList.remove('ativo');
     });
     btn.classList.add('ativo');
@@ -1515,8 +1559,7 @@
   }
 
   /* ============================================================
-     COMPRAR — verifica login antes de prosseguir
-     (lógica de débito ainda pendente — placeholder mantido)
+     COMPRAR — inalterado
      ============================================================ */
   function comprar(produtoId) {
     if (!usuarioAtual) {
