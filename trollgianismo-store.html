@@ -1919,7 +1919,7 @@
     var btn = document.querySelector('[onclick="comprar(' + produtoId + ')"]');
     if (btn) { btn.disabled = true; btn.textContent = 'Aguarde...'; }
 
-    sb.rpc('comprar_produto', { produto_id: produtoId })
+    sb.rpc('comprar_produto', { p_produto_id: produtoId })
       .then(function (result) {
         if (btn) { btn.disabled = false; btn.textContent = 'Comprar'; }
 
