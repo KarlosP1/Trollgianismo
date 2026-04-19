@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrollgersBet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #1a0a0a;
+      --surface: #2a0f0f;
+      --surface2: #3a1515;
+      --border: #5a2a2a;
+      --gold: #d43333;
+      --gold-light: #ff5555;
+      --gold-dim: #8a2a2a;
+      --text: #d4d0e0;
+      --text-dim: #6a6480;
+      --red: #cc3366;
+      --aura-obscura-color: #9b59b6;
+      --aura-obscura-glow: rgba(155, 89, 182, 0.5);
+      --green: #33cc66;
+      --green-glow: rgba(51, 204, 102, 0.4);
+    }
+
+    @font-face {
+      font-family: 'DropShade';
+      src: url('https://files.catbox.moe/bsplgq.ttf');
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        url('https://i.imgur.com/mJoCBsb.png'),
+        radial-gradient(ellipse at 20% 0%, rgba(200,30,30,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(160,20,20,0.08) 0%, transparent 60%);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,6,18,0.75) 0%, rgba(10,9,15,0.90) 40%, rgba(10,9,15,0.97) 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ── AUTH BAR ── */
+    .auth-bar {
+      position: relative; z-index: 10;
+      display: flex; justify-content: flex-end; align-items: center;
+      padding: 14px 0 0; gap: 10px;
+    }
+    .auth-user-email { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; }
+    .auth-bar-btn { background: var(--surface2); border: 1px solid var(--border); padding: 8px 16px; border-radius: 4px; cursor: pointer; font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); transition: color 0.2s, border-color 0.2s; outline: none; -webkit-tap-highlight-color: transparent; }
+    .auth-bar-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .auth-bar-btn.logout { border-color: #4a1a1a; color: #aa4444; }
+    .auth-bar-btn.logout:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+    /* ── HEADER ── */
+    header { padding: 44px 0 32px; text-align: center; }
+    .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
+    header h1 {
+      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-size: clamp(28px, 7vw, 56px);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(212,51,51,0.5));
+    }
+    header p { margin-top: 10px; font-family: 'Cinzel', serif; font-size: clamp(10px,2vw,12px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
+
+    /* ── SALDO ── */
+    .currency-bar { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 36px; }
+    .currency-badge { display: flex; align-items: center; gap: 10px; background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%); border: 1px solid var(--border); border-radius: 6px; padding: 14px 22px; min-width: 190px; justify-content: space-between; }
+    .currency-badge .coin-icon { font-size: 20px; line-height: 1; }
+    .currency-badge .coin-label { display: flex; flex-direction: column; gap: 2px; }
+    .currency-badge .coin-name { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-dim); font-family: 'Cinzel', serif; }
+    .currency-badge .coin-value { font-size: 18px; font-weight: 600; color: var(--gold-light); font-family: 'Cinzel Decorative', serif; }
+    .currency-badge.obscura .coin-value { color: var(--aura-obscura-color); text-shadow: 0 0 10px var(--aura-obscura-glow); }
+    .currency-badge.obscura { border-color: #4a2a6a; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider { display: flex; align-items: center; gap: 16px; margin: 40px 0 28px; }
+    .section-divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--border)); }
+    .section-divider-line.right { background: linear-gradient(to left, transparent, var(--border)); }
+    .section-divider-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
+
+    /* ── CARD BASE ── */
+    .bet-card {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 36px 32px;
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .bet-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+    .bet-card-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(14px,3vw,18px); color: var(--gold-light); letter-spacing: 0.06em; text-align: center; margin-bottom: 8px; }
+    .bet-card-sub { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); text-align: center; margin-bottom: 28px; }
+
+    /* ── SELETOR MOEDA ── */
+    .moeda-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+    .moeda-btn { flex: 1; padding: 10px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text-dim); font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; outline: none; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
+    .moeda-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .moeda-btn.ativo { background: linear-gradient(135deg, rgba(212,51,51,0.15), rgba(212,51,51,0.05)); border-color: var(--gold); color: var(--gold-light); box-shadow: 0 0 14px rgba(212,51,51,0.2); }
+    .moeda-btn.ativo.obscura { background: linear-gradient(135deg, rgba(155,89,182,0.15), rgba(155,89,182,0.05)); border-color: var(--aura-obscura-color); color: var(--aura-obscura-color); box-shadow: 0 0 14px var(--aura-obscura-glow); }
+
+    /* ── FORM ── */
+    .form-label { display: block; font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+    .form-input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 12px 14px; font-family: 'Raleway', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s; margin-bottom: 20px; }
+    .form-input:focus { border-color: var(--gold-dim); box-shadow: 0 0 10px rgba(212,51,51,0.15); }
+    .form-input::placeholder { color: var(--text-dim); opacity: 0.6; }
+
+    /* ── BOTÃO APOSTAR ── */
+    .bet-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, rgba(212,51,51,0.2), rgba(212,51,51,0.08)); border: 1px solid var(--gold-dim); border-radius: 4px; color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; outline: none; transition: background 0.2s, box-shadow 0.2s, transform 0.15s; -webkit-tap-highlight-color: transparent; }
+    .bet-btn:hover { background: linear-gradient(135deg, rgba(212,51,51,0.35), rgba(212,51,51,0.15)); box-shadow: 0 0 18px rgba(212,51,51,0.25); transform: translateY(-1px); }
+    .bet-btn:active { transform: scale(0.97); }
+    .bet-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* ── RESULTADO ── */
+    .bet-result {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 6px;
+      text-align: center;
+      display: none;
+      animation: fadeIn 0.4s ease both;
+    }
+    .bet-result.ganhou {
+      display: block;
+      background: rgba(51,204,102,0.08);
+      border: 1px solid #1a5a2a;
+    }
+    .bet-result.perdeu {
+      display: block;
+      background: rgba(204,51,102,0.08);
+      border: 1px solid #5a1a40;
+    }
+    .bet-result-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+    .bet-result-titulo { font-family: 'Cinzel Decorative', serif; font-size: clamp(16px,4vw,22px); letter-spacing: 0.06em; margin-bottom: 6px; }
+    .bet-result.ganhou .bet-result-titulo { color: var(--green); text-shadow: 0 0 16px var(--green-glow); }
+    .bet-result.perdeu  .bet-result-titulo { color: var(--red); }
+    .bet-result-sub { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+
+    /* ── JOGO 2: TIMES ── */
+    .times-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+
+    .time-selector {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-height: 80px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      position: relative;
+    }
+    .time-selector:hover { border-color: var(--gold-dim); }
+    .time-selector.selecionado { border-color: var(--gold); box-shadow: 0 0 14px rgba(212,51,51,0.2); background: rgba(212,51,51,0.05); }
+    .time-selector-label { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+    .time-selector-nome { font-family: 'Cinzel', serif; font-size: clamp(11px,2vw,13px); font-weight: 600; color: var(--gold-light); letter-spacing: 0.06em; }
+    .time-selector-placeholder { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; }
+    .time-selector-flag { font-size: 22px; }
+    .time-vs { display: flex; align-items: center; justify-content: center; font-family: 'Cinzel Decorative', serif; font-size: 18px; color: var(--gold-dim); }
+
+    /* ── MODAL DE TIMES ── */
+    .times-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 3000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .times-overlay.aberto { opacity: 1; pointer-events: all; }
+    .times-modal {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 100%; max-width: 480px;
+      max-height: 80vh;
+      display: flex; flex-direction: column;
+      position: relative;
+      animation: modalIn 0.3s ease both;
+    }
+    .times-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
+    .times-modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .times-modal-titulo { font-family: 'Cinzel Decorative', serif; font-size: 14px; color: var(--gold-light); letter-spacing: 0.05em; }
+    .times-modal-fechar { background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; outline: none; line-height: 1; padding: 4px; transition: color 0.2s; }
+    .times-modal-fechar:hover { color: var(--gold-light); }
+    .times-search { padding: 14px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .times-search input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; font-family: 'Raleway', sans-serif; font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s; }
+    .times-search input:focus { border-color: var(--gold-dim); }
+    .times-search input::placeholder { color: var(--text-dim); opacity: 0.6; }
+    .times-lista { overflow-y: auto; flex: 1; padding: 8px 0; }
+    .time-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; cursor: pointer; transition: background 0.15s; border-left: 2px solid transparent; }
+    .time-item:hover { background: rgba(212,51,51,0.06); border-left-color: var(--gold-dim); }
+    .time-item-flag { font-size: 20px; flex-shrink: 0; }
+    .time-item-info { display: flex; flex-direction: column; gap: 2px; }
+    .time-item-nome { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+    .time-item-pais { font-family: 'Raleway', sans-serif; font-size: 10px; color: var(--text-dim); }
+
+    /* ── MSG ── */
+    .bet-msg { margin-top: 14px; padding: 10px 14px; border-radius: 4px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; display: none; }
+    .bet-msg.erro { background: rgba(204,51,102,0.1); border: 1px solid #5a1a40; color: var(--red); display: block; }
+
+    /* ── AVISO DESLOGADO ── */
+    .login-aviso { text-align: center; padding: 48px 20px; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); }
+    .login-aviso button { margin-top: 20px; display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, rgba(212,51,51,0.2), rgba(212,51,51,0.08)); border: 1px solid var(--gold-dim); border-radius: 4px; color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; outline: none; transition: background 0.2s, box-shadow 0.2s; }
+    .login-aviso button:hover { background: linear-gradient(135deg, rgba(212,51,51,0.35), rgba(212,51,51,0.15)); box-shadow: 0 0 14px rgba(212,51,51,0.2); }
+
+    /* ── AUTH OVERLAY ── */
+    .auth-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+    .auth-overlay.aberto { opacity: 1; pointer-events: all; }
+    .auth-modal { background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%); border: 1px solid var(--border); border-radius: 8px; padding: 40px 36px; width: 100%; max-width: 420px; position: relative; animation: modalIn 0.3s ease both; }
+    .auth-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
+    .auth-modal-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(16px,3vw,20px); color: var(--gold-light); letter-spacing: 0.05em; margin-bottom: 28px; text-align: center; }
+    .auth-tabs { display: flex; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .auth-tab { flex: 1; padding: 10px; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); transition: color 0.2s, border-color 0.2s; outline: none; margin-bottom: -1px; }
+    .auth-tab.ativo { color: var(--gold-light); border-bottom-color: var(--gold); }
+    .auth-painel { display: none; } .auth-painel.ativo { display: block; }
+    .auth-label { display: block; font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+    .auth-input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 12px 14px; font-family: 'Raleway', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.2s; margin-bottom: 18px; }
+    .auth-input:focus { border-color: var(--gold-dim); box-shadow: 0 0 10px rgba(212,51,51,0.15); }
+    .auth-input::placeholder { color: var(--text-dim); opacity: 0.6; }
+    .auth-submit { width: 100%; padding: 13px; background: linear-gradient(135deg, rgba(212,51,51,0.2), rgba(212,51,51,0.08)); border: 1px solid var(--gold-dim); border-radius: 4px; color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; outline: none; transition: background 0.2s, box-shadow 0.2s, transform 0.15s; -webkit-tap-highlight-color: transparent; margin-top: 4px; }
+    .auth-submit:hover { background: linear-gradient(135deg, rgba(212,51,51,0.35), rgba(212,51,51,0.15)); box-shadow: 0 0 18px rgba(212,51,51,0.25); }
+    .auth-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .auth-msg { margin-top: 14px; padding: 10px 14px; border-radius: 4px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; display: none; }
+    .auth-msg.erro { background: rgba(204,51,102,0.1); border: 1px solid #5a1a40; color: var(--red); display: block; }
+    .auth-msg.ok   { background: rgba(51,204,102,0.08); border: 1px solid #1a5a2a; color: #55cc77; display: block; }
+    .auth-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; line-height: 1; outline: none; transition: color 0.2s; padding: 4px; }
+    .auth-close:hover { color: var(--gold-light); }
+
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 30px 0 50px; border-top: 1px solid var(--border); margin-top: 40px; }
+    .footer-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; }
+    .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .footer-btn { display: inline-block; padding: 11px 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease; outline: none; }
+    .footer-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+    @keyframes fadeIn  { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(-20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes pulse   { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    .pulsar { animation: pulse 0.4s ease; }
+
+    @media (max-width: 480px) {
+      .bet-card { padding: 24px 16px; }
+      .times-grid { grid-template-columns: 1fr; }
+      .time-vs { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- AUTH OVERLAY -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="fecharAuth()">✕</button>
+    <div class="auth-modal-title">Acesso ao Sistema</div>
+    <div class="auth-tabs">
+      <button class="auth-tab ativo" id="tabLogin"    onclick="trocarAba('login')">Entrar</button>
+      <button class="auth-tab"       id="tabCadastro" onclick="trocarAba('cadastro')">Cadastrar</button>
+    </div>
+    <div class="auth-painel ativo" id="painelLogin">
+      <label class="auth-label">E-mail</label>
+      <input class="auth-input" id="loginEmail" type="email" placeholder="seu@email.com" autocomplete="email">
+      <label class="auth-label">Senha</label>
+      <input class="auth-input" id="loginSenha" type="password" placeholder="••••••••" autocomplete="current-password">
+      <button class="auth-submit" id="btnLogin" onclick="fazerLogin()">Entrar</button>
+      <div class="auth-msg" id="msgLogin"></div>
+    </div>
+    <div class="auth-painel" id="painelCadastro">
+      <label class="auth-label">E-mail</label>
+      <input class="auth-input" id="cadEmail" type="email" placeholder="seu@email.com" autocomplete="email">
+      <label class="auth-label">Senha</label>
+      <input class="auth-input" id="cadSenha" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+      <button class="auth-submit" id="btnCadastro" onclick="fazerCadastro()">Criar Conta</button>
+      <div class="auth-msg" id="msgCadastro"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SELEÇÃO DE TIMES -->
+<div class="times-overlay" id="timesOverlay">
+  <div class="times-modal">
+    <div class="times-modal-header">
+      <span class="times-modal-titulo">Selecionar Time</span>
+      <button class="times-modal-fechar" onclick="fecharTimesModal()">✕</button>
+    </div>
+    <div class="times-search">
+      <input type="text" id="timesSearch" placeholder="Buscar time..." oninput="filtrarTimes()">
+    </div>
+    <div class="times-lista" id="timesLista"></div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- AUTH BAR -->
+  <div class="auth-bar">
+    <div id="estadoDeslogado">
+      <button class="auth-bar-btn" onclick="abrirAuth()">Entrar / Cadastrar</button>
+    </div>
+    <div id="estadoLogado" style="display:none; align-items:center; gap:10px;">
+      <span class="auth-user-email" id="userEmailDisplay"></span>
+      <button class="auth-bar-btn logout" onclick="fazerLogout()">Sair</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-line"></div>
+    <h1>TrollgersBet</h1>
+    <p>Aposte sua Aura — Sem dinheiro real</p>
+  </header>
+
+  <!-- SALDO -->
+  <div class="currency-bar" id="currencyBar" style="display:none;">
+    <div class="currency-badge">
+      <span class="coin-icon">🔴</span>
+      <div class="coin-label">
+        <span class="coin-name">Aura</span>
+        <span class="coin-value" id="saldo-aura">—</span>
+      </div>
+    </div>
+    <div class="currency-badge obscura">
+      <span class="coin-icon">🟣</span>
+      <div class="coin-label">
+        <span class="coin-name">Aura Obscura</span>
+        <span class="coin-value" id="saldo-obscura">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVISO DESLOGADO -->
+  <div class="bet-card" id="avisoLogin">
+    <div class="login-aviso">
+      Faça login para apostar
+      <br>
+      <button onclick="abrirAuth()">Entrar</button>
+    </div>
+  </div>
+
+  <!-- ÁREA DOS JOGOS -->
+  <div id="areaJogos" style="display:none;">
+
+    <!-- ══ JOGO 1: COIN FLIP ══ -->
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">🎰 Jogo 1 — Coin Flip</span>
+      <div class="section-divider-line right"></div>
+    </div>
+
+    <div class="bet-card">
+      <div class="bet-card-title">Double or Nothing</div>
+      <div class="bet-card-sub">50% de chance · Aposta justa</div>
+
+      <label class="form-label">Tipo de Moeda</label>
+      <div class="moeda-selector">
+        <button class="moeda-btn ativo" id="cf-btnAura"    onclick="selecionarMoeda('cf','aura')">🔴 Aura</button>
+        <button class="moeda-btn obscura" id="cf-btnObscura" onclick="selecionarMoeda('cf','aura_obscura')">🟣 Aura Obscura</button>
+      </div>
+
+      <label class="form-label">Quantidade a Apostar</label>
+      <input class="form-input" id="cf-qtd" type="number" min="1" placeholder="Ex: 100">
+
+      <button class="bet-btn" id="cf-btn" onclick="apostarCoinflip()">🪙 Jogar</button>
+      <div class="bet-msg" id="cf-msg"></div>
+
+      <div class="bet-result" id="cf-resultado">
+        <span class="bet-result-icon" id="cf-icon"></span>
+        <div class="bet-result-titulo" id="cf-titulo"></div>
+        <div class="bet-result-sub" id="cf-sub"></div>
+      </div>
+    </div>
+
+    <!-- ══ JOGO 2: FUTEBOL ══ -->
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">⚽ Jogo 2 — Futebol</span>
+      <div class="section-divider-line right"></div>
+    </div>
+
+    <div class="bet-card">
+      <div class="bet-card-title">Aposta de Futebol</div>
+      <div class="bet-card-sub">Escolha dois times · Aposte no vencedor</div>
+
+      <div class="times-grid">
+        <div class="time-selector" id="time1-box" onclick="abrirTimesModal(1)">
+          <div class="time-selector-label">Time 1</div>
+          <div class="time-selector-placeholder" id="time1-placeholder">Clique para escolher</div>
+          <div class="time-selector-flag" id="time1-flag" style="display:none;"></div>
+          <div class="time-selector-nome" id="time1-nome" style="display:none;"></div>
+        </div>
+
+        <div class="time-vs">VS</div>
+
+        <div class="time-selector" id="time2-box" onclick="abrirTimesModal(2)">
+          <div class="time-selector-label">Time 2</div>
+          <div class="time-selector-placeholder" id="time2-placeholder">Clique para escolher</div>
+          <div class="time-selector-flag" id="time2-flag" style="display:none;"></div>
+          <div class="time-selector-nome" id="time2-nome" style="display:none;"></div>
+        </div>
+      </div>
+
+      <label class="form-label">Apostar no Time</label>
+      <div class="moeda-selector" style="margin-bottom:20px;">
+        <button class="moeda-btn ativo" id="ft-time1-btn" onclick="selecionarTimeAposta(1)" style="font-size:10px;">Time 1</button>
+        <button class="moeda-btn"       id="ft-time2-btn" onclick="selecionarTimeAposta(2)" style="font-size:10px;">Time 2</button>
+      </div>
+
+      <label class="form-label">Tipo de Moeda</label>
+      <div class="moeda-selector">
+        <button class="moeda-btn ativo" id="ft-btnAura"    onclick="selecionarMoeda('ft','aura')">🔴 Aura</button>
+        <button class="moeda-btn obscura" id="ft-btnObscura" onclick="selecionarMoeda('ft','aura_obscura')">🟣 Aura Obscura</button>
+      </div>
+
+      <label class="form-label">Quantidade a Apostar</label>
+      <input class="form-input" id="ft-qtd" type="number" min="1" placeholder="Ex: 100">
+
+      <button class="bet-btn" id="ft-btn" onclick="apostarFutebol()">⚽ Apostar</button>
+      <div class="bet-msg" id="ft-msg"></div>
+
+      <div class="bet-result" id="ft-resultado">
+        <span class="bet-result-icon" id="ft-icon"></span>
+        <div class="bet-result-titulo" id="ft-titulo"></div>
+        <div class="bet-result-sub" id="ft-sub"></div>
+      </div>
+    </div>
+
+  </div><!-- /areaJogos -->
+
+  <footer>
+    <div class="footer-label">Trollgianismo — Universo Oficial</div>
+    <div class="footer-links">
+      <a href="index.html"         class="footer-btn">← Início</a>
+      <a href="store.html"         class="footer-btn">Store</a>
+      <a href="trollgers-bank.html" class="footer-btn">Bank</a>
+    </div>
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+  var sb = null;
+  var usuarioAtual = null;
+
+  /* moedas selecionadas por jogo */
+  var cfMoeda = 'aura';
+  var ftMoeda = 'aura';
+
+  /* times selecionados */
+  var timeSelecionado = { 1: null, 2: null };
+  var timeApostado = 1;
+  var seletorAtivo = 1; /* qual caixa está sendo preenchida */
+
+  /* ============================================================
+     LISTA DE TIMES (ordem alfabética)
+     ============================================================ */
+  var TIMES = [
+    { nome: 'Abha FC',               pais: 'Arábia Saudita',  flag: '🇸🇦' },
+    { nome: 'AC Milan',              pais: 'Itália',           flag: '🇮🇹' },
+    { nome: 'AFC Ajax',              pais: 'Holanda',          flag: '🇳🇱' },
+    { nome: 'AFC Bournemouth',       pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Aston Villa',           pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Athletico Paranaense',  pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Atlético de Madrid',    pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Atlético Mineiro',      pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Bayer Leverkusen',      pais: 'Alemanha',         flag: '🇩🇪' },
+    { nome: 'Bayern de Munique',     pais: 'Alemanha',         flag: '🇩🇪' },
+    { nome: 'Benfica',               pais: 'Portugal',         flag: '🇵🇹' },
+    { nome: 'Boca Juniors',          pais: 'Argentina',        flag: '🇦🇷' },
+    { nome: 'Bologna',               pais: 'Itália',           flag: '🇮🇹' },
+    { nome: 'Borussia Dortmund',     pais: 'Alemanha',         flag: '🇩🇪' },
+    { nome: 'Botafogo',              pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Brighton',              pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Celtic',                pais: 'Escócia',          flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿' },
+    { nome: 'Chelsea',               pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Club Brugge',           pais: 'Bélgica',          flag: '🇧🇪' },
+    { nome: 'Corinthians',           pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Cruzeiro',              pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Cruz Azul',             pais: 'México',           flag: '🇲🇽' },
+    { nome: 'Dínamo de Kiev',        pais: 'Ucrânia',          flag: '🇺🇦' },
+    { nome: 'Eintracht Frankfurt',   pais: 'Alemanha',         flag: '🇩🇪' },
+    { nome: 'Everton',               pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Feyenoord',             pais: 'Holanda',          flag: '🇳🇱' },
+    { nome: 'Flamengo',              pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Fluminense',            pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Fortaleza',             pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Fulham',                pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Galatasaray',           pais: 'Turquia',          flag: '🇹🇷' },
+    { nome: 'Girona',                pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Grêmio',                pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Independiente',         pais: 'Argentina',        flag: '🇦🇷' },
+    { nome: 'Inter de Milão',        pais: 'Itália',           flag: '🇮🇹' },
+    { nome: 'Internacional',         pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Juventus',              pais: 'Itália',           flag: '🇮🇹' },
+    { nome: 'Las Palmas',            pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Lazio',                 pais: 'Itália',           flag: '🇮🇹' },
+    { nome: 'Leeds United',          pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Leicester City',        pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Lens',                  pais: 'França',           flag: '🇫🇷' },
+    { nome: 'Lille',                 pais: 'França',           flag: '🇫🇷' },
+    { nome: 'Liverpool',             pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Lyon',                  pais: 'França',           flag: '🇫🇷' },
+    { nome: 'Manchester City',       pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Manchester United',     pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Marseille',             pais: 'França',           flag: '🇫🇷' },
+    { nome: 'Monaco',                pais: 'França',           flag: '🇫🇷' },
+    { nome: 'Napoli',                pais: 'Itália',           flag: '🇮🇹' },
+    { nome: 'Newcastle United',      pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Nottingham Forest',     pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Olimpia',               pais: 'Paraguai',         flag: '🇵🇾' },
+    { nome: 'Olympiacos',            pais: 'Grécia',           flag: '🇬🇷' },
+    { nome: 'Osasuna',               pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Pachuca',               pais: 'México',           flag: '🇲🇽' },
+    { nome: 'Palmeiras',             pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Paris Saint-Germain',   pais: 'França',           flag: '🇫🇷' },
+    { nome: 'Parma',                 pais: 'Itália',           flag: '🇮🇹' },
+    { nome: 'Peñarol',               pais: 'Uruguai',          flag: '🇺🇾' },
+    { nome: 'Porto',                 pais: 'Portugal',         flag: '🇵🇹' },
+    { nome: 'PSV Eindhoven',         pais: 'Holanda',          flag: '🇳🇱' },
+    { nome: 'Racing Club',           pais: 'Argentina',        flag: '🇦🇷' },
+    { nome: 'RB Leipzig',            pais: 'Alemanha',         flag: '🇩🇪' },
+    { nome: 'Real Betis',            pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Real Madrid',           pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Real Sociedad',         pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Red Bull Salzburg',     pais: 'Áustria',          flag: '🇦🇹' },
+    { nome: 'River Plate',           pais: 'Argentina',        flag: '🇦🇷' },
+    { nome: 'Roma',                  pais: 'Itália',           flag: '🇮🇹' },
+    { nome: 'Santos',                pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'São Paulo',             pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Schalke 04',            pais: 'Alemanha',         flag: '🇩🇪' },
+    { nome: 'Sevilla',               pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Shakhtar Donetsk',      pais: 'Ucrânia',          flag: '🇺🇦' },
+    { nome: 'Sheriff Tiraspol',      pais: 'Moldávia',         flag: '🇲🇩' },
+    { nome: 'Sporting CP',           pais: 'Portugal',         flag: '🇵🇹' },
+    { nome: 'Tottenham Hotspur',     pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Valencia',              pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Vasco da Gama',         pais: 'Brasil',           flag: '🇧🇷' },
+    { nome: 'Villarreal',            pais: 'Espanha',          flag: '🇪🇸' },
+    { nome: 'Werder Bremen',         pais: 'Alemanha',         flag: '🇩🇪' },
+    { nome: 'West Ham United',       pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Wolfsburg',             pais: 'Alemanha',         flag: '🇩🇪' },
+    { nome: 'Wolverhampton',         pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+    { nome: 'Young Boys',            pais: 'Suíça',            flag: '🇨🇭' },
+    { nome: 'Zenit São Petersburgo', pais: 'Rússia',           flag: '🇷🇺' },
+  ].sort(function(a,b){ return a.nome.localeCompare(b.nome, 'pt'); });
+
+  /* ============================================================
+     INICIALIZAÇÃO
+     ============================================================ */
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      sb = supabase.createClient(
+        'https://jkxhqtvugpbxplsswuut.supabase.co',
+        'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl'
+      );
+    } catch(e) { alert('Erro ao inicializar.'); return; }
+
+    document.getElementById('authOverlay').addEventListener('click', function(e){ if(e.target===this) fecharAuth(); });
+    document.getElementById('timesOverlay').addEventListener('click', function(e){ if(e.target===this) fecharTimesModal(); });
+
+    renderizarListaTimes(TIMES);
+
+    sb.auth.getSession().then(function(r){
+      if(r.data.session && r.data.session.user){ usuarioAtual = r.data.session.user; aoLogar(usuarioAtual); }
+      else { aoDeslogar(); }
+    });
+
+    sb.auth.onAuthStateChange(function(event, session){
+      if(event === 'SIGNED_IN' && session){ usuarioAtual = session.user; aoLogar(usuarioAtual); fecharAuth(); }
+      else if(event === 'SIGNED_OUT'){ usuarioAtual = null; aoDeslogar(); }
+    });
+  });
+
+  /* ============================================================
+     AO LOGAR / DESLOGAR
+     ============================================================ */
+  function aoLogar(user) {
+    document.getElementById('estadoDeslogado').style.display = 'none';
+    document.getElementById('estadoLogado').style.display    = 'flex';
+    document.getElementById('userEmailDisplay').textContent  = user.email;
+    document.getElementById('avisoLogin').style.display      = 'none';
+    document.getElementById('areaJogos').style.display       = 'block';
+    document.getElementById('currencyBar').style.display     = 'flex';
+    carregarSaldo(user.id);
+  }
+
+  function aoDeslogar() {
+    document.getElementById('estadoDeslogado').style.display = 'block';
+    document.getElementById('estadoLogado').style.display    = 'none';
+    document.getElementById('areaJogos').style.display       = 'none';
+    document.getElementById('currencyBar').style.display     = 'none';
+    document.getElementById('avisoLogin').style.display      = 'block';
+  }
+
+  function carregarSaldo(authId) {
+    sb.from('users').select('aura, aura_obscura').eq('auth_id', authId).single()
+      .then(function(r){
+        if(r.error) return;
+        document.getElementById('saldo-aura').textContent    = r.data.aura          != null ? r.data.aura          : 0;
+        document.getElementById('saldo-obscura').textContent = r.data.aura_obscura  != null ? r.data.aura_obscura  : 0;
+      });
+  }
+
+  /* ============================================================
+     SELETORES DE MOEDA
+     ============================================================ */
+  function selecionarMoeda(jogo, tipo) {
+    if(jogo === 'cf') {
+      cfMoeda = tipo;
+      document.getElementById('cf-btnAura').classList.toggle('ativo',    tipo === 'aura');
+      document.getElementById('cf-btnObscura').classList.toggle('ativo', tipo === 'aura_obscura');
+    } else {
+      ftMoeda = tipo;
+      document.getElementById('ft-btnAura').classList.toggle('ativo',    tipo === 'aura');
+      document.getElementById('ft-btnObscura').classList.toggle('ativo', tipo === 'aura_obscura');
+    }
+  }
+
+  /* ============================================================
+     JOGO 1 — COIN FLIP
+     ============================================================ */
+  function apostarCoinflip() {
+    var qtd = parseInt(document.getElementById('cf-qtd').value);
+    var msg = document.getElementById('cf-msg');
+    var btn = document.getElementById('cf-btn');
+    var res = document.getElementById('cf-resultado');
+
+    msg.className = 'bet-msg';
+    res.className = 'bet-result';
+
+    if(!qtd || qtd <= 0) { mostrarMsg(msg, 'Informe uma quantidade válida.', 'erro'); return; }
+
+    btn.disabled = true; btn.textContent = '🪙 Girando...';
+
+    sb.rpc('apostar_coinflip', { p_quantidade: qtd, p_moeda: cfMoeda })
+      .then(function(result){
+        btn.disabled = false; btn.textContent = '🪙 Jogar';
+        if(result.error){ mostrarMsg(msg, 'Erro: ' + result.error.message, 'erro'); return; }
+
+        var retorno = result.data;
+        var moedaLabel = cfMoeda === 'aura_obscura' ? 'Aura Obscura' : 'Aura';
+
+        if(retorno === 'ganhou') {
+          document.getElementById('cf-icon').textContent   = '🏆';
+          document.getElementById('cf-titulo').textContent = 'Você Ganhou!';
+          document.getElementById('cf-sub').textContent    = '+' + qtd + ' ' + moedaLabel;
+          res.className = 'bet-result ganhou pulsar';
+        } else if(retorno === 'perdeu') {
+          document.getElementById('cf-icon').textContent   = '💀';
+          document.getElementById('cf-titulo').textContent = 'Você Perdeu!';
+          document.getElementById('cf-sub').textContent    = '-' + qtd + ' ' + moedaLabel;
+          res.className = 'bet-result perdeu pulsar';
+        } else if(retorno === 'saldo_insuficiente') {
+          mostrarMsg(msg, '❌ Saldo insuficiente.', 'erro'); return;
+        } else if(retorno === 'quantidade_invalida') {
+          mostrarMsg(msg, '❌ Quantidade inválida.', 'erro'); return;
+        }
+
+        carregarSaldo(usuarioAtual.id);
+      })
+      .catch(function(e){ btn.disabled = false; btn.textContent = '🪙 Jogar'; mostrarMsg(msg, 'Erro inesperado.', 'erro'); });
+  }
+
+  /* ============================================================
+     JOGO 2 — FUTEBOL: MODAL DE TIMES
+     ============================================================ */
+  function renderizarListaTimes(lista) {
+    var el = document.getElementById('timesLista');
+    el.innerHTML = '';
+    lista.forEach(function(time) {
+      var item = document.createElement('div');
+      item.className = 'time-item';
+      item.innerHTML =
+        '<span class="time-item-flag">' + time.flag + '</span>' +
+        '<div class="time-item-info">' +
+          '<span class="time-item-nome">' + time.nome + '</span>' +
+          '<span class="time-item-pais">' + time.pais + '</span>' +
+        '</div>';
+      item.addEventListener('click', function(){ selecionarTime(time); });
+      el.appendChild(item);
+    });
+  }
+
+  function filtrarTimes() {
+    var busca = document.getElementById('timesSearch').value.toLowerCase();
+    var filtrado = TIMES.filter(function(t){ return t.nome.toLowerCase().includes(busca) || t.pais.toLowerCase().includes(busca); });
+    renderizarListaTimes(filtrado);
+  }
+
+  function abrirTimesModal(slot) {
+    seletorAtivo = slot;
+    document.getElementById('timesSearch').value = '';
+    renderizarListaTimes(TIMES);
+    document.getElementById('timesOverlay').classList.add('aberto');
+  }
+
+  function fecharTimesModal() {
+    document.getElementById('timesOverlay').classList.remove('aberto');
+  }
+
+  function selecionarTime(time) {
+    timeSelecionado[seletorAtivo] = time;
+
+    var placeholder = document.getElementById('time' + seletorAtivo + '-placeholder');
+    var flag        = document.getElementById('time' + seletorAtivo + '-flag');
+    var nome        = document.getElementById('time' + seletorAtivo + '-nome');
+    var box         = document.getElementById('time' + seletorAtivo + '-box');
+
+    placeholder.style.display = 'none';
+    flag.style.display        = 'block';
+    nome.style.display        = 'block';
+    flag.textContent          = time.flag;
+    nome.textContent          = time.nome;
+    box.classList.add('selecionado');
+
+    /* Atualiza label dos botões de aposta */
+    if(timeSelecionado[1]) document.getElementById('ft-time1-btn').textContent = timeSelecionado[1].nome;
+    if(timeSelecionado[2]) document.getElementById('ft-time2-btn').textContent = timeSelecionado[2].nome;
+
+    fecharTimesModal();
+  }
+
+  function selecionarTimeAposta(num) {
+    timeApostado = num;
+    document.getElementById('ft-time1-btn').classList.toggle('ativo', num === 1);
+    document.getElementById('ft-time2-btn').classList.toggle('ativo', num === 2);
+  }
+
+  /* ============================================================
+     JOGO 2 — APOSTAR NO FUTEBOL
+     ============================================================ */
+  function apostarFutebol() {
+    var qtd = parseInt(document.getElementById('ft-qtd').value);
+    var msg = document.getElementById('ft-msg');
+    var btn = document.getElementById('ft-btn');
+    var res = document.getElementById('ft-resultado');
+
+    msg.className = 'bet-msg';
+    res.className = 'bet-result';
+
+    if(!timeSelecionado[1] || !timeSelecionado[2]) { mostrarMsg(msg, 'Escolha os dois times primeiro.', 'erro'); return; }
+    if(timeSelecionado[1].nome === timeSelecionado[2].nome) { mostrarMsg(msg, 'Escolha times diferentes.', 'erro'); return; }
+    if(!qtd || qtd <= 0) { mostrarMsg(msg, 'Informe uma quantidade válida.', 'erro'); return; }
+
+    var timeApostadoNome = timeSelecionado[timeApostado].nome;
+    var timeAdversarioNome = timeSelecionado[timeApostado === 1 ? 2 : 1].nome;
+
+    btn.disabled = true; btn.textContent = '⚽ Processando...';
+
+    sb.rpc('apostar_futebol', { p_time_apostado: timeApostadoNome, p_quantidade: qtd, p_moeda: ftMoeda })
+      .then(function(result){
+        btn.disabled = false; btn.textContent = '⚽ Apostar';
+        if(result.error){ mostrarMsg(msg, 'Erro: ' + result.error.message, 'erro'); return; }
+
+        var retorno = result.data;
+        var moedaLabel = ftMoeda === 'aura_obscura' ? 'Aura Obscura' : 'Aura';
+
+        if(retorno === 'ganhou') {
+          document.getElementById('ft-icon').textContent   = '🏆';
+          document.getElementById('ft-titulo').textContent = timeApostadoNome + ' Venceu!';
+          document.getElementById('ft-sub').textContent    = '+' + qtd + ' ' + moedaLabel;
+          res.className = 'bet-result ganhou pulsar';
+        } else if(retorno === 'perdeu') {
+          document.getElementById('ft-icon').textContent   = '💀';
+          document.getElementById('ft-titulo').textContent = timeAdversarioNome + ' Venceu!';
+          document.getElementById('ft-sub').textContent    = '-' + qtd + ' ' + moedaLabel;
+          res.className = 'bet-result perdeu pulsar';
+        } else if(retorno === 'saldo_insuficiente') {
+          mostrarMsg(msg, '❌ Saldo insuficiente.', 'erro'); return;
+        } else if(retorno === 'quantidade_invalida') {
+          mostrarMsg(msg, '❌ Quantidade inválida.', 'erro'); return;
+        }
+
+        carregarSaldo(usuarioAtual.id);
+      })
+      .catch(function(e){ btn.disabled = false; btn.textContent = '⚽ Apostar'; mostrarMsg(msg, 'Erro inesperado.', 'erro'); });
+  }
+
+  /* ============================================================
+     AUTH
+     ============================================================ */
+  function fazerLogin() {
+    var email = document.getElementById('loginEmail').value.trim();
+    var senha = document.getElementById('loginSenha').value;
+    var msg   = document.getElementById('msgLogin');
+    var btn   = document.getElementById('btnLogin');
+    if(!email || !senha){ mostrarMsg(msg, 'Preencha todos os campos.', 'erro'); return; }
+    btn.disabled = true; btn.textContent = 'Entrando...';
+    sb.auth.signInWithPassword({ email: email, password: senha })
+      .then(function(r){
+        btn.disabled = false; btn.textContent = 'Entrar';
+        if(r.error){ mostrarMsg(msg, traduzirErro(r.error.message), 'erro'); return; }
+        usuarioAtual = r.data.user; aoLogar(r.data.user); fecharAuth();
+      })
+      .catch(function(e){ btn.disabled = false; btn.textContent = 'Entrar'; mostrarMsg(msg, e.message, 'erro'); });
+  }
+
+  function fazerCadastro() {
+    var email = document.getElementById('cadEmail').value.trim();
+    var senha = document.getElementById('cadSenha').value;
+    var msg   = document.getElementById('msgCadastro');
+    var btn   = document.getElementById('btnCadastro');
+    if(!email || !senha){ mostrarMsg(msg, 'Preencha todos os campos.', 'erro'); return; }
+    if(senha.length < 6){ mostrarMsg(msg, 'Senha deve ter pelo menos 6 caracteres.', 'erro'); return; }
+    btn.disabled = true; btn.textContent = 'Criando conta...';
+    sb.auth.signUp({ email: email, password: senha })
+      .then(function(r){
+        btn.disabled = false; btn.textContent = 'Criar Conta';
+        if(r.error){ mostrarMsg(msg, traduzirErro(r.error.message), 'erro'); return; }
+        mostrarMsg(msg, 'Conta criada! Faça login para continuar.', 'ok');
+      })
+      .catch(function(e){ btn.disabled = false; btn.textContent = 'Criar Conta'; mostrarMsg(msg, e.message, 'erro'); });
+  }
+
+  function fazerLogout() { sb.auth.signOut(); }
+  function abrirAuth()   { document.getElementById('authOverlay').classList.add('aberto'); }
+  function fecharAuth()  { document.getElementById('authOverlay').classList.remove('aberto'); }
+
+  function trocarAba(aba) {
+    document.getElementById('tabLogin').classList.toggle('ativo',       aba === 'login');
+    document.getElementById('tabCadastro').classList.toggle('ativo',    aba === 'cadastro');
+    document.getElementById('painelLogin').classList.toggle('ativo',    aba === 'login');
+    document.getElementById('painelCadastro').classList.toggle('ativo', aba === 'cadastro');
+  }
+
+  function mostrarMsg(el, texto, tipo) { el.textContent = texto; el.className = 'bet-msg ' + tipo; }
+
+  function traduzirErro(msg) {
+    if(!msg) return 'Erro desconhecido.';
+    var m = msg.toLowerCase();
+    if(m.includes('invalid login credentials')) return 'E-mail ou senha incorretos.';
+    if(m.includes('user already registered'))   return 'E-mail já cadastrado.';
+    if(m.includes('password should be at least')) return 'Senha deve ter pelo menos 6 caracteres.';
+    return msg;
+  }
+</script>
+</body>
+</html>
