@@ -1906,23 +1906,48 @@
   }
 
   /* ============================================================
-     COMPRAR — inalterado
+     COMPRAR — chama RPC comprar_produto
      ============================================================ */
   function comprar(produtoId) {
     if (!usuarioAtual) {
       abrirAuth();
       return;
     }
-    /*
-      TODO: Implementar débito de Aura aqui.
-      1. Buscar preço do produto (tabela "products" ou hardcoded)
-      2. Verificar saldo em "users" via usuarioAtual.id
-      3. Se saldo suficiente: UPDATE users SET aura = aura - preco WHERE id = usuarioAtual.id
-      4. INSERT em "purchases" { user_id, produto_id, created_at }
-      5. Chamar carregarSaldo(usuarioAtual.id) para atualizar o display
-    */
-    console.log('[Store] Compra solicitada — produto:', produtoId, '| user:', usuarioAtual.email);
-    alert('Sistema de compra em desenvolvimento. Em breve disponível!');
+
+    console.log('[Store] Compra solicitada — produto_id:', produtoId, '| user:', usuarioAtual.email);
+
+    var btn = document.querySelector('[onclick="comprar(' + produtoId + ')"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'Aguarde...'; }
+
+    sb.rpc('comprar_produto', { produto_id: produtoId })
+      .then(function (result) {
+        if (btn) { btn.disabled = false; btn.textContent = 'Comprar'; }
+
+        if (result.error) {
+          console.error('[Store] Erro RPC:', result.error);
+          alert('Erro: ' + result.error.message);
+          return;
+        }
+
+        var retorno = result.data;
+        console.log('[Store] Retorno comprar_produto:', retorno);
+
+        if (retorno === 'ok') {
+          alert('✅ Compra realizada com sucesso!');
+          carregarSaldo(usuarioAtual.id);
+        } else if (retorno === 'saldo_insuficiente') {
+          alert('❌ Saldo insuficiente de Aura.');
+        } else if (retorno === 'produto_nao_encontrado') {
+          alert('⚠️ Produto não encontrado.');
+        } else {
+          alert('Resposta inesperada: ' + retorno);
+        }
+      })
+      .catch(function (e) {
+        if (btn) { btn.disabled = false; btn.textContent = 'Comprar'; }
+        console.error('[Store] Exceção:', e);
+        alert('Erro inesperado. Tente novamente.');
+      });
   }
 </script>
 
