@@ -459,7 +459,7 @@
     .auth-bar {
       position: relative; z-index: 10;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;  /* hambúrguer esquerda, login direita */
       align-items: center;
       padding: 14px 0 0;
       gap: 10px;
@@ -899,7 +899,7 @@
       <label class="auth-label" for="loginSenha">Senha</label>
       <input  class="auth-input" id="loginSenha" type="password" placeholder="••••••••" autocomplete="current-password">
 
-      <button class="auth-submit" id="btnLogin" onclick="fazerLogin()">Entrar</button>
+      <button class="auth-submit" id="btnLogin">Entrar</button>
       <div class="auth-msg" id="msgLogin"></div>
     </div>
 
@@ -911,7 +911,7 @@
       <label class="auth-label" for="cadSenha">Senha</label>
       <input  class="auth-input" id="cadSenha" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
 
-      <button class="auth-submit" id="btnCadastro" onclick="fazerCadastro()">Criar Conta</button>
+      <button class="auth-submit" id="btnCadastro">Criar Conta</button>
       <div class="auth-msg" id="msgCadastro"></div>
     </div>
 
@@ -1617,7 +1617,12 @@
       aoDeslogar();
     });
 
-    /* ── 5. Escuta mudanças futuras de auth (login/logout) ── */
+    /* ── 5. Fecha painel de compras ao clicar no fundo ── */
+    document.getElementById('comprasOverlay').addEventListener('click', function (e) {
+      if (e.target === this) fecharCompras();
+    });
+
+    /* ── 6. Escuta mudanças futuras de auth (login/logout) ── */
     sb.auth.onAuthStateChange(function (event, session) {
       console.log('[Auth] onAuthStateChange — evento:', event);
       if (event === 'SIGNED_IN' && session && session.user) {
@@ -1897,12 +1902,7 @@
     document.getElementById('comprasOverlay').classList.remove('aberto');
   }
 
-  // Fecha painel ao clicar no fundo
-  document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('comprasOverlay').addEventListener('click', function (e) {
-      if (e.target === this) fecharCompras();
-    });
-  });
+  // Fecha painel ao clicar no fundo — registrado no DOMContentLoaded principal
 
   function carregarCompras() {
     var status = document.getElementById('comprasStatus');
