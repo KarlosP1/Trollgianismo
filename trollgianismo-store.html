@@ -667,6 +667,209 @@
       padding: 4px;
     }
     .auth-close:hover { color: var(--gold-light); }
+
+    /* ════════════════════════════════════════════════════════════
+       MENU HAMBÚRGUER
+       ════════════════════════════════════════════════════════════ */
+    .hamburger-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      width: 40px; height: 40px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 5px; cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none; -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+    .hamburger-btn:hover { border-color: var(--gold-dim); box-shadow: 0 0 10px rgba(212,51,51,0.15); }
+    .hamburger-btn span {
+      display: block; width: 18px; height: 2px;
+      background: var(--text-dim);
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.25s, opacity 0.2s;
+    }
+    .hamburger-btn.aberto span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--gold-light); }
+    .hamburger-btn.aberto span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.aberto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--gold-light); }
+
+    /* ════════════════════════════════════════════════════════════
+       DRAWER LATERAL
+       ════════════════════════════════════════════════════════════ */
+    .drawer-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1500;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .drawer-overlay.aberto { opacity: 1; pointer-events: all; }
+
+    .drawer {
+      position: fixed; top: 0; left: 0;
+      width: min(300px, 85vw); height: 100%;
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border-right: 1px solid var(--border);
+      z-index: 1501;
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .drawer.aberto { transform: translateX(0); }
+
+    .drawer::after {
+      content: '';
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent);
+    }
+
+    .drawer-header {
+      padding: 24px 20px 18px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+    }
+
+    .drawer-nav { padding: 12px 0; }
+
+    .drawer-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      cursor: pointer;
+      border: none; background: none; width: 100%; text-align: left;
+      transition: color 0.2s, background 0.2s;
+      outline: none; -webkit-tap-highlight-color: transparent;
+      border-left: 2px solid transparent;
+    }
+    .drawer-item:hover {
+      color: var(--gold-light);
+      background: rgba(212,51,51,0.06);
+      border-left-color: var(--gold-dim);
+    }
+    .drawer-item .item-icon { font-size: 16px; line-height: 1; }
+
+    /* ════════════════════════════════════════════════════════════
+       ABA DE COMPRAS
+       ════════════════════════════════════════════════════════════ */
+    .compras-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 2100;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 40px 20px;
+      overflow-y: auto;
+    }
+    .compras-overlay.aberto { opacity: 1; pointer-events: all; }
+
+    .compras-panel {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 100%; max-width: 680px;
+      min-height: 300px;
+      position: relative;
+      animation: modalIn 0.3s ease both;
+    }
+    .compras-panel::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+
+    .compras-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .compras-titulo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(14px, 3vw, 18px);
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+    }
+    .compras-close {
+      background: none; border: none;
+      color: var(--text-dim); font-size: 20px;
+      cursor: pointer; outline: none; padding: 4px;
+      transition: color 0.2s; line-height: 1;
+    }
+    .compras-close:hover { color: var(--gold-light); }
+
+    .compras-body { padding: 24px 28px; }
+
+    /* estado de loading / vazio / erro */
+    .compras-status {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 40px 0;
+    }
+
+    /* lista de compras */
+    .compras-lista { display: flex; flex-direction: column; gap: 10px; }
+
+    .compra-item {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 14px 16px;
+      transition: border-color 0.2s;
+    }
+    .compra-item:hover { border-color: var(--gold-dim); }
+
+    .compra-info { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+    .compra-nome {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(11px, 2vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .compra-data {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    .compra-preco {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(12px, 2vw, 14px);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .compra-preco.aura { color: var(--gold-light); }
+    .compra-preco.obscura { color: var(--aura-obscura-color); text-shadow: 0 0 8px var(--aura-obscura-glow); }
+
+    .compras-total {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .compras-total strong { color: var(--gold-light); font-size: 14px; }
   </style>
 </head>
 <body>
@@ -720,6 +923,10 @@
 
   <!-- ── BARRA DE AUTH (canto superior) ── -->
   <div class="auth-bar" id="authBar">
+    <!-- Botão hambúrguer -->
+    <button class="hamburger-btn" id="btnHamburger" onclick="toggleDrawer()" title="Menu" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
     <!-- Estado: deslogado -->
     <div id="estadoDeslogado">
       <button class="auth-bar-btn" onclick="abrirAuth()">Entrar / Cadastrar</button>
@@ -728,6 +935,35 @@
     <div id="estadoLogado" style="display:none; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
       <span class="auth-user-email" id="userEmailDisplay"></span>
       <button class="auth-bar-btn logout" onclick="fazerLogout()">Sair</button>
+    </div>
+  </div>
+
+  <!-- ── DRAWER LATERAL ── -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="fecharDrawer()"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-header">Menu</div>
+    <div class="drawer-nav">
+      <button class="drawer-item" onclick="abrirCompras(); fecharDrawer();">
+        <span class="item-icon">🛍️</span> Produtos Comprados
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── PAINEL DE COMPRAS ── -->
+  <div class="compras-overlay" id="comprasOverlay">
+    <div class="compras-panel">
+      <div class="compras-header">
+        <span class="compras-titulo">Produtos Comprados</span>
+        <button class="compras-close" onclick="fecharCompras()">✕</button>
+      </div>
+      <div class="compras-body" id="comprasBody">
+        <div class="compras-status" id="comprasStatus">Carregando...</div>
+        <div class="compras-lista" id="comprasLista" style="display:none;"></div>
+        <div class="compras-total" id="comprasTotal" style="display:none;">
+          <span>Total de compras</span>
+          <strong id="comprasTotalNum">0</strong>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -803,7 +1039,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(1)">Comprar</button>
+        <button class="buy-btn" data-produto-id="1" data-preco="300" onclick="comprar(1)">Comprar</button>
       </div>
     </div>
 
@@ -829,7 +1065,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(2)">Comprar</button>
+        <button class="buy-btn" data-produto-id="2" data-preco="10000" onclick="comprar(2)">Comprar</button>
       </div>
     </div>
 
@@ -855,7 +1091,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(3)">Comprar</button>
+        <button class="buy-btn" data-produto-id="3" data-preco="120" onclick="comprar(3)">Comprar</button>
       </div>
     </div>
 
@@ -881,7 +1117,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(4)">Comprar</button>
+        <button class="buy-btn" data-produto-id="4" data-preco="200" onclick="comprar(4)">Comprar</button>
       </div>
     </div>
 
@@ -907,7 +1143,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(5)">Comprar</button>
+        <button class="buy-btn" data-produto-id="5" data-preco="500" onclick="comprar(5)">Comprar</button>
       </div>
     </div>
 
@@ -933,7 +1169,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(6)">Comprar</button>
+        <button class="buy-btn" data-produto-id="6" data-preco="0" onclick="comprar(6)">Comprar</button>
       </div>
     </div>
 
@@ -959,7 +1195,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(7)">Comprar</button>
+        <button class="buy-btn" data-produto-id="7" data-preco="0" onclick="comprar(7)">Comprar</button>
       </div>
     </div>
 
@@ -985,7 +1221,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(8)">Comprar</button>
+        <button class="buy-btn" data-produto-id="8" data-preco="0" onclick="comprar(8)">Comprar</button>
       </div>
     </div>
 
@@ -1011,7 +1247,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(9)">Comprar</button>
+        <button class="buy-btn" data-produto-id="9" data-preco="0" onclick="comprar(9)">Comprar</button>
       </div>
     </div>
 
@@ -1037,7 +1273,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura</span>
         </div>
-        <button class="buy-btn" onclick="comprar(10)">Comprar</button>
+        <button class="buy-btn" data-produto-id="10" data-preco="0" onclick="comprar(10)">Comprar</button>
       </div>
     </div>
 
@@ -1077,7 +1313,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(11)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="11" data-preco="0" onclick="comprar(11)">Comprar</button>
       </div>
     </div>
 
@@ -1103,7 +1339,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(12)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="12" data-preco="0" onclick="comprar(12)">Comprar</button>
       </div>
     </div>
 
@@ -1129,7 +1365,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(13)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="13" data-preco="0" onclick="comprar(13)">Comprar</button>
       </div>
     </div>
 
@@ -1155,7 +1391,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(14)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="14" data-preco="0" onclick="comprar(14)">Comprar</button>
       </div>
     </div>
 
@@ -1181,7 +1417,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(15)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="15" data-preco="0" onclick="comprar(15)">Comprar</button>
       </div>
     </div>
 
@@ -1207,7 +1443,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(16)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="16" data-preco="0" onclick="comprar(16)">Comprar</button>
       </div>
     </div>
 
@@ -1233,7 +1469,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(17)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="17" data-preco="0" onclick="comprar(17)">Comprar</button>
       </div>
     </div>
 
@@ -1259,7 +1495,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(18)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="18" data-preco="0" onclick="comprar(18)">Comprar</button>
       </div>
     </div>
 
@@ -1285,7 +1521,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(19)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="19" data-preco="0" onclick="comprar(19)">Comprar</button>
       </div>
     </div>
 
@@ -1311,7 +1547,7 @@
           <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
           <span class="price-unit">Aura Obscura</span>
         </div>
-        <button class="buy-btn obscura" onclick="comprar(20)">Comprar</button>
+        <button class="buy-btn obscura" data-produto-id="20" data-preco="0" onclick="comprar(20)">Comprar</button>
       </div>
     </div>
 
@@ -1630,6 +1866,108 @@
   }
 
   /* ============================================================
+     HAMBÚRGUER / DRAWER
+     ============================================================ */
+  function toggleDrawer() {
+    var drawer  = document.getElementById('drawer');
+    var overlay = document.getElementById('drawerOverlay');
+    var btn     = document.getElementById('btnHamburger');
+    var aberto  = drawer.classList.contains('aberto');
+    drawer.classList.toggle('aberto', !aberto);
+    overlay.classList.toggle('aberto', !aberto);
+    btn.classList.toggle('aberto', !aberto);
+  }
+
+  function fecharDrawer() {
+    document.getElementById('drawer').classList.remove('aberto');
+    document.getElementById('drawerOverlay').classList.remove('aberto');
+    document.getElementById('btnHamburger').classList.remove('aberto');
+  }
+
+  /* ============================================================
+     PAINEL DE COMPRAS
+     ============================================================ */
+  function abrirCompras() {
+    if (!usuarioAtual) { abrirAuth(); return; }
+    document.getElementById('comprasOverlay').classList.add('aberto');
+    carregarCompras();
+  }
+
+  function fecharCompras() {
+    document.getElementById('comprasOverlay').classList.remove('aberto');
+  }
+
+  // Fecha painel ao clicar no fundo
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('comprasOverlay').addEventListener('click', function (e) {
+      if (e.target === this) fecharCompras();
+    });
+  });
+
+  function carregarCompras() {
+    var status = document.getElementById('comprasStatus');
+    var lista  = document.getElementById('comprasLista');
+    var total  = document.getElementById('comprasTotal');
+
+    status.textContent  = 'Carregando...';
+    status.style.display = 'block';
+    lista.style.display  = 'none';
+    total.style.display  = 'none';
+    lista.innerHTML      = '';
+
+    // JOIN purchases → products para pegar nome do produto
+    sb.from('purchases')
+      .select('id, preco_pago, moeda, created_at, products(nome)')
+      .eq('auth_id', usuarioAtual.id)
+      .order('created_at', { ascending: false })
+      .then(function (result) {
+        if (result.error) {
+          console.error('[Compras] Erro:', result.error);
+          status.textContent = 'Erro ao carregar compras.';
+          return;
+        }
+
+        var rows = result.data;
+
+        if (!rows || rows.length === 0) {
+          status.textContent = 'Nenhuma compra realizada ainda.';
+          return;
+        }
+
+        status.style.display = 'none';
+        lista.style.display  = 'flex';
+        total.style.display  = 'flex';
+        document.getElementById('comprasTotalNum').textContent = rows.length;
+
+        rows.forEach(function (row) {
+          var nome      = row.products ? row.products.nome : 'Produto #' + row.id;
+          var moedaCls  = row.moeda === 'aura_obscura' ? 'obscura' : 'aura';
+          var moedaLabel = row.moeda === 'aura_obscura' ? 'Aura Obscura' : 'Aura';
+          var data      = new Date(row.created_at).toLocaleDateString('pt-BR', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          });
+
+          var item = document.createElement('div');
+          item.className = 'compra-item';
+          item.innerHTML =
+            '<div class="compra-info">' +
+              '<span class="compra-nome">' + nome + '</span>' +
+              '<span class="compra-data">' + data + '</span>' +
+            '</div>' +
+            '<span class="compra-preco ' + moedaCls + '">' +
+              row.preco_pago + ' <small>' + moedaLabel + '</small>' +
+            '</span>';
+          lista.appendChild(item);
+        });
+      })
+      .catch(function (e) {
+        console.error('[Compras] Exceção:', e);
+        status.textContent = 'Erro inesperado ao carregar compras.';
+      });
+  }
+
+  /* ============================================================
      FILTRO DE MOEDA — inalterado
      ============================================================ */
   function filtrar(tipo, btn) {
@@ -1665,20 +2003,69 @@
      COMPRAR — inalterado
      ============================================================ */
   function comprar(produtoId) {
+    // Se não logado, abre modal de auth
     if (!usuarioAtual) {
       abrirAuth();
       return;
     }
-    /*
-      TODO: Implementar débito de Aura aqui.
-      1. Buscar preço do produto (tabela "products" ou hardcoded)
-      2. Verificar saldo em "users" via usuarioAtual.id
-      3. Se saldo suficiente: UPDATE users SET aura = aura - preco WHERE id = usuarioAtual.id
-      4. INSERT em "purchases" { user_id, produto_id, created_at }
-      5. Chamar carregarSaldo(usuarioAtual.id) para atualizar o display
-    */
-    console.log('[Store] Compra solicitada — produto:', produtoId, '| user:', usuarioAtual.email);
-    alert('Sistema de compra em desenvolvimento. Em breve disponível!');
+
+    // Lê preço e tipo de moeda do data attribute do botão
+    var btn       = document.querySelector('[data-produto-id="' + produtoId + '"]');
+    var preco     = parseInt(btn.getAttribute('data-preco'), 10);
+    var isObscura = btn.classList.contains('obscura');
+    var moeda     = isObscura ? 'aura_obscura' : 'aura';
+    var moedaLabel = isObscura ? 'Aura Obscura' : 'Aura';
+    var nomeProd  = btn.closest('.product-card').querySelector('.product-name').textContent.trim();
+
+    if (preco === 0) {
+      alert('Este produto ainda não tem preço definido.');
+      return;
+    }
+
+    if (!confirm('Confirmar compra?
+
+' + nomeProd + '
+Preço: ' + preco + ' ' + moedaLabel)) return;
+
+    btn.disabled    = true;
+    btn.textContent = 'Comprando...';
+
+    // RPC segura no banco — cuida de verificar saldo, debitar e registrar
+    sb.rpc('comprar_produto', {
+      p_auth_id:    usuarioAtual.id,
+      p_produto_id: produtoId,
+      p_preco:      preco,
+      p_moeda:      moeda
+    }).then(function (result) {
+      btn.disabled    = false;
+      btn.textContent = 'Comprar';
+
+      if (result.error) {
+        console.error('[Store] Erro na compra:', result.error);
+        alert('Erro: ' + result.error.message);
+        return;
+      }
+
+      console.log('[Store] Resultado RPC:', result.data);
+
+      if (result.data === 'saldo_insuficiente') {
+        alert('Saldo insuficiente para esta compra!');
+        return;
+      }
+      if (result.data === 'produto_nao_encontrado') {
+        alert('Produto não encontrado no sistema.');
+        return;
+      }
+
+      alert('Compra realizada com sucesso! ✅');
+      carregarSaldo(usuarioAtual.id);
+
+    }).catch(function (e) {
+      btn.disabled    = false;
+      btn.textContent = 'Comprar';
+      console.error('[Store] Exceção:', e);
+      alert('Erro inesperado: ' + e.message);
+    });
   }
 </script>
 
