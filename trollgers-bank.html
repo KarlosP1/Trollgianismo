@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrollgersBank™</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #1a0a0a;
+      --surface: #2a0f0f;
+      --surface2: #3a1515;
+      --border: #5a2a2a;
+      --gold: #d43333;
+      --gold-light: #ff5555;
+      --gold-dim: #8a2a2a;
+      --text: #d4d0e0;
+      --text-dim: #6a6480;
+      --red: #cc3366;
+      --aura-obscura-color: #9b59b6;
+      --aura-obscura-glow: rgba(155, 89, 182, 0.5);
+    }
+
+    @font-face {
+      font-family: 'DropShade';
+      src: url('https://files.catbox.moe/bsplgq.ttf');
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        url('https://i.imgur.com/mJoCBsb.png'),
+        radial-gradient(ellipse at 20% 0%, rgba(200,30,30,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(160,20,20,0.08) 0%, transparent 60%);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,6,18,0.75) 0%, rgba(10,9,15,0.90) 40%, rgba(10,9,15,0.97) 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ── AUTH BAR ── */
+    .auth-bar {
+      position: relative; z-index: 10;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 14px 0 0;
+      gap: 10px;
+    }
+
+    .auth-user-email {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .auth-bar-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s, border-color 0.2s;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .auth-bar-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .auth-bar-btn.logout { border-color: #4a1a1a; color: #aa4444; }
+    .auth-bar-btn.logout:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+    /* ── HEADER ── */
+    header { padding: 44px 0 32px; text-align: center; }
+    .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
+
+    header h1 {
+      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-size: clamp(28px, 7vw, 54px);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(212,51,51,0.5));
+    }
+
+    .header-symbol {
+      font-size: clamp(32px, 8vw, 64px);
+      display: block;
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 16px rgba(212,51,51,0.4));
+      line-height: 1;
+    }
+
+    header p {
+      margin-top: 12px;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(10px, 2vw, 12px);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ── SALDO ── */
+    .currency-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .currency-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 22px;
+      font-family: 'Cinzel', serif;
+      min-width: 190px;
+      justify-content: space-between;
+    }
+
+    .currency-badge .coin-icon { font-size: 20px; line-height: 1; }
+    .currency-badge .coin-label { display: flex; flex-direction: column; gap: 2px; }
+    .currency-badge .coin-name { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-dim); }
+    .currency-badge .coin-value { font-size: 18px; font-weight: 600; color: var(--gold-light); font-family: 'Cinzel Decorative', serif; }
+    .currency-badge.obscura .coin-value { color: var(--aura-obscura-color); text-shadow: 0 0 10px var(--aura-obscura-glow); }
+    .currency-badge.obscura { border-color: #4a2a6a; }
+
+    /* ── CARD DE TRANSFERÊNCIA ── */
+    .bank-card {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 36px 32px;
+      position: relative;
+    }
+
+    .bank-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+
+    .bank-card-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(13px, 3vw, 16px);
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .form-label {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 20px;
+    }
+    .form-input:focus { border-color: var(--gold-dim); box-shadow: 0 0 10px rgba(212,51,51,0.15); }
+    .form-input::placeholder { color: var(--text-dim); opacity: 0.6; }
+
+    /* ── SELETOR DE MOEDA ── */
+    .moeda-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .moeda-btn {
+      flex: 1;
+      padding: 11px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-dim);
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .moeda-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .moeda-btn.ativo {
+      background: linear-gradient(135deg, rgba(212,51,51,0.15), rgba(212,51,51,0.05));
+      border-color: var(--gold);
+      color: var(--gold-light);
+      box-shadow: 0 0 14px rgba(212,51,51,0.2);
+    }
+    .moeda-btn.ativo.obscura {
+      background: linear-gradient(135deg, rgba(155,89,182,0.15), rgba(155,89,182,0.05));
+      border-color: var(--aura-obscura-color);
+      color: var(--aura-obscura-color);
+      box-shadow: 0 0 14px var(--aura-obscura-glow);
+    }
+
+    /* ── BOTÃO ENVIAR ── */
+    .send-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, rgba(212,51,51,0.2), rgba(212,51,51,0.08));
+      border: 1px solid var(--gold-dim);
+      border-radius: 4px;
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      outline: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .send-btn:hover {
+      background: linear-gradient(135deg, rgba(212,51,51,0.35), rgba(212,51,51,0.15));
+      box-shadow: 0 0 18px rgba(212,51,51,0.25);
+      transform: translateY(-1px);
+    }
+    .send-btn:active { transform: scale(0.97); }
+    .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* ── MENSAGEM DE FEEDBACK ── */
+    .bank-msg {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      display: none;
+    }
+    .bank-msg.erro { background: rgba(204,51,102,0.1); border: 1px solid #5a1a40; color: var(--red); display: block; }
+    .bank-msg.ok   { background: rgba(51,204,102,0.08); border: 1px solid #1a5a2a; color: #55cc77; display: block; }
+
+    /* ── AVISO: PRECISA LOGAR ── */
+    .login-aviso {
+      text-align: center;
+      padding: 48px 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .login-aviso button {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, rgba(212,51,51,0.2), rgba(212,51,51,0.08));
+      border: 1px solid var(--gold-dim);
+      border-radius: 4px;
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      outline: none;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .login-aviso button:hover { background: linear-gradient(135deg, rgba(212,51,51,0.35), rgba(212,51,51,0.15)); box-shadow: 0 0 14px rgba(212,51,51,0.2); }
+
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 30px 0 50px; border-top: 1px solid var(--border); margin-top: 40px; }
+    .footer-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; }
+    .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .footer-btn { display: inline-block; padding: 11px 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease; outline: none; }
+    .footer-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+    /* ── AUTH OVERLAY ── */
+    .auth-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 2000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .auth-overlay.aberto { opacity: 1; pointer-events: all; }
+
+    .auth-modal {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 40px 36px;
+      width: 100%; max-width: 420px;
+      position: relative;
+      animation: modalIn 0.3s ease both;
+    }
+    .auth-modal::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+
+    .auth-modal-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(16px,3vw,20px); color: var(--gold-light); letter-spacing: 0.05em; margin-bottom: 28px; text-align: center; }
+    .auth-tabs { display: flex; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .auth-tab { flex: 1; padding: 10px; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); transition: color 0.2s, border-color 0.2s; outline: none; margin-bottom: -1px; }
+    .auth-tab.ativo { color: var(--gold-light); border-bottom-color: var(--gold); }
+    .auth-painel { display: none; }
+    .auth-painel.ativo { display: block; }
+    .auth-label { display: block; font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+    .auth-input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 12px 14px; font-family: 'Raleway', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s; margin-bottom: 18px; }
+    .auth-input:focus { border-color: var(--gold-dim); box-shadow: 0 0 10px rgba(212,51,51,0.15); }
+    .auth-input::placeholder { color: var(--text-dim); opacity: 0.6; }
+    .auth-submit { width: 100%; padding: 13px; background: linear-gradient(135deg, rgba(212,51,51,0.2), rgba(212,51,51,0.08)); border: 1px solid var(--gold-dim); border-radius: 4px; color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; outline: none; transition: background 0.2s, box-shadow 0.2s, transform 0.15s; -webkit-tap-highlight-color: transparent; margin-top: 4px; }
+    .auth-submit:hover { background: linear-gradient(135deg, rgba(212,51,51,0.35), rgba(212,51,51,0.15)); box-shadow: 0 0 18px rgba(212,51,51,0.25); transform: translateY(-1px); }
+    .auth-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .auth-msg { margin-top: 14px; padding: 10px 14px; border-radius: 4px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; display: none; }
+    .auth-msg.erro { background: rgba(204,51,102,0.1); border: 1px solid #5a1a40; color: var(--red); display: block; }
+    .auth-msg.ok   { background: rgba(51,204,102,0.08); border: 1px solid #1a5a2a; color: #55cc77; display: block; }
+    .auth-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; line-height: 1; outline: none; transition: color 0.2s; padding: 4px; }
+    .auth-close:hover { color: var(--gold-light); }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(-20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    @media (max-width: 480px) {
+      .bank-card { padding: 28px 20px; }
+      .currency-badge { min-width: 150px; padding: 12px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- AUTH OVERLAY -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="fecharAuth()">✕</button>
+    <div class="auth-modal-title">Acesso ao Sistema</div>
+    <div class="auth-tabs">
+      <button class="auth-tab ativo" id="tabLogin"    onclick="trocarAba('login')">Entrar</button>
+      <button class="auth-tab"       id="tabCadastro" onclick="trocarAba('cadastro')">Cadastrar</button>
+    </div>
+    <div class="auth-painel ativo" id="painelLogin">
+      <label class="auth-label" for="loginEmail">E-mail</label>
+      <input  class="auth-input" id="loginEmail" type="email" placeholder="seu@email.com" autocomplete="email">
+      <label class="auth-label" for="loginSenha">Senha</label>
+      <input  class="auth-input" id="loginSenha" type="password" placeholder="••••••••" autocomplete="current-password">
+      <button class="auth-submit" id="btnLogin" onclick="fazerLogin()">Entrar</button>
+      <div class="auth-msg" id="msgLogin"></div>
+    </div>
+    <div class="auth-painel" id="painelCadastro">
+      <label class="auth-label" for="cadEmail">E-mail</label>
+      <input  class="auth-input" id="cadEmail" type="email" placeholder="seu@email.com" autocomplete="email">
+      <label class="auth-label" for="cadSenha">Senha</label>
+      <input  class="auth-input" id="cadSenha" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+      <button class="auth-submit" id="btnCadastro" onclick="fazerCadastro()">Criar Conta</button>
+      <div class="auth-msg" id="msgCadastro"></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- AUTH BAR -->
+  <div class="auth-bar" id="authBar">
+    <div id="estadoDeslogado">
+      <button class="auth-bar-btn" onclick="abrirAuth()">Entrar / Cadastrar</button>
+    </div>
+    <div id="estadoLogado" style="display:none; align-items:center; gap:10px;">
+      <span class="auth-user-email" id="userEmailDisplay"></span>
+      <button class="auth-bar-btn logout" onclick="fazerLogout()">Sair</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-line"></div>
+    <h1>TrollgersBank™</h1>
+    <span class="header-symbol">$</span>
+    <p>Transferência de Aura &amp; Aura Obscura</p>
+  </header>
+
+  <!-- SALDO -->
+  <div class="currency-bar" id="currencyBar" style="display:none;">
+    <div class="currency-badge">
+      <span class="coin-icon">🔴</span>
+      <div class="coin-label">
+        <span class="coin-name">Aura</span>
+        <span class="coin-value" id="saldo-aura">—</span>
+      </div>
+    </div>
+    <div class="currency-badge obscura">
+      <span class="coin-icon">🟣</span>
+      <div class="coin-label">
+        <span class="coin-name">Aura Obscura</span>
+        <span class="coin-value" id="saldo-obscura">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD DE TRANSFERÊNCIA -->
+  <div class="bank-card" id="bankCard" style="display:none;">
+    <div class="bank-card-title">Enviar Aura</div>
+
+    <label class="form-label" for="destinoEmail">E-mail do Destinatário</label>
+    <input class="form-input" id="destinoEmail" type="email" placeholder="email@destino.com">
+
+    <label class="form-label">Tipo de Moeda</label>
+    <div class="moeda-selector">
+      <button class="moeda-btn ativo" id="btnAura"    onclick="selecionarMoeda('aura')">🔴 Aura</button>
+      <button class="moeda-btn obscura" id="btnObscura" onclick="selecionarMoeda('aura_obscura')">🟣 Aura Obscura</button>
+    </div>
+
+    <label class="form-label" for="quantidade">Quantidade</label>
+    <input class="form-input" id="quantidade" type="number" min="1" placeholder="Ex: 100">
+
+    <button class="send-btn" id="btnEnviar" onclick="transferir()">Enviar</button>
+    <div class="bank-msg" id="bankMsg"></div>
+  </div>
+
+  <!-- AVISO DESLOGADO -->
+  <div class="bank-card" id="avisoLogin">
+    <div class="login-aviso">
+      Faça login para acessar o banco
+      <br>
+      <button onclick="abrirAuth()">Entrar</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-label">Trollgianismo — Universo Oficial</div>
+    <div class="footer-links">
+      <a href="index.html"  class="footer-btn">← Voltar ao Início</a>
+      <a href="store.html"  class="footer-btn">Store</a>
+    </div>
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+  var sb = null;
+  var usuarioAtual = null;
+  var moedaSelecionada = 'aura';
+
+  /* ============================================================
+     INICIALIZAÇÃO
+     ============================================================ */
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      sb = supabase.createClient(
+        'https://jkxhqtvugpbxplsswuut.supabase.co',
+        'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl'
+      );
+    } catch (e) {
+      alert('Erro ao inicializar. Recarregue a página.');
+      return;
+    }
+
+    document.getElementById('authOverlay').addEventListener('click', function (e) {
+      if (e.target === this) fecharAuth();
+    });
+
+    sb.auth.getSession().then(function (result) {
+      var session = result.data.session;
+      if (session && session.user) {
+        usuarioAtual = session.user;
+        aoLogar(usuarioAtual);
+      } else {
+        aoDeslogar();
+      }
+    });
+
+    sb.auth.onAuthStateChange(function (event, session) {
+      if (event === 'SIGNED_IN' && session && session.user) {
+        usuarioAtual = session.user;
+        aoLogar(usuarioAtual);
+        fecharAuth();
+      } else if (event === 'SIGNED_OUT') {
+        usuarioAtual = null;
+        aoDeslogar();
+      }
+    });
+  });
+
+  /* ============================================================
+     AO LOGAR / DESLOGAR
+     ============================================================ */
+  function aoLogar(user) {
+    document.getElementById('estadoDeslogado').style.display = 'none';
+    document.getElementById('estadoLogado').style.display    = 'flex';
+    document.getElementById('userEmailDisplay').textContent  = user.email;
+    document.getElementById('avisoLogin').style.display      = 'none';
+    document.getElementById('bankCard').style.display        = 'block';
+    document.getElementById('currencyBar').style.display     = 'flex';
+    carregarSaldo(user.id);
+  }
+
+  function aoDeslogar() {
+    document.getElementById('estadoDeslogado').style.display = 'block';
+    document.getElementById('estadoLogado').style.display    = 'none';
+    document.getElementById('userEmailDisplay').textContent  = '';
+    document.getElementById('bankCard').style.display        = 'none';
+    document.getElementById('currencyBar').style.display     = 'none';
+    document.getElementById('avisoLogin').style.display      = 'block';
+    document.getElementById('saldo-aura').textContent        = '—';
+    document.getElementById('saldo-obscura').textContent     = '—';
+  }
+
+  /* ============================================================
+     CARREGAR SALDO
+     ============================================================ */
+  function carregarSaldo(authId) {
+    sb.from('users')
+      .select('aura, aura_obscura')
+      .eq('auth_id', authId)
+      .single()
+      .then(function (result) {
+        if (result.error) { console.error('[Bank] Saldo:', result.error); return; }
+        document.getElementById('saldo-aura').textContent    = result.data.aura          != null ? result.data.aura          : 0;
+        document.getElementById('saldo-obscura').textContent = result.data.aura_obscura  != null ? result.data.aura_obscura  : 0;
+      });
+  }
+
+  /* ============================================================
+     SELETOR DE MOEDA
+     ============================================================ */
+  function selecionarMoeda(tipo) {
+    moedaSelecionada = tipo;
+    document.getElementById('btnAura').classList.toggle('ativo',    tipo === 'aura');
+    document.getElementById('btnObscura').classList.toggle('ativo', tipo === 'aura_obscura');
+  }
+
+  /* ============================================================
+     TRANSFERIR — RPC transferir_aura
+     ============================================================ */
+  function transferir() {
+    var email     = document.getElementById('destinoEmail').value.trim();
+    var qtd       = parseInt(document.getElementById('quantidade').value);
+    var msg       = document.getElementById('bankMsg');
+    var btn       = document.getElementById('btnEnviar');
+
+    msg.className   = 'bank-msg';
+    msg.textContent = '';
+
+    if (!email) { mostrarMsg(msg, 'Informe o e-mail do destinatário.', 'erro'); return; }
+    if (!qtd || qtd <= 0) { mostrarMsg(msg, 'Informe uma quantidade válida.', 'erro'); return; }
+    if (email === usuarioAtual.email) { mostrarMsg(msg, 'Você não pode transferir para si mesmo.', 'erro'); return; }
+
+    btn.disabled    = true;
+    btn.textContent = 'Enviando...';
+
+    sb.rpc('transferir_aura', {
+      p_email:      email,
+      p_quantidade: qtd,
+      p_tipo:       moedaSelecionada
+    })
+    .then(function (result) {
+      btn.disabled    = false;
+      btn.textContent = 'Enviar';
+
+      if (result.error) {
+        console.error('[Bank] RPC erro:', result.error);
+        mostrarMsg(msg, 'Erro: ' + result.error.message, 'erro');
+        return;
+      }
+
+      var retorno = result.data;
+      console.log('[Bank] Retorno transferir_aura:', retorno);
+
+      if (retorno === 'ok') {
+        mostrarMsg(msg, '✅ Transferência realizada com sucesso!', 'ok');
+        document.getElementById('destinoEmail').value = '';
+        document.getElementById('quantidade').value   = '';
+        carregarSaldo(usuarioAtual.id);
+      } else if (retorno === 'saldo_insuficiente') {
+        mostrarMsg(msg, '❌ Saldo insuficiente.', 'erro');
+      } else if (retorno === 'usuario_nao_encontrado') {
+        mostrarMsg(msg, '❌ E-mail não encontrado.', 'erro');
+      } else if (retorno === 'transferencia_para_si_mesmo') {
+        mostrarMsg(msg, '❌ Você não pode transferir para si mesmo.', 'erro');
+      } else if (retorno === 'quantidade_invalida') {
+        mostrarMsg(msg, '❌ Quantidade inválida.', 'erro');
+      } else {
+        mostrarMsg(msg, 'Resposta inesperada: ' + retorno, 'erro');
+      }
+    })
+    .catch(function (e) {
+      btn.disabled    = false;
+      btn.textContent = 'Enviar';
+      console.error('[Bank] Exceção:', e);
+      mostrarMsg(msg, 'Erro inesperado. Tente novamente.', 'erro');
+    });
+  }
+
+  /* ============================================================
+     AUTH
+     ============================================================ */
+  function fazerLogin() {
+    var email = document.getElementById('loginEmail').value.trim();
+    var senha = document.getElementById('loginSenha').value;
+    var msg   = document.getElementById('msgLogin');
+    var btn   = document.getElementById('btnLogin');
+    if (!email || !senha) { mostrarMsg(msg, 'Preencha todos os campos.', 'erro'); return; }
+    btn.disabled = true; btn.textContent = 'Entrando...';
+    sb.auth.signInWithPassword({ email: email, password: senha })
+      .then(function (result) {
+        btn.disabled = false; btn.textContent = 'Entrar';
+        if (result.error) { mostrarMsg(msg, traduzirErro(result.error.message), 'erro'); return; }
+        usuarioAtual = result.data.user;
+        aoLogar(result.data.user);
+        fecharAuth();
+      })
+      .catch(function (e) { btn.disabled = false; btn.textContent = 'Entrar'; mostrarMsg(msg, e.message, 'erro'); });
+  }
+
+  function fazerCadastro() {
+    var email = document.getElementById('cadEmail').value.trim();
+    var senha = document.getElementById('cadSenha').value;
+    var msg   = document.getElementById('msgCadastro');
+    var btn   = document.getElementById('btnCadastro');
+    if (!email || !senha) { mostrarMsg(msg, 'Preencha todos os campos.', 'erro'); return; }
+    if (senha.length < 6) { mostrarMsg(msg, 'Senha deve ter pelo menos 6 caracteres.', 'erro'); return; }
+    btn.disabled = true; btn.textContent = 'Criando conta...';
+    sb.auth.signUp({ email: email, password: senha })
+      .then(function (result) {
+        btn.disabled = false; btn.textContent = 'Criar Conta';
+        if (result.error) { mostrarMsg(msg, traduzirErro(result.error.message), 'erro'); return; }
+        mostrarMsg(msg, 'Conta criada! Faça login para continuar.', 'ok');
+      })
+      .catch(function (e) { btn.disabled = false; btn.textContent = 'Criar Conta'; mostrarMsg(msg, e.message, 'erro'); });
+  }
+
+  function fazerLogout() {
+    sb.auth.signOut();
+  }
+
+  function abrirAuth() {
+    document.getElementById('authOverlay').classList.add('aberto');
+  }
+
+  function fecharAuth() {
+    document.getElementById('authOverlay').classList.remove('aberto');
+  }
+
+  function trocarAba(aba) {
+    document.getElementById('tabLogin').classList.toggle('ativo',       aba === 'login');
+    document.getElementById('tabCadastro').classList.toggle('ativo',    aba === 'cadastro');
+    document.getElementById('painelLogin').classList.toggle('ativo',    aba === 'login');
+    document.getElementById('painelCadastro').classList.toggle('ativo', aba === 'cadastro');
+  }
+
+  /* ============================================================
+     HELPERS
+     ============================================================ */
+  function mostrarMsg(el, texto, tipo) {
+    el.textContent = texto;
+    el.className   = 'bank-msg ' + tipo;
+  }
+
+  function traduzirErro(msg) {
+    if (!msg) return 'Erro desconhecido.';
+    var m = msg.toLowerCase();
+    if (m.includes('invalid login credentials')) return 'E-mail ou senha incorretos.';
+    if (m.includes('user already registered'))   return 'E-mail já cadastrado.';
+    if (m.includes('password should be at least')) return 'Senha deve ter pelo menos 6 caracteres.';
+    return msg;
+  }
+</script>
+
+</body>
+</html>
