@@ -25,6 +25,8 @@
       --aura-obscura-glow: rgba(155, 89, 182, 0.5);
       --green: #33cc66;
       --green-glow: rgba(51, 204, 102, 0.4);
+      --f1-red: #e8002d;
+      --f1-glow: rgba(232, 0, 45, 0.4);
     }
 
     @font-face {
@@ -105,6 +107,20 @@
     .currency-badge.obscura .coin-value { color: var(--aura-obscura-color); text-shadow: 0 0 10px var(--aura-obscura-glow); }
     .currency-badge.obscura { border-color: #4a2a6a; }
 
+    /* ── SPORT SWITCHER ── */
+    .sport-switcher { display: flex; gap: 0; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .sport-tab {
+      flex: 1; padding: 14px 10px; background: var(--bg); border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-dim); transition: all 0.2s; outline: none;
+      -webkit-tap-highlight-color: transparent; border-right: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .sport-tab:last-child { border-right: none; }
+    .sport-tab:hover { color: var(--gold-light); background: rgba(212,51,51,0.05); }
+    .sport-tab.ativo { background: linear-gradient(135deg, rgba(212,51,51,0.18), rgba(212,51,51,0.06)); color: var(--gold-light); box-shadow: inset 0 -2px 0 var(--gold); }
+    .sport-tab.ativo.f1 { background: linear-gradient(135deg, rgba(232,0,45,0.18), rgba(232,0,45,0.06)); color: #ff2255; box-shadow: inset 0 -2px 0 var(--f1-red); }
+
     /* ── SECTION DIVIDER ── */
     .section-divider { display: flex; align-items: center; gap: 16px; margin: 40px 0 28px; }
     .section-divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--border)); }
@@ -148,42 +164,37 @@
 
     /* ── RESULTADO ── */
     .bet-result {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 6px;
-      text-align: center;
-      display: none;
-      animation: fadeIn 0.4s ease both;
+      margin-top: 20px; padding: 20px; border-radius: 6px; text-align: center;
+      display: none; animation: fadeIn 0.4s ease both;
     }
-    .bet-result.ganhou {
-      display: block;
-      background: rgba(51,204,102,0.08);
-      border: 1px solid #1a5a2a;
-    }
-    .bet-result.perdeu {
-      display: block;
-      background: rgba(204,51,102,0.08);
-      border: 1px solid #5a1a40;
-    }
+    .bet-result.ganhou { display: block; background: rgba(51,204,102,0.08); border: 1px solid #1a5a2a; }
+    .bet-result.perdeu { display: block; background: rgba(204,51,102,0.08); border: 1px solid #5a1a40; }
+    .bet-result.parcial { display: block; background: rgba(255,165,0,0.08); border: 1px solid #5a4010; }
     .bet-result-icon { font-size: 40px; display: block; margin-bottom: 10px; }
     .bet-result-titulo { font-family: 'Cinzel Decorative', serif; font-size: clamp(16px,4vw,22px); letter-spacing: 0.06em; margin-bottom: 6px; }
     .bet-result.ganhou .bet-result-titulo { color: var(--green); text-shadow: 0 0 16px var(--green-glow); }
     .bet-result.perdeu  .bet-result-titulo { color: var(--red); }
+    .bet-result.parcial .bet-result-titulo { color: #ffaa33; text-shadow: 0 0 12px rgba(255,170,51,0.4); }
     .bet-result-sub { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+    .bet-result-score { font-family: 'Cinzel Decorative', serif; font-size: clamp(22px,5vw,32px); color: var(--text); margin: 8px 0; letter-spacing: 0.1em; }
+
+    /* ── PLACAR INPUT ── */
+    .placar-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; margin-bottom: 20px; }
+    .placar-input-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .placar-time-label { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); text-align: center; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .placar-input { width: 80px; text-align: center; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 12px 8px; font-family: 'Cinzel Decorative', serif; font-size: 22px; color: var(--gold-light); outline: none; transition: border-color 0.2s; -moz-appearance: textfield; }
+    .placar-input::-webkit-outer-spin-button,
+    .placar-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .placar-input:focus { border-color: var(--gold-dim); }
+    .placar-x { font-family: 'Cinzel Decorative', serif; font-size: 20px; color: var(--gold-dim); text-align: center; }
 
     /* ── JOGO 2: TIMES ── */
     .times-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-
     .time-selector {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 16px;
-      cursor: pointer;
-      text-align: center;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      padding: 16px; cursor: pointer; text-align: center;
       transition: border-color 0.2s, box-shadow 0.2s;
-      min-height: 80px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
       position: relative;
     }
     .time-selector:hover { border-color: var(--gold-dim); }
@@ -196,23 +207,16 @@
 
     /* ── MODAL DE TIMES ── */
     .times-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.8);
-      z-index: 3000;
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s ease;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3000;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
     }
     .times-overlay.aberto { opacity: 1; pointer-events: all; }
     .times-modal {
       background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      width: 100%; max-width: 480px;
-      max-height: 80vh;
-      display: flex; flex-direction: column;
-      position: relative;
+      border: 1px solid var(--border); border-radius: 8px;
+      width: 100%; max-width: 480px; max-height: 80vh;
+      display: flex; flex-direction: column; position: relative;
       animation: modalIn 0.3s ease both;
     }
     .times-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
@@ -232,9 +236,108 @@
     .time-item-nome { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
     .time-item-pais { font-family: 'Raleway', sans-serif; font-size: 10px; color: var(--text-dim); }
 
+    /* ── F1 STYLES ── */
+    .f1-section { display: none; }
+    .f1-section.ativo { display: block; }
+    .futebol-section { display: block; }
+    .futebol-section.oculto { display: none; }
+
+    /* Sessão F1 tabs */
+    .sessao-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .sessao-tab {
+      flex: 1; min-width: 80px; padding: 10px 6px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px; cursor: pointer; font-family: 'Cinzel', serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim);
+      transition: all 0.2s; outline: none; text-align: center; -webkit-tap-highlight-color: transparent;
+    }
+    .sessao-tab:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .sessao-tab.ativo { background: linear-gradient(135deg, rgba(232,0,45,0.18), rgba(232,0,45,0.06)); border-color: var(--f1-red); color: #ff2255; }
+
+    /* Pilotos grid */
+    .pilotos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .piloto-selector {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      padding: 16px 12px; cursor: pointer; text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    }
+    .piloto-selector:hover { border-color: rgba(232,0,45,0.5); }
+    .piloto-selector.selecionado { border-color: var(--f1-red); box-shadow: 0 0 14px rgba(232,0,45,0.2); background: rgba(232,0,45,0.05); }
+    .piloto-selector-label { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+    .piloto-selector-nome { font-family: 'Cinzel', serif; font-size: clamp(11px,2vw,13px); font-weight: 600; color: #ff2255; letter-spacing: 0.04em; }
+    .piloto-selector-equipe { font-family: 'Raleway', sans-serif; font-size: 10px; color: var(--text-dim); }
+    .piloto-selector-placeholder { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; }
+    .piloto-numero { font-family: 'Cinzel Decorative', serif; font-size: 20px; color: rgba(232,0,45,0.6); line-height: 1; }
+
+    /* GP Info badge */
+    .gp-badge {
+      background: rgba(232,0,45,0.06); border: 1px solid rgba(232,0,45,0.2);
+      border-radius: 6px; padding: 14px 18px; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .gp-badge-icon { font-size: 24px; }
+    .gp-badge-info { display: flex; flex-direction: column; gap: 3px; }
+    .gp-badge-nome { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; color: #ff2255; letter-spacing: 0.05em; }
+    .gp-badge-data { font-family: 'Raleway', sans-serif; font-size: 11px; color: var(--text-dim); }
+
+    /* Apostas pendentes F1 */
+    .apostas-pendentes { margin-top: 32px; }
+    .aposta-pendente-item {
+      background: rgba(232,0,45,0.04); border: 1px solid rgba(232,0,45,0.15);
+      border-radius: 6px; padding: 16px 20px; margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      flex-wrap: wrap;
+    }
+    .aposta-pendente-info { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 180px; }
+    .aposta-pendente-titulo { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; color: var(--text); letter-spacing: 0.04em; }
+    .aposta-pendente-sub { font-family: 'Raleway', sans-serif; font-size: 11px; color: var(--text-dim); }
+    .aposta-pendente-valor { font-family: 'Cinzel Decorative', serif; font-size: 14px; color: var(--gold-light); white-space: nowrap; }
+    .resolver-btn {
+      padding: 8px 16px; background: linear-gradient(135deg, rgba(232,0,45,0.2), rgba(232,0,45,0.08));
+      border: 1px solid rgba(232,0,45,0.4); border-radius: 4px; color: #ff2255;
+      font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; cursor: pointer; outline: none; transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent; white-space: nowrap;
+    }
+    .resolver-btn:hover { background: linear-gradient(135deg, rgba(232,0,45,0.35), rgba(232,0,45,0.15)); box-shadow: 0 0 12px rgba(232,0,45,0.2); }
+    .aposta-tag { display: inline-block; padding: 3px 10px; border-radius: 3px; font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .aposta-tag.pendente { background: rgba(255,165,0,0.12); border: 1px solid rgba(255,165,0,0.3); color: #ffaa33; }
+    .aposta-tag.ganhou { background: rgba(51,204,102,0.1); border: 1px solid #1a5a2a; color: var(--green); }
+    .aposta-tag.perdeu { background: rgba(204,51,102,0.1); border: 1px solid #5a1a40; color: var(--red); }
+
+    /* Modal resolver F1 */
+    .resolver-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 4000;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    }
+    .resolver-overlay.aberto { opacity: 1; pointer-events: all; }
+    .resolver-modal {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid rgba(232,0,45,0.3); border-radius: 8px;
+      padding: 36px 32px; width: 100%; max-width: 440px; position: relative;
+      animation: modalIn 0.3s ease both;
+    }
+    .resolver-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(232,0,45,0.5), transparent); }
+    .resolver-modal-title { font-family: 'Cinzel Decorative', serif; font-size: 16px; color: #ff2255; letter-spacing: 0.05em; text-align: center; margin-bottom: 20px; }
+    .resolver-modal-sub { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); text-align: center; margin-bottom: 24px; }
+    .resolver-pilotos { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .resolver-piloto-btn {
+      width: 100%; padding: 14px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px; color: var(--text); font-family: 'Cinzel', serif; font-size: 12px;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+      outline: none; transition: all 0.2s; text-align: center; -webkit-tap-highlight-color: transparent;
+    }
+    .resolver-piloto-btn:hover { border-color: rgba(232,0,45,0.5); color: #ff2255; background: rgba(232,0,45,0.06); }
+    .resolver-cancelar { width: 100%; padding: 10px; background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--text-dim); font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; outline: none; transition: all 0.2s; }
+    .resolver-cancelar:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .resolver-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; outline: none; padding: 4px; transition: color 0.2s; }
+    .resolver-close:hover { color: var(--gold-light); }
+
     /* ── MSG ── */
     .bet-msg { margin-top: 14px; padding: 10px 14px; border-radius: 4px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; display: none; }
     .bet-msg.erro { background: rgba(204,51,102,0.1); border: 1px solid #5a1a40; color: var(--red); display: block; }
+    .bet-msg.ok   { background: rgba(51,204,102,0.08); border: 1px solid #1a5a2a; color: #55cc77; display: block; }
 
     /* ── AVISO DESLOGADO ── */
     .login-aviso { text-align: center; padding: 48px 20px; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); }
@@ -271,6 +374,9 @@
     .footer-btn { display: inline-block; padding: 11px 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.2s ease; outline: none; }
     .footer-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
 
+    /* Spinner loading */
+    .loading-apostas { text-align: center; padding: 24px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+
     @keyframes fadeIn  { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes modalIn { from { opacity: 0; transform: translateY(-20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes pulse   { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
@@ -279,7 +385,9 @@
     @media (max-width: 480px) {
       .bet-card { padding: 24px 16px; }
       .times-grid { grid-template-columns: 1fr; }
+      .pilotos-grid { grid-template-columns: 1fr; }
       .time-vs { display: none; }
+      .resolver-modal { padding: 28px 20px; }
     }
   </style>
 </head>
@@ -324,6 +432,31 @@
       <input type="text" id="timesSearch" placeholder="Buscar time..." oninput="filtrarTimes()">
     </div>
     <div class="times-lista" id="timesLista"></div>
+  </div>
+</div>
+
+<!-- MODAL SELEÇÃO DE PILOTOS -->
+<div class="times-overlay" id="pilotosOverlay">
+  <div class="times-modal">
+    <div class="times-modal-header">
+      <span class="times-modal-titulo">Selecionar Piloto</span>
+      <button class="times-modal-fechar" onclick="fecharPilotosModal()">✕</button>
+    </div>
+    <div class="times-search">
+      <input type="text" id="pilotosSearch" placeholder="Buscar piloto ou equipe..." oninput="filtrarPilotos()">
+    </div>
+    <div class="times-lista" id="pilotosLista"></div>
+  </div>
+</div>
+
+<!-- MODAL RESOLVER APOSTA F1 -->
+<div class="resolver-overlay" id="resolverOverlay">
+  <div class="resolver-modal">
+    <button class="resolver-close" onclick="fecharResolverModal()">✕</button>
+    <div class="resolver-modal-title">🏁 Resolver Aposta</div>
+    <div class="resolver-modal-sub" id="resolver-sub">Quem venceu a sessão?</div>
+    <div class="resolver-pilotos" id="resolverPilotos"></div>
+    <button class="resolver-cancelar" onclick="fecharResolverModal()">Cancelar</button>
   </div>
 </div>
 
@@ -377,97 +510,246 @@
   <!-- ÁREA DOS JOGOS -->
   <div id="areaJogos" style="display:none;">
 
-    <!-- ══ JOGO 1: COIN FLIP ══ -->
-    <div class="section-divider">
-      <div class="section-divider-line"></div>
-      <span class="section-divider-label">🎰 Jogo 1 — Coin Flip</span>
-      <div class="section-divider-line right"></div>
+    <!-- SPORT SWITCHER -->
+    <div class="sport-switcher">
+      <button class="sport-tab ativo" id="tab-futebol" onclick="mudarEsporte('futebol')">⚽ Futebol</button>
+      <button class="sport-tab f1"   id="tab-f1"      onclick="mudarEsporte('f1')">🏎️ Fórmula 1</button>
     </div>
 
-    <div class="bet-card">
-      <div class="bet-card-title">Double or Nothing</div>
-      <div class="bet-card-sub">50% de chance · Aposta justa</div>
+    <!-- ═══════════════════════════════════════════
+         SEÇÃO FUTEBOL
+    ═══════════════════════════════════════════ -->
+    <div class="futebol-section" id="secaoFutebol">
 
-      <label class="form-label">Tipo de Moeda</label>
-      <div class="moeda-selector">
-        <button class="moeda-btn ativo" id="cf-btnAura"    onclick="selecionarMoeda('cf','aura')">🔴 Aura</button>
-        <button class="moeda-btn obscura" id="cf-btnObscura" onclick="selecionarMoeda('cf','aura_obscura')">🟣 Aura Obscura</button>
+      <!-- ══ JOGO 1: COIN FLIP ══ -->
+      <div class="section-divider">
+        <div class="section-divider-line"></div>
+        <span class="section-divider-label">🎰 Jogo 1 — Coin Flip</span>
+        <div class="section-divider-line right"></div>
       </div>
 
-      <label class="form-label">Quantidade a Apostar</label>
-      <input class="form-input" id="cf-qtd" type="number" min="1" placeholder="Ex: 100">
+      <div class="bet-card">
+        <div class="bet-card-title">Double or Nothing</div>
+        <div class="bet-card-sub">50% de chance · Aposta justa</div>
 
-      <button class="bet-btn" id="cf-btn" onclick="apostarCoinflip()">🪙 Jogar</button>
-      <div class="bet-msg" id="cf-msg"></div>
-
-      <div class="bet-result" id="cf-resultado">
-        <span class="bet-result-icon" id="cf-icon"></span>
-        <div class="bet-result-titulo" id="cf-titulo"></div>
-        <div class="bet-result-sub" id="cf-sub"></div>
-      </div>
-    </div>
-
-    <!-- ══ JOGO 2: FUTEBOL ══ -->
-    <div class="section-divider">
-      <div class="section-divider-line"></div>
-      <span class="section-divider-label">⚽ Jogo 2 — Futebol</span>
-      <div class="section-divider-line right"></div>
-    </div>
-
-    <div class="bet-card">
-      <div class="bet-card-title">Aposta de Futebol</div>
-      <div class="bet-card-sub">Escolha dois times · Aposte no vencedor</div>
-
-      <div class="times-grid">
-        <div class="time-selector" id="time1-box" onclick="abrirTimesModal(1)">
-          <div class="time-selector-label">Time 1</div>
-          <div class="time-selector-placeholder" id="time1-placeholder">Clique para escolher</div>
-          <div class="time-selector-flag" id="time1-flag" style="display:none;"></div>
-          <div class="time-selector-nome" id="time1-nome" style="display:none;"></div>
+        <label class="form-label">Tipo de Moeda</label>
+        <div class="moeda-selector">
+          <button class="moeda-btn ativo" id="cf-btnAura"    onclick="selecionarMoeda('cf','aura')">🔴 Aura</button>
+          <button class="moeda-btn obscura" id="cf-btnObscura" onclick="selecionarMoeda('cf','aura_obscura')">🟣 Aura Obscura</button>
         </div>
 
-        <div class="time-vs">VS</div>
+        <label class="form-label">Quantidade a Apostar</label>
+        <input class="form-input" id="cf-qtd" type="number" min="1" placeholder="Ex: 100">
 
-        <div class="time-selector" id="time2-box" onclick="abrirTimesModal(2)">
-          <div class="time-selector-label">Time 2</div>
-          <div class="time-selector-placeholder" id="time2-placeholder">Clique para escolher</div>
-          <div class="time-selector-flag" id="time2-flag" style="display:none;"></div>
-          <div class="time-selector-nome" id="time2-nome" style="display:none;"></div>
+        <button class="bet-btn" id="cf-btn" onclick="apostarCoinflip()">🪙 Jogar</button>
+        <div class="bet-msg" id="cf-msg"></div>
+
+        <div class="bet-result" id="cf-resultado">
+          <span class="bet-result-icon" id="cf-icon"></span>
+          <div class="bet-result-titulo" id="cf-titulo"></div>
+          <div class="bet-result-sub" id="cf-sub"></div>
         </div>
       </div>
 
-      <label class="form-label">Apostar no Time</label>
-      <div class="moeda-selector" style="margin-bottom:20px;">
-        <button class="moeda-btn ativo" id="ft-time1-btn" onclick="selecionarTimeAposta(1)" style="font-size:10px;">Time 1</button>
-        <button class="moeda-btn"       id="ft-time2-btn" onclick="selecionarTimeAposta(2)" style="font-size:10px;">Time 2</button>
+      <!-- ══ JOGO 2: FUTEBOL COM PLACAR ══ -->
+      <div class="section-divider">
+        <div class="section-divider-line"></div>
+        <span class="section-divider-label">⚽ Jogo 2 — Futebol</span>
+        <div class="section-divider-line right"></div>
       </div>
 
-      <label class="form-label">Tipo de Moeda</label>
-      <div class="moeda-selector">
-        <button class="moeda-btn ativo" id="ft-btnAura"    onclick="selecionarMoeda('ft','aura')">🔴 Aura</button>
-        <button class="moeda-btn obscura" id="ft-btnObscura" onclick="selecionarMoeda('ft','aura_obscura')">🟣 Aura Obscura</button>
+      <div class="bet-card">
+        <div class="bet-card-title">Apostar no Placar</div>
+        <div class="bet-card-sub">Acerto exato · Dobra · Perto · Parcial</div>
+
+        <div class="times-grid">
+          <div class="time-selector" id="time1-box" onclick="abrirTimesModal(1)">
+            <div class="time-selector-label">Time 1</div>
+            <div class="time-selector-placeholder" id="time1-placeholder">Clique para escolher</div>
+            <div class="time-selector-flag" id="time1-flag" style="display:none;"></div>
+            <div class="time-selector-nome" id="time1-nome" style="display:none;"></div>
+          </div>
+
+          <div class="time-vs">VS</div>
+
+          <div class="time-selector" id="time2-box" onclick="abrirTimesModal(2)">
+            <div class="time-selector-label">Time 2</div>
+            <div class="time-selector-placeholder" id="time2-placeholder">Clique para escolher</div>
+            <div class="time-selector-flag" id="time2-flag" style="display:none;"></div>
+            <div class="time-selector-nome" id="time2-nome" style="display:none;"></div>
+          </div>
+        </div>
+
+        <!-- PLACAR APOSTADO -->
+        <label class="form-label">Seu Palpite de Placar</label>
+        <div class="placar-grid">
+          <div class="placar-input-wrap">
+            <div class="placar-time-label" id="placar-label1">Time 1</div>
+            <input class="placar-input" id="ft-gols1" type="number" min="0" max="20" value="0">
+          </div>
+          <div class="placar-x">×</div>
+          <div class="placar-input-wrap">
+            <div class="placar-time-label" id="placar-label2">Time 2</div>
+            <input class="placar-input" id="ft-gols2" type="number" min="0" max="20" value="0">
+          </div>
+        </div>
+
+        <!-- REGRAS DE PAYOUT -->
+        <div style="background:rgba(212,51,51,0.04);border:1px solid rgba(212,51,51,0.1);border-radius:6px;padding:14px 16px;margin-bottom:20px;">
+          <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;">Tabela de Prêmios</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;font-family:'Raleway',sans-serif;font-size:12px;">
+              <span>🏆 Placar exato</span><span style="color:var(--green);font-weight:600;">+100% (dobra)</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-family:'Raleway',sans-serif;font-size:12px;">
+              <span>✅ Vencedor certo + diferença ≤2</span><span style="color:#ffaa33;font-weight:600;">+50%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-family:'Raleway',sans-serif;font-size:12px;">
+              <span>🟡 Vencedor certo + diferença ≤4</span><span style="color:#cc8800;font-weight:600;">+25%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-family:'Raleway',sans-serif;font-size:12px;">
+              <span>💀 Errou o resultado</span><span style="color:var(--red);font-weight:600;">-100%</span>
+            </div>
+          </div>
+        </div>
+
+        <label class="form-label">Tipo de Moeda</label>
+        <div class="moeda-selector">
+          <button class="moeda-btn ativo" id="ft-btnAura"    onclick="selecionarMoeda('ft','aura')">🔴 Aura</button>
+          <button class="moeda-btn obscura" id="ft-btnObscura" onclick="selecionarMoeda('ft','aura_obscura')">🟣 Aura Obscura</button>
+        </div>
+
+        <label class="form-label">Quantidade a Apostar</label>
+        <input class="form-input" id="ft-qtd" type="number" min="1" placeholder="Ex: 100">
+
+        <button class="bet-btn" id="ft-btn" onclick="apostarFutebol()">⚽ Apostar no Placar</button>
+        <div class="bet-msg" id="ft-msg"></div>
+
+        <div class="bet-result" id="ft-resultado">
+          <span class="bet-result-icon" id="ft-icon"></span>
+          <div class="bet-result-titulo" id="ft-titulo"></div>
+          <div class="bet-result-score" id="ft-score"></div>
+          <div class="bet-result-sub" id="ft-sub"></div>
+        </div>
       </div>
 
-      <label class="form-label">Quantidade a Apostar</label>
-      <input class="form-input" id="ft-qtd" type="number" min="1" placeholder="Ex: 100">
+    </div><!-- /secaoFutebol -->
 
-      <button class="bet-btn" id="ft-btn" onclick="apostarFutebol()">⚽ Apostar</button>
-      <div class="bet-msg" id="ft-msg"></div>
+    <!-- ═══════════════════════════════════════════
+         SEÇÃO FÓRMULA 1
+    ═══════════════════════════════════════════ -->
+    <div class="f1-section" id="secaoF1">
 
-      <div class="bet-result" id="ft-resultado">
-        <span class="bet-result-icon" id="ft-icon"></span>
-        <div class="bet-result-titulo" id="ft-titulo"></div>
-        <div class="bet-result-sub" id="ft-sub"></div>
+      <div class="section-divider">
+        <div class="section-divider-line"></div>
+        <span class="section-divider-label">🏎️ Fórmula 1</span>
+        <div class="section-divider-line right"></div>
       </div>
-    </div>
+
+      <div class="bet-card">
+        <div class="bet-card-title">Apostar em Duelo F1</div>
+        <div class="bet-card-sub">Escolha a sessão · Escolha dois pilotos · Aposte no vencedor</div>
+
+        <!-- GP BADGE -->
+        <div class="gp-badge" id="gpBadge">
+          <span class="gp-badge-icon">🏁</span>
+          <div class="gp-badge-info">
+            <div class="gp-badge-nome" id="gpNome">Carregando GP...</div>
+            <div class="gp-badge-data" id="gpData"></div>
+          </div>
+        </div>
+
+        <!-- TIPO DE SESSÃO -->
+        <label class="form-label">Sessão</label>
+        <div class="sessao-tabs">
+          <button class="sessao-tab ativo" id="sessao-corrida"  onclick="selecionarSessao('Corrida')">🏆 Corrida</button>
+          <button class="sessao-tab"       id="sessao-quali"    onclick="selecionarSessao('Qualifying')">⏱️ Qualifying</button>
+          <button class="sessao-tab"       id="sessao-sprint"   onclick="selecionarSessao('Sprint')">⚡ Sprint</button>
+          <button class="sessao-tab"       id="sessao-fp1"      onclick="selecionarSessao('FP1')">🔧 FP1</button>
+          <button class="sessao-tab"       id="sessao-fp2"      onclick="selecionarSessao('FP2')">🔧 FP2</button>
+          <button class="sessao-tab"       id="sessao-fp3"      onclick="selecionarSessao('FP3')">🔧 FP3</button>
+        </div>
+
+        <!-- PILOTOS -->
+        <div class="pilotos-grid">
+          <div class="piloto-selector" id="piloto1-box" onclick="abrirPilotosModal(1)">
+            <div class="piloto-selector-label">Piloto 1</div>
+            <div class="piloto-selector-placeholder" id="piloto1-placeholder">Clique para escolher</div>
+            <div class="piloto-numero" id="piloto1-num" style="display:none;"></div>
+            <div class="piloto-selector-nome" id="piloto1-nome" style="display:none;"></div>
+            <div class="piloto-selector-equipe" id="piloto1-equipe" style="display:none;"></div>
+          </div>
+
+          <div class="time-vs">VS</div>
+
+          <div class="piloto-selector" id="piloto2-box" onclick="abrirPilotosModal(2)">
+            <div class="piloto-selector-label">Piloto 2</div>
+            <div class="piloto-selector-placeholder" id="piloto2-placeholder">Clique para escolher</div>
+            <div class="piloto-numero" id="piloto2-num" style="display:none;"></div>
+            <div class="piloto-selector-nome" id="piloto2-nome" style="display:none;"></div>
+            <div class="piloto-selector-equipe" id="piloto2-equipe" style="display:none;"></div>
+          </div>
+        </div>
+
+        <!-- APOSTAR EM QUAL PILOTO -->
+        <label class="form-label">Apostar no Piloto</label>
+        <div class="moeda-selector" style="margin-bottom:20px;">
+          <button class="moeda-btn ativo" id="f1-piloto1-btn" onclick="selecionarPilotoAposta(1)" style="font-size:10px;">Piloto 1</button>
+          <button class="moeda-btn"       id="f1-piloto2-btn" onclick="selecionarPilotoAposta(2)" style="font-size:10px;">Piloto 2</button>
+        </div>
+
+        <label class="form-label">Tipo de Moeda</label>
+        <div class="moeda-selector">
+          <button class="moeda-btn ativo" id="f1-btnAura"    onclick="selecionarMoeda('f1','aura')">🔴 Aura</button>
+          <button class="moeda-btn obscura" id="f1-btnObscura" onclick="selecionarMoeda('f1','aura_obscura')">🟣 Aura Obscura</button>
+        </div>
+
+        <label class="form-label">Quantidade a Apostar</label>
+        <input class="form-input" id="f1-qtd" type="number" min="1" placeholder="Ex: 100">
+
+        <button class="bet-btn" id="f1-btn" onclick="apostarF1()" style="background:linear-gradient(135deg,rgba(232,0,45,0.2),rgba(232,0,45,0.08));border-color:rgba(232,0,45,0.5);color:#ff2255;">🏎️ Fazer Aposta F1</button>
+        <div class="bet-msg" id="f1-msg"></div>
+
+        <div class="bet-result" id="f1-resultado">
+          <span class="bet-result-icon" id="f1-icon"></span>
+          <div class="bet-result-titulo" id="f1-titulo"></div>
+          <div class="bet-result-sub" id="f1-sub"></div>
+        </div>
+      </div>
+
+      <!-- APOSTAS PENDENTES F1 -->
+      <div class="apostas-pendentes">
+        <div class="section-divider">
+          <div class="section-divider-line"></div>
+          <span class="section-divider-label">⏳ Apostas Abertas</span>
+          <div class="section-divider-line right"></div>
+        </div>
+        <div id="listaApostasPendentes">
+          <div class="loading-apostas">Carregando apostas...</div>
+        </div>
+      </div>
+
+      <!-- HISTÓRICO F1 -->
+      <div class="apostas-pendentes" style="margin-top:8px;">
+        <div class="section-divider">
+          <div class="section-divider-line"></div>
+          <span class="section-divider-label">📜 Histórico F1</span>
+          <div class="section-divider-line right"></div>
+        </div>
+        <div id="listaApostasHistorico">
+          <div class="loading-apostas">Carregando histórico...</div>
+        </div>
+      </div>
+
+    </div><!-- /secaoF1 -->
 
   </div><!-- /areaJogos -->
 
   <footer>
     <div class="footer-label">Trollgianismo — Universo Oficial</div>
     <div class="footer-links">
-      <a href="index.html"         class="footer-btn">← Início</a>
-      <a href="store.html"         class="footer-btn">Store</a>
+      <a href="index.html"          class="footer-btn">← Início</a>
+      <a href="store.html"          class="footer-btn">Store</a>
       <a href="trollgers-bank.html" class="footer-btn">Bank</a>
     </div>
   </footer>
@@ -481,17 +763,108 @@
   /* moedas selecionadas por jogo */
   var cfMoeda = 'aura';
   var ftMoeda = 'aura';
+  var f1Moeda = 'aura';
 
   /* times selecionados */
   var timeSelecionado = { 1: null, 2: null };
-  var timeApostado = 1;
-  var seletorAtivo = 1; /* qual caixa está sendo preenchida */
+  var seletorAtivo = 1;
+
+  /* pilotos selecionados */
+  var pilotoSelecionado = { 1: null, 2: null };
+  var pilotoApostado = 1;
+  var pilotoSeletorAtivo = 1;
+
+  /* F1 estado */
+  var sessaoAtual = 'Corrida';
+  var grandPrixAtual = '';
+
+  /* aposta sendo resolvida */
+  var apostaResolvendo = null;
+
+  /* esporte ativo */
+  var esporteAtivo = 'futebol';
 
   /* ============================================================
-     LISTA DE TIMES (ordem alfabética)
+     LISTA DE PILOTOS F1 2025
+     ============================================================ */
+  var PILOTOS = [
+    { nome: 'Max Verstappen',     equipe: 'Red Bull Racing',    numero: '1',   flag: '🇳🇱' },
+    { nome: 'Liam Lawson',        equipe: 'Red Bull Racing',    numero: '30',  flag: '🇳🇿' },
+    { nome: 'Charles Leclerc',    equipe: 'Ferrari',            numero: '16',  flag: '🇲🇨' },
+    { nome: 'Lewis Hamilton',     equipe: 'Ferrari',            numero: '44',  flag: '🇬🇧' },
+    { nome: 'George Russell',     equipe: 'Mercedes',           numero: '63',  flag: '🇬🇧' },
+    { nome: 'Kimi Antonelli',     equipe: 'Mercedes',           numero: '12',  flag: '🇮🇹' },
+    { nome: 'Lando Norris',       equipe: 'McLaren',            numero: '4',   flag: '🇬🇧' },
+    { nome: 'Oscar Piastri',      equipe: 'McLaren',            numero: '81',  flag: '🇦🇺' },
+    { nome: 'Fernando Alonso',    equipe: 'Aston Martin',       numero: '14',  flag: '🇪🇸' },
+    { nome: 'Lance Stroll',       equipe: 'Aston Martin',       numero: '18',  flag: '🇨🇦' },
+    { nome: 'Pierre Gasly',       equipe: 'Alpine',             numero: '10',  flag: '🇫🇷' },
+    { nome: 'Jack Doohan',        equipe: 'Alpine',             numero: '7',   flag: '🇦🇺' },
+    { nome: 'Carlos Sainz',       equipe: 'Williams',           numero: '55',  flag: '🇪🇸' },
+    { nome: 'Alex Albon',         equipe: 'Williams',           numero: '23',  flag: '🇹🇭' },
+    { nome: 'Nico Hülkenberg',    equipe: 'Sauber/Audi',        numero: '27',  flag: '🇩🇪' },
+    { nome: 'Gabriel Bortoleto',  equipe: 'Sauber/Audi',        numero: '5',   flag: '🇧🇷' },
+    { nome: 'Yuki Tsunoda',       equipe: 'Racing Bulls',       numero: '22',  flag: '🇯🇵' },
+    { nome: 'Isack Hadjar',       equipe: 'Racing Bulls',       numero: '6',   flag: '🇫🇷' },
+    { nome: 'Esteban Ocon',       equipe: 'Haas',               numero: '31',  flag: '🇫🇷' },
+    { nome: 'Oliver Bearman',     equipe: 'Haas',               numero: '87',  flag: '🇬🇧' },
+  ];
+
+  /* ============================================================
+     CALENDÁRIO F1 2025 (Grand Prix e datas)
+     ============================================================ */
+  var CALENDARIO_F1 = [
+    { nome: 'Australian GP',      pais: '🇦🇺', data: '2025-03-16' },
+    { nome: 'Chinese GP',         pais: '🇨🇳', data: '2025-03-23' },
+    { nome: 'Japanese GP',        pais: '🇯🇵', data: '2025-04-06' },
+    { nome: 'Bahrain GP',         pais: '🇧🇭', data: '2025-04-13' },
+    { nome: 'Saudi Arabian GP',   pais: '🇸🇦', data: '2025-04-20' },
+    { nome: 'Miami GP',           pais: '🇺🇸', data: '2025-05-04' },
+    { nome: 'Emilia Romagna GP',  pais: '🇮🇹', data: '2025-05-18' },
+    { nome: 'Monaco GP',          pais: '🇲🇨', data: '2025-05-25' },
+    { nome: 'Spanish GP',         pais: '🇪🇸', data: '2025-06-01' },
+    { nome: 'Canadian GP',        pais: '🇨🇦', data: '2025-06-15' },
+    { nome: 'Austrian GP',        pais: '🇦🇹', data: '2025-06-29' },
+    { nome: 'British GP',         pais: '🇬🇧', data: '2025-07-06' },
+    { nome: 'Belgian GP',         pais: '🇧🇪', data: '2025-07-27' },
+    { nome: 'Hungarian GP',       pais: '🇭🇺', data: '2025-08-03' },
+    { nome: 'Dutch GP',           pais: '🇳🇱', data: '2025-08-31' },
+    { nome: 'Italian GP',         pais: '🇮🇹', data: '2025-09-07' },
+    { nome: 'Azerbaijan GP',      pais: '🇦🇿', data: '2025-09-21' },
+    { nome: 'Singapore GP',       pais: '🇸🇬', data: '2025-10-05' },
+    { nome: 'United States GP',   pais: '🇺🇸', data: '2025-10-19' },
+    { nome: 'Mexico City GP',     pais: '🇲🇽', data: '2025-10-26' },
+    { nome: 'São Paulo GP',       pais: '🇧🇷', data: '2025-11-09' },
+    { nome: 'Las Vegas GP',       pais: '🇺🇸', data: '2025-11-22' },
+    { nome: 'Qatar GP',           pais: '🇶🇦', data: '2025-11-30' },
+    { nome: 'Abu Dhabi GP',       pais: '🇦🇪', data: '2025-12-07' },
+  ];
+
+  /* ============================================================
+     DETECTAR GP ATUAL/PRÓXIMO
+     ============================================================ */
+  function detectarGP() {
+    var hoje = new Date();
+    var proximo = null;
+    var atual = null;
+    for (var i = 0; i < CALENDARIO_F1.length; i++) {
+      var gp = CALENDARIO_F1[i];
+      var dataGP = new Date(gp.data);
+      var diffDias = Math.floor((dataGP - hoje) / (1000 * 60 * 60 * 24));
+      if (diffDias >= -3 && diffDias <= 3) { atual = gp; break; }
+      if (diffDias > 3 && !proximo) { proximo = gp; }
+    }
+    var escolhido = atual || proximo || CALENDARIO_F1[CALENDARIO_F1.length - 1];
+    grandPrixAtual = escolhido.nome;
+    document.getElementById('gpNome').textContent = escolhido.pais + ' ' + escolhido.nome;
+    var dataFormatada = new Date(escolhido.data).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+    document.getElementById('gpData').textContent = atual ? '🟢 Este fim de semana · ' + dataFormatada : '🔵 Próximo GP · ' + dataFormatada;
+  }
+
+  /* ============================================================
+     LISTA DE TIMES
      ============================================================ */
   var TIMES = [
-    /* ── ALEMANHA ── */
     { nome: 'Augsburg',              pais: 'Alemanha',         flag: '🇩🇪' },
     { nome: 'Bayer Leverkusen',      pais: 'Alemanha',         flag: '🇩🇪' },
     { nome: 'Bayern de Munique',     pais: 'Alemanha',         flag: '🇩🇪' },
@@ -510,7 +883,6 @@
     { nome: 'Union Berlin',          pais: 'Alemanha',         flag: '🇩🇪' },
     { nome: 'Werder Bremen',         pais: 'Alemanha',         flag: '🇩🇪' },
     { nome: 'Wolfsburg',             pais: 'Alemanha',         flag: '🇩🇪' },
-    /* ── ARGENTINA ── */
     { nome: 'Banfield',              pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'Boca Juniors',          pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'Defensa y Justicia',    pais: 'Argentina',        flag: '🇦🇷' },
@@ -518,34 +890,29 @@
     { nome: 'Huracán',               pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'Independiente',         pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'Lanús',                 pais: 'Argentina',        flag: '🇦🇷' },
-    { nome: 'Newell\'s Old Boys',    pais: 'Argentina',        flag: '🇦🇷' },
+    { nome: "Newell's Old Boys",     pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'Racing Club',           pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'River Plate',           pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'Rosario Central',       pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'San Lorenzo',           pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'Talleres',              pais: 'Argentina',        flag: '🇦🇷' },
     { nome: 'Vélez Sársfield',       pais: 'Argentina',        flag: '🇦🇷' },
-    /* ── ARÁBIA SAUDITA ── */
     { nome: 'Abha FC',               pais: 'Arábia Saudita',   flag: '🇸🇦' },
     { nome: 'Al-Ahli',               pais: 'Arábia Saudita',   flag: '🇸🇦' },
     { nome: 'Al-Hilal',              pais: 'Arábia Saudita',   flag: '🇸🇦' },
     { nome: 'Al-Ittihad',            pais: 'Arábia Saudita',   flag: '🇸🇦' },
     { nome: 'Al-Nassr',              pais: 'Arábia Saudita',   flag: '🇸🇦' },
-    /* ── ÁUSTRIA ── */
     { nome: 'Austria Wien',          pais: 'Áustria',          flag: '🇦🇹' },
     { nome: 'Rapid Wien',            pais: 'Áustria',          flag: '🇦🇹' },
     { nome: 'Red Bull Salzburg',     pais: 'Áustria',          flag: '🇦🇹' },
     { nome: 'Sturm Graz',            pais: 'Áustria',          flag: '🇦🇹' },
-    /* ── BÉLGICA ── */
     { nome: 'Anderlecht',            pais: 'Bélgica',          flag: '🇧🇪' },
     { nome: 'Club Brugge',           pais: 'Bélgica',          flag: '🇧🇪' },
     { nome: 'Genk',                  pais: 'Bélgica',          flag: '🇧🇪' },
     { nome: 'Gent',                  pais: 'Bélgica',          flag: '🇧🇪' },
     { nome: 'Standard Liège',        pais: 'Bélgica',          flag: '🇧🇪' },
-    /* ── BOLÍVIA ── */
     { nome: 'Bolívar',               pais: 'Bolívia',          flag: '🇧🇴' },
     { nome: 'The Strongest',         pais: 'Bolívia',          flag: '🇧🇴' },
-    /* ── BRASIL ── */
     { nome: 'América MG',            pais: 'Brasil',           flag: '🇧🇷' },
     { nome: 'Athletico Paranaense',  pais: 'Brasil',           flag: '🇧🇷' },
     { nome: 'Atlético Mineiro',      pais: 'Brasil',           flag: '🇧🇷' },
@@ -574,26 +941,20 @@
     { nome: 'Sport Recife',          pais: 'Brasil',           flag: '🇧🇷' },
     { nome: 'Vasco da Gama',         pais: 'Brasil',           flag: '🇧🇷' },
     { nome: 'Vitória',               pais: 'Brasil',           flag: '🇧🇷' },
-    /* ── CHILE ── */
     { nome: 'Colo-Colo',             pais: 'Chile',            flag: '🇨🇱' },
     { nome: 'Universidad Católica',  pais: 'Chile',            flag: '🇨🇱' },
     { nome: 'Universidad de Chile',  pais: 'Chile',            flag: '🇨🇱' },
-    /* ── COLÔMBIA ── */
     { nome: 'América de Cali',       pais: 'Colômbia',         flag: '🇨🇴' },
     { nome: 'Atlético Nacional',     pais: 'Colômbia',         flag: '🇨🇴' },
     { nome: 'Junior',                pais: 'Colômbia',         flag: '🇨🇴' },
     { nome: 'Millonarios',           pais: 'Colômbia',         flag: '🇨🇴' },
-    /* ── CROÁCIA ── */
     { nome: 'Dinamo Zagreb',         pais: 'Croácia',          flag: '🇭🇷' },
     { nome: 'Hajduk Split',          pais: 'Croácia',          flag: '🇭🇷' },
-    /* ── EQUADOR ── */
     { nome: 'Barcelona SC',          pais: 'Equador',          flag: '🇪🇨' },
     { nome: 'Emelec',                pais: 'Equador',          flag: '🇪🇨' },
     { nome: 'LDU Quito',             pais: 'Equador',          flag: '🇪🇨' },
-    /* ── ESCÓCIA ── */
     { nome: 'Celtic',                pais: 'Escócia',          flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿' },
     { nome: 'Rangers',               pais: 'Escócia',          flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿' },
-    /* ── ESPANHA ── */
     { nome: 'Almería',               pais: 'Espanha',          flag: '🇪🇸' },
     { nome: 'Athletic Bilbao',       pais: 'Espanha',          flag: '🇪🇸' },
     { nome: 'Atlético de Madrid',    pais: 'Espanha',          flag: '🇪🇸' },
@@ -617,7 +978,6 @@
     { nome: 'Sevilla',               pais: 'Espanha',          flag: '🇪🇸' },
     { nome: 'Valencia',              pais: 'Espanha',          flag: '🇪🇸' },
     { nome: 'Villarreal',            pais: 'Espanha',          flag: '🇪🇸' },
-    /* ── EUA ── */
     { nome: 'Atlanta United',        pais: 'EUA',              flag: '🇺🇸' },
     { nome: 'Charlotte FC',          pais: 'EUA',              flag: '🇺🇸' },
     { nome: 'Chicago Fire',          pais: 'EUA',              flag: '🇺🇸' },
@@ -634,7 +994,6 @@
     { nome: 'Portland Timbers',      pais: 'EUA',              flag: '🇺🇸' },
     { nome: 'Seattle Sounders',      pais: 'EUA',              flag: '🇺🇸' },
     { nome: 'Sporting Kansas City',  pais: 'EUA',              flag: '🇺🇸' },
-    /* ── FRANÇA ── */
     { nome: 'Bordeaux',              pais: 'França',           flag: '🇫🇷' },
     { nome: 'Brest',                 pais: 'França',           flag: '🇫🇷' },
     { nome: 'Lens',                  pais: 'França',           flag: '🇫🇷' },
@@ -652,19 +1011,16 @@
     { nome: 'Saint-Étienne',         pais: 'França',           flag: '🇫🇷' },
     { nome: 'Strasbourg',            pais: 'França',           flag: '🇫🇷' },
     { nome: 'Toulouse',              pais: 'França',           flag: '🇫🇷' },
-    /* ── GRÉCIA ── */
     { nome: 'AEK Athens',            pais: 'Grécia',           flag: '🇬🇷' },
     { nome: 'Olympiacos',            pais: 'Grécia',           flag: '🇬🇷' },
     { nome: 'Panathinaikos',         pais: 'Grécia',           flag: '🇬🇷' },
     { nome: 'PAOK',                  pais: 'Grécia',           flag: '🇬🇷' },
-    /* ── HOLANDA ── */
     { nome: 'AFC Ajax',              pais: 'Holanda',          flag: '🇳🇱' },
     { nome: 'AZ Alkmaar',            pais: 'Holanda',          flag: '🇳🇱' },
     { nome: 'Feyenoord',             pais: 'Holanda',          flag: '🇳🇱' },
     { nome: 'PSV Eindhoven',         pais: 'Holanda',          flag: '🇳🇱' },
     { nome: 'Twente',                pais: 'Holanda',          flag: '🇳🇱' },
     { nome: 'Utrecht',               pais: 'Holanda',          flag: '🇳🇱' },
-    /* ── INGLATERRA ── */
     { nome: 'Arsenal',               pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
     { nome: 'Aston Villa',           pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
     { nome: 'AFC Bournemouth',       pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
@@ -693,7 +1049,6 @@
     { nome: 'Watford',               pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
     { nome: 'West Ham United',       pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
     { nome: 'Wolverhampton',         pais: 'Inglaterra',       flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
-    /* ── ITÁLIA ── */
     { nome: 'AC Milan',              pais: 'Itália',           flag: '🇮🇹' },
     { nome: 'Atalanta',              pais: 'Itália',           flag: '🇮🇹' },
     { nome: 'Bologna',               pais: 'Itália',           flag: '🇮🇹' },
@@ -715,7 +1070,6 @@
     { nome: 'Torino',                pais: 'Itália',           flag: '🇮🇹' },
     { nome: 'Udinese',               pais: 'Itália',           flag: '🇮🇹' },
     { nome: 'Venezia',               pais: 'Itália',           flag: '🇮🇹' },
-    /* ── MÉXICO ── */
     { nome: 'Chivas Guadalajara',    pais: 'México',           flag: '🇲🇽' },
     { nome: 'Club América',          pais: 'México',           flag: '🇲🇽' },
     { nome: 'Cruz Azul',             pais: 'México',           flag: '🇲🇽' },
@@ -724,20 +1078,15 @@
     { nome: 'Pumas UNAM',            pais: 'México',           flag: '🇲🇽' },
     { nome: 'Tigres UANL',           pais: 'México',           flag: '🇲🇽' },
     { nome: 'Toluca',                pais: 'México',           flag: '🇲🇽' },
-    /* ── MOLDÁVIA ── */
     { nome: 'Sheriff Tiraspol',      pais: 'Moldávia',         flag: '🇲🇩' },
-    /* ── PARAGUAI ── */
     { nome: 'Cerro Porteño',         pais: 'Paraguai',         flag: '🇵🇾' },
     { nome: 'Olimpia',               pais: 'Paraguai',         flag: '🇵🇾' },
-    /* ── PERU ── */
     { nome: 'Alianza Lima',          pais: 'Peru',             flag: '🇵🇪' },
     { nome: 'Sporting Cristal',      pais: 'Peru',             flag: '🇵🇪' },
     { nome: 'Universitario',         pais: 'Peru',             flag: '🇵🇪' },
-    /* ── POLÔNIA ── */
     { nome: 'Lech Poznań',           pais: 'Polônia',          flag: '🇵🇱' },
     { nome: 'Legia Warsaw',          pais: 'Polônia',          flag: '🇵🇱' },
     { nome: 'Wisła Kraków',          pais: 'Polônia',          flag: '🇵🇱' },
-    /* ── PORTUGAL ── */
     { nome: 'Benfica',               pais: 'Portugal',         flag: '🇵🇹' },
     { nome: 'Braga',                 pais: 'Portugal',         flag: '🇵🇹' },
     { nome: 'Gil Vicente',           pais: 'Portugal',         flag: '🇵🇹' },
@@ -745,33 +1094,25 @@
     { nome: 'Porto',                 pais: 'Portugal',         flag: '🇵🇹' },
     { nome: 'Sporting CP',           pais: 'Portugal',         flag: '🇵🇹' },
     { nome: 'Vitória SC',            pais: 'Portugal',         flag: '🇵🇹' },
-    /* ── REPÚBLICA CHECA ── */
     { nome: 'Slavia Prague',         pais: 'Rep. Checa',       flag: '🇨🇿' },
     { nome: 'Sparta Prague',         pais: 'Rep. Checa',       flag: '🇨🇿' },
-    /* ── ROMÊNIA ── */
     { nome: 'CFR Cluj',              pais: 'Romênia',          flag: '🇷🇴' },
     { nome: 'Steaua București',      pais: 'Romênia',          flag: '🇷🇴' },
-    /* ── RÚSSIA ── */
     { nome: 'CSKA Moscou',           pais: 'Rússia',           flag: '🇷🇺' },
     { nome: 'Lokomotiv Moscou',      pais: 'Rússia',           flag: '🇷🇺' },
     { nome: 'Spartak Moscou',        pais: 'Rússia',           flag: '🇷🇺' },
     { nome: 'Zenit São Petersburgo', pais: 'Rússia',           flag: '🇷🇺' },
-    /* ── SÉRVIA ── */
     { nome: 'Partizan Belgrado',     pais: 'Sérvia',           flag: '🇷🇸' },
     { nome: 'Red Star Belgrado',     pais: 'Sérvia',           flag: '🇷🇸' },
-    /* ── SUÍÇA ── */
     { nome: 'FC Basel',              pais: 'Suíça',            flag: '🇨🇭' },
     { nome: 'Servette',              pais: 'Suíça',            flag: '🇨🇭' },
     { nome: 'Young Boys',            pais: 'Suíça',            flag: '🇨🇭' },
-    /* ── TURQUIA ── */
     { nome: 'Beşiktaş',             pais: 'Turquia',          flag: '🇹🇷' },
     { nome: 'Fenerbahçe',            pais: 'Turquia',          flag: '🇹🇷' },
     { nome: 'Galatasaray',           pais: 'Turquia',          flag: '🇹🇷' },
     { nome: 'Trabzonspor',           pais: 'Turquia',          flag: '🇹🇷' },
-    /* ── UCRÂNIA ── */
     { nome: 'Dínamo de Kiev',        pais: 'Ucrânia',          flag: '🇺🇦' },
     { nome: 'Shakhtar Donetsk',      pais: 'Ucrânia',          flag: '🇺🇦' },
-    /* ── URUGUAI ── */
     { nome: 'Nacional',              pais: 'Uruguai',          flag: '🇺🇾' },
     { nome: 'Peñarol',               pais: 'Uruguai',          flag: '🇺🇾' },
   ].sort(function(a,b){ return a.nome.localeCompare(b.nome, 'pt'); });
@@ -789,8 +1130,12 @@
 
     document.getElementById('authOverlay').addEventListener('click', function(e){ if(e.target===this) fecharAuth(); });
     document.getElementById('timesOverlay').addEventListener('click', function(e){ if(e.target===this) fecharTimesModal(); });
+    document.getElementById('pilotosOverlay').addEventListener('click', function(e){ if(e.target===this) fecharPilotosModal(); });
+    document.getElementById('resolverOverlay').addEventListener('click', function(e){ if(e.target===this) fecharResolverModal(); });
 
     renderizarListaTimes(TIMES);
+    renderizarListaPilotos(PILOTOS);
+    detectarGP();
 
     sb.auth.getSession().then(function(r){
       if(r.data.session && r.data.session.user){ usuarioAtual = r.data.session.user; aoLogar(usuarioAtual); }
@@ -804,6 +1149,18 @@
   });
 
   /* ============================================================
+     SPORT SWITCHER
+     ============================================================ */
+  function mudarEsporte(esporte) {
+    esporteAtivo = esporte;
+    document.getElementById('tab-futebol').classList.toggle('ativo', esporte === 'futebol');
+    document.getElementById('tab-f1').classList.toggle('ativo', esporte === 'f1');
+    document.getElementById('secaoFutebol').classList.toggle('oculto', esporte !== 'futebol');
+    document.getElementById('secaoF1').classList.toggle('ativo', esporte === 'f1');
+    if (esporte === 'f1' && usuarioAtual) carregarApostasF1();
+  }
+
+  /* ============================================================
      AO LOGAR / DESLOGAR
      ============================================================ */
   function aoLogar(user) {
@@ -814,6 +1171,7 @@
     document.getElementById('areaJogos').style.display       = 'block';
     document.getElementById('currencyBar').style.display     = 'flex';
     carregarSaldo(user.id);
+    carregarApostasF1();
   }
 
   function aoDeslogar() {
@@ -841,10 +1199,14 @@
       cfMoeda = tipo;
       document.getElementById('cf-btnAura').classList.toggle('ativo',    tipo === 'aura');
       document.getElementById('cf-btnObscura').classList.toggle('ativo', tipo === 'aura_obscura');
-    } else {
+    } else if(jogo === 'ft') {
       ftMoeda = tipo;
       document.getElementById('ft-btnAura').classList.toggle('ativo',    tipo === 'aura');
       document.getElementById('ft-btnObscura').classList.toggle('ativo', tipo === 'aura_obscura');
+    } else {
+      f1Moeda = tipo;
+      document.getElementById('f1-btnAura').classList.toggle('ativo',    tipo === 'aura');
+      document.getElementById('f1-btnObscura').classList.toggle('ativo', tipo === 'aura_obscura');
     }
   }
 
@@ -894,7 +1256,7 @@
   }
 
   /* ============================================================
-     JOGO 2 — FUTEBOL: MODAL DE TIMES
+     JOGO 2 — FUTEBOL COM PLACAR
      ============================================================ */
   function renderizarListaTimes(lista) {
     var el = document.getElementById('timesLista');
@@ -945,67 +1307,320 @@
     nome.textContent          = time.nome;
     box.classList.add('selecionado');
 
-    /* Atualiza label dos botões de aposta */
-    if(timeSelecionado[1]) document.getElementById('ft-time1-btn').textContent = timeSelecionado[1].nome;
-    if(timeSelecionado[2]) document.getElementById('ft-time2-btn').textContent = timeSelecionado[2].nome;
+    /* Atualiza labels do placar */
+    document.getElementById('placar-label1').textContent = timeSelecionado[1] ? timeSelecionado[1].nome : 'Time 1';
+    document.getElementById('placar-label2').textContent = timeSelecionado[2] ? timeSelecionado[2].nome : 'Time 2';
 
     fecharTimesModal();
   }
 
-  function selecionarTimeAposta(num) {
-    timeApostado = num;
-    document.getElementById('ft-time1-btn').classList.toggle('ativo', num === 1);
-    document.getElementById('ft-time2-btn').classList.toggle('ativo', num === 2);
-  }
-
-  /* ============================================================
-     JOGO 2 — APOSTAR NO FUTEBOL
-     ============================================================ */
   function apostarFutebol() {
-    var qtd = parseInt(document.getElementById('ft-qtd').value);
-    var msg = document.getElementById('ft-msg');
-    var btn = document.getElementById('ft-btn');
-    var res = document.getElementById('ft-resultado');
+    var qtd   = parseInt(document.getElementById('ft-qtd').value);
+    var gols1 = parseInt(document.getElementById('ft-gols1').value);
+    var gols2 = parseInt(document.getElementById('ft-gols2').value);
+    var msg   = document.getElementById('ft-msg');
+    var btn   = document.getElementById('ft-btn');
+    var res   = document.getElementById('ft-resultado');
 
     msg.className = 'bet-msg';
     res.className = 'bet-result';
 
     if(!timeSelecionado[1] || !timeSelecionado[2]) { mostrarMsg(msg, 'Escolha os dois times primeiro.', 'erro'); return; }
     if(timeSelecionado[1].nome === timeSelecionado[2].nome) { mostrarMsg(msg, 'Escolha times diferentes.', 'erro'); return; }
+    if(isNaN(gols1) || isNaN(gols2) || gols1 < 0 || gols2 < 0) { mostrarMsg(msg, 'Placar inválido.', 'erro'); return; }
     if(!qtd || qtd <= 0) { mostrarMsg(msg, 'Informe uma quantidade válida.', 'erro'); return; }
-
-    var timeApostadoNome = timeSelecionado[timeApostado].nome;
-    var timeAdversarioNome = timeSelecionado[timeApostado === 1 ? 2 : 1].nome;
 
     btn.disabled = true; btn.textContent = '⚽ Processando...';
 
-    sb.rpc('apostar_futebol', { p_time_apostado: timeApostadoNome, p_quantidade: qtd, p_moeda: ftMoeda })
-      .then(function(result){
-        btn.disabled = false; btn.textContent = '⚽ Apostar';
-        if(result.error){ mostrarMsg(msg, 'Erro: ' + result.error.message, 'erro'); return; }
+    sb.rpc('apostar_placar', {
+      p_time1: timeSelecionado[1].nome,
+      p_time2: timeSelecionado[2].nome,
+      p_placar1: gols1,
+      p_placar2: gols2,
+      p_time_apostado: timeSelecionado[1].nome,
+      p_quantidade: qtd,
+      p_moeda: ftMoeda
+    })
+    .then(function(result){
+      btn.disabled = false; btn.textContent = '⚽ Apostar no Placar';
+      if(result.error){ mostrarMsg(msg, 'Erro: ' + result.error.message, 'erro'); return; }
 
-        var retorno = result.data;
-        var moedaLabel = ftMoeda === 'aura_obscura' ? 'Aura Obscura' : 'Aura';
+      var r = result.data;
+      var moedaLabel = ftMoeda === 'aura_obscura' ? 'Aura Obscura' : 'Aura';
+      var scoreReal  = r.time1 + ' ' + r.result1 + ' × ' + r.result2 + ' ' + r.time2;
+      var scorePalpite = r.time1 + ' ' + gols1 + ' × ' + gols2 + ' ' + r.time2;
 
-        if(retorno === 'ganhou') {
-          document.getElementById('ft-icon').textContent   = '🏆';
-          document.getElementById('ft-titulo').textContent = timeApostadoNome + ' Venceu!';
-          document.getElementById('ft-sub').textContent    = '+' + qtd + ' ' + moedaLabel;
-          res.className = 'bet-result ganhou pulsar';
-        } else if(retorno === 'perdeu') {
-          document.getElementById('ft-icon').textContent   = '💀';
-          document.getElementById('ft-titulo').textContent = timeAdversarioNome + ' Venceu!';
-          document.getElementById('ft-sub').textContent    = '-' + qtd + ' ' + moedaLabel;
-          res.className = 'bet-result perdeu pulsar';
-        } else if(retorno === 'saldo_insuficiente') {
-          mostrarMsg(msg, '❌ Saldo insuficiente.', 'erro'); return;
-        } else if(retorno === 'quantidade_invalida') {
-          mostrarMsg(msg, '❌ Quantidade inválida.', 'erro'); return;
-        }
+      document.getElementById('ft-score').textContent = scoreReal;
 
+      if(r.status === 'exato') {
+        document.getElementById('ft-icon').textContent   = '🏆';
+        document.getElementById('ft-titulo').textContent = 'Placar Exato!';
+        document.getElementById('ft-sub').textContent    = 'Seu palpite: ' + scorePalpite + ' · +' + r.payout + ' ' + moedaLabel;
+        res.className = 'bet-result ganhou pulsar';
+      } else if(r.status === 'parcial_50') {
+        document.getElementById('ft-icon').textContent   = '✅';
+        document.getElementById('ft-titulo').textContent = 'Quase! +50%';
+        document.getElementById('ft-sub').textContent    = 'Palpite: ' + scorePalpite + ' · +' + r.payout + ' ' + moedaLabel;
+        res.className = 'bet-result parcial pulsar';
+      } else if(r.status === 'parcial_25') {
+        document.getElementById('ft-icon').textContent   = '🟡';
+        document.getElementById('ft-titulo').textContent = 'Perto! +25%';
+        document.getElementById('ft-sub').textContent    = 'Palpite: ' + scorePalpite + ' · +' + r.payout + ' ' + moedaLabel;
+        res.className = 'bet-result parcial pulsar';
+      } else if(r.status === 'perdeu') {
+        document.getElementById('ft-icon').textContent   = '💀';
+        document.getElementById('ft-titulo').textContent = 'Errou o Resultado!';
+        document.getElementById('ft-sub').textContent    = 'Palpite: ' + scorePalpite + ' · -' + qtd + ' ' + moedaLabel;
+        res.className = 'bet-result perdeu pulsar';
+      } else if(r.status === 'saldo_insuficiente') {
+        mostrarMsg(msg, '❌ Saldo insuficiente.', 'erro'); return;
+      }
+
+      carregarSaldo(usuarioAtual.id);
+    })
+    .catch(function(e){ btn.disabled = false; btn.textContent = '⚽ Apostar no Placar'; mostrarMsg(msg, 'Erro inesperado.', 'erro'); });
+  }
+
+  /* ============================================================
+     F1 — PILOTOS MODAL
+     ============================================================ */
+  function renderizarListaPilotos(lista) {
+    var el = document.getElementById('pilotosLista');
+    el.innerHTML = '';
+    lista.forEach(function(piloto) {
+      var item = document.createElement('div');
+      item.className = 'time-item';
+      item.innerHTML =
+        '<span class="time-item-flag">' + piloto.flag + '</span>' +
+        '<div class="time-item-info">' +
+          '<span class="time-item-nome">#' + piloto.numero + ' ' + piloto.nome + '</span>' +
+          '<span class="time-item-pais">' + piloto.equipe + '</span>' +
+        '</div>';
+      item.addEventListener('click', function(){ selecionarPiloto(piloto); });
+      el.appendChild(item);
+    });
+  }
+
+  function filtrarPilotos() {
+    var busca = document.getElementById('pilotosSearch').value.toLowerCase();
+    var filtrado = PILOTOS.filter(function(p){ return p.nome.toLowerCase().includes(busca) || p.equipe.toLowerCase().includes(busca); });
+    renderizarListaPilotos(filtrado);
+  }
+
+  function abrirPilotosModal(slot) {
+    pilotoSeletorAtivo = slot;
+    document.getElementById('pilotosSearch').value = '';
+    renderizarListaPilotos(PILOTOS);
+    document.getElementById('pilotosOverlay').classList.add('aberto');
+  }
+
+  function fecharPilotosModal() {
+    document.getElementById('pilotosOverlay').classList.remove('aberto');
+  }
+
+  function selecionarPiloto(piloto) {
+    pilotoSelecionado[pilotoSeletorAtivo] = piloto;
+
+    var slot = pilotoSeletorAtivo;
+    document.getElementById('piloto' + slot + '-placeholder').style.display = 'none';
+    document.getElementById('piloto' + slot + '-num').style.display    = 'block';
+    document.getElementById('piloto' + slot + '-nome').style.display   = 'block';
+    document.getElementById('piloto' + slot + '-equipe').style.display = 'block';
+    document.getElementById('piloto' + slot + '-num').textContent      = '#' + piloto.numero;
+    document.getElementById('piloto' + slot + '-nome').textContent     = piloto.nome;
+    document.getElementById('piloto' + slot + '-equipe').textContent   = piloto.equipe;
+    document.getElementById('piloto' + slot + '-box').classList.add('selecionado');
+
+    /* Atualiza labels dos botões de aposta */
+    if(pilotoSelecionado[1]) document.getElementById('f1-piloto1-btn').textContent = pilotoSelecionado[1].nome.split(' ').pop();
+    if(pilotoSelecionado[2]) document.getElementById('f1-piloto2-btn').textContent = pilotoSelecionado[2].nome.split(' ').pop();
+
+    fecharPilotosModal();
+  }
+
+  function selecionarPilotoAposta(num) {
+    pilotoApostado = num;
+    document.getElementById('f1-piloto1-btn').classList.toggle('ativo', num === 1);
+    document.getElementById('f1-piloto2-btn').classList.toggle('ativo', num === 2);
+  }
+
+  /* ============================================================
+     F1 — SESSÃO
+     ============================================================ */
+  function selecionarSessao(sessao) {
+    sessaoAtual = sessao;
+    ['corrida','quali','sprint','fp1','fp2','fp3'].forEach(function(id){
+      document.getElementById('sessao-' + id).classList.remove('ativo');
+    });
+    var map = { 'Corrida': 'corrida', 'Qualifying': 'quali', 'Sprint': 'sprint', 'FP1': 'fp1', 'FP2': 'fp2', 'FP3': 'fp3' };
+    document.getElementById('sessao-' + map[sessao]).classList.add('ativo');
+  }
+
+  /* ============================================================
+     F1 — FAZER APOSTA
+     ============================================================ */
+  function apostarF1() {
+    var qtd = parseInt(document.getElementById('f1-qtd').value);
+    var msg = document.getElementById('f1-msg');
+    var btn = document.getElementById('f1-btn');
+    var res = document.getElementById('f1-resultado');
+
+    msg.className = 'bet-msg';
+    res.className = 'bet-result';
+
+    if(!pilotoSelecionado[1] || !pilotoSelecionado[2]) { mostrarMsg(msg, 'Escolha os dois pilotos primeiro.', 'erro'); return; }
+    if(pilotoSelecionado[1].nome === pilotoSelecionado[2].nome) { mostrarMsg(msg, 'Escolha pilotos diferentes.', 'erro'); return; }
+    if(!qtd || qtd <= 0) { mostrarMsg(msg, 'Informe uma quantidade válida.', 'erro'); return; }
+
+    var pilotoApostadoNome = pilotoSelecionado[pilotoApostado].nome;
+    var pilotoAdversarioNome = pilotoSelecionado[pilotoApostado === 1 ? 2 : 1].nome;
+
+    btn.disabled = true; btn.textContent = '🏎️ Registrando...';
+
+    sb.rpc('apostar_f1', {
+      p_piloto_apostado:  pilotoApostadoNome,
+      p_piloto_adversario: pilotoAdversarioNome,
+      p_tipo_sessao: sessaoAtual,
+      p_grand_prix:  grandPrixAtual,
+      p_quantidade:  qtd,
+      p_moeda:       f1Moeda
+    })
+    .then(function(result){
+      btn.disabled = false; btn.textContent = '🏎️ Fazer Aposta F1';
+      if(result.error){ mostrarMsg(msg, 'Erro: ' + result.error.message, 'erro'); return; }
+
+      var retorno = result.data;
+      if(retorno === 'ok') {
+        document.getElementById('f1-icon').textContent   = '🏎️';
+        document.getElementById('f1-titulo').textContent = 'Aposta Registrada!';
+        document.getElementById('f1-sub').textContent    = 'Apostou em ' + pilotoApostadoNome + ' vs ' + pilotoAdversarioNome + ' · ' + sessaoAtual + ' · ' + grandPrixAtual;
+        res.className = 'bet-result ganhou pulsar';
         carregarSaldo(usuarioAtual.id);
+        carregarApostasF1();
+      } else if(retorno === 'saldo_insuficiente') {
+        mostrarMsg(msg, '❌ Saldo insuficiente.', 'erro');
+      } else if(retorno === 'quantidade_invalida') {
+        mostrarMsg(msg, '❌ Quantidade inválida.', 'erro');
+      }
+    })
+    .catch(function(e){ btn.disabled = false; btn.textContent = '🏎️ Fazer Aposta F1'; mostrarMsg(msg, 'Erro inesperado.', 'erro'); });
+  }
+
+  /* ============================================================
+     F1 — CARREGAR APOSTAS
+     ============================================================ */
+  function carregarApostasF1() {
+    if(!usuarioAtual) return;
+
+    sb.from('apostas_f1')
+      .select('*')
+      .eq('auth_id', usuarioAtual.id)
+      .order('created_at', { ascending: false })
+      .then(function(result){
+        if(result.error) return;
+        var apostas = result.data || [];
+        var pendentes  = apostas.filter(function(a){ return a.status === 'pendente'; });
+        var historico  = apostas.filter(function(a){ return a.status !== 'pendente'; });
+        renderizarApostasPendentes(pendentes);
+        renderizarHistoricoF1(historico);
+      });
+  }
+
+  function renderizarApostasPendentes(lista) {
+    var el = document.getElementById('listaApostasPendentes');
+    if(!lista.length) {
+      el.innerHTML = '<div class="loading-apostas">Nenhuma aposta pendente</div>';
+      return;
+    }
+    el.innerHTML = '';
+    lista.forEach(function(a) {
+      var moedaLabel = a.moeda === 'aura_obscura' ? '🟣 ' : '🔴 ';
+      var item = document.createElement('div');
+      item.className = 'aposta-pendente-item';
+      item.innerHTML =
+        '<div class="aposta-pendente-info">' +
+          '<div class="aposta-pendente-titulo">🏎️ ' + a.piloto_apostado + ' vs ' + a.piloto_adversario + '</div>' +
+          '<div class="aposta-pendente-sub">' + a.tipo_sessao + ' · ' + a.grand_prix + '</div>' +
+          '<span class="aposta-tag pendente">⏳ Pendente</span>' +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">' +
+          '<div class="aposta-pendente-valor">' + moedaLabel + a.quantidade + '</div>' +
+          '<button class="resolver-btn" onclick="abrirResolverModal(' + a.id + ', \'' + a.piloto_apostado.replace(/'/g, "\\'") + '\', \'' + a.piloto_adversario.replace(/'/g, "\\'") + '\')">Resolver</button>' +
+        '</div>';
+      el.appendChild(item);
+    });
+  }
+
+  function renderizarHistoricoF1(lista) {
+    var el = document.getElementById('listaApostasHistorico');
+    if(!lista.length) {
+      el.innerHTML = '<div class="loading-apostas">Nenhum histórico ainda</div>';
+      return;
+    }
+    el.innerHTML = '';
+    lista.slice(0, 10).forEach(function(a) {
+      var moedaLabel = a.moeda === 'aura_obscura' ? '🟣 ' : '🔴 ';
+      var item = document.createElement('div');
+      item.className = 'aposta-pendente-item';
+      var tagClass = a.status === 'ganhou' ? 'ganhou' : 'perdeu';
+      var tagEmoji = a.status === 'ganhou' ? '🏆' : '💀';
+      item.innerHTML =
+        '<div class="aposta-pendente-info">' +
+          '<div class="aposta-pendente-titulo">🏎️ ' + a.piloto_apostado + ' vs ' + a.piloto_adversario + '</div>' +
+          '<div class="aposta-pendente-sub">' + a.tipo_sessao + ' · ' + a.grand_prix + '</div>' +
+          '<span class="aposta-tag ' + tagClass + '">' + tagEmoji + ' ' + a.status.charAt(0).toUpperCase() + a.status.slice(1) + '</span>' +
+        '</div>' +
+        '<div class="aposta-pendente-valor">' + moedaLabel + a.quantidade + '</div>';
+      el.appendChild(item);
+    });
+  }
+
+  /* ============================================================
+     F1 — RESOLVER APOSTA (modal)
+     ============================================================ */
+  function abrirResolverModal(apostaId, piloto1, piloto2) {
+    apostaResolvendo = apostaId;
+    document.getElementById('resolver-sub').textContent = 'Quem venceu? · ' + piloto1 + ' vs ' + piloto2;
+    var container = document.getElementById('resolverPilotos');
+    container.innerHTML = '';
+
+    [piloto1, piloto2].forEach(function(nome) {
+      var btn = document.createElement('button');
+      btn.className = 'resolver-piloto-btn';
+      btn.textContent = '🏁 ' + nome;
+      btn.addEventListener('click', function(){ resolverApostaF1(apostaId, nome); });
+      container.appendChild(btn);
+    });
+
+    document.getElementById('resolverOverlay').classList.add('aberto');
+  }
+
+  function fecharResolverModal() {
+    document.getElementById('resolverOverlay').classList.remove('aberto');
+    apostaResolvendo = null;
+  }
+
+  function resolverApostaF1(apostaId, vencedor) {
+    fecharResolverModal();
+
+    sb.rpc('resolver_aposta_f1', { p_aposta_id: apostaId, p_vencedor: vencedor })
+      .then(function(result){
+        if(result.error){ alert('Erro ao resolver: ' + result.error.message); return; }
+        var retorno = result.data;
+        carregarSaldo(usuarioAtual.id);
+        carregarApostasF1();
+
+        // feedback rápido
+        var msg;
+        if(retorno === 'ganhou')         msg = '🏆 Você ganhou a aposta! Saldo atualizado.';
+        else if(retorno === 'perdeu')    msg = '💀 Você perdeu. Melhor sorte na próxima.';
+        else if(retorno === 'ja_resolvida') msg = 'Esta aposta já foi resolvida.';
+        else if(retorno === 'nao_encontrada') msg = 'Aposta não encontrada.';
+        else msg = retorno;
+
+        alert(msg);
       })
-      .catch(function(e){ btn.disabled = false; btn.textContent = '⚽ Apostar'; mostrarMsg(msg, 'Erro inesperado.', 'erro'); });
+      .catch(function(e){ alert('Erro inesperado ao resolver.'); });
   }
 
   /* ============================================================
