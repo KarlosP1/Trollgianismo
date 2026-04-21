@@ -800,6 +800,193 @@
 
     /* ── auth-bar: hambúrguer esquerda, login direita ── */
     .auth-bar { justify-content: space-between !important; }
+
+    /* ════════════════════════════════════════════════════════════
+       PÁGINA DE DETALHE DO PRODUTO — TELA CHEIA
+       ════════════════════════════════════════════════════════════ */
+    .produto-overlay {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      background-image:
+        url('https://i.imgur.com/mJoCBsb.png'),
+        radial-gradient(ellipse at 20% 0%, rgba(200,30,30,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(160,20,20,0.08) 0%, transparent 60%);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      background-attachment: fixed;
+      z-index: 3000;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+      overflow-y: auto;
+    }
+    .produto-overlay.aberto { opacity: 1; pointer-events: all; }
+
+    /* Overlay escuro igual ao body::before */
+    .produto-overlay::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,6,18,0.75) 0%, rgba(10,9,15,0.90) 40%, rgba(10,9,15,0.97) 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .produto-modal {
+      position: relative; z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+      animation: fadeIn 0.3s ease both;
+    }
+
+    /* ── BARRA DO TOPO: botão voltar ── */
+    .produto-topbar {
+      display: flex;
+      align-items: center;
+      padding: 20px 0 28px;
+    }
+
+    .produto-btn-voltar {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px 18px;
+      color: var(--text-dim);
+      font-family: 'Cinzel', serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      cursor: pointer; outline: none;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .produto-btn-voltar:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-dim);
+      background: linear-gradient(135deg, #3a1515, #2a0f0f);
+    }
+    .produto-btn-voltar span { font-size: 15px; line-height: 1; }
+
+    /* ── FOTO DO PRODUTO ── */
+    .produto-img-wrap {
+      width: 100%;
+      max-height: 420px;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      margin-bottom: 0;
+      position: relative;
+    }
+    .produto-img-wrap::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+      z-index: 1;
+    }
+    .produto-img-wrap.obscura::before {
+      background: linear-gradient(to right, transparent, #6a3a9a, transparent);
+    }
+    .produto-modal-img {
+      width: 100%; max-height: 420px;
+      object-fit: cover; display: block;
+    }
+
+    /* ── BLOCO ABAIXO DA FOTO: nome + preço + botão comprar ── */
+    .produto-destaque {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      padding: 22px 26px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .produto-modal-titulo {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(16px, 3.5vw, 22px);
+      font-weight: 600; letter-spacing: 0.07em;
+      color: var(--text);
+    }
+
+    .produto-modal-preco {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(18px, 4vw, 26px);
+      letter-spacing: 0.05em;
+    }
+    .produto-modal-preco.aura { color: var(--gold-light); }
+    .produto-modal-preco.obscura {
+      color: var(--aura-obscura-color);
+      text-shadow: 0 0 10px var(--aura-obscura-glow);
+    }
+    .produto-modal-preco .price-unit {
+      font-size: 10px; font-family: 'Cinzel', serif;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      opacity: 0.75; margin-left: 4px;
+    }
+
+    .produto-modal-btn-comprar {
+      width: 100%; padding: 14px;
+      border-radius: 4px; border: 1px solid var(--gold-dim);
+      background: linear-gradient(135deg, rgba(212,51,51,0.18), rgba(212,51,51,0.07));
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; outline: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .produto-modal-btn-comprar:hover {
+      background: linear-gradient(135deg, rgba(212,51,51,0.32), rgba(212,51,51,0.14));
+      box-shadow: 0 0 18px rgba(212,51,51,0.25);
+      transform: translateY(-1px);
+    }
+    .produto-modal-btn-comprar:active { transform: scale(0.97); }
+    .produto-modal-btn-comprar.obscura {
+      border-color: #6a3a9a;
+      background: linear-gradient(135deg, rgba(155,89,182,0.18), rgba(155,89,182,0.07));
+      color: var(--aura-obscura-color);
+    }
+    .produto-modal-btn-comprar.obscura:hover {
+      background: linear-gradient(135deg, rgba(155,89,182,0.32), rgba(155,89,182,0.14));
+      box-shadow: 0 0 18px var(--aura-obscura-glow);
+    }
+
+    /* ── SEÇÕES DE TEXTO ── */
+    .produto-modal-secao {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      position: relative; overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .produto-modal-secao::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+
+    .produto-modal-secao-label {
+      font-family: 'Cinzel', serif;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .produto-modal-secao-texto {
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px; font-weight: 300;
+      color: var(--text); line-height: 1.75;
+      white-space: pre-line;
+    }
+
+    /* Cursor pointer nos cards para indicar que são clicáveis */
+    .product-card { cursor: pointer; }
   </style>
 </head>
 <body>
@@ -948,7 +1135,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 01 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="1"
+         data-nome="Chuteira/Chupeta CP-FC Futebol de campo"
+         data-preco="300"
+         data-img="imagens/CHUPETA.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 01 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -974,7 +1169,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 02 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="2"
+         data-nome="Anel Trollger indestrutível"
+         data-preco="10000"
+         data-img="imagens/ANEL.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 02 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1000,7 +1203,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 03 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="3"
+         data-nome="Camisa Trollgianismo Fogo Vermelho"
+         data-preco="120"
+         data-img="imagens/CAMISA.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 03 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1026,7 +1237,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 04 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="4"
+         data-nome="Calça Baggy Trollgers"
+         data-preco="200"
+         data-img="imagens/CALCA.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 04 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1052,7 +1271,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 05 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="5"
+         data-nome="EK-SHOES - NIGGERTZ"
+         data-preco="500"
+         data-img="imagens/EKHERTZ.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 05 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1078,7 +1305,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 06 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="6"
+         data-nome="Água"
+         data-preco="1"
+         data-img="imagens/WATER.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 06 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1104,7 +1339,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 07 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="7"
+         data-nome="Leite de Femboy"
+         data-preco="10"
+         data-img="imagens/MILK.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 07 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1130,7 +1373,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 08 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="8"
+         data-nome="Trollcola lata"
+         data-preco="5"
+         data-img="imagens/TROLLCOLA.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 08 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1156,7 +1407,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 09 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="9"
+         data-nome="Whey Protein modelo Kevin 1KG"
+         data-preco="50"
+         data-img="imagens/WHEY.png"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 09 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1182,7 +1441,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 10 — AURA                                       ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card" data-moeda="aura">
+    <div class="product-card" data-moeda="aura"
+         data-produto-id="10"
+         data-nome="Salgadinho Saboour pimto de queijo - TrollGitoos"
+         data-preco="10"
+         data-img="imagens/TROLLGITOOS.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 10 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1222,7 +1489,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 11 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="11"
+         data-nome="CARTA RARÍSSIMA TROLLGER-MON DAVI"
+         data-preco="10000"
+         data-img="imagens/DAVICARTA.png"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 11 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1248,7 +1523,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 12 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="12"
+         data-nome="Nubia Phone 18"
+         data-preco="18000"
+         data-img="imagens/NUBIA.jpg"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 12 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1274,7 +1557,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 13 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="13"
+         data-nome="Nome do Produto 13"
+         data-preco="000"
+         data-img="URL_DA_IMAGEM_AQUI"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 13 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1300,7 +1591,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 14 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="14"
+         data-nome="Nome do Produto 14"
+         data-preco="000"
+         data-img="URL_DA_IMAGEM_AQUI"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 14 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1326,7 +1625,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 15 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="15"
+         data-nome="Nome do Produto 15"
+         data-preco="000"
+         data-img="URL_DA_IMAGEM_AQUI"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 15 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1352,7 +1659,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 16 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="16"
+         data-nome="Nome do Produto 16"
+         data-preco="000"
+         data-img="URL_DA_IMAGEM_AQUI"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 16 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1378,7 +1693,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 17 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="17"
+         data-nome="Nome do Produto 17"
+         data-preco="000"
+         data-img="URL_DA_IMAGEM_AQUI"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 17 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1404,7 +1727,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 18 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="18"
+         data-nome="Nome do Produto 18"
+         data-preco="000"
+         data-img="URL_DA_IMAGEM_AQUI"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 18 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1430,7 +1761,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 19 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="19"
+         data-nome="Nome do Produto 19"
+         data-preco="000"
+         data-img="URL_DA_IMAGEM_AQUI"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 19 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1456,7 +1795,15 @@
     <!-- ╔══════════════════════════════════════════════════════════╗
          ║  PRODUTO 20 — AURA OBSCURA                               ║
          ╚══════════════════════════════════════════════════════════╝ -->
-    <div class="product-card obscura" data-moeda="obscura">
+    <div class="product-card obscura" data-moeda="obscura"
+         data-produto-id="20"
+         data-nome="Nome do Produto 20"
+         data-preco="000"
+         data-img="URL_DA_IMAGEM_AQUI"
+         data-descricao="✏️ Escreva a descrição aqui → Descreva o produto, material, tamanho, cor, etc."
+         data-entrega="📦 Escreva onde e como entregar aqui → Ex: Entrega presencial, pelo correio, etc."
+         data-info="ℹ️ Escreva informações extras aqui → Ex: Tamanhos disponíveis, prazo, contato."
+         onclick="abrirProduto(this)">
       <div class="product-img-wrap">
 
         <!-- 📸 IMAGEM — PRODUTO 20 | troque URL_DA_IMAGEM_AQUI pelo link real -->
@@ -1492,6 +1839,53 @@
   </footer>
 
 </div><!-- /page -->
+
+<!-- ════════════════════════════════════════════════════════════
+     PÁGINA DE DETALHE DO PRODUTO — TELA CHEIA
+     Aberta ao clicar em qualquer card
+     ════════════════════════════════════════════════════════════ -->
+<div class="produto-overlay" id="produtoOverlay">
+  <div class="produto-modal" id="produtoModal">
+
+    <!-- Botão Voltar -->
+    <div class="produto-topbar">
+      <button class="produto-btn-voltar" onclick="fecharProduto()">
+        <span>←</span> Voltar
+      </button>
+    </div>
+
+    <!-- ── FOTO DO PRODUTO ── -->
+    <div class="produto-img-wrap" id="produtoImgWrap">
+      <img class="produto-modal-img" id="produtoModalImg" src="" alt="">
+    </div>
+
+    <!-- ── NOME + PREÇO + BOTÃO COMPRAR (logo abaixo da foto) ── -->
+    <div class="produto-destaque">
+      <div class="produto-modal-titulo" id="produtoModalNome"></div>
+      <div class="produto-modal-preco"  id="produtoModalPreco"></div>
+      <button class="produto-modal-btn-comprar" id="produtoModalBtnComprar" onclick="">Comprar</button>
+    </div>
+
+    <!-- ── DESCRIÇÃO ── -->
+    <div class="produto-modal-secao">
+      <div class="produto-modal-secao-label">Descrição</div>
+      <div class="produto-modal-secao-texto" id="produtoModalDescricao"></div>
+    </div>
+
+    <!-- ── ENTREGA ── -->
+    <div class="produto-modal-secao">
+      <div class="produto-modal-secao-label">Entrega</div>
+      <div class="produto-modal-secao-texto" id="produtoModalEntrega"></div>
+    </div>
+
+    <!-- ── INFORMAÇÕES EXTRAS ── -->
+    <div class="produto-modal-secao">
+      <div class="produto-modal-secao-label">Informações</div>
+      <div class="produto-modal-secao-texto" id="produtoModalInfo"></div>
+    </div>
+
+  </div>
+</div>
 
 <script>
   /* ============================================================
@@ -1731,6 +2125,49 @@
         btn.disabled    = false;
         btn.textContent = 'Criar Conta';
       });
+  }
+
+  /* ============================================================
+     MODAL DE DETALHE DO PRODUTO
+     ============================================================ */
+  function abrirProduto(card) {
+    var nome     = card.getAttribute('data-nome')    || '';
+    var preco    = card.getAttribute('data-preco')   || '';
+    var moeda    = card.getAttribute('data-moeda')   || 'aura';
+    var img      = card.getAttribute('data-img')     || '';
+    var desc     = card.getAttribute('data-descricao') || '';
+    var entrega  = card.getAttribute('data-entrega') || '';
+    var info     = card.getAttribute('data-info')    || '';
+    var prodId   = card.getAttribute('data-produto-id') || '';
+    var moedaLabel = moeda === 'obscura' ? 'Aura Obscura' : 'Aura';
+
+    document.getElementById('produtoModalNome').textContent      = nome;
+    document.getElementById('produtoModalDescricao').textContent = desc;
+    document.getElementById('produtoModalEntrega').textContent   = entrega;
+    document.getElementById('produtoModalInfo').textContent      = info;
+
+    var imgEl = document.getElementById('produtoModalImg');
+    imgEl.src = img; imgEl.alt = nome;
+    imgEl.style.display = img ? 'block' : 'none';
+
+    var imgWrap = document.getElementById('produtoImgWrap');
+    imgWrap.className = 'produto-img-wrap' + (moeda === 'obscura' ? ' obscura' : '');
+
+    var precoEl = document.getElementById('produtoModalPreco');
+    precoEl.className = 'produto-modal-preco ' + moeda;
+    precoEl.innerHTML = preco + ' <span class="price-unit">' + moedaLabel + '</span>';
+
+    var btn = document.getElementById('produtoModalBtnComprar');
+    btn.className = 'produto-modal-btn-comprar' + (moeda === 'obscura' ? ' obscura' : '');
+    btn.setAttribute('onclick', prodId ? 'comprar(' + prodId + ')' : '');
+
+    var overlay = document.getElementById('produtoOverlay');
+    overlay.scrollTop = 0;
+    overlay.classList.add('aberto');
+  }
+
+  function fecharProduto() {
+    document.getElementById('produtoOverlay').classList.remove('aberto');
   }
 
   /* ============================================================
