@@ -788,77 +788,113 @@
      LISTA DE PILOTOS F1 2025
      ============================================================ */
   var PILOTOS = [
-    { nome: 'Max Verstappen',     equipe: 'Red Bull Racing',    numero: '1',   flag: '🇳🇱' },
-    { nome: 'Liam Lawson',        equipe: 'Red Bull Racing',    numero: '30',  flag: '🇳🇿' },
-    { nome: 'Charles Leclerc',    equipe: 'Ferrari',            numero: '16',  flag: '🇲🇨' },
-    { nome: 'Lewis Hamilton',     equipe: 'Ferrari',            numero: '44',  flag: '🇬🇧' },
-    { nome: 'George Russell',     equipe: 'Mercedes',           numero: '63',  flag: '🇬🇧' },
-    { nome: 'Kimi Antonelli',     equipe: 'Mercedes',           numero: '12',  flag: '🇮🇹' },
-    { nome: 'Lando Norris',       equipe: 'McLaren',            numero: '4',   flag: '🇬🇧' },
-    { nome: 'Oscar Piastri',      equipe: 'McLaren',            numero: '81',  flag: '🇦🇺' },
-    { nome: 'Fernando Alonso',    equipe: 'Aston Martin',       numero: '14',  flag: '🇪🇸' },
-    { nome: 'Lance Stroll',       equipe: 'Aston Martin',       numero: '18',  flag: '🇨🇦' },
-    { nome: 'Pierre Gasly',       equipe: 'Alpine',             numero: '10',  flag: '🇫🇷' },
-    { nome: 'Jack Doohan',        equipe: 'Alpine',             numero: '7',   flag: '🇦🇺' },
-    { nome: 'Carlos Sainz',       equipe: 'Williams',           numero: '55',  flag: '🇪🇸' },
-    { nome: 'Alex Albon',         equipe: 'Williams',           numero: '23',  flag: '🇹🇭' },
-    { nome: 'Nico Hülkenberg',    equipe: 'Sauber/Audi',        numero: '27',  flag: '🇩🇪' },
-    { nome: 'Gabriel Bortoleto',  equipe: 'Sauber/Audi',        numero: '5',   flag: '🇧🇷' },
-    { nome: 'Yuki Tsunoda',       equipe: 'Racing Bulls',       numero: '22',  flag: '🇯🇵' },
-    { nome: 'Isack Hadjar',       equipe: 'Racing Bulls',       numero: '6',   flag: '🇫🇷' },
-    { nome: 'Esteban Ocon',       equipe: 'Haas',               numero: '31',  flag: '🇫🇷' },
-    { nome: 'Oliver Bearman',     equipe: 'Haas',               numero: '87',  flag: '🇬🇧' },
+    { nome: 'Max Verstappen',       equipe: 'Red Bull Racing',    numero: '1',   flag: '🇳🇱' },
+    { nome: 'Liam Lawson',          equipe: 'Red Bull Racing',    numero: '30',  flag: '🇳🇿' },
+    { nome: 'Charles Leclerc',      equipe: 'Ferrari',            numero: '16',  flag: '🇲🇨' },
+    { nome: 'Lewis Hamilton',       equipe: 'Ferrari',            numero: '44',  flag: '🇬🇧' },
+    { nome: 'George Russell',       equipe: 'Mercedes',           numero: '63',  flag: '🇬🇧' },
+    { nome: 'Andrea Kimi Antonelli',equipe: 'Mercedes',           numero: '12',  flag: '🇮🇹' },
+    { nome: 'Lando Norris',         equipe: 'McLaren',            numero: '4',   flag: '🇬🇧' },
+    { nome: 'Oscar Piastri',        equipe: 'McLaren',            numero: '81',  flag: '🇦🇺' },
+    { nome: 'Fernando Alonso',      equipe: 'Aston Martin',       numero: '14',  flag: '🇪🇸' },
+    { nome: 'Lance Stroll',         equipe: 'Aston Martin',       numero: '18',  flag: '🇨🇦' },
+    { nome: 'Pierre Gasly',         equipe: 'Alpine',             numero: '10',  flag: '🇫🇷' },
+    { nome: 'Jack Doohan',          equipe: 'Alpine',             numero: '7',   flag: '🇦🇺' },
+    { nome: 'Carlos Sainz',         equipe: 'Williams',           numero: '55',  flag: '🇪🇸' },
+    { nome: 'Alex Albon',           equipe: 'Williams',           numero: '23',  flag: '🇹🇭' },
+    { nome: 'Nico Hülkenberg',      equipe: 'Sauber/Audi',        numero: '27',  flag: '🇩🇪' },
+    { nome: 'Gabriel Bortoleto',    equipe: 'Sauber/Audi',        numero: '5',   flag: '🇧🇷' },
+    { nome: 'Yuki Tsunoda',         equipe: 'Racing Bulls',       numero: '22',  flag: '🇯🇵' },
+    { nome: 'Isack Hadjar',         equipe: 'Racing Bulls',       numero: '6',   flag: '🇫🇷' },
+    { nome: 'Esteban Ocon',         equipe: 'Haas',               numero: '31',  flag: '🇫🇷' },
+    { nome: 'Oliver Bearman',       equipe: 'Haas',               numero: '87',  flag: '🇬🇧' },
+    { nome: 'Valtteri Bottas',      equipe: 'Cadillac',           numero: '77',  flag: '🇫🇮' },
+    { nome: 'Sergio Perez',         equipe: 'Cadillac',           numero: '11',  flag: '🇲🇽' },
   ];
 
   /* ============================================================
-     CALENDÁRIO F1 2025 (Grand Prix e datas)
+     DETECTAR GP ATUAL/PRÓXIMO — via Jolpica F1 API (real, sem hardcode)
+     Busca o calendário do ano atual automaticamente.
      ============================================================ */
-  var CALENDARIO_F1 = [
-    { nome: 'Australian GP',      pais: '🇦🇺', data: '2025-03-16' },
-    { nome: 'Chinese GP',         pais: '🇨🇳', data: '2025-03-23' },
-    { nome: 'Japanese GP',        pais: '🇯🇵', data: '2025-04-06' },
-    { nome: 'Bahrain GP',         pais: '🇧🇭', data: '2025-04-13' },
-    { nome: 'Saudi Arabian GP',   pais: '🇸🇦', data: '2025-04-20' },
-    { nome: 'Miami GP',           pais: '🇺🇸', data: '2025-05-04' },
-    { nome: 'Emilia Romagna GP',  pais: '🇮🇹', data: '2025-05-18' },
-    { nome: 'Monaco GP',          pais: '🇲🇨', data: '2025-05-25' },
-    { nome: 'Spanish GP',         pais: '🇪🇸', data: '2025-06-01' },
-    { nome: 'Canadian GP',        pais: '🇨🇦', data: '2025-06-15' },
-    { nome: 'Austrian GP',        pais: '🇦🇹', data: '2025-06-29' },
-    { nome: 'British GP',         pais: '🇬🇧', data: '2025-07-06' },
-    { nome: 'Belgian GP',         pais: '🇧🇪', data: '2025-07-27' },
-    { nome: 'Hungarian GP',       pais: '🇭🇺', data: '2025-08-03' },
-    { nome: 'Dutch GP',           pais: '🇳🇱', data: '2025-08-31' },
-    { nome: 'Italian GP',         pais: '🇮🇹', data: '2025-09-07' },
-    { nome: 'Azerbaijan GP',      pais: '🇦🇿', data: '2025-09-21' },
-    { nome: 'Singapore GP',       pais: '🇸🇬', data: '2025-10-05' },
-    { nome: 'United States GP',   pais: '🇺🇸', data: '2025-10-19' },
-    { nome: 'Mexico City GP',     pais: '🇲🇽', data: '2025-10-26' },
-    { nome: 'São Paulo GP',       pais: '🇧🇷', data: '2025-11-09' },
-    { nome: 'Las Vegas GP',       pais: '🇺🇸', data: '2025-11-22' },
-    { nome: 'Qatar GP',           pais: '🇶🇦', data: '2025-11-30' },
-    { nome: 'Abu Dhabi GP',       pais: '🇦🇪', data: '2025-12-07' },
-  ];
 
-  /* ============================================================
-     DETECTAR GP ATUAL/PRÓXIMO
-     ============================================================ */
-  function detectarGP() {
-    var hoje = new Date();
-    var proximo = null;
-    var atual = null;
-    for (var i = 0; i < CALENDARIO_F1.length; i++) {
-      var gp = CALENDARIO_F1[i];
-      var dataGP = new Date(gp.data);
-      var diffDias = Math.floor((dataGP - hoje) / (1000 * 60 * 60 * 24));
-      if (diffDias >= -3 && diffDias <= 3) { atual = gp; break; }
-      if (diffDias > 3 && !proximo) { proximo = gp; }
+  // Mapa de países F1 para emoji de bandeira
+  var PAIS_FLAG = {
+    'Australia': '🇦🇺', 'China': '🇨🇳', 'Japan': '🇯🇵', 'Bahrain': '🇧🇭',
+    'Saudi Arabia': '🇸🇦', 'USA': '🇺🇸', 'United States': '🇺🇸', 'Italy': '🇮🇹',
+    'Monaco': '🇲🇨', 'Spain': '🇪🇸', 'Canada': '🇨🇦', 'Austria': '🇦🇹',
+    'UK': '🇬🇧', 'Belgium': '🇧🇪', 'Hungary': '🇭🇺', 'Netherlands': '🇳🇱',
+    'Azerbaijan': '🇦🇿', 'Singapore': '🇸🇬', 'Mexico': '🇲🇽', 'Brazil': '🇧🇷',
+    'Las Vegas': '🇺🇸', 'Qatar': '🇶🇦', 'Abu Dhabi': '🇦🇪', 'UAE': '🇦🇪',
+  };
+
+  function getFlagPais(circuitPais) {
+    for (var k in PAIS_FLAG) {
+      if (circuitPais && circuitPais.toLowerCase().includes(k.toLowerCase())) return PAIS_FLAG[k];
     }
-    var escolhido = atual || proximo || CALENDARIO_F1[CALENDARIO_F1.length - 1];
-    grandPrixAtual = escolhido.nome;
-    document.getElementById('gpNome').textContent = escolhido.pais + ' ' + escolhido.nome;
-    var dataFormatada = new Date(escolhido.data).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-    document.getElementById('gpData').textContent = atual ? '🟢 Este fim de semana · ' + dataFormatada : '🔵 Próximo GP · ' + dataFormatada;
+    return '🏁';
+  }
+
+  function detectarGP() {
+    var ano = new Date().getFullYear();
+    var url = 'https://api.jolpi.ca/ergast/f1/' + ano + '.json?limit=30';
+
+    // Mostra estado de carregamento
+    document.getElementById('gpNome').textContent = 'Carregando GP...';
+    document.getElementById('gpData').textContent = '';
+    document.getElementById('f1-btn').disabled = true;
+
+    fetch(url)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var corridas = data.MRData.RaceTable.Races;
+        if (!corridas || !corridas.length) throw new Error('Sem corridas');
+
+        var hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+
+        var gpAtual = null;
+        var gpProximo = null;
+
+        for (var i = 0; i < corridas.length; i++) {
+          var r = corridas[i];
+          // data da corrida (domingo)
+          var dataRace = new Date(r.date + 'T00:00:00');
+          var diffDias = Math.floor((dataRace - hoje) / (1000 * 60 * 60 * 24));
+
+          // "Este fim de semana" = entre -4 e +0 dias do domingo da corrida
+          if (diffDias >= -4 && diffDias <= 0) {
+            gpAtual = r; break;
+          }
+          // Próximo GP ainda não aconteceu
+          if (diffDias > 0 && !gpProximo) {
+            gpProximo = r;
+          }
+        }
+
+        var gp = gpAtual || gpProximo;
+
+        // Se não achou nenhum futuro, pega o último do ano
+        if (!gp) gp = corridas[corridas.length - 1];
+
+        var flag   = getFlagPais(gp.Circuit.Location.country);
+        var nome   = gp.raceName; // ex: "Miami Grand Prix"
+        grandPrixAtual = nome;
+
+        document.getElementById('gpNome').textContent = flag + ' ' + nome;
+
+        var dataRaceFmt = new Date(gp.date + 'T12:00:00').toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+        var status = gpAtual ? '🟢 Este fim de semana · ' : '🔵 Próxima corrida · ';
+        document.getElementById('gpData').textContent = status + dataRaceFmt + ' · ' + gp.Circuit.circuitName;
+
+        document.getElementById('f1-btn').disabled = false;
+      })
+      .catch(function(e){
+        // Fallback: usa o ano atual mas mostra aviso
+        grandPrixAtual = 'Grand Prix ' + new Date().getFullYear();
+        document.getElementById('gpNome').textContent = '🏁 ' + grandPrixAtual;
+        document.getElementById('gpData').textContent = '⚠️ Não foi possível carregar o calendário em tempo real';
+        document.getElementById('f1-btn').disabled = false;
+      });
   }
 
   /* ============================================================
@@ -1545,7 +1581,7 @@
         '</div>' +
         '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">' +
           '<div class="aposta-pendente-valor">' + moedaLabel + a.quantidade + '</div>' +
-          '<button class="resolver-btn" onclick="abrirResolverModal(' + a.id + ', \'' + a.piloto_apostado.replace(/'/g, "\\'") + '\', \'' + a.piloto_adversario.replace(/'/g, "\\'") + '\')">Resolver</button>' +
+          '<button class="resolver-btn" onclick="abrirResolverModal(' + a.id + ', \'' + a.piloto_apostado.replace(/'/g, "\\'") + '\', \'' + a.piloto_adversario.replace(/'/g, "\\'") + '\', \'' + a.grand_prix.replace(/'/g, "\\'") + '\', \'' + a.tipo_sessao.replace(/'/g, "\\'") + '\')">🏁 Resolver</button>' +
         '</div>';
       el.appendChild(item);
     });
@@ -1576,23 +1612,153 @@
   }
 
   /* ============================================================
-     F1 — RESOLVER APOSTA (modal)
+     F1 — RESOLVER APOSTA
+     Tenta buscar o resultado real na Jolpica API primeiro.
+     Se não encontrar (corrida ainda não aconteceu), permite
+     o usuário informar manualmente.
      ============================================================ */
-  function abrirResolverModal(apostaId, piloto1, piloto2) {
+
+  // Normaliza nome de piloto para comparação
+  // Ex: "Max Verstappen" → "verstappen"
+  function normalizarNomePiloto(nome) {
+    return nome.toLowerCase().split(' ').pop();
+  }
+
+  // Tenta buscar o vencedor real da sessão na API
+  // sessao: 'Corrida' | 'Qualifying' | 'Sprint' | 'FP1' | 'FP2' | 'FP3'
+  // grandPrix: nome do GP, ex: "Miami Grand Prix"
+  // Retorna Promise<string|null> com o sobrenome do vencedor ou null
+  function buscarResultadoReal(grandPrix, sessao) {
+    var ano = new Date().getFullYear();
+    // Busca a lista de corridas pra achar o round pelo nome
+    return fetch('https://api.jolpi.ca/ergast/f1/' + ano + '.json?limit=30')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var corridas = data.MRData.RaceTable.Races;
+        var round = null;
+        for (var i = 0; i < corridas.length; i++) {
+          var gp = corridas[i];
+          // Comparação flexível: verifica se o nome da corrida da aposta contém o nome da API
+          var nomeApi = gp.raceName.toLowerCase();
+          var nomeAposta = grandPrix.toLowerCase();
+          if (nomeApi.includes(nomeAposta.replace(/ grand prix/i,'').trim()) ||
+              nomeAposta.includes(nomeApi.replace(/ grand prix/i,'').trim())) {
+            round = gp.round;
+            break;
+          }
+        }
+        if (!round) return null;
+
+        // Determina endpoint conforme sessão
+        var endpoint;
+        if (sessao === 'Corrida')    endpoint = 'results';
+        else if (sessao === 'Qualifying') endpoint = 'qualifying';
+        else if (sessao === 'Sprint')    endpoint = 'sprint';
+        else return null; // FP1/FP2/FP3 não têm vencedor na API
+
+        return fetch('https://api.jolpi.ca/ergast/f1/' + ano + '/' + round + '/' + endpoint + '.json?limit=1')
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            try {
+              var resultados;
+              if (sessao === 'Corrida') {
+                resultados = d.MRData.RaceTable.Races[0].Results;
+              } else if (sessao === 'Qualifying') {
+                resultados = d.MRData.RaceTable.Races[0].QualifyingResults;
+              } else if (sessao === 'Sprint') {
+                resultados = d.MRData.RaceTable.Races[0].SprintResults;
+              }
+              if (!resultados || !resultados.length) return null;
+              var p1 = resultados[0].Driver;
+              return p1.givenName + ' ' + p1.familyName;
+            } catch(e) { return null; }
+          });
+      })
+      .catch(function(){ return null; });
+  }
+
+  function abrirResolverModal(apostaId, piloto1, piloto2, grandPrix, sessao) {
     apostaResolvendo = apostaId;
-    document.getElementById('resolver-sub').textContent = 'Quem venceu? · ' + piloto1 + ' vs ' + piloto2;
-    var container = document.getElementById('resolverPilotos');
-    container.innerHTML = '';
+    var container   = document.getElementById('resolverPilotos');
+    var subEl       = document.getElementById('resolver-sub');
 
-    [piloto1, piloto2].forEach(function(nome) {
-      var btn = document.createElement('button');
-      btn.className = 'resolver-piloto-btn';
-      btn.textContent = '🏁 ' + nome;
-      btn.addEventListener('click', function(){ resolverApostaF1(apostaId, nome); });
-      container.appendChild(btn);
-    });
-
+    subEl.textContent = '⏳ Buscando resultado oficial...';
+    container.innerHTML = '<div class="loading-apostas">Consultando API da F1...</div>';
     document.getElementById('resolverOverlay').classList.add('aberto');
+
+    buscarResultadoReal(grandPrix, sessao)
+      .then(function(vencedorReal) {
+        if (vencedorReal) {
+          // Temos o resultado real → mostra automaticamente quem ganhou
+          var vNorm = normalizarNomePiloto(vencedorReal);
+          var p1Norm = normalizarNomePiloto(piloto1);
+          var p2Norm = normalizarNomePiloto(piloto2);
+          var vencedorDuelo;
+
+          if (vNorm === p1Norm) vencedorDuelo = piloto1;
+          else if (vNorm === p2Norm) vencedorDuelo = piloto2;
+          else {
+            // Vencedor geral não é nenhum dos dois → piloto apostado perdeu o duelo
+            // Mostra quem venceu a sessão e deixa usuário confirmar
+            subEl.textContent = '🏁 ' + vencedorReal + ' venceu · ' + sessao + ' ' + grandPrix;
+            container.innerHTML = '';
+            var info = document.createElement('div');
+            info.style.cssText = 'text-align:center;padding:12px;font-family:Cinzel,serif;font-size:11px;color:var(--text-dim);letter-spacing:0.12em;margin-bottom:16px;';
+            info.textContent = 'Nenhum dos dois pilotos venceu a sessão. A aposta será resolvida como derrota para ambos.';
+            container.appendChild(info);
+            [piloto1, piloto2].forEach(function(n) {
+              var btn = document.createElement('button');
+              btn.className = 'resolver-piloto-btn';
+              btn.textContent = '💀 ' + n + ' perdeu';
+              btn.style.opacity = '0.5'; btn.style.cursor = 'default';
+              container.appendChild(btn);
+            });
+            var btnConfirm = document.createElement('button');
+            btnConfirm.className = 'resolver-piloto-btn';
+            btnConfirm.textContent = '✅ Confirmar como derrota';
+            btnConfirm.style.marginTop = '8px';
+            btnConfirm.addEventListener('click', function(){
+              // Resolve com o primeiro piloto como "perdedor" (qualquer valor diferente do apostado)
+              var naoApostado = piloto1; // sempre será diferente do vencedor real
+              resolverApostaF1(apostaId, vencedorReal);
+            });
+            container.appendChild(btnConfirm);
+            return;
+          }
+
+          // Resolve automaticamente
+          subEl.textContent = '🏁 Resultado encontrado: ' + vencedorReal + ' · ' + sessao + ' ' + grandPrix;
+          container.innerHTML = '';
+          var box = document.createElement('div');
+          box.style.cssText = 'text-align:center;padding:20px;font-family:Cinzel Decorative,serif;font-size:18px;color:#ff2255;margin-bottom:16px;';
+          box.textContent = '🏆 ' + vencedorDuelo;
+          container.appendChild(box);
+          var btnAuto = document.createElement('button');
+          btnAuto.className = 'resolver-piloto-btn';
+          btnAuto.textContent = '✅ Confirmar resultado e resolver aposta';
+          btnAuto.addEventListener('click', function(){
+            resolverApostaF1(apostaId, vencedorDuelo);
+          });
+          container.appendChild(btnAuto);
+        } else {
+          // API não tem resultado ainda → entrada manual
+          subEl.textContent = 'Resultado ainda não disponível na API · Informe manualmente';
+          container.innerHTML = '';
+
+          var aviso = document.createElement('div');
+          aviso.style.cssText = 'text-align:center;padding:10px 0 16px;font-family:Raleway,sans-serif;font-size:12px;color:var(--text-dim);';
+          aviso.textContent = 'A sessão pode ainda não ter acontecido ou o resultado ainda não foi publicado. Você pode inserir manualmente após a corrida.';
+          container.appendChild(aviso);
+
+          [piloto1, piloto2].forEach(function(nome) {
+            var btn = document.createElement('button');
+            btn.className = 'resolver-piloto-btn';
+            btn.textContent = '🏁 ' + nome + ' venceu';
+            btn.addEventListener('click', function(){ resolverApostaF1(apostaId, nome); });
+            container.appendChild(btn);
+          });
+        }
+      });
   }
 
   function fecharResolverModal() {
@@ -1610,17 +1776,16 @@
         carregarSaldo(usuarioAtual.id);
         carregarApostasF1();
 
-        // feedback rápido
         var msg;
-        if(retorno === 'ganhou')         msg = '🏆 Você ganhou a aposta! Saldo atualizado.';
-        else if(retorno === 'perdeu')    msg = '💀 Você perdeu. Melhor sorte na próxima.';
-        else if(retorno === 'ja_resolvida') msg = 'Esta aposta já foi resolvida.';
+        if(retorno === 'ganhou')             msg = '🏆 Você ganhou! Saldo atualizado.';
+        else if(retorno === 'perdeu')        msg = '💀 Você perdeu. Melhor sorte na próxima.';
+        else if(retorno === 'ja_resolvida')  msg = 'Esta aposta já foi resolvida.';
         else if(retorno === 'nao_encontrada') msg = 'Aposta não encontrada.';
         else msg = retorno;
 
         alert(msg);
       })
-      .catch(function(e){ alert('Erro inesperado ao resolver.'); });
+      .catch(function(){ alert('Erro inesperado ao resolver.'); });
   }
 
   /* ============================================================
