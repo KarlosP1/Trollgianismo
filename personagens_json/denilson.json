@@ -1,0 +1,38 @@
+{
+  "id": "denilson",
+  "nome": "DENILSON",
+  "rank": "Plebeu",
+  "rankDisplay": " ",
+  "subtitulo": "Desnutrido de 2m — Ausência Pura",
+  "classificacao": "Plebeu",
+  "emoji": "✋",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-71038",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "Aura Nula", "tipo": "red" },
+    { "texto": "Ausência Total", "tipo": "red" },
+    { "texto": "Ligado ao Miguel", "tipo": "normal" },
+    { "texto": "Sem Expressão", "tipo": "red" }
+  ],
+  "identidade": "Denilson não é importante para a história — mas é importante como conceito. A ausência total não é zero… é negativo. Diferente dos outros casos: Daniel → irrelevante; Vesgo → negativo ativo; Miguel → decadente; Denilson → ausência pura.",
+  "personalidade": "Fechada, isolada e sem expressão dentro do ambiente.",
+  "estiloResenha": [
+    {
+      "titulo": "Inexistente",
+      "descricao": "Nem tenta participar, nem interfere."
+    }
+  ],
+  "aura": {
+    "stats": [
+      { "label": "Aura", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
+      { "label": "Resenha", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
+      { "label": "Presença Social", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
+      { "label": "Impacto na Lore", "valor": "Nulo", "percentual": 0, "tipo": "nulo" }
+    ]
+  },
+  "relacaoTrollgers": "Ligado apenas ao Miguel. Não possui conexão direta com o núcleo do Trollgianismo.",
+  "feitos": "Nenhum.",
+  "fraquezas": "Indefinidas — pela própria ausência de características.",
+  "veredicto": "Denilson não possui aura. Não possui resenha. Não possui feitos. Não possui expressão. Ele não é zero — ele é a prova de que existe algo abaixo do zero. A ausência total, dentro de um sistema baseado em presença, é o maior vazio possível."
+}

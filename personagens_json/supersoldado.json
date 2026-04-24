@@ -1,0 +1,23 @@
+{
+  "id": "supersoldado",
+  "nome": "SUPER SOLDADO",
+  "rank": "Civil",
+  "rankDisplay": "C",
+  "subtitulo": "O Soldado — Civil",
+  "classificacao": "Civil",
+  "emoji": "🪖",
+  "foto": "",
+  "codigoTrollger": null,
+  "tags": [
+    { "texto": "Civil", "tipo": "normal" },
+    { "texto": "Aura Indefinida (provavelmente alta)", "tipo": "gold" },
+    { "texto": "Aura Padrão", "tipo": "normal" },
+    { "texto": "Resenha Indefinida", "tipo": "normal" }
+  ],
+  "personalidade": "Provavelmente séria, marcada por uma postura fria e observadora. Transmite uma presença imponente mesmo sem interação direta.",
+  "relacaoTrollgers": "Não possui relação direta com os Trollgers. Ainda assim, chama atenção pela sua postura diferenciada.",
+  "feitos": "Nenhum feito relevante registrado.",
+  "poderes": "Nenhum definido.",
+  "fraquezas": "Indefinidas.",
+  "veredicto": "Super Soldado não possui importância direta na lore do Trollgianismo. Sua existência é marcada mais pela presença e impressão que causa do que por ações concretas dentro do universo."
+}

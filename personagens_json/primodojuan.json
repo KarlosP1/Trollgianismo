@@ -1,0 +1,27 @@
+{
+  "id": "primodojuan",
+  "nome": "PRIMO DO JUAN",
+  "rank": "Plebeu",
+  "rankDisplay": "P",
+  "subtitulo": "O PCD — Plebeu",
+  "classificacao": "Plebeu",
+  "emoji": "🗣️",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-63291",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "Aura Muito Alta", "tipo": "gold" },
+    { "texto": "Aura Padrão", "tipo": "normal" },
+    { "texto": "Aura Obscura", "tipo": "blue" },
+    { "texto": "Resenha Indefinida", "tipo": "normal" }
+  ],
+  "personalidade": [
+    "Comportamento imprevisível",
+    "Fala sozinho e age de forma errática"
+  ],
+  "relacaoTrollgers": "Nenhuma relação formal. Sua presença é mais uma piada interna ou curiosidade para os membros.",
+  "feitos": "Falar sozinho de maneira contínua.",
+  "poderes": "Ser incrivelmente perturbado.",
+  "fraquezas": "Nenhuma definida.",
+  "veredicto": "Não possui importância direta na lore. Serve principalmente como elemento humorístico ou excêntrico dentro do universo."
+}

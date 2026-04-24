@@ -1,0 +1,29 @@
+{
+  "id": "profiara",
+  "nome": "PROFª ÍARA",
+  "rank": "Plebeia",
+  "rankDisplay": "P",
+  "subtitulo": "A Senhora Puff — Plebeia",
+  "classificacao": "Plebeia",
+  "emoji": "🎈",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-58740",
+  "tags": [
+    { "texto": "Plebeia", "tipo": "red" },
+    { "texto": "Aura Nula", "tipo": "red" },
+    { "texto": "Resenha Nula", "tipo": "red" }
+  ],
+  "personalidade": "De comportamento geralmente aceitável, porém pode se tornar extremamente insuportável dependendo da situação.",
+  "relacaoTrollgers": [
+    "Possui relação direta com todos, devido ao papel de professora",
+    "Interações marcadas por incômodo ocasional"
+  ],
+  "feitos": [
+    "Proferiu um sermão considerado insuportável direcionado a Kauan P0 — que foi completamente ignorado",
+    "Conhecida pelo apelido 'Senhora Puff'",
+    "Possui uma característica física marcante"
+  ],
+  "poderes": "Voz fina e irritante — considerada sua principal característica marcante.",
+  "fraquezas": "Tendência a se tornar excessivamente incômoda em determinadas situações.",
+  "veredicto": "Profª Íara é relevante na lore não por poder ou aura, mas por sua presença constante e impacto nas interações com os membros do grupo — especialmente o sermão ignorado por Kauan P0."
+}

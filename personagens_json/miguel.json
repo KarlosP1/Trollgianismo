@@ -1,0 +1,52 @@
+{
+  "id": "miguel",
+  "nome": "MIGUEL",
+  "rank": "Plebeu",
+  "rankDisplay": "↓",
+  "subtitulo": "O Estagnado — Plebeu Decadente",
+  "classificacao": "Plebeu",
+  "emoji": "💻",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-65291",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "Estagnado", "tipo": "red" },
+    { "texto": "Ex-Integrado", "tipo": "normal" },
+    { "texto": "Aura Padrão Baixa", "tipo": "normal" },
+    { "texto": "Decadente", "tipo": "normal" }
+  ],
+  "identidade": "Miguel é um caso importante dentro do Trollgianismo. Diferente de outros plebeus, ele já teve conexão real com a lore — mas perdeu relevância com o tempo. Ele representa alguém que já esteve próximo do sistema, mas não acompanhou a evolução. Isso o define como Estagnado — uma categoria criada por Kauan para pessoas que já fizeram parte ou chegaram perto, mas ficaram para trás.",
+  "personalidade": "Já teve momentos de humor aceitável no passado, mas ficou parado no tempo. Enquanto os outros evoluíram dentro da resenha e da aura, Miguel permaneceu estagnado, virando praticamente uma caricatura.",
+  "estiloResenha": [
+    {
+      "titulo": "Resenha Extremamente Limitada",
+      "descricao": "Focado em temas como jogos específicos e web-namoro, sem profundidade ou evolução."
+    }
+  ],
+  "aura": {
+    "stats": [
+      { "label": "Aura Padrão", "valor": "Muito baixa", "percentual": 12, "tipo": "negativo" },
+      { "label": "Resenha", "valor": "Limitada", "percentual": 15, "tipo": "normal" },
+      { "label": "Evolução", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
+      { "label": "Resistência a Xing.", "valor": "Baixíssima", "percentual": 8, "tipo": "negativo" }
+    ]
+  },
+  "relacaoTrollgers": "Ex-amigo do grupo (cerca de 3 anos atrás). Já teve proximidade real, o que torna sua queda mais relevante do que a de outros plebeus comuns.",
+  "feitos": [
+    {
+      "titulo": "A Edit do Davi",
+      "descricao": "Criou uma edit relacionada ao Davi. Apesar da baixa qualidade, ele se apoia nisso até hoje como se fosse um grande feito."
+    }
+  ],
+  "comparacao": {
+    "Daniel": "irrelevante total",
+    "Vesgo": "negativo ativo",
+    "Miguel": "decadente (caiu com o tempo)"
+  },
+  "fraquezas": [
+    "Baixa resistência a xingamentos",
+    "Comportamento frustrado e reativo",
+    "Incapacidade de evolução social"
+  ],
+  "veredicto": "Miguel representa a queda silenciosa. Não é irrelevante como Daniel. Não é ativamente negativo como Vesgo. Ele é algo mais trágico: alguém que já esteve perto… e escolheu ficar para trás. No Trollgianismo, todos evoluem ou somem. Miguel fez as duas coisas ao mesmo tempo."
+}
