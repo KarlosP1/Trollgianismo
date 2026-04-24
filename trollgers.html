@@ -11,17 +11,22 @@
     button { outline: none; }
 
     :root {
-      --bg: #1a0a0a;
-      --surface: #2a0f0f;
-      --surface2: #3a1515;
-      --border: #5a2a2a;
-      --gold: #d43333;
-      --gold-light: #ff5555;
-      --gold-dim: #8a2a2a;
-      --blue-glow: #ff6666;
-      --text: #e0c4c4;
-      --text-dim: #8a6666;
-      --red: #ff3333;
+      --bg: #08101a;
+      --surface: #0d1a2a;
+      --surface2: #122030;
+      --border: #1e3a5a;
+      --gold: #2a7fd4;
+      --gold-light: #55aaff;
+      --gold-dim: #1a4a8a;
+      --blue-glow: #66ccff;
+      --text: #c4d8e0;
+      --text-dim: #4a6a8a;
+      --red: #ff5555;
+    }
+
+    @font-face {
+      font-family: 'FaithCollapsing';
+      src: url('https://db.onlinewebfonts.com/t/3c05bb5d9e0ef68e8e6c40aa88adf19e.ttf') format('truetype');
     }
 
     @font-face {
@@ -33,8 +38,8 @@
       background-color: var(--bg);
       background-image:
         url('https://i.imgur.com/mJoCBsb.png'),
-        radial-gradient(ellipse at 20% 0%, rgba(200,30,30,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 100%, rgba(160,20,20,0.07) 0%, transparent 60%);
+        radial-gradient(ellipse at 20% 0%, rgba(30,100,200,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(20,70,160,0.09) 0%, transparent 60%);
       background-repeat: no-repeat;
       background-position: center top;
       background-size: cover;
@@ -49,7 +54,7 @@
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background: linear-gradient(to bottom, rgba(26,10,10,0.75) 0%, rgba(26,10,10,0.90) 40%, rgba(26,10,10,0.97) 100%);
+      background: linear-gradient(to bottom, rgba(8,16,26,0.75) 0%, rgba(8,16,26,0.90) 40%, rgba(8,16,26,0.97) 100%);
       pointer-events: none; z-index: 0;
     }
 
@@ -67,18 +72,33 @@
       padding: 0 20px 80px;
     }
 
+    /* BANDEIRINHAS FESTA JUNINA */
+    .bandeirinhas {
+      position: relative;
+      width: 100%;
+      height: 54px;
+      overflow: visible;
+      margin-bottom: 0;
+      pointer-events: none;
+    }
+    .bandeirinhas svg {
+      width: 100%;
+      height: 54px;
+      overflow: visible;
+    }
+
     /* HEADER */
-    header { padding: 50px 0 36px; text-align: center; }
+    header { padding: 10px 0 36px; text-align: center; }
     .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
     header h1 {
-      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-family: 'FaithCollapsing', 'Cinzel Decorative', serif;
       font-size: clamp(26px, 6vw, 52px);
       letter-spacing: 0.08em;
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 0 24px rgba(212,51,51,0.50));
+      filter: drop-shadow(0 0 24px rgba(42,127,212,0.50));
     }
     header p { margin-top: 10px; font-family: 'Cinzel', serif; font-size: clamp(10px, 2vw, 13px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
 
@@ -123,10 +143,10 @@
     .nav-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); transform: translateY(-2px); }
     .nav-btn:active { transform: scale(0.96); }
     .nav-btn.ativo {
-      background: linear-gradient(135deg, #3a1515, #2a0f0f);
+      background: linear-gradient(135deg, #122030, #0d1a2a);
       border-color: var(--gold);
       color: var(--gold-light);
-      box-shadow: 0 0 18px rgba(212,51,51,0.25), inset 0 0 16px rgba(160,20,20,0.07);
+      box-shadow: 0 0 18px rgba(42,127,212,0.25), inset 0 0 16px rgba(20,70,160,0.07);
     }
 
     /* SECTIONS */
@@ -145,7 +165,7 @@
       text-align: center;
     }
     .profile-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
-    .profile-hero::after { content: ''; position: absolute; top: -80px; right: -80px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(200,30,30,0.09) 0%, transparent 70%); pointer-events: none; }
+    .profile-hero::after { content: ''; position: absolute; top: -80px; right: -80px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(30,100,200,0.09) 0%, transparent 70%); pointer-events: none; }
 
     .profile-rank {
       font-family: 'Cinzel Decorative', serif;
@@ -153,12 +173,12 @@
       line-height: 1;
       margin-bottom: 12px;
     }
-    .profile-rank.top1 { color: var(--gold-light); filter: drop-shadow(0 0 20px rgba(255,85,85,0.60)); }
+    .profile-rank.top1 { color: var(--gold-light); filter: drop-shadow(0 0 20px rgba(85,170,255,0.60)); }
     .profile-rank.top2 { color: #c0c0c0; filter: drop-shadow(0 0 16px rgba(192,192,192,0.4)); }
     .profile-rank.top3 { color: #c87532; filter: drop-shadow(0 0 16px rgba(200,117,50,0.4)); }
 
     .profile-name {
-      font-family: 'DropShade', 'Cinzel Decorative', serif;
+      font-family: 'FaithCollapsing', 'Cinzel Decorative', serif;
       font-size: clamp(22px, 5vw, 42px);
       letter-spacing: 0.08em;
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, var(--gold-dim) 100%);
@@ -179,7 +199,7 @@
     .tag { font-size: 11px; padding: 4px 10px; border-radius: 3px; background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); font-family: 'Cinzel', serif; letter-spacing: 0.08em; }
     .tag.gold { border-color: var(--gold-dim); color: var(--gold); }
     .tag.blue { border-color: #6a3333; color: var(--blue-glow); }
-    .tag.red  { border-color: #8a2a2a; color: var(--red); }
+    .tag.red  { border-color: #1a4a8a; color: var(--red); }
 
     /* CARD */
     .card {
@@ -232,7 +252,7 @@
       border-left: 2px solid var(--gold-dim);
       padding: 14px 20px;
       margin: 16px 0;
-      background: rgba(200,30,30,0.05);
+      background: rgba(30,100,200,0.05);
       border-radius: 0 4px 4px 0;
       font-style: italic;
       color: var(--gold-light);
@@ -245,7 +265,7 @@
     .stat-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); min-width: 130px; }
     .stat-bar-bg { flex: 1; height: 4px; background: var(--surface); border-radius: 2px; overflow: visible; position: relative; }
     .stat-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(to right, var(--gold-dim), var(--gold-light)); position: relative; }
-    .stat-bar-fill.infinite { background: linear-gradient(to right, var(--gold-dim), var(--gold-light), #e8d0ff); box-shadow: 0 0 8px rgba(255,85,85,0.60); }
+    .stat-bar-fill.infinite { background: linear-gradient(to right, var(--gold-dim), var(--gold-light), #e8d0ff); box-shadow: 0 0 8px rgba(85,170,255,0.60); }
     .stat-val { font-family: 'Cinzel', serif; font-size: 11px; color: var(--gold); min-width: 60px; text-align: right; }
 
     /* PILLARS */
@@ -257,7 +277,7 @@
 
     /* VERDICT CARD */
     .verdict {
-      background: linear-gradient(135deg, #1a1710 0%, #141210 100%);
+      background: linear-gradient(135deg, #091520 0%, #060e18 100%);
       border: 1px solid var(--gold-dim);
       border-radius: 6px;
       padding: 32px 40px;
@@ -306,7 +326,7 @@
       transition: border-color 0.2s, box-shadow 0.2s;
       -webkit-tap-highlight-color: transparent;
     }
-    .hamburger:hover { border-color: var(--gold-dim); box-shadow: 0 0 12px rgba(212,51,51,0.20); }
+    .hamburger:hover { border-color: var(--gold-dim); box-shadow: 0 0 12px rgba(42,127,212,0.20); }
     .hamburger span {
       display: block;
       width: 18px;
@@ -389,26 +409,26 @@
 <div id="termsOverlay" style="position:fixed;inset:0;z-index:9999;background:#0a0908;display:flex;align-items:center;justify-content:center;padding:20px;">
   <div style="max-width:460px;width:100%;background:linear-gradient(160deg,#1e1c18,#161410);border:1px solid #2e2b22;border-radius:8px;padding:40px;text-align:center;position:relative;overflow:hidden;">
     <!-- gold top line -->
-    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,#d43333,transparent)"></div>
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent)"></div>
     <!-- glow -->
-    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,30,30,0.10) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(30,100,200,0.10) 0%,transparent 70%);pointer-events:none"></div>
 
-    <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#d43333,transparent);margin:0 auto 20px"></div>
+    <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent);margin:0 auto 20px"></div>
 
-    <h2 style="font-family:'DropShade','Cinzel Decorative',serif;font-size:clamp(18px,4vw,26px);letter-spacing:0.08em;background:linear-gradient(135deg,#ff5555,#d43333,#8a2a2a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 16px rgba(212,51,51,0.40));margin-bottom:8px">TROLLGIANISMO</h2>
+    <h2 style="font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:clamp(18px,4vw,26px);letter-spacing:0.08em;background:linear-gradient(135deg,#55aaff,#2a7fd4,#1a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 16px rgba(42,127,212,0.40));margin-bottom:8px">TROLLGIANISMO</h2>
 
     <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#7a756a;margin-bottom:28px">Aviso de Conteúdo</p>
 
     <div style="background:#0e0d0b;border:1px solid #2e2b22;border-radius:4px;padding:20px;margin-bottom:28px;text-align:left">
       <p style="font-family:'Raleway',sans-serif;font-size:14px;line-height:1.8;color:#d4cfc5;font-weight:300">
-        Este site contém <strong style="color:#ff5555">conteúdo sensível e obscuro</strong>, incluindo linguagem informal, resenhas pesadas e referências internas ao universo do Trollgianismo.<br><br>
-        Ao entrar, você declara estar <strong style="color:#ff5555">ciente do que vai ler</strong> e assume total responsabilidade pelo acesso a este conteúdo.
+        Este site contém <strong style="color:#55aaff">conteúdo sensível e obscuro</strong>, incluindo linguagem informal, resenhas pesadas e referências internas ao universo do Trollgianismo.<br><br>
+        Ao entrar, você declara estar <strong style="color:#55aaff">ciente do que vai ler</strong> e assume total responsabilidade pelo acesso a este conteúdo.
       </p>
     </div>
 
     <!-- Passo 1: aceitar termos -->
     <div id="termsStep1" style="display:flex;gap:12px;justify-content:center">
-      <button onclick="aceitarTermos()" style="padding:12px 28px;border-radius:4px;background:linear-gradient(135deg,#3a1515,#2a0f0f);border:1px solid #d43333;color:#ff5555;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px rgba(212,51,51,0.25);outline:none" onmouseover="this.style.boxShadow='0 0 28px rgba(212,51,51,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(212,51,51,0.25)'">
+      <button onclick="aceitarTermos()" style="padding:12px 28px;border-radius:4px;background:linear-gradient(135deg,#122030,#0d1a2a);border:1px solid #2a7fd4;color:#55aaff;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px rgba(42,127,212,0.25);outline:none" onmouseover="this.style.boxShadow='0 0 28px rgba(42,127,212,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(42,127,212,0.25)'">
         Aceitar e Entrar
       </button>
       <button onclick="rejeitarTermos()" style="padding:12px 28px;border-radius:4px;background:#161410;border:1px solid #2e2b22;color:#7a756a;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;outline:none" onmouseover="this.style.borderColor='#5a2020';this.style.color='#cc3333'" onmouseout="this.style.borderColor='#2e2b22';this.style.color='#7a756a'">
@@ -419,10 +439,10 @@
     <!-- Passo 2: escolha de perfil (oculto até aceitar) -->
     <div id="termsStep2" style="display:none;flex-direction:column;align-items:center;gap:10px">
       <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:#7a756a;margin-bottom:6px">Quem é você?</p>
-      <button onclick="entrarComoTrollger()" style="width:100%;padding:14px 28px;border-radius:4px;background:linear-gradient(135deg,#3a1515,#2a0f0f);border:1px solid #d43333;color:#ff5555;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px rgba(212,51,51,0.25);outline:none" onmouseover="this.style.boxShadow='0 0 28px rgba(212,51,51,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(212,51,51,0.25)'">
+      <button onclick="entrarComoTrollger()" style="width:100%;padding:14px 28px;border-radius:4px;background:linear-gradient(135deg,#122030,#0d1a2a);border:1px solid #2a7fd4;color:#55aaff;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px rgba(42,127,212,0.25);outline:none" onmouseover="this.style.boxShadow='0 0 28px rgba(42,127,212,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(42,127,212,0.25)'">
         👑 Já sou um Trollger
       </button>
-      <button onclick="window.location.href='index.html'" style="width:100%;padding:14px 28px;border-radius:4px;background:#161410;border:1px solid #2e2b22;color:#7a756a;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;outline:none" onmouseover="this.style.borderColor='#d43333';this.style.color='#ff5555'" onmouseout="this.style.borderColor='#2e2b22';this.style.color='#7a756a'">
+      <button onclick="window.location.href='index.html'" style="width:100%;padding:14px 28px;border-radius:4px;background:#161410;border:1px solid #2e2b22;color:#7a756a;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;outline:none" onmouseover="this.style.borderColor='#2a7fd4';this.style.color='#55aaff'" onmouseout="this.style.borderColor='#2e2b22';this.style.color='#7a756a'">
         🌱 Sou novo aqui
       </button>
     </div>
@@ -435,7 +455,7 @@
 </button>
 
 <!-- BOTÃO USUÁRIO -->
-<button id="userBtn" onclick="toggleUserMenu(event)" style="position:fixed;top:16px;right:16px;z-index:1000;width:42px;height:42px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s,box-shadow 0.2s;outline:none;-webkit-tap-highlight-color:transparent" onmouseover="this.style.borderColor='var(--gold-dim)';this.style.boxShadow='0 0 12px rgba(212,51,51,0.20)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">👤</button>
+<button id="userBtn" onclick="toggleUserMenu(event)" style="position:fixed;top:16px;right:16px;z-index:1000;width:42px;height:42px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s,box-shadow 0.2s;outline:none;-webkit-tap-highlight-color:transparent" onmouseover="this.style.borderColor='var(--gold-dim)';this.style.boxShadow='0 0 12px rgba(42,127,212,0.20)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">👤</button>
 
 <!-- DROPDOWN USUÁRIO -->
 <div id="userMenu" style="display:none;position:fixed;top:66px;right:16px;z-index:1001;background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;min-width:160px;box-shadow:0 8px 32px rgba(0,0,0,0.5)">
@@ -446,17 +466,17 @@
 <!-- OVERLAY DO LOGIN -->
 <div id="loginOverlay" onclick="fecharLoginOverlay(event)" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;padding:20px">
   <div onclick="event.stopPropagation()" style="max-width:420px;width:100%;background:linear-gradient(160deg,#1e1c18,#161410);border:1px solid #2e2b22;border-radius:8px;padding:40px;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,#d43333,transparent)"></div>
-    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,30,30,0.08) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent)"></div>
+    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(30,100,200,0.08) 0%,transparent 70%);pointer-events:none"></div>
 
     <div style="display:flex;gap:0;margin-bottom:32px;border:1px solid var(--border);border-radius:4px;overflow:hidden">
-      <button id="tabLogin" onclick="trocarAba('login')" style="flex:1;padding:10px;background:linear-gradient(135deg,#3a1515,#2a0f0f);border:none;border-right:1px solid var(--border);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#ff5555;cursor:pointer;outline:none;transition:all 0.2s">Entrar</button>
+      <button id="tabLogin" onclick="trocarAba('login')" style="flex:1;padding:10px;background:linear-gradient(135deg,#122030,#0d1a2a);border:none;border-right:1px solid var(--border);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#55aaff;cursor:pointer;outline:none;transition:all 0.2s">Entrar</button>
       <button id="tabCriar" onclick="trocarAba('criar')" style="flex:1;padding:10px;background:var(--surface);border:none;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;outline:none;transition:all 0.2s">Criar Conta</button>
     </div>
 
     <div id="formLogin">
-      <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#d43333,transparent);margin:0 auto 20px"></div>
-      <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(14px,3vw,18px);letter-spacing:0.08em;text-align:center;background:linear-gradient(135deg,#ff5555,#d43333,#8a2a2a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:28px">Bem-vindo de Volta</h2>
+      <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent);margin:0 auto 20px"></div>
+      <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(14px,3vw,18px);letter-spacing:0.08em;text-align:center;background:linear-gradient(135deg,#55aaff,#2a7fd4,#1a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:28px">Bem-vindo de Volta</h2>
       <div style="margin-bottom:16px">
         <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Usuário</label>
         <input type="text" placeholder="Seu nome de Trollger" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
@@ -465,12 +485,12 @@
         <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Senha</label>
         <input type="password" placeholder="••••••••" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
       </div>
-      <button onclick="fecharLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#3a1515,#2a0f0f);border:1px solid #d43333;border-radius:4px;color:#ff5555;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;outline:none;transition:box-shadow 0.2s;box-shadow:0 0 18px rgba(212,51,51,0.25)" onmouseover="this.style.boxShadow='0 0 28px rgba(212,51,51,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(212,51,51,0.25)'">Entrar</button>
+      <button onclick="fecharLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#122030,#0d1a2a);border:1px solid #2a7fd4;border-radius:4px;color:#55aaff;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;outline:none;transition:box-shadow 0.2s;box-shadow:0 0 18px rgba(42,127,212,0.25)" onmouseover="this.style.boxShadow='0 0 28px rgba(42,127,212,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(42,127,212,0.25)'">Entrar</button>
     </div>
 
     <div id="formCriar" style="display:none">
-      <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#d43333,transparent);margin:0 auto 20px"></div>
-      <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(14px,3vw,18px);letter-spacing:0.08em;text-align:center;background:linear-gradient(135deg,#ff5555,#d43333,#8a2a2a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:28px">Criar Conta</h2>
+      <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent);margin:0 auto 20px"></div>
+      <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(14px,3vw,18px);letter-spacing:0.08em;text-align:center;background:linear-gradient(135deg,#55aaff,#2a7fd4,#1a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:28px">Criar Conta</h2>
       <div style="margin-bottom:16px">
         <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Usuário</label>
         <input type="text" placeholder="Escolha um nome" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
@@ -483,7 +503,7 @@
         <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Confirmar Senha</label>
         <input type="password" placeholder="••••••••" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
       </div>
-      <button onclick="fecharLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#3a1515,#2a0f0f);border:1px solid #d43333;border-radius:4px;color:#ff5555;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;outline:none;transition:box-shadow 0.2s;box-shadow:0 0 18px rgba(212,51,51,0.25)" onmouseover="this.style.boxShadow='0 0 28px rgba(212,51,51,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(212,51,51,0.25)'">Criar Conta</button>
+      <button onclick="fecharLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#122030,#0d1a2a);border:1px solid #2a7fd4;border-radius:4px;color:#55aaff;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;outline:none;transition:box-shadow 0.2s;box-shadow:0 0 18px rgba(42,127,212,0.25)" onmouseover="this.style.boxShadow='0 0 28px rgba(42,127,212,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(42,127,212,0.25)'">Criar Conta</button>
     </div>
 
     <button onclick="fecharLogin()" style="position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text-dim);font-size:18px;cursor:pointer;outline:none;line-height:1;padding:4px 6px;border-radius:4px;transition:color 0.2s" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--text-dim)'">✕</button>
@@ -581,6 +601,36 @@
 <div class="page">
 
   <header>
+    <!-- BANDEIRINHAS FESTA JUNINA -->
+    <div class="bandeirinhas">
+      <svg viewBox="0 0 900 54" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <!-- rope -->
+        <path d="M0,14 Q112,28 225,14 Q337,0 450,14 Q562,28 675,14 Q787,0 900,14" stroke="#c8a060" stroke-width="1.5" fill="none"/>
+        <!-- triangles: alternating colors festa junina -->
+        <polygon points="32,14 56,14 44,40" fill="#e63946"/>
+        <polygon points="76,14 100,14 88,40" fill="#f4a300"/>
+        <polygon points="120,14 144,14 132,40" fill="#2ecc71"/>
+        <polygon points="164,8 188,8 176,40" fill="#e63946"/>
+        <polygon points="208,14 232,14 220,40" fill="#9b59b6"/>
+        <polygon points="252,12 276,12 264,40" fill="#f4a300"/>
+        <polygon points="296,14 320,14 308,40" fill="#2ecc71"/>
+        <polygon points="340,8 364,8 352,40" fill="#e63946"/>
+        <polygon points="384,14 408,14 396,40" fill="#f4a300"/>
+        <polygon points="428,8 452,8 440,40" fill="#9b59b6"/>
+        <polygon points="472,14 496,14 484,40" fill="#2ecc71"/>
+        <polygon points="516,12 540,12 528,40" fill="#e63946"/>
+        <polygon points="560,14 584,14 572,40" fill="#f4a300"/>
+        <polygon points="604,8 628,8 616,40" fill="#2ecc71"/>
+        <polygon points="648,14 672,14 660,40" fill="#9b59b6"/>
+        <polygon points="692,12 716,12 704,40" fill="#e63946"/>
+        <polygon points="736,14 760,14 748,40" fill="#f4a300"/>
+        <polygon points="780,8 804,8 792,40" fill="#2ecc71"/>
+        <polygon points="824,14 848,14 836,40" fill="#e63946"/>
+        <polygon points="868,12 892,12 880,40" fill="#9b59b6"/>
+        <!-- string shadows -->
+        <path d="M0,14 Q112,28 225,14 Q337,0 450,14 Q562,28 675,14 Q787,0 900,14" stroke="rgba(0,0,0,0.3)" stroke-width="1" fill="none" transform="translate(0,2)"/>
+      </svg>
+    </div>
     <div class="header-line"></div>
     <h1>TROLLGERS</h1>
     <p>Arquivos Oficiais — Perfis Completos</p>
@@ -4085,7 +4135,7 @@
             <li><strong style="color:var(--text-dim)">Daniel</strong> → irrelevante</li>
             <li><strong style="color:var(--red)">Vesgo</strong> → negativo ativo</li>
             <li><strong style="color:#8a7040">Miguel</strong> → decadente</li>
-            <li><strong style="color:#2a2a2a;text-shadow:0 0 8px rgba(212,51,51,0.40)">Denilson</strong> → <strong style="color:var(--gold-light)">ausência pura</strong></li>
+            <li><strong style="color:#2a2a2a;text-shadow:0 0 8px rgba(42,127,212,0.40)">Denilson</strong> → <strong style="color:var(--gold-light)">ausência pura</strong></li>
           </ul>
         </div>
       </div>
@@ -4192,10 +4242,10 @@
       <div class="profile-name">BRANQUELÃO ALTÃO</div>
       <div class="profile-subtitle">Um Possível Novo Trollger — Candidato Prodígio</div>
       <div class="profile-tags">
-        <span class="tag" style="border-color:#8a2a2a;color:#b87aff">Candidato ao Sistema</span>
-        <span class="tag" style="border-color:#8a2a2a;color:#b87aff">Aura Híbrida</span>
+        <span class="tag" style="border-color:#1a4a8a;color:#b87aff">Candidato ao Sistema</span>
+        <span class="tag" style="border-color:#1a4a8a;color:#b87aff">Aura Híbrida</span>
         <span class="tag gold">Indicado por Kauan</span>
-        <span class="tag" style="border-color:#8a2a2a;color:#b87aff">Nível Prodígio</span>
+        <span class="tag" style="border-color:#1a4a8a;color:#b87aff">Nível Prodígio</span>
         <span class="tag">Ainda Não Testado</span>
       </div>
     </div>
@@ -6606,9 +6656,9 @@
     document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
     document.getElementById('formCriar').style.display = isLogin ? 'none' : 'block';
     document.getElementById('tabLogin').style.background = isLogin ? 'linear-gradient(135deg,#3a1515,#2a0f0f)' : 'var(--surface)';
-    document.getElementById('tabLogin').style.color = isLogin ? '#ff5555' : 'var(--text-dim)';
+    document.getElementById('tabLogin').style.color = isLogin ? '#55aaff' : 'var(--text-dim)';
     document.getElementById('tabCriar').style.background = isLogin ? 'var(--surface)' : 'linear-gradient(135deg,#3a1515,#2a0f0f)';
-    document.getElementById('tabCriar').style.color = isLogin ? 'var(--text-dim)' : '#ff5555';
+    document.getElementById('tabCriar').style.color = isLogin ? 'var(--text-dim)' : '#55aaff';
   }
 
   function sair() {
