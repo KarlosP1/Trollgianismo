@@ -1,0 +1,37 @@
+{
+  "id": "profsubstituto",
+  "nome": "PROF. SUBSTITUTO",
+  "rank": "Desviado",
+  "rankDisplay": "D",
+  "subtitulo": "O Bêbado — Civil (Trollger Desviado)",
+  "classificacao": "Trollger Desviado",
+  "emoji": "🍺",
+  "foto": "",
+  "codigoTrollger": "TRG-CVL-92154",
+  "tags": [
+    { "texto": "Trollger Desviado", "tipo": "gold" },
+    { "texto": "Aura Muito Alta", "tipo": "gold" },
+    { "texto": "Aura Padrão", "tipo": "normal" },
+    { "texto": "Resenha de Alto Nível", "tipo": "gold" }
+  ],
+  "personalidade": [
+    "Extremamente gente boa, com comportamento descontraído",
+    "Apresenta uma postura que aparenta estar constantemente bêbado, mesmo estando sóbrio"
+  ],
+  "relacaoTrollgers": [
+    "Possui forte compatibilidade com o estilo dos Trollgers",
+    "Considerado um 'Trollger desviado' — alguém com características de Trollger, mas sem fazer parte oficialmente"
+  ],
+  "feitos": [
+    {
+      "titulo": "Melhor Professor",
+      "descricao": "Reconhecido como um dos melhores professores, ficando atrás apenas de Duda (Professora de Ciências)."
+    }
+  ],
+  "poderes": [
+    "Conhecimento avançado em história, geografia, educação financeira e diversos outros temas",
+    "Alta capacidade de conduzir conversas envolventes"
+  ],
+  "fraquezas": "Indefinidas.",
+  "veredicto": "O Professor Substituto é uma figura quase relevante na lore. Apesar de não ser oficialmente importante, sua presença se destaca por possuir características muito próximas às de um Trollger — um caso raro de 'Trollger desviado'."
+}

@@ -1,0 +1,51 @@
+{
+  "id": "josefernando",
+  "nome": "JOSÉ FERNANDO",
+  "rank": "P9",
+  "rankDisplay": "IX",
+  "subtitulo": "O Repetente — Trollger P9",
+  "classificacao": "Trollger",
+  "emoji": "😏",
+  "foto": "imagens/JOSEFERNANDOPIC.jpg",
+  "codigoTrollger": "TRG-P9-26803",
+  "nota": "José Fernando ≠ José Eduardo (P2).",
+  "tags": [
+    { "texto": "Trollger P9", "tipo": "gold" },
+    { "texto": "Mestre da Resenha", "tipo": "gold" },
+    { "texto": "Aura Padrão", "tipo": "normal" },
+    { "texto": "Manipulação Acadêmica", "tipo": "normal" },
+    { "texto": "Antiescolar", "tipo": "red" }
+  ],
+  "identidade": "José Fernando ocupa o posto de Trollger P9 — de baixo escalão, mas estável dentro do sistema. Totalmente integrado ao grupo principal, cumpre o requisito básico: conexão direta com o núcleo.",
+  "personalidade": "Personalidade única, com tendência mais zueira. Comportamento marcante que mistura desinteresse com momentos de presença inesperada.",
+  "feitos": [
+    {
+      "titulo": "O Hábito dos Beiços",
+      "descricao": "Hábito estranho de ficar lambendo os beiços — algo que virou marca registrada dentro do grupo."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "Resenha Padrão e Funcional",
+      "descricao": "Não se destaca absurdamente, mas consegue manter uma resenha aceitável dentro do grupo."
+    }
+  ],
+  "aura": {
+    "descricao": "Aura padrão aceitável dentro do sistema.",
+    "stats": [
+      { "label": "Aura Padrão", "valor": "Aceitável", "percentual": 48, "tipo": "normal" },
+      { "label": "Resenha Normal", "valor": "Funcional", "percentual": 52, "tipo": "normal" },
+      { "label": "Manipulação Acadêmica", "valor": "Máxima", "percentual": 100, "tipo": "infinite" },
+      { "label": "Tolerância Escolar", "valor": "Nula", "percentual": 5, "tipo": "negativo" }
+    ]
+  },
+  "poderes": [
+    {
+      "titulo": "Manipulação Acadêmica",
+      "descricao": "Capacidade extremamente eficaz de enganar professores para evitar aula. Um dos poderes mais desenvolvidos dentro de seu perfil."
+    }
+  ],
+  "relacaoTrollgers": "Totalmente integrado — faz parte do grupo principal, mesma sala. Sem grandes conflitos e sem grande destaque, mas presente onde importa.",
+  "defeitos": "Baixa tolerância ao ambiente escolar. Evita qualquer situação que envolva estudo ou permanência em sala.",
+  "veredicto": "José Fernando ainda não possui grande impacto na história principal. Mas está integrado, presente e funcional — o que já o coloca acima de muitos. Trollger P9: estável, zueiro e com potencial de crescimento."
+}

@@ -1,0 +1,46 @@
+{
+  "id": "thiago",
+  "nome": "THIAGO",
+  "rank": "Civil",
+  "rankDisplay": "◯",
+  "subtitulo": "O Normal — Civil Neutro de Origem",
+  "classificacao": "Civil Neutro / Origem",
+  "emoji": "🖋️",
+  "foto": "",
+  "codigoTrollger": "TRG-CVL-82645",
+  "tags": [
+    { "texto": "Civil Neutro", "tipo": "normal" },
+    { "texto": "Origem", "tipo": "normal" },
+    { "texto": "Primeiro Amigo de Kauan", "tipo": "normal" },
+    { "texto": "Anterior ao Trollgianismo", "tipo": "normal" },
+    { "texto": "Zero Poder — Alta Importância Histórica", "tipo": "normal" }
+  ],
+  "identidade": "Thiago não é importante pela presença atual. Ele é importante pelo passado. Ele representa o ponto inicial da existência social de Kauan. Antes de Aura, Resenha e Trollgianismo, existia apenas: Kauan (random) + Thiago.",
+  "personalidade": "Única em relação a todos os outros dentro da lore. Possui gostos semelhantes aos de Kauan — jogos e histórias de terror — o que cria uma conexão rara e genuína.",
+  "estiloResenha": [
+    {
+      "titulo": "Sem Resenha",
+      "descricao": "Não possui resenha. Apenas conversas básicas e saudáveis — neutras dentro do Trollgianismo."
+    }
+  ],
+  "aura": {
+    "descricao": "Aura nula. Sem poderes registrados.",
+    "stats": [
+      { "label": "Aura", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
+      { "label": "Resenha", "valor": "Nenhuma", "percentual": 0, "tipo": "nulo" },
+      { "label": "Importância Histórica", "valor": "Fundamental", "percentual": 100, "tipo": "especial" },
+      { "label": "Compatibilidade c/ Kauan", "valor": "Rara", "percentual": 90, "tipo": "especial" }
+    ]
+  },
+  "relacaoTrollgers": "Primeiro amigo de Kauan. Existia antes de tudo, quando Kauan ainda era apenas um random comum. Essa posição o torna historicamente insubstituível — mesmo sem nenhum poder.",
+  "fraquezas": [
+    "Incapacidade de lidar com resenhas obscuras",
+    "Sensibilidade a temas mais pesados"
+  ],
+  "nivelDeImportancia": {
+    "emPoder": "zero",
+    "emHistoria": "fundamental como origem",
+    "conclusao": "Nem todo personagem importante precisa ser forte. Alguns são importantes por existirem no momento certo."
+  },
+  "veredicto": "Thiago não possui aura. Não possui resenha. Não possui feitos. Mas ele é o único que esteve presente antes de tudo começar. Sem Thiago, não há contexto para Kauan. Sem Kauan, não há Trollgianismo. Ele não move o sistema — ele existiu antes do sistema existir."
+}

@@ -1,0 +1,32 @@
+{
+  "id": "prfoem",
+  "nome": "PROF-OEM",
+  "rank": "Plebeu",
+  "rankDisplay": "P",
+  "subtitulo": "O Primeiro Mais Chato — Plebeu",
+  "classificacao": "Plebeu",
+  "emoji": "😤",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-59834",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "Aura Nula", "tipo": "red" },
+    { "texto": "Resenha Nula", "tipo": "red" },
+    { "texto": "#1 Mais Chato", "tipo": "red" }
+  ],
+  "personalidade": [
+    "Extremamente chato e sem noção",
+    "Tende a acusar os outros de gritar mesmo quando ninguém grita, causando atrito social constante"
+  ],
+  "relacaoTrollgers": [
+    "Relação marcada por ódio e antipatia",
+    "A ausência dele gera prazer nos membros; sua presença é considerada extremamente desagradável"
+  ],
+  "feitos": "Nenhum feito positivo registrado. Considerado incompetente na vida pessoal e social.",
+  "poderes": "Competência como profissional — limitada à função de professor.",
+  "fraquezas": [
+    "Incapacidade de interagir de forma agradável com os Trollgers",
+    "Total irrelevância social fora do contexto profissional"
+  ],
+  "veredicto": "Prof-OEM é importante na lore não por força ou aura, mas por seu impacto negativo e dificuldade de interação social. Representa o elemento de incômodo formal dentro do universo."
+}

@@ -1,0 +1,46 @@
+{
+  "id": "cs",
+  "nome": "JOGADOR DE CS",
+  "rank": "Desviado",
+  "rankDisplay": "D",
+  "subtitulo": "Um dos Trollgers Desviados",
+  "classificacao": "Trollger Desviado",
+  "emoji": "🎮",
+  "foto": "",
+  "codigoTrollger": "TRG-CVL-57382",
+  "tags": [
+    { "texto": "Trollger Desviado", "tipo": "normal" },
+    { "texto": "Acima dos Plebeus", "tipo": "normal" },
+    { "texto": "Aura Normal", "tipo": "normal" },
+    { "texto": "Fora do Ranking", "tipo": "red" },
+    { "texto": "🔊 Voz Alta", "tipo": "normal" }
+  ],
+  "identidade": "O Jogador de CS existe dentro do sistema Trollgianista, mas ocupa uma posição completamente fora do ranking oficial. Ele pertence a uma categoria nova: Trollger Desviado — tem aura e presença, mas não segue a essência do Trollgianismo. Acima de Plebeus comuns. Abaixo de qualquer Trollger oficial. Não entra no ranking. Não evolui dentro do sistema.",
+  "personalidade": "Diferente do padrão Trollger. Mais isolado no tema games, porém não é hostil — apenas deslocado. Seu comportamento é marcado principalmente por falar alto demais, o que define sua presença no ambiente.",
+  "estiloResenha": [
+    {
+      "titulo": "Focado em Jogos",
+      "descricao": "Não participa da resenha tradicional dos Trollgers, mas mantém conversas funcionais dentro do próprio nicho."
+    }
+  ],
+  "aura": {
+    "descricao": "Possui aura relativamente alta para alguém fora da hierarquia — do tipo normal, sem obscuridade.",
+    "stats": [
+      { "label": "Aura Normal", "valor": "Moderada", "percentual": 55, "tipo": "normal" },
+      { "label": "Resenha Gamer", "valor": "Funcional", "percentual": 60, "tipo": "normal" },
+      { "label": "Resenha Padrão", "valor": "Baixa", "percentual": 15, "tipo": "negativo" },
+      { "label": "Volume da Voz", "valor": "∞", "percentual": 100, "tipo": "infinite" }
+    ],
+    "especial": {
+      "titulo": "Amplificação Vocal Involuntária",
+      "descricao": "Capacidade natural de falar alto em qualquer situação, aumentando sua presença no ambiente independente do contexto."
+    }
+  },
+  "relacaoTrollgers": "Introduzido por Juan — novamente causando eventos duvidosos. Apesar de esquisito, foi aceito parcialmente, diferente de casos como Daniel.",
+  "feitos": "Nenhum relevante até o momento.",
+  "fraquezas": [
+    "Incapacidade de falar baixo",
+    "Falta de adaptação à resenha padrão dos Trollgers"
+  ],
+  "veredicto": "O Jogador de CS não faz parte da lore principal. Existe como uma entidade paralela, orbitando o grupo sem interferir diretamente na hierarquia ou nos eventos importantes. Ele inaugura uma nova categoria no Trollgianismo: Desviados — presença real, essência ausente."
+}
