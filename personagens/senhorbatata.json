@@ -1,0 +1,26 @@
+{
+  "id": "senhorbatata",
+  "nome": "SENHOR BATATA",
+  "rank": "Plebeu",
+  "rankDisplay": "P",
+  "subtitulo": "O Cabeçudo — Plebeu",
+  "classificacao": "Plebeu",
+  "emoji": "🥔",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-88045",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "Aura Alta", "tipo": "gold" },
+    { "texto": "Aura Padrão", "tipo": "normal" },
+    { "texto": "Resenha Indefinida", "tipo": "normal" }
+  ],
+  "personalidade": "Não há informações relevantes sobre personalidade; comportamento considerado neutro dentro do universo.",
+  "relacaoTrollgers": "Não possui relações formais com os Trollgers.",
+  "feitos": [
+    "Destaca-se por possuir uma cabeça incrivelmente gigante",
+    "Capacidade de se locomover apesar de sua condição"
+  ],
+  "poderes": "Nenhum definido.",
+  "fraquezas": "Indefinidas.",
+  "veredicto": "Senhor Batata não possui relevância na lore do Trollgianismo. Sua função é apenas como elemento excêntrico ou curioso dentro do universo."
+}

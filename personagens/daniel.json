@@ -1,0 +1,34 @@
+{
+  "id": "daniel",
+  "nome": "DANIEL",
+  "rank": "Plebeu",
+  "rankDisplay": "∅",
+  "subtitulo": "O Deslocado Total — Plebeu Nível Zero",
+  "classificacao": "Plebeu",
+  "emoji": "🧟",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-14490",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "Aura Nula", "tipo": "red" },
+    { "texto": "Sem Resenha", "tipo": "red" },
+    { "texto": "Nível Zero Absoluto", "tipo": "red" },
+    { "texto": "Introduzido por Juan", "tipo": "normal" }
+  ],
+  "identidade": "Daniel pertence à classe dos Plebeus — mas ocupa um nível ainda abaixo do que esse título normalmente implica. Um ser sem aura, sem resenha e sem relevância. Sua existência não influencia eventos, rankings ou dinâmicas do Trollgianismo. Ele representa o nível mais baixo possível dentro da hierarquia.",
+  "personalidade": "Extremamente esquisito, comportamento estranho e presença desagradável. A falta de autocuidado amplifica ainda mais sua rejeição social.",
+  "feitos": [],
+  "feitosDescricao": "Nenhum registrado na história do Trollgianismo.",
+  "estiloResenha": [],
+  "aura": {
+    "stats": [
+      { "label": "Aura", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
+      { "label": "Resenha", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
+      { "label": "Presença Social", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
+      { "label": "Relevância na Lore", "valor": "Zero", "percentual": 0, "tipo": "nulo" }
+    ]
+  },
+  "relacaoTrollgers": "Inicialmente introduzido por Juan, que tentou integrá-lo ao grupo. Porém, com o tempo, ficou evidente que Daniel era muito mais esquisito do que o esperado, tornando a convivência insustentável.",
+  "fraquezas": ["Higiene básica (tomar banho, lavar as mãos)", "Interação social", "Presença em grupo"],
+  "veredicto": "Daniel é uma entidade completamente desconectada da lore principal. Sem aura. Sem resenha. Sem feitos. Sem relevância. Plebeu irrelevante — nível zero absoluto."
+}

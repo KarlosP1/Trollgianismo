@@ -1,0 +1,54 @@
+{
+  "id": "jose",
+  "nome": "JOSÉ",
+  "rank": "P1",
+  "rankDisplay": "I",
+  "subtitulo": "O Portador da Aura Infinita — P1",
+  "classificacao": "Trollger",
+  "emoji": "🥈",
+  "foto": "imagens/JOSEPIC.jpg",
+  "codigoTrollger": "TRG-P2-74510",
+  "tags": [
+    { "texto": "Trollger P1", "tipo": "gold" },
+    { "texto": "Aura Infinita", "tipo": "gold" },
+    { "texto": "Aura Eterna", "tipo": "gold" },
+    { "texto": "Resenha Obscura", "tipo": "gold" },
+    { "texto": "O Mais Próximo do Impossível", "tipo": "normal" }
+  ],
+  "identidade": "José ocupa o posto de Trollger P1, a segunda posição mais alta de toda a hierarquia do Trollgianismo. Ele é o único ser que se aproxima do impossível — Kauan P0. Sua existência prova que o topo não é totalmente solitário… mas ainda assim inalcançável.",
+  "personalidade": "José possui uma personalidade descrita como única. Naturalmente dominante, extremamente respeitado e socialmente imponente. Antes mesmo da consolidação total de Kauan como entidade suprema, José já era um dos pilares de influência dentro do grupo. Ele não força presença. A presença simplesmente acontece.",
+  "feitos": [
+    {
+      "titulo": "O Evento Impossível — Convencer Kauan",
+      "descricao": "José foi o homem que convenceu Kauan P0 a jogar futebol. Isso porque Kauan não é influenciado facilmente, não segue vontades externas e define o próprio fluxo da realidade. José conseguiu, por pura influência, alterar a decisão do ser supremo. Isso não é apenas um feito — é uma quebra de lógica dentro do sistema."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "Resenha Normal — Principal",
+      "descricao": "Diferente de Kauan, José utiliza principalmente a resenha normal. Direta, eficiente, extremamente funcional e com alta taxa de acerto."
+    },
+    {
+      "titulo": "Resenha Obscura — Perfeição Técnica",
+      "descricao": "Mesmo não sendo sua principal, domina a resenha obscura com perfeição absoluta. Ele não depende do caos — ele controla quando usar."
+    }
+  ],
+  "aura": {
+    "descricao": "Sua aura é incalculável, infinita e eterna. Assim como Kauan, possui acesso à Aura Eterna.",
+    "stats": [
+      { "label": "Aura Bruta", "valor": "∞", "percentual": 100, "tipo": "infinite" },
+      { "label": "Resenha Normal", "valor": "96/100", "percentual": 96, "tipo": "normal" },
+      { "label": "Resenha Obscura", "valor": "Perfeito", "percentual": 100, "tipo": "normal" },
+      { "label": "Presença", "valor": "∞", "percentual": 100, "tipo": "infinite" }
+    ],
+    "especial": {
+      "titulo": "Diferença Fundamental",
+      "descricao": "Existem infinitos maiores que outros. O infinito de José, por mais absurdo que seja, ainda é infinitamente inferior ao infinito de Kauan. Hierarquia existe até dentro do ilimitado."
+    }
+  },
+  "relacaoTrollgers": "José mantém uma relação baseada em respeito absoluto, aura dominante e resenha constante. Ele não precisa disputar espaço — já ocupa naturalmente o topo social logo abaixo de Kauan. Entre os Trollgers, é visto como referência, figura de autoridade e presença inevitável.",
+  "fraseMarcante": "Que que isso?",
+  "descricaoFrase": "Uma frase simples… mas extremamente poderosa no contexto. Representa timing perfeito, domínio de situação e capacidade de reação instantânea.",
+  "defeitos": "José possui defeitos quase invisíveis. Eles existem, mas não impactam sua posição e são irrelevantes diante de seu nível. Ele não é perfeito como Kauan — mas está o mais próximo possível disso.",
+  "veredicto": "José P1 não é apenas o segundo mais forte. Ele é o único capaz de influenciar o P0, o portador da Aura Infinita e o mestre equilibrado entre resenha normal e obscura. Ele representa o limite máximo que alguém pode atingir… Sem ser Kauan."
+}

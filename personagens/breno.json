@@ -1,0 +1,50 @@
+{
+  "id": "breno",
+  "nome": "BRENO",
+  "rank": "P5",
+  "rankDisplay": "V",
+  "subtitulo": "O Gay Ausente — P5",
+  "classificacao": "Trollger",
+  "emoji": "😶",
+  "foto": "imagens/BRENOPIC.jpg",
+  "codigoTrollger": "TRG-P5-83904",
+  "tags": [
+    { "texto": "Trollger P5", "tipo": "gold" },
+    { "texto": "Resenha Obscura Explosiva", "tipo": "gold" },
+    { "texto": "bochechudu", "tipo": "gold" },
+    { "texto": "Presença Discreta", "tipo": "normal" },
+    { "texto": "ESKUDO 500", "tipo": "red" }
+  ],
+  "identidade": "Breno ocupa o posto de Trollger P5, uma posição que, à primeira vista, pode parecer incompatível com sua presença discreta. Mas essa é exatamente a essência dele: um membro que quase não aparece… mas quando aparece, impacta. Ele não construiu sua posição com frequência. Construiu com qualidade extrema.",
+  "personalidade": "Breno possui uma personalidade considerada aceitável dentro do grupo. Reservado, pouco participativo e focado no próprio mundo — principalmente no celular. Ele não busca atenção, não força interação e raramente entra em destaque. Mas isso não significa fraqueza. Significa acúmulo silencioso de potencial.",
+  "feitos": [
+    {
+      "titulo": "O Dia da ESKUDO 500",
+      "descricao": "Breno pagou caro em uma chuteira chamada 'ESKUDO 500'. O resultado foi imediato: resenha intensa com duração de aproximadamente uma semana e perda momentânea de respeito. Esse evento não abalou sua posição… mas marcou sua imagem como alguém suscetível a erros específicos."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "Resenha Obscura — Explosiva",
+      "descricao": "Breno raramente resenha. Mas quando resenha: ele entrega resenhas obscuras brutais. Extremamente obscuras, impacto imediato e alta precisão no absurdo."
+    },
+    {
+      "titulo": "Frequência Baixa, Qualidade Máxima",
+      "descricao": "Ele não joga toda hora — mas quando joga, decide. É o tipo de membro que não precisa falar muito… porque quando fala, já é suficiente."
+    }
+  ],
+  "aura": {
+    "descricao": "O nível de aura de Breno é alto. Ele possui Aura Obscura, aura normal e presença relevante quando ativa. Sua aura não é constante como a de outros membros — ela é situacional.",
+    "stats": [
+      { "label": "Aura Bruta", "valor": "Alta", "percentual": 75, "tipo": "normal" },
+      { "label": "Resenha Obscura", "valor": "Brutal", "percentual": 88, "tipo": "normal" },
+      { "label": "Frequência", "valor": "Baixa", "percentual": 15, "tipo": "normal" },
+      { "label": "Impacto por ação", "valor": "Máximo", "percentual": 92, "tipo": "normal" }
+    ]
+  },
+  "relacaoTrollgers": "Sua relação com os outros membros é normal, sem grandes conflitos e sem grande destaque. Ele não é o centro das atenções e também não é alvo constante. O respeito por Breno não vem da convivência — vem do potencial conhecido.",
+  "fraseMarcante": "Mehhh.",
+  "descricaoFrase": "Uma expressão simples que representa perfeitamente sua personalidade: desinteresse, neutralidade e falta de esforço desnecessário.",
+  "defeitos": "Breno possui poucos defeitos claros: ausência frequente, baixa participação e falta de engajamento constante. Mas esses defeitos não anulam seu valor… porque sua força não está na frequência.",
+  "veredicto": "Breno P5 é a definição de potencial concentrado. Ele é calado, molestado e extremamente resenhudo quando ativo. Enquanto outros precisam estar sempre presentes… Breno prova que uma única intervenção pode valer mais que mil participações."
+}

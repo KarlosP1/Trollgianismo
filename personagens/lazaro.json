@@ -1,0 +1,57 @@
+{
+  "id": "lazaro",
+  "nome": "LÁZARO",
+  "rank": "Plebeu",
+  "rankDisplay": "P",
+  "subtitulo": "Uma Burrice Fora do Normal — Plebeu",
+  "classificacao": "Plebeu",
+  "emoji": "🦠",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-33715",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "Erro Funcional", "tipo": "red" },
+    { "texto": "Aura Obscura Alta", "tipo": "blue" },
+    { "texto": "Solado por Kauan", "tipo": "red" },
+    { "texto": "Bactéria", "tipo": "normal" },
+    { "texto": "Satanás", "tipo": "normal" }
+  ],
+  "identidade": "Lázaro não é um Trollger. Ele pertence à classe dos Plebeus, mas sua existência ultrapassa o conceito comum de fraqueza. Ele não é apenas fraco — ele é um erro funcional do sistema. Dentro do Trollgianismo, Lázaro representa o ponto onde tudo dá errado… e continua existindo mesmo assim.",
+  "personalidade": "Sua personalidade é definida por dois pilares: chato e forçado. Ele não possui naturalidade, não possui timing e não possui leitura social adequada. Tudo o que ele faz parece deslocado, mal encaixado e desnecessário.",
+  "feitos": [
+    {
+      "titulo": "A Coleção de Vergonhas",
+      "descricao": "Diferente de outros personagens que possuem feitos específicos: todos os momentos de Lázaro são marcantes. Mas não por mérito — e sim por vergonha extrema, falhas sociais e demonstrações constantes de falta de entendimento. É amplamente reconhecido por uma burrice considerada anormal dentro do grupo."
+    },
+    {
+      "titulo": "O Evento do Solo por Kauan",
+      "descricao": "Lázaro foi solado por Kauan P0 sem esforço. Esse evento não foi uma disputa — foi uma confirmação. Da supremacia absoluta de Kauan e da fragilidade total de Lázaro."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "Ausência de Resenha Real",
+      "descricao": "Lázaro tenta resenhar… mas seu nível é tão baixo que não pode ser considerado resenha. Confuso, sem impacto, sem lógica e sem resposta positiva."
+    }
+  ],
+  "aura": {
+    "descricao": "Aqui está a maior contradição de Lázaro: ele possui Aura Obscura… e em nível muito alto.",
+    "stats": [
+      { "label": "Aura Obscura", "valor": "Alta", "percentual": 85, "tipo": "obscura" },
+      { "label": "Controle", "valor": "Nulo", "percentual": 2, "tipo": "negativo" },
+      { "label": "Resenha", "valor": "Inexistente", "percentual": 3, "tipo": "negativo" },
+      { "label": "Inteligência Social", "valor": "—", "percentual": 1, "tipo": "negativo" }
+    ],
+    "especial": {
+      "titulo": "Interpretação do Paradoxo",
+      "descricao": "Aura extremamente alta. Capacidade social extremamente baixa. Ele possui poder… mas não sabe usar. Sua Aura Obscura existe de forma bruta, descontrolada e praticamente inútil."
+    }
+  },
+  "relacaoTrollgers": "A relação de Lázaro com os Trollgers é mínima. Mas quando ele interage: ele passa vergonha. Isso resulta em baixa relevância, falta de respeito e rejeição natural dentro do sistema.",
+  "fraseMarcante": "É tipo um grêmio, sabe??? É tipo… érr… tipo um grêmio. Cê sabe né? Professor",
+  "descricaoFrase": "Confusão mental, falta de clareza e tentativa completamente falha de comunicação.",
+  "apelidos": ["Bactéria", "Macaco que não evoluiu", "Satanás"],
+  "descricaoApelidos": "Apelidos que refletem baixo nível de evolução percebido e falta de desenvolvimento social.",
+  "defeitos": "Lázaro não possui defeitos específicos. Ele é definido por defeitos. Comparação direta: Davi possui muitos defeitos… mas ainda tem poder. Lázaro possui defeitos… e não tem controle. Resultado: Davi parece perfeito perto dele.",
+  "veredicto": "Lázaro é uma das entidades mais estranhas do Trollgianismo. Ele é extremamente defeituoso, socialmente ineficaz e portador de uma Aura Obscura absurda… mas inútil. Ele representa o poder sem consciência, a presença sem valor e a existência sem propósito claro. E mesmo assim… ele continua existindo dentro do sistema."
+}

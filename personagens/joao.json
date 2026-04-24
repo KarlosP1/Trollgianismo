@@ -1,0 +1,38 @@
+{
+  "id": "joao",
+  "nome": "JOÃO FELIPE",
+  "rank": null,
+  "rankDisplay": "—",
+  "subtitulo": "O Irrelevante — Sem Classificação",
+  "classificacao": "Sem Classificação",
+  "emoji": "👻",
+  "foto": "",
+  "codigoTrollger": null,
+  "tags": [
+    { "texto": "Sem Rank", "tipo": "red" },
+    { "texto": "Irrelevante", "tipo": "red" },
+    { "texto": "Aura Nula", "tipo": "red" },
+    { "texto": "Apagado por Kauan (P0)", "tipo": "red" }
+  ],
+  "identidade": "João Felipe é praticamente inexistente dentro do sistema Trollgianista. Motivo: Interferência direta de Kauan (P0). Não é reconhecido.",
+  "existenciaSistema": "Praticamente inexistente. Não é reconhecido. Motivo: Interferência direta de Kauan (P0).",
+  "feitosMarkantes": "Nenhum.",
+  "relacaoTrollgers": "Inexistente.",
+  "estiloResenha": [
+    {
+      "titulo": "Resenha de Randola",
+      "itens": ["Sem direção", "Sem impacto"]
+    }
+  ],
+  "aura": {
+    "stats": [
+      { "label": "Tipo", "valor": "Padrão" },
+      { "label": "Nível", "valor": "Nula" }
+    ],
+    "especial": {
+      "descricao": "Não entende aura."
+    }
+  },
+  "fraquezas": "Pensar.",
+  "veredicto": "João Felipe é irrelevante. Ser ignorado é pior do que ser derrotado."
+}

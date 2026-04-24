@@ -1,0 +1,29 @@
+{
+  "id": "prfomp",
+  "nome": "PROF-OMP",
+  "rank": "Plebeu",
+  "rankDisplay": "P",
+  "subtitulo": "A Segunda Mais Chata — Plebeu",
+  "classificacao": "Plebeu",
+  "emoji": "😒",
+  "foto": "",
+  "codigoTrollger": "TRG-PLB-31607",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "Aura Nula", "tipo": "red" },
+    { "texto": "Resenha Nula", "tipo": "red" },
+    { "texto": "#2 Mais Chata", "tipo": "red" }
+  ],
+  "personalidade": [
+    "Extremamente chata, semelhante a Tia Chiquinha, mas ainda mais irritante",
+    "Caracterizada por implicar com pessoas de forma aleatória, gerando atrito social constante"
+  ],
+  "relacaoTrollgers": [
+    "Relação marcada por ódio",
+    "Atua como divisão entre Tia Chiquinha e Prof-OEM, mantendo um ambiente de conflito"
+  ],
+  "feitos": "Nenhum feito relevante registrado. Considerada insignificante fora do contexto de atrito social.",
+  "poderes": "Capacidade de ser chata e implicante com outros.",
+  "fraquezas": "Necessidade de usar o cérebro para gerar conflitos.",
+  "veredicto": "Prof-OMP é importante na lore não por força ou aura, mas por sua habilidade de gerar irritação e divisões entre membros do universo. Representa o elemento de conflito intelectual e social dentro do sistema."
+}

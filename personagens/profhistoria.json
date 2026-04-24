@@ -1,0 +1,29 @@
+{
+  "id": "profhistoria",
+  "nome": "PROF. DE HISTÓRIA",
+  "rank": "Civil",
+  "rankDisplay": "C",
+  "subtitulo": "O Boca Torta / AVC — Civil",
+  "classificacao": "Civil",
+  "emoji": "📖",
+  "foto": "",
+  "codigoTrollger": "TRG-CVL-34806",
+  "tags": [
+    { "texto": "Civil", "tipo": "normal" },
+    { "texto": "Aura Média", "tipo": "normal" },
+    { "texto": "Aura Padrão", "tipo": "normal" },
+    { "texto": "Resenha Inexistente", "tipo": "normal" }
+  ],
+  "personalidade": "Reservado e de comportamento fechado. Apesar disso, é considerado uma pessoa de boa convivência dentro do ambiente.",
+  "relacaoTrollgers": [
+    "Possui relação indireta com todos, devido ao papel de professor",
+    "Não apresenta vínculos específicos ou relevantes com membros do grupo"
+  ],
+  "feitos": [
+    "Possui uma característica física marcante",
+    "Já foi observado dormindo em sala de aula — episódio lembrado de forma humorística"
+  ],
+  "poderes": "Nenhum definido até o momento.",
+  "fraquezas": "Indefinidas.",
+  "veredicto": "O Professor de História não possui importância significativa na lore do Trollgianismo, sendo apenas uma figura neutra presente no cotidiano escolar."
+}
