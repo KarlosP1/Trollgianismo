@@ -15,8 +15,12 @@
     { "texto": "Resenha Ruim", "tipo": "red" }
   ],
   "personalidade": "Considerado chato e pouco relevante em termos de resenha.",
+  "feitos": [
+    {
+      "descricao": "Destaca-se apenas pelo humor involuntário gerado entre os membros do grupo."
+    }
+  ],
   "relacaoTrollgers": "Não possui relações formais com o grupo. É uma piada interna, sendo chamado de 'irmão do Juan' pelos Trollgers.",
-  "feitos": "Destaca-se apenas pelo humor involuntário gerado entre os membros do grupo.",
   "poderes": "Nenhum definido.",
   "fraquezas": "Nenhuma relevância prática. Sua função é apenas cômica.",
   "veredicto": "Robocop não possui importância na lore do Trollgianismo. Serve apenas como distração ou elemento humorístico."
