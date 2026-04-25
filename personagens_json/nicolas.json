@@ -1,0 +1,48 @@
+{
+  "id": "nicolas",
+  "nome": "NICOLAS",
+  "rank": "P6",
+  "rankDisplay": "VI",
+  "subtitulo": "O Selvagem — P6",
+  "classificacao": "Trollger",
+  "emoji": "🐺",
+  "foto": "",
+  "codigoTrollger": "TRG-P6-44192",
+  "tags": [
+    { "texto": "Trollger P6", "tipo": "gold" },
+    { "texto": "Aura Alta", "tipo": "gold" },
+    { "texto": "Resenha Obscura", "tipo": "gold" },
+    { "texto": "Comportamento Selvagem", "tipo": "red" },
+    { "texto": "Plebeu de Alma", "tipo": "normal" }
+  ],
+  "identidade": "Nicolas ocupa o posto de Trollger P6 — mesma posição de Davi. Sua presença dentro do Trollgianismo é marcada por um comportamento considerado selvagem, instintivo e sem filtros. Ele não calcula antes de agir — ele simplesmente age.",
+  "personalidade": "Extremamente impulsivo, sem noção de limite e com tendência ao caos. Diferente de Davi, que tem poder bruto com certa consciência, Nicolas opera no puro instinto. Isso o torna imprevisível — e ao mesmo tempo menos eficiente que outros do mesmo nível.",
+  "feitos": [
+    {
+      "titulo": "Comportamento Fora do Padrão",
+      "descricao": "Nicolas é reconhecido por diversas situações em que seu comportamento ultrapassou todos os limites sociais aceitos dentro do grupo, consolidando sua reputação de selvagem."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "Resenha Obscura — Instintiva",
+      "descricao": "Utiliza resenha obscura de forma instintiva, sem estratégia. Alto impacto, baixo controle."
+    },
+    {
+      "titulo": "Resenha Normal — Rara",
+      "descricao": "Raramente usa resenha normal. Quando usa, ainda carrega traços do caos natural."
+    }
+  ],
+  "aura": {
+    "descricao": "Aura alta, porém instável. Possui Aura Obscura ativa mas descontrolada.",
+    "stats": [
+      { "label": "Aura Bruta", "valor": "Alta", "percentual": 78, "tipo": "normal" },
+      { "label": "Resenha Obscura", "valor": "Instintiva", "percentual": 82, "tipo": "normal" },
+      { "label": "Controle", "valor": "Baixo", "percentual": 18, "tipo": "negativo" },
+      { "label": "Imprevisibilidade", "valor": "∞", "percentual": 100, "tipo": "infinite" }
+    ]
+  },
+  "relacaoTrollgers": "Relação turbulenta com a maioria. Respeitado pelo poder, mas evitado pelo comportamento. Poucos conseguem interagir com ele de forma estável.",
+  "defeitos": "Falta de controle, impulsividade extrema e comportamento socialmente inaceitável em diversas situações.",
+  "veredicto": "Nicolas P6 é poder bruto sem direção. Ele possui aura e resenha obscura de alto nível — mas sem controle, tudo isso se torna caos puro. Perigoso, imprevisível e essencialmente selvagem."
+}
