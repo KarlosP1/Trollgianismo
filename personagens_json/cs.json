@@ -15,8 +15,8 @@
     { "texto": "Fora do Ranking", "tipo": "red" },
     { "texto": "🔊 Voz Alta", "tipo": "normal" }
   ],
-  "identidade": "O Jogador de CS existe dentro do sistema Trollgianista, mas ocupa uma posição completamente fora do ranking oficial. Ele pertence a uma categoria nova: Trollger Desviado — tem aura e presença, mas não segue a essência do Trollgianismo. Acima de Plebeus comuns. Abaixo de qualquer Trollger oficial. Não entra no ranking. Não evolui dentro do sistema.",
-  "personalidade": "Diferente do padrão Trollger. Mais isolado no tema games, porém não é hostil — apenas deslocado. Seu comportamento é marcado principalmente por falar alto demais, o que define sua presença no ambiente.",
+  "identidade": "O Jogador de CS existe dentro do sistema Trollgianista, mas ocupa uma posição completamente fora do ranking oficial. Ele pertence a uma categoria nova: Trollger Desviado — tem aura e presença, mas não segue a essência do Trollgianismo.",
+  "personalidade": "Diferente do padrão Trollger. Mais isolado no tema games, porém não é hostil — apenas deslocado.",
   "estiloResenha": [
     {
       "titulo": "Focado em Jogos",
@@ -33,14 +33,19 @@
     ],
     "especial": {
       "titulo": "Amplificação Vocal Involuntária",
-      "descricao": "Capacidade natural de falar alto em qualquer situação, aumentando sua presença no ambiente independente do contexto."
+      "descricao": "Capacidade natural de falar alto em qualquer situação."
     }
   },
-  "relacaoTrollgers": "Introduzido por Juan — novamente causando eventos duvidosos. Apesar de esquisito, foi aceito parcialmente, diferente de casos como Daniel.",
-  "feitos": "Nenhum relevante até o momento.",
+  "relacaoTrollgers": "Introduzido por Juan — novamente causando eventos duvidosos.",
+  "feitos": [
+    {
+      "titulo": "Nenhum relevante",
+      "descricao": "Nenhum feito relevante até o momento."
+    }
+  ],
   "fraquezas": [
     "Incapacidade de falar baixo",
     "Falta de adaptação à resenha padrão dos Trollgers"
   ],
-  "veredicto": "O Jogador de CS não faz parte da lore principal. Existe como uma entidade paralela, orbitando o grupo sem interferir diretamente na hierarquia ou nos eventos importantes. Ele inaugura uma nova categoria no Trollgianismo: Desviados — presença real, essência ausente."
+  "veredicto": "O Jogador de CS não faz parte da lore principal. Existe como uma entidade paralela, orbitando o grupo sem interferir diretamente na hierarquia."
 }
