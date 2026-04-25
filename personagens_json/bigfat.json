@@ -26,6 +26,11 @@
     ]
   },
   "relacaoTrollgers": "Nenhuma relação direta. Sua existência é apenas referencial, sendo citado ocasionalmente por características físicas.",
-  "feitos": "Nenhum registrado.",
+  "feitos": [
+    {
+      "titulo": "Nenhum registrado",
+      "descricao": "Não há feitos associados a este personagem."
+    }
+  ],
   "veredicto": "Big Fat não faz parte da lore do Trollgianismo. Sem classificação. Sem aura definida. Sem feitos. Sem resenha. Sua única marca no universo: o cabelo de periquito e uma presença física impossível de ignorar."
 }
