@@ -17,6 +17,11 @@
   ],
   "identidade": "Denilson não é importante para a história — mas é importante como conceito. A ausência total não é zero… é negativo. Diferente dos outros casos: Daniel → irrelevante; Vesgo → negativo ativo; Miguel → decadente; Denilson → ausência pura.",
   "personalidade": "Fechada, isolada e sem expressão dentro do ambiente.",
+  "feitos": [
+    {
+      "descricao": "Nenhum."
+    }
+  ],
   "estiloResenha": [
     {
       "titulo": "Inexistente",
@@ -32,7 +37,6 @@
     ]
   },
   "relacaoTrollgers": "Ligado apenas ao Miguel. Não possui conexão direta com o núcleo do Trollgianismo.",
-  "feitos": "Nenhum.",
   "fraquezas": "Indefinidas — pela própria ausência de características.",
   "veredicto": "Denilson não possui aura. Não possui resenha. Não possui feitos. Não possui expressão. Ele não é zero — ele é a prova de que existe algo abaixo do zero. A ausência total, dentro de um sistema baseado em presença, é o maior vazio possível."
 }
