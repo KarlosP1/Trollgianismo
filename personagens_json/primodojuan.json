@@ -15,13 +15,30 @@
     { "texto": "Aura Obscura", "tipo": "blue" },
     { "texto": "Resenha Indefinida", "tipo": "normal" }
   ],
+  "identidade": "vazia",
   "personalidade": [
     "Comportamento imprevisível",
     "Fala sozinho e age de forma errática"
   ],
+  "feitos": [
+    {
+      "titulo": "vazia",
+      "descricao": "Falar sozinho de maneira contínua."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "vazia",
+      "descricao": "vazia"
+    }
+  ],
+  "aura": {
+    "descricao": "vazia",
+    "stats": []
+  },
   "relacaoTrollgers": "Nenhuma relação formal. Sua presença é mais uma piada interna ou curiosidade para os membros.",
-  "feitos": "Falar sozinho de maneira contínua.",
-  "poderes": "Ser incrivelmente perturbado.",
-  "fraquezas": "Nenhuma definida.",
+  "fraseMarcante": "vazia",
+  "descricaoFrase": "vazia",
+  "defeitos": "Nenhuma definida.",
   "veredicto": "Não possui importância direta na lore. Serve principalmente como elemento humorístico ou excêntrico dentro do universo."
 }
