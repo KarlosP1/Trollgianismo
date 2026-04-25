@@ -14,8 +14,10 @@
     { "texto": "Craque no Futebol", "tipo": "gold" }
   ],
   "personalidade": "Sem informações relevantes registradas.",
+  "feitos": [
+    "Reconhecido por habilidade excepcional no futebol, apesar de sua baixa estatura."
+  ],
   "relacaoTrollgers": "Sem relações formais com o grupo.",
-  "feitos": "Reconhecido por habilidade excepcional no futebol, apesar de sua baixa estatura.",
   "poderes": "Futebol Avançado — capacidade notável de jogar futebol acima da média.",
   "fraquezas": "Ser plebeu — não possui ligação social dentro do sistema do Trollgianismo.",
   "veredicto": "Lyédson é um civil com destaque esportivo, mas não possui relevância direta na lore ou nas interações sociais do grupo."
