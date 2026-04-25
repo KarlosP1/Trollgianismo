@@ -1140,65 +1140,59 @@
     return html;
   }
 
-  async function carregarSection(el) {
-    const id = el.dataset.json;
-    const section = el.parentElement;
+  var secaoCarregada = {};
 
-    // IDs that don't have a JSON file (special/non-character sections)
-    const semJSON = ['sophia','elefante','ocenot','kimberly','objetos','nicolas'];
-    if (semJSON.includes(id)) return; // leave original content
+  function carregarSection(id) {
+    if (secaoCarregada[id]) return;
+    secaoCarregada[id] = true;
 
-    try {
-      const res = await fetch(`${JSON_PATH}${id}.json`);
-      if (!res.ok) throw new Error('not found');
-      const data = await res.json();
-      section.innerHTML = renderJSON(data);
-    } catch(e) {
-      // JSON não encontrado — mantém silêncio ou mostra aviso mínimo
-      section.innerHTML = `<div class="card"><div class="entry"><div class="entry-body" style="color:var(--text-dim);text-align:center">Arquivo não encontrado: ${id}.json</div></div></div>`;
-    }
+    var semJSON = ['sophia','elefante','ocenot','kimberly','objetos'];
+    if (semJSON.indexOf(id) !== -1) return;
+
+    var sec = document.getElementById(id);
+    if (!sec) return;
+
+    fetch('personagens_json/' + id + '.json')
+      .then(function(res) {
+        if (!res.ok) throw new Error('not found');
+        return res.json();
+      })
+      .then(function(data) {
+        sec.innerHTML = renderJSON(data);
+      })
+      .catch(function() {
+        sec.innerHTML = '<div class="card"><div class="entry-body" style="color:var(--text-dim);text-align:center">Arquivo nao encontrado: ' + id + '.json</div></div>';
+      });
   }
 
-  // Load visible section on init, others on demand
   function mostrar(id, btn) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('ativo'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('ativo'));
-    const sec = document.getElementById(id);
-    sec.classList.add('ativo');
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('ativo'); });
+    document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('ativo'); });
+    document.getElementById(id).classList.add('ativo');
     btn.classList.add('ativo');
-    // lazy load
-    const loader = sec.querySelector('.json-loader');
-    if (loader) carregarSection(loader);
-    // sync drawer
-    document.querySelectorAll('.drawer-btn').forEach(b => b.classList.remove('ativo'));
-    document.querySelectorAll('.drawer-btn').forEach(b => {
-      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('ativo');
+    carregarSection(id);
+    document.querySelectorAll('.drawer-btn').forEach(function(b) { b.classList.remove('ativo'); });
+    document.querySelectorAll('.drawer-btn').forEach(function(b) {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'" + id + "'") !== -1) b.classList.add('ativo');
     });
   }
 
   function mostrarDrawer(id, btn) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('ativo'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('ativo'));
-    document.querySelectorAll('.drawer-btn').forEach(b => b.classList.remove('ativo'));
-    const sec = document.getElementById(id);
-    sec.classList.add('ativo');
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('ativo'); });
+    document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('ativo'); });
+    document.querySelectorAll('.drawer-btn').forEach(function(b) { b.classList.remove('ativo'); });
+    document.getElementById(id).classList.add('ativo');
     btn.classList.add('ativo');
-    const loader = sec.querySelector('.json-loader');
-    if (loader) carregarSection(loader);
-    document.querySelectorAll('.nav-btn').forEach(b => {
-      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('ativo');
+    carregarSection(id);
+    document.querySelectorAll('.nav-btn').forEach(function(b) {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'" + id + "'") !== -1) b.classList.add('ativo');
     });
     closeDrawer();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Load initial active section on page load
-  document.addEventListener('DOMContentLoaded', () => {
-    const activeSection = document.querySelector('.section.ativo');
-    if (activeSection) {
-      const loader = activeSection.querySelector('.json-loader');
-      if (loader) carregarSection(loader);
-    }
+  document.addEventListener('DOMContentLoaded', function() {
+    carregarSection('kauan');
   });
 
   function toggleUserMenu(e) {
