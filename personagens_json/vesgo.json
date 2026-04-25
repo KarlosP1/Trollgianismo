@@ -25,12 +25,10 @@
   ],
   "aura": {
     "stats": [
-      {
-  "label": "Chatice",
-  "valor": "Muito Alta",
-  "percentual": 100,
-  "tipo": "negativo"
-      }
+      { "label": "Aura Normal", "valor": "Quase nula", "percentual": 12, "tipo": "negativo" },
+      { "label": "Resenha", "valor": "Negativa", "percentual": 8, "tipo": "negativo" },
+      { "label": "Resistência Emocional", "valor": "Mínima", "percentual": 5, "tipo": "negativo" },
+      { "label": "Chatice", "valor": "Extrema", "percentual": 100, "tipo": "negativo" }
     ],
     "especial": {
       "titulo": "Chatice Anormal",
