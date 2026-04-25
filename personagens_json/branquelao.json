@@ -40,10 +40,18 @@
     }
   },
   "relacaoTrollgers": {
-    "ligacoes": ["Ligação direta com Kauan (P0)", "Contato com Emanuel (ex-P2)"],
+    "ligacoes": [
+      "Ligação direta com Kauan (P0)",
+      "Contato com Emanuel (ex-P2)"
+    ],
     "descricao": "Isso já coloca ele em um nível de proximidade muito acima de qualquer civil ou plebeu."
   },
-  "feitos": "Capacidade de fazer perguntas interessantes — o que indica potencial intelectual dentro da resenha.",
+  "feitos": [
+    {
+      "titulo": "Capacidade Intelectual",
+      "descricao": "Capacidade de fazer perguntas interessantes — o que indica potencial intelectual dentro da resenha."
+    }
+  ],
   "fraquezas": "Indefinidas — ainda não testado o suficiente.",
   "veredicto": "Branquelão Altão pode entrar como Trollger já em nível elevado… ou se tornar um caso raro de evolução rápida dentro da hierarquia. Ele não é Trollger ainda. Mas já age como um. O sistema aguarda — e raramente aguarda com expectativa."
 }
