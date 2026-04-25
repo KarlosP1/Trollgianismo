@@ -15,8 +15,12 @@
     { "texto": "Resenha Indefinida", "tipo": "normal" }
   ],
   "personalidade": "Provavelmente séria, marcada por uma postura fria e observadora. Transmite uma presença imponente mesmo sem interação direta.",
+  "feitos": [
+    {
+      "descricao": "Nenhum feito relevante registrado."
+    }
+  ],
   "relacaoTrollgers": "Não possui relação direta com os Trollgers. Ainda assim, chama atenção pela sua postura diferenciada.",
-  "feitos": "Nenhum feito relevante registrado.",
   "poderes": "Nenhum definido.",
   "fraquezas": "Indefinidas.",
   "veredicto": "Super Soldado não possui importância direta na lore do Trollgianismo. Sua existência é marcada mais pela presença e impressão que causa do que por ações concretas dentro do universo."
