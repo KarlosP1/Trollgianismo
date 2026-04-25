@@ -1,7 +1,7 @@
 {
   "id": "vesgo",
   "nome": "VESGO / ARTHUR",
-  "rank": "P-1",
+  "rank": "Plebeu",
   "rankDisplay": "−",
   "subtitulo": "A Dissonância Irritante — Plebeu Negativo",
   "classificacao": "Plebeu",
@@ -17,6 +17,12 @@
   ],
   "identidade": "Vesgo pertence à classe dos Plebeus — mas ocupa uma posição diferente dos demais. Diferente do Daniel, que é simplesmente irrelevante: Vesgo interfere negativamente no ambiente. Ele não é zero. Ele é valor negativo dentro da resenha.",
   "personalidade": "Irritante, insistente e com humor ultrapassado. Dificulta qualquer interação saudável dentro do ambiente. Provoca constantemente — mas não aguenta o retorno.",
+  "feitos": [
+    {
+      "titulo": "Presença Negativa Recorrente",
+      "descricao": "Vesgo não possui feitos positivos registrados. Seu destaque ocorre apenas por comportamentos considerados estranhos e interações negativas que prejudicam a dinâmica do grupo."
+    }
+  ],
   "estiloResenha": [
     {
       "titulo": "Resenha Extremamente Limitada",
@@ -24,26 +30,17 @@
     }
   ],
   "aura": {
+    "descricao": "A aura de Vesgo é considerada negativa. Sua presença não agrega energia ao ambiente e frequentemente causa desgaste social.",
     "stats": [
-      { "label": "Aura Normal", "valor": "Quase nula", "percentual": 12, "tipo": "negativo" },
-      { "label": "Resenha", "valor": "Negativa", "percentual": 8, "tipo": "negativo" },
-      { "label": "Resistência Emocional", "valor": "Mínima", "percentual": 5, "tipo": "negativo" },
-      { "label": "Chatice", "valor": "Extrema", "percentual": 100, "tipo": "negativo" }
-    ],
-    "especial": {
-      "titulo": "Chatice Anormal",
-      "descricao": "Capacidade de irritar constantemente qualquer ambiente social — seu único poder registrado."
-    }
+      { "label": "Aura Normal", "valor": "Quase nula", "percentual": 12, "tipo": "normal" },
+      { "label": "Resenha", "valor": "Negativa", "percentual": 8, "tipo": "normal" },
+      { "label": "Resistência Emocional", "valor": "Mínima", "percentual": 5, "tipo": "normal" },
+      { "label": "Chatice", "valor": "Extrema", "percentual": 100, "tipo": "normal" }
+    ]
   },
-  "relacaoTrollgers": {
-    "amigos": ["Miguel"],
-    "exAmigos": ["Juan", "Emanuel", "Kauan"],
-    "descricao": "Perdeu conexões importantes, indicando baixa compatibilidade com o núcleo principal."
-  },
-  "feitos": "Nenhum feito positivo registrado. Destaque apenas para comportamentos considerados estranhos — como usar chuteira sem contexto — reforçando sua imagem negativa.",
-  "fraquezas": [
-    "Baixa resistência emocional — não suporta confronto direto",
-    "Contradição comportamental — provoca, mas não aguenta retorno"
-  ],
-  "veredicto": "Vesgo não possui relevância na lore principal. Sua presença é marcada apenas por interações negativas e desconexão com o grupo central. Diferente dos que simplesmente não existem para o sistema… Vesgo é pior: ele existe e ainda assim prejudica."
+  "relacaoTrollgers": "Perdeu conexões importantes, indicando baixa compatibilidade com o núcleo principal. Mantém poucas relações ativas e acumula histórico de conflitos.",
+  "fraseMarcante": "👀",
+  "descricaoFrase": "Expressão que representa vigilância excessiva, desconforto social e presença incômoda.",
+  "defeitos": "Baixa resistência emocional, comportamento contraditório e incapacidade de sustentar provocações que ele próprio inicia.",
+  "veredicto": "Vesgo é uma entidade de impacto negativo dentro da lore. Diferente dos irrelevantes, ele existe ativamente como fator de desgaste social, sem contribuição positiva ao sistema."
 }
