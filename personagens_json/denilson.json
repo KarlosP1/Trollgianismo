@@ -19,6 +19,7 @@
   "personalidade": "Fechada, isolada e sem expressão dentro do ambiente.",
   "feitos": [
     {
+      "titulo": "vazia",
       "descricao": "Nenhum."
     }
   ],
@@ -29,6 +30,7 @@
     }
   ],
   "aura": {
+    "descricao": "vazia",
     "stats": [
       { "label": "Aura", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
       { "label": "Resenha", "valor": "Nula", "percentual": 0, "tipo": "nulo" },
@@ -37,6 +39,8 @@
     ]
   },
   "relacaoTrollgers": "Ligado apenas ao Miguel. Não possui conexão direta com o núcleo do Trollgianismo.",
-  "fraquezas": "Indefinidas — pela própria ausência de características.",
+  "fraseMarcante": "vazia",
+  "descricaoFrase": "vazia",
+  "defeitos": "Indefinidas — pela própria ausência de características.",
   "veredicto": "Denilson não possui aura. Não possui resenha. Não possui feitos. Não possui expressão. Ele não é zero — ele é a prova de que existe algo abaixo do zero. A ausência total, dentro de um sistema baseado em presença, é o maior vazio possível."
 }
