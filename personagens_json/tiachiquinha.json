@@ -14,18 +14,35 @@
     { "texto": "Resenha Nula", "tipo": "red" },
     { "texto": "#3 Mais Chata", "tipo": "red" }
   ],
+  "identidade": "vazia",
   "personalidade": [
     "Extremamente insuportável e inconveniente",
     "Considerada feia e de voz irritante",
     "Tende a inventar coisas que ninguém disse, tornando a interação social complicada"
   ],
+  "feitos": [
+    {
+      "titulo": "vazia",
+      "descricao": "Nenhum feito relevante registrado. Sua presença é notória apenas pelo impacto social negativo."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "vazia",
+      "descricao": "vazia"
+    }
+  ],
+  "aura": {
+    "descricao": "vazia",
+    "stats": []
+  },
   "relacaoTrollgers": [
     "Relação marcada por ódio e atrito",
     "Não possui conexões positivas ou produtivas dentro do grupo"
   ],
-  "feitos": "Nenhum feito relevante registrado. Sua presença é notória apenas pelo impacto social negativo.",
-  "poderes": "Ter a voz mais irritante do mundo.",
-  "fraquezas": [
+  "fraseMarcante": "vazia",
+  "descricaoFrase": "vazia",
+  "defeitos": [
     "Frustração de vida associada à idade avançada",
     "Incapacidade de adaptação social"
   ],
