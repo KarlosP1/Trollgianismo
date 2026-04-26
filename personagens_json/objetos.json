@@ -1,9 +1,8 @@
 {
-  "titulo": "Enciclopédia dos Elementos do Trollgianismo",
-  "tags": [
-    { "texto": "Itens Canônicos" },
-    { "texto": "Elementos da Lore" }
-  ],
+  "enciclopedia": {
+    "nome": "Enciclopédia dos Elementos do Trollgianismo",
+    "categorias": ["Itens Canônicos", "Elementos da Lore"]
+  },
   "objetos": [
     {
       "nome": "Aura Padrão / Aura Positiva",
