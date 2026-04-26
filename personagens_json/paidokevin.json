@@ -1,12 +1,12 @@
 {
   "id": "paidokevin",
-  "nome": "PAI DO KEVIN",
+  "nome": "PAI DO KEVIN/FELIPE",
   "rank": "Civil",
   "rankDisplay": "C",
   "subtitulo": "O Fisiculturista — Civil",
   "classificacao": "Civil",
   "emoji": "💪",
-  "foto": "",
+  "foto": "imagens/PAIDOKEVIN.jpg",
   "codigoTrollger": "TRG-CVL-26817",
   "tags": [
     { "texto": "Civil", "tipo": "normal" },
