@@ -1,13 +1,15 @@
 {
-  "enciclopedia": {
-    "nome": "Enciclopédia dos Elementos do Trollgianismo",
-    "categorias": ["Itens Canônicos", "Elementos da Lore"]
-  },
+  "titulo": "OBJETOS",
+  "subtitulo": "Enciclopédia dos Elementos do Trollgianismo",
+  "categorias": [
+    "Itens Canônicos",
+    "Elementos da Lore"
+  ],
   "objetos": [
     {
-      "nome": "Aura Padrão / Aura Positiva",
       "emoji": "✨",
-      "cor": "azul",
+      "nome": "Aura Padrão",
+      "subnome": "Aura Positiva",
       "definicao": "A Aura Padrão, também denominada Aura Positiva, é a forma mais comum de aura dentro do Trollgianismo. Ela é adquirida por meio da prática consistente de resenhas padrões.",
       "caracteristicas": [
         "Origem em interações sociais de alto nível",
@@ -17,9 +19,9 @@
       "importancia": "A Aura Padrão representa a base da existência dentro do sistema, sendo essencial para a evolução de qualquer indivíduo rumo aos níveis mais elevados."
     },
     {
-      "nome": "Aura Obscura / Aura Negativa",
       "emoji": "🌑",
-      "cor": "roxo",
+      "nome": "Aura Obscura",
+      "subnome": "Aura Negativa",
       "definicao": "A Aura Obscura, também conhecida como Aura Negativa, é a forma mais poderosa de aura existente no Trollgianismo.",
       "caracteristicas": [
         "Obtida por meio de resenhas obscuras",
@@ -33,9 +35,8 @@
       "importancia": "É considerada o nível máximo de poder dentro do sistema de aura convencional."
     },
     {
-      "nome": "Resenhas Padrões",
       "emoji": "🗣️",
-      "cor": "azul",
+      "nome": "Resenhas Padrões",
       "definicao": "Resenhas padrões são interações sociais de alto nível baseadas em temas aceitáveis e com potencial humorístico.",
       "caracteristicas": [
         "Devem ser engraçadas para serem consideradas resenha",
@@ -45,9 +46,8 @@
       "importancia": "São a base para a obtenção da Aura Padrão e para a evolução social dentro do grupo."
     },
     {
-      "nome": "Resenhas Obscuras",
       "emoji": "🌑",
-      "cor": "roxo",
+      "nome": "Resenhas Obscuras",
       "definicao": "Resenhas obscuras são interações que abordam temas sensíveis ou controversos, sendo o principal método de obtenção da Aura Obscura.",
       "caracteristicas": [
         "Envolvem temas pesados ou socialmente delicados",
@@ -57,25 +57,22 @@
       "importancia": "Constituem o único método natural de obtenção da Aura Obscura."
     },
     {
-      "nome": "Fruto Proibido",
       "emoji": "🍋",
-      "cor": "roxo",
+      "nome": "Fruto Proibido",
       "definicao": "O Fruto Proibido é uma manga amaldiçoada criada por Lázaro, capaz de conceder Aura Obscura de forma artificial.",
       "historia": "O fruto foi ingerido por Juan, sendo esse o evento responsável por sua obtenção de Aura Obscura.",
       "importancia": "Representa um atalho proibido para alcançar níveis elevados de aura."
     },
     {
-      "nome": "TrollGe Mask",
       "emoji": "🎭",
-      "cor": "verde",
+      "nome": "TrollGe Mask",
       "definicao": "A TrollGe Mask é uma máscara de Trollface com aparência verde demoníaca.",
       "uso": "Seu uso é restrito exclusivamente a Kauan e José.",
       "importancia": "Objeto simbólico de poder e exclusividade dentro do sistema."
     },
     {
-      "nome": "PlayStation 5 Mofado",
       "emoji": "🎮",
-      "cor": "azul",
+      "nome": "PlayStation 5 Mofado",
       "definicao": "Um console em estado precário utilizado por Juan, caracterizado por condições degradadas.",
       "caracteristicas": [
         "Frequentemente acompanhado por um monitor antigo",
@@ -84,9 +81,8 @@
       "importancia": "Elemento associado à identidade e ao estilo de vida de Juan."
     },
     {
-      "nome": "Carroça do Juan",
       "emoji": "🛒",
-      "cor": "azul",
+      "nome": "Carroça do Juan",
       "definicao": "Meio de transporte utilizado por Juan, caracterizado por seu estado precário.",
       "caracteristicas": [
         "Estrutura composta por acúmulo de objetos e lixo",
@@ -95,25 +91,23 @@
       "importancia": "Símbolo do estilo caótico e desorganizado do personagem."
     },
     {
-      "nome": "Chibata / Borracha de Geladeira",
       "emoji": "⚡",
-      "cor": "amarelo",
+      "nome": "Chibata",
+      "subnome": "Borracha de Geladeira",
       "definicao": "Arma lendária utilizada por Kauan.",
       "uso": "Empregada para punição de Emanuel, tanto por necessidade quanto por vontade própria.",
       "importancia": "Representa autoridade, controle e poder disciplinar do P1."
     },
     {
-      "nome": "Caderno Cheio de Pintos",
       "emoji": "📓",
-      "cor": "vermelho",
+      "nome": "Caderno Cheio de Pintos",
       "definicao": "Caderno preenchido com desenhos de genitálias masculinas, criado por Emanuel.",
       "historia": "O objeto foi deixado sobre uma mesa com a intenção de ser visto por outras pessoas.",
       "importancia": "Elemento caótico associado ao comportamento de Emanuel."
     },
     {
-      "nome": "Penetration no Pombo",
       "emoji": "🕊️",
-      "cor": "cinza",
+      "nome": "Penetration no Pombo",
       "definicao": "Forma de expressão artística dentro do contexto do Trollgianismo.",
       "caracteristicas": [
         "Consiste na representação gráfica de um pombo em ato reprodutivo."
