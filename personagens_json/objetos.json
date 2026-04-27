@@ -1,15 +1,15 @@
 {
-  "titulo": "OBJETOS",
-  "subtitulo": "Enciclopédia dos Elementos do Trollgianismo",
-  "categorias": [
+  "title": "OBJETOS",
+  "description": "Enciclopédia dos Elementos do Trollgianismo",
+  "tags": [
     "Itens Canônicos",
     "Elementos da Lore"
   ],
-  "objetos": [
+  "items": [
     {
       "emoji": "✨",
-      "nome": "Aura Padrão",
-      "subnome": "Aura Positiva",
+      "name": "Aura Padrão",
+      "subname": "Aura Positiva",
       "definicao": "A Aura Padrão, também denominada Aura Positiva, é a forma mais comum de aura dentro do Trollgianismo. Ela é adquirida por meio da prática consistente de resenhas padrões.",
       "caracteristicas": [
         "Origem em interações sociais de alto nível",
@@ -20,8 +20,8 @@
     },
     {
       "emoji": "🌑",
-      "nome": "Aura Obscura",
-      "subnome": "Aura Negativa",
+      "name": "Aura Obscura",
+      "subname": "Aura Negativa",
       "definicao": "A Aura Obscura, também conhecida como Aura Negativa, é a forma mais poderosa de aura existente no Trollgianismo.",
       "caracteristicas": [
         "Obtida por meio de resenhas obscuras",
@@ -36,7 +36,7 @@
     },
     {
       "emoji": "🗣️",
-      "nome": "Resenhas Padrões",
+      "name": "Resenhas Padrões",
       "definicao": "Resenhas padrões são interações sociais de alto nível baseadas em temas aceitáveis e com potencial humorístico.",
       "caracteristicas": [
         "Devem ser engraçadas para serem consideradas resenha",
@@ -47,7 +47,7 @@
     },
     {
       "emoji": "🌑",
-      "nome": "Resenhas Obscuras",
+      "name": "Resenhas Obscuras",
       "definicao": "Resenhas obscuras são interações que abordam temas sensíveis ou controversos, sendo o principal método de obtenção da Aura Obscura.",
       "caracteristicas": [
         "Envolvem temas pesados ou socialmente delicados",
@@ -58,21 +58,21 @@
     },
     {
       "emoji": "🍋",
-      "nome": "Fruto Proibido",
+      "name": "Fruto Proibido",
       "definicao": "O Fruto Proibido é uma manga amaldiçoada criada por Lázaro, capaz de conceder Aura Obscura de forma artificial.",
       "historia": "O fruto foi ingerido por Juan, sendo esse o evento responsável por sua obtenção de Aura Obscura.",
       "importancia": "Representa um atalho proibido para alcançar níveis elevados de aura."
     },
     {
       "emoji": "🎭",
-      "nome": "TrollGe Mask",
+      "name": "TrollGe Mask",
       "definicao": "A TrollGe Mask é uma máscara de Trollface com aparência verde demoníaca.",
       "uso": "Seu uso é restrito exclusivamente a Kauan e José.",
       "importancia": "Objeto simbólico de poder e exclusividade dentro do sistema."
     },
     {
       "emoji": "🎮",
-      "nome": "PlayStation 5 Mofado",
+      "name": "PlayStation 5 Mofado",
       "definicao": "Um console em estado precário utilizado por Juan, caracterizado por condições degradadas.",
       "caracteristicas": [
         "Frequentemente acompanhado por um monitor antigo",
@@ -82,7 +82,7 @@
     },
     {
       "emoji": "🛒",
-      "nome": "Carroça do Juan",
+      "name": "Carroça do Juan",
       "definicao": "Meio de transporte utilizado por Juan, caracterizado por seu estado precário.",
       "caracteristicas": [
         "Estrutura composta por acúmulo de objetos e lixo",
@@ -92,22 +92,22 @@
     },
     {
       "emoji": "⚡",
-      "nome": "Chibata",
-      "subnome": "Borracha de Geladeira",
+      "name": "Chibata",
+      "subname": "Borracha de Geladeira",
       "definicao": "Arma lendária utilizada por Kauan.",
       "uso": "Empregada para punição de Emanuel, tanto por necessidade quanto por vontade própria.",
       "importancia": "Representa autoridade, controle e poder disciplinar do P1."
     },
     {
       "emoji": "📓",
-      "nome": "Caderno Cheio de Pintos",
+      "name": "Caderno Cheio de Pintos",
       "definicao": "Caderno preenchido com desenhos de genitálias masculinas, criado por Emanuel.",
       "historia": "O objeto foi deixado sobre uma mesa com a intenção de ser visto por outras pessoas.",
       "importancia": "Elemento caótico associado ao comportamento de Emanuel."
     },
     {
       "emoji": "🕊️",
-      "nome": "Penetration no Pombo",
+      "name": "Penetration no Pombo",
       "definicao": "Forma de expressão artística dentro do contexto do Trollgianismo.",
       "caracteristicas": [
         "Consiste na representação gráfica de um pombo em ato reprodutivo."
