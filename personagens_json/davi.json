@@ -1,18 +1,18 @@
 {
   "id": "davi",
   "nome": "DAVI",
-  "rank": "P6",
-  "rankDisplay": "VI",
-  "subtitulo": "O Jack Absoluto da Obscuridade — P6",
+  "rank": "P2",
+  "rankDisplay": "II",
+  "subtitulo": "O Jack Absoluto da Obscuridade — P2",
   "classificacao": "Trollger",
   "emoji": "🌪️",
   "foto": "imagens/IMG-20260331-WA0025.jpg",
-  "codigoTrollger": "TRG-P6-29034",
+  "codigoTrollger": "TRG-P2-29034",
   "tags": [
     { "texto": "Plebeu", "tipo": "red" },
     { "texto": "O Mais Jack", "tipo": "gold" },
     { "texto": "Resenha Obscura", "tipo": "gold" },
-    { "texto": "Aura > P1", "tipo": "blue" },
+    { "texto": "Abuso Max", "tipo": "blue" },
     { "texto": "Caos Absoluto", "tipo": "red" }
   ],
   "identidade": "Davi ocupa o posto de Trollger P6, mas sua posição numérica não reflete completamente seu nível real de perigo. Dentro do Trollgianismo, ele é reconhecido como o ser mais 'Jack' da história. Sua existência não é apenas relevante — é instável, imprevisível e, acima de tudo, perigosa.",
