@@ -3,54 +3,60 @@
   "nome": "OBJETOS",
   "rank": "objetos",
   "rankDisplay": "X",
+  "subtitulo": "Enciclopédia dos Elementos do Trollgianismo",
   "classificacao": "objetos",
   "emoji": "📗",
   "foto": "",
   "codigoTrollger": "",
   "tags": [
-    { "texto": "Objetos", "tipo": "red" },
-    { "texto": "itens", "tipo": "gold" },
+    { "texto": "Itens Canônicos", "tipo": "gold" },
+    { "texto": "Elementos da Lore", "tipo": "blue" }
   ],
-  "OBJECT1": "",
-  "personalidade": "Davi possui uma personalidade extrema. Altamente imprevisível, absurdamente ousado e sem filtros. Sua presença causa desconforto, impacto e surpresa ao mesmo tempo. Há uma definição que resume sua essência: A existência dele é um crime contra as mulheres. Uma forma de descrever o nível de caos, ousadia e comportamento completamente fora do padrão social.",
+  "identidade": "Esta seção documenta os objetos, artefatos e conceitos canônicos do Trollgianismo — elementos que compõem a lore, definem poderes e marcam a identidade dos seus membros.",
   "feitos": [
     {
-      "titulo": "O Estupro da Melancia",
-      "descricao": "Um dos momentos mais absurdos já registrados na história do Trollgianismo. Davi protagonizou uma situação tão fora da realidade que se tornou lendária dentro do grupo — lembrada não pelos detalhes, mas pelo impacto: quebra total de lógica, nível extremo de ousadia e consolidação definitiva do título de 'Jack'."
+      "titulo": "✨ Aura Padrão — Aura Positiva",
+      "descricao": "A forma mais comum de aura dentro do Trollgianismo, adquirida por meio da prática consistente de resenhas padrões. Representa a base da existência dentro do sistema, sendo essencial para a evolução de qualquer indivíduo rumo aos níveis mais elevados.<br><br><strong>Características:</strong><ul><li>Origem em interações sociais de alto nível</li><li>Dependência direta da qualidade das resenhas</li><li>Considerada rara, apesar de ser a forma \"normal\" de aura</li></ul>"
     },
     {
-      "titulo": "O Convencimento de Kauan",
-      "descricao": "Davi foi o responsável por convencer Kauan a entrar para um grupo. Antes disso, Kauan era uma entidade isolada. Após esse evento, surgiu a base do Trollgianismo em grupo e os mais fortes passaram a coexistir. Davi, sozinho, alterou o rumo da história."
-    }
-  ],
-  "estiloResenha": [
-    {
-      "titulo": "Resenha Obscura — Principal",
-      "descricao": "Davi é um dos maiores usuários de Resenha Obscura já registrados. Extremamente pesada, fora de qualquer limite convencional e imprevisível. Seu nível é tão alto que: muitas de suas falas nem podem ser citadas."
+      "titulo": "🌑 Aura Obscura — Aura Negativa",
+      "descricao": "A forma mais poderosa de aura existente no Trollgianismo. É considerada o nível máximo de poder dentro do sistema de aura convencional.<br><br><strong>Características:</strong><ul><li>Obtida por meio de resenhas obscuras</li><li>Extremamente rara e difícil de adquirir naturalmente</li><li>Pode ser obtida artificialmente através do Fruto Proibido</li></ul><strong>Métodos de aquisição:</strong><ul><li>Natural: prática de resenhas obscuras (quase impossível)</li><li>Artificial: consumo da manga amaldiçoada</li></ul>"
     },
     {
-      "titulo": "Resenha Normal",
-      "descricao": "Apesar do foco na obscuridade, domina também a resenha normal. Mas mesmo quando usa o 'normal', ainda carrega traços do caos."
+      "titulo": "🗣️ Resenhas Padrões",
+      "descricao": "Interações sociais de alto nível baseadas em temas aceitáveis e com potencial humorístico. São a base para a obtenção da Aura Padrão e para a evolução social dentro do grupo.<br><br><strong>Características:</strong><ul><li>Devem ser engraçadas para serem consideradas resenha</li><li>Caso não haja humor, não são classificadas como resenha</li><li>Envolvem temas comuns e socialmente aceitos</li></ul>"
+    },
+    {
+      "titulo": "🌑 Resenhas Obscuras",
+      "descricao": "Interações que abordam temas sensíveis ou controversos, sendo o principal método de obtenção da Aura Obscura. Constituem o único método natural de obtenção da Aura Obscura.<br><br><strong>Características:</strong><ul><li>Envolvem temas pesados ou socialmente delicados</li><li>Exigem alto nível de controle e consciência</li><li>São raras e difíceis de executar corretamente</li></ul>"
+    },
+    {
+      "titulo": "🍋 Fruto Proibido",
+      "descricao": "Uma manga amaldiçoada criada por Lázaro, capaz de conceder Aura Obscura de forma artificial. O fruto foi ingerido por Juan, sendo esse o evento responsável por sua obtenção de Aura Obscura. Representa um atalho proibido para alcançar níveis elevados de aura."
+    },
+    {
+      "titulo": "🎭 TrollGe Mask",
+      "descricao": "Uma máscara de Trollface com aparência verde demoníaca. Seu uso é restrito exclusivamente a Kauan e José. Objeto simbólico de poder e exclusividade dentro do sistema."
+    },
+    {
+      "titulo": "🎮 PlayStation 5 Mofado",
+      "descricao": "Um console em estado precário utilizado por Juan, caracterizado por condições degradadas. Frequentemente acompanhado por um monitor antigo. Elemento associado à identidade e ao estilo de vida de Juan."
+    },
+    {
+      "titulo": "🛒 Carroça do Juan",
+      "descricao": "Meio de transporte utilizado por Juan, caracterizado por seu estado precário. Sua estrutura é composta por acúmulo de objetos e lixo, contendo um PlayStation 5 e um monitor CRT. Símbolo do estilo caótico e desorganizado do personagem."
+    },
+    {
+      "titulo": "⚡ Chibata — Borracha de Geladeira",
+      "descricao": "Arma lendária utilizada por Kauan. Empregada para punição de Emanuel, tanto por necessidade quanto por vontade própria. Representa autoridade, controle e poder disciplinar do P1."
+    },
+    {
+      "titulo": "📓 Caderno Cheio de Pintos",
+      "descricao": "Caderno preenchido com desenhos de genitálias masculinas, criado por Emanuel. O objeto foi deixado sobre uma mesa com a intenção de ser visto por outras pessoas. Elemento caótico associado ao comportamento de Emanuel."
+    },
+    {
+      "titulo": "🕊️ Penetration no Pombo",
+      "descricao": "Forma de expressão artística dentro do contexto do Trollgianismo. Consiste na representação gráfica de um pombo em ato reprodutivo. Exemplo de manifestação artística não convencional dentro do universo."
     }
-  ],
-  "aura": {
-    "descricao": "O nível de aura de Davi é: Incalculável. E aqui surge uma das maiores contradições do Trollgianismo.",
-    "stats": [
-      { "label": "Aura Bruta", "valor": "∞", "percentual": 100, "tipo": "infinite" },
-      { "label": "Resenha Obscura", "valor": "Máximo", "percentual": 100, "tipo": "infinite" },
-      { "label": "Resenha Normal", "valor": "80/100", "percentual": 80, "tipo": "normal" },
-      { "label": "Controle", "valor": "Baixo", "percentual": 20, "tipo": "negativo" }
-    ],
-    "especial": {
-      "titulo": "O Paradoxo Hierárquico",
-      "descricao": "Davi (P6) possui mais aura que José (P1). Isso quebra a lógica hierárquica tradicional e sugere que a posição não define tudo — a aura pode ser maior, mas menos controlada. Ele possui poder bruto… mas não o mesmo nível de controle e perfeição de José ou Kauan."
-    }
-  },
-  "relacaoTrollgers": "Sua relação com os outros membros é baseada em respeito absoluto, reconhecimento de perigo e presença dominante. Mesmo sendo caótico, ele não é descartado — pelo contrário, é respeitado como uma força essencial.",
-  "fraseMarcante": "O Kauan mora na pensão.",
-  "descricaoFrase": "Representa humor absurdo, quebra de imagem do P0 e capacidade de atingir até o topo com resenha.",
-  "apelidos": ["Macaquinho"],
-  "descricaoApelidos": "Apelido baseado exclusivamente em aparência, usado dentro do contexto interno do grupo.",
-  "defeitos": "Davi é praticamente o oposto de perfeição. Seus defeitos incluem aparência, falas e falta de limite. Diferente de outros Trollgers que possuem falhas específicas: Davi é definido por suas falhas.",
-  "veredicto": "Davi P6 não é apenas um membro forte. Ele é o caos em forma de Trollger, o maior usuário de Resenha Obscura e o portador de uma aura absurda… porém instável. Se Kauan é perfeição e José é controle… Davi é o colapso do sistema funcionando perfeitamente."
+  ]
 }
