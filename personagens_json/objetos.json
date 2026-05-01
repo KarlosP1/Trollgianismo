@@ -16,46 +16,68 @@
   "feitos": [
     {
       "titulo": "✨ Aura Padrão — Aura Positiva",
+      "cor": "#f0c040",
+      "imagem": "img/objetos/aura_padrao.png",
       "descricao": "A forma mais comum de aura dentro do Trollgianismo, adquirida por meio da prática consistente de resenhas padrões. Representa a base da existência dentro do sistema, sendo essencial para a evolução de qualquer indivíduo rumo aos níveis mais elevados.<br><br><strong>Características:</strong><ul><li>Origem em interações sociais de alto nível</li><li>Dependência direta da qualidade das resenhas</li><li>Considerada rara, apesar de ser a forma \"normal\" de aura</li></ul>"
     },
     {
       "titulo": "🌑 Aura Obscura — Aura Negativa",
+      "cor": "#9b59b6",
+      "imagem": "img/objetos/aura_obscura.png",
       "descricao": "A forma mais poderosa de aura existente no Trollgianismo. É considerada o nível máximo de poder dentro do sistema de aura convencional.<br><br><strong>Características:</strong><ul><li>Obtida por meio de resenhas obscuras</li><li>Extremamente rara e difícil de adquirir naturalmente</li><li>Pode ser obtida artificialmente através do Fruto Proibido</li></ul><strong>Métodos de aquisição:</strong><ul><li>Natural: prática de resenhas obscuras (quase impossível)</li><li>Artificial: consumo da manga amaldiçoada</li></ul>"
     },
     {
       "titulo": "🗣️ Resenhas Padrões",
+      "cor": "#3498db",
+      "imagem": "img/objetos/resenhas_padrao.png",
       "descricao": "Interações sociais de alto nível baseadas em temas aceitáveis e com potencial humorístico. São a base para a obtenção da Aura Padrão e para a evolução social dentro do grupo.<br><br><strong>Características:</strong><ul><li>Devem ser engraçadas para serem consideradas resenha</li><li>Caso não haja humor, não são classificadas como resenha</li><li>Envolvem temas comuns e socialmente aceitos</li></ul>"
     },
     {
       "titulo": "🌑 Resenhas Obscuras",
+      "cor": "#e74c3c",
+      "imagem": "img/objetos/resenhas_obscuras.png",
       "descricao": "Interações que abordam temas sensíveis ou controversos, sendo o principal método de obtenção da Aura Obscura. Constituem o único método natural de obtenção da Aura Obscura.<br><br><strong>Características:</strong><ul><li>Envolvem temas pesados ou socialmente delicados</li><li>Exigem alto nível de controle e consciência</li><li>São raras e difíceis de executar corretamente</li></ul>"
     },
     {
       "titulo": "🍋 Fruto Proibido",
+      "cor": "#27ae60",
+      "imagem": "img/objetos/fruto_proibido.png",
       "descricao": "Uma manga amaldiçoada criada por Lázaro, capaz de conceder Aura Obscura de forma artificial. O fruto foi ingerido por Juan, sendo esse o evento responsável por sua obtenção de Aura Obscura. Representa um atalho proibido para alcançar níveis elevados de aura."
     },
     {
       "titulo": "🎭 TrollGe Mask",
+      "cor": "#1abc9c",
+      "imagem": "img/objetos/trollge_mask.png",
       "descricao": "Uma máscara de Trollface com aparência verde demoníaca. Seu uso é restrito exclusivamente a Kauan e José. Objeto simbólico de poder e exclusividade dentro do sistema."
     },
     {
       "titulo": "🎮 PlayStation 5 Mofado",
+      "cor": "#2980b9",
+      "imagem": "img/objetos/ps5_mofado.png",
       "descricao": "Um console em estado precário utilizado por Juan, caracterizado por condições degradadas. Frequentemente acompanhado por um monitor antigo. Elemento associado à identidade e ao estilo de vida de Juan."
     },
     {
       "titulo": "🛒 Carroça do Juan",
+      "cor": "#e67e22",
+      "imagem": "img/objetos/carroca_juan.png",
       "descricao": "Meio de transporte utilizado por Juan, caracterizado por seu estado precário. Sua estrutura é composta por acúmulo de objetos e lixo, contendo um PlayStation 5 e um monitor CRT. Símbolo do estilo caótico e desorganizado do personagem."
     },
     {
       "titulo": "⚡ Chibata — Borracha de Geladeira",
+      "cor": "#f39c12",
+      "imagem": "img/objetos/chibata.png",
       "descricao": "Arma lendária utilizada por Kauan. Empregada para punição de Emanuel, tanto por necessidade quanto por vontade própria. Representa autoridade, controle e poder disciplinar do P1."
     },
     {
       "titulo": "📓 Caderno Cheio de Pintos",
+      "cor": "#e91e63",
+      "imagem": "img/objetos/caderno.png",
       "descricao": "Caderno preenchido com desenhos de genitálias masculinas, criado por Emanuel. O objeto foi deixado sobre uma mesa com a intenção de ser visto por outras pessoas. Elemento caótico associado ao comportamento de Emanuel."
     },
     {
       "titulo": "🕊️ Penetration no Pombo",
+      "cor": "#95a5a6",
+      "imagem": "img/objetos/pombo.png",
       "descricao": "Forma de expressão artística dentro do contexto do Trollgianismo. Consiste na representação gráfica de um pombo em ato reprodutivo. Exemplo de manifestação artística não convencional dentro do universo."
     }
   ]
