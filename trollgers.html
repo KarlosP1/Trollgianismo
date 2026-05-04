@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trollgers — Arquivos</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * { outline: none !important; -webkit-tap-highlight-color: transparent !important; }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -433,6 +434,97 @@
     .drawer-btn:hover { background: var(--surface2); color: var(--gold-light); }
     .drawer-btn.ativo { color: var(--gold-light); background: var(--surface2); border-left: 2px solid var(--gold); }
     .drawer-divider { border: none; border-top: 1px solid var(--border); margin: 8px 0; }
+
+    /* ── PUBLICAR ARTIGO — BOTÃO FLUTUANTE ── */
+    .publish-fab {
+      position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, #122030, #0d1a2a);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold-light); font-size: 22px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 0 20px rgba(42,127,212,0.3);
+      transition: box-shadow 0.2s, transform 0.15s;
+      outline: none; -webkit-tap-highlight-color: transparent;
+    }
+    .publish-fab:hover { box-shadow: 0 0 32px rgba(42,127,212,0.5); transform: scale(1.08); }
+
+    /* ── MODAL PUBLICAR ── */
+    .publish-overlay {
+      position: fixed; inset: 0; z-index: 3000;
+      background: rgba(0,0,0,0.8);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .publish-overlay.open { opacity: 1; pointer-events: all; }
+
+    .publish-modal {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 36px 32px; width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto;
+      position: relative; animation: fadeIn 0.3s ease both;
+    }
+    .publish-modal::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+    .publish-modal-title {
+      font-family: 'Cinzel Decorative', serif; font-size: 16px;
+      color: var(--gold-light); letter-spacing: 0.06em; margin-bottom: 24px;
+    }
+    .publish-modal-close {
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none; color: var(--text-dim);
+      font-size: 20px; cursor: pointer; outline: none; transition: color 0.2s;
+    }
+    .publish-modal-close:hover { color: var(--gold-light); }
+
+    .p-label {
+      display: block; font-family: 'Cinzel', serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 7px;
+    }
+    .p-input, .p-select, .p-textarea {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px; padding: 11px 14px;
+      font-family: 'Raleway', sans-serif; font-size: 14px; color: var(--text);
+      outline: none; transition: border-color 0.2s; margin-bottom: 16px;
+    }
+    .p-input:focus, .p-select:focus, .p-textarea:focus {
+      border-color: var(--gold-dim); box-shadow: 0 0 10px rgba(42,127,212,0.15);
+    }
+    .p-input::placeholder, .p-textarea::placeholder { color: var(--text-dim); opacity: 0.6; }
+    .p-select option { background: var(--bg); }
+    .p-textarea { min-height: 160px; resize: vertical; line-height: 1.6; }
+    .p-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .p-submit {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg, rgba(42,127,212,0.2), rgba(42,127,212,0.08));
+      border: 1px solid var(--gold-dim); border-radius: 4px;
+      color: var(--gold-light); font-family: 'Cinzel', serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s; margin-top: 4px;
+    }
+    .p-submit:hover { background: linear-gradient(135deg,rgba(42,127,212,0.35),rgba(42,127,212,0.15)); box-shadow: 0 0 18px rgba(42,127,212,0.25); }
+    .p-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .p-msg { margin-top: 12px; padding: 10px 14px; border-radius: 4px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; display: none; }
+    .p-msg.ok   { background: rgba(51,204,102,0.08); border: 1px solid #1a5a2a; color: #55cc77; display: block; }
+    .p-msg.erro { background: rgba(204,51,102,0.08); border: 1px solid #5a1a40; color: #ff6699; display: block; }
+
+    /* ── ARTIGO DINÂMICO ── */
+    .artigo-delete-btn {
+      margin-top: 20px; padding: 8px 18px;
+      background: rgba(204,51,51,0.08); border: 1px solid #5a1a1a;
+      border-radius: 4px; color: #cc4444; font-family: 'Cinzel', serif;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s; position: relative; z-index: 2;
+    }
+    .artigo-delete-btn:hover { background: rgba(204,51,51,0.2); border-color: #aa3333; color: #ff5555; }
+    .artigo-delete-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -609,6 +701,10 @@
   <div class="drawer-section-label">Enciclopédia</div>
   <button class="drawer-btn" onclick="mostrarDrawer('objetos', this)">📜 Objetos</button>
 
+  <hr class="drawer-divider" id="artigos-drawer-divider" style="display:none">
+  <div class="drawer-section-label" id="artigos-drawer-label" style="display:none">Artigos Publicados</div>
+  <div id="artigos-drawer-container"></div>
+
   <hr class="drawer-divider">
   <a href="https://github.com/KarlosP1/Trollgianismo" target="_blank" style="display:flex;align-items:center;gap:10px;margin:12px 16px 0;padding:10px 14px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);text-decoration:none;transition:border-color 0.2s,box-shadow 0.2s" onmouseover="this.style.borderColor='#555';this.style.boxShadow='0 0 12px rgba(255,255,255,0.05)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#d4cfc5"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
@@ -723,6 +819,9 @@
 
     <div style="width:100%;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px">Enciclopédia</div>
     <button class="nav-btn" onclick="mostrar('objetos', this)">📜 Objetos</button>
+
+    <div id="artigos-nav-label" style="display:none;width:100%;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px">Artigos Publicados</div>
+    <div id="artigos-nav-container"></div>
   </nav>
 
   <!-- ═══════════════════════════════════ KAUAN ═══════════════════════════════════ -->
@@ -918,6 +1017,9 @@
     <div class="json-loader" data-json="joao"></div>
   </div>
 
+  <!-- SEÇÕES DINÂMICAS DO SUPABASE -->
+  <div id="artigos-sections-container"></div>
+
   <footer>
     <div class="footer-label">Navegação</div>
     <div class="footer-links">
@@ -927,9 +1029,185 @@
     <p style="margin-top:28px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.15em;color:var(--text-dim);text-align:center">Créditos ao Juan que ajudou completamente a criar isso. :)</p>
   </footer>
 
+</div><!-- /page -->
+
+<!-- ── BOTÃO PUBLICAR ARTIGO ── -->
+<button class="publish-fab" onclick="abrirPublicar()" title="Publicar Artigo">✚</button>
+
+<!-- ── MODAL PUBLICAR ARTIGO ── -->
+<div class="publish-overlay" id="publishOverlay">
+  <div class="publish-modal">
+    <button class="publish-modal-close" onclick="fecharPublicar()">✕</button>
+    <div class="publish-modal-title">📝 Publicar Artigo</div>
+
+    <div class="p-row">
+      <div>
+        <label class="p-label">Emoji</label>
+        <input class="p-input" id="pEmoji" type="text" placeholder="👤" maxlength="4">
+      </div>
+      <div>
+        <label class="p-label">Categoria</label>
+        <select class="p-select" id="pCategoria">
+          <option value="Trollgers Oficiais">Trollgers Oficiais</option>
+          <option value="Plebeus">Plebeus</option>
+          <option value="Civis & Externos">Civis &amp; Externos</option>
+          <option value="Desviados">Desviados &amp; Pré-Trollgers</option>
+          <option value="Candidatos">Candidatos</option>
+          <option value="Outros" selected>Outros</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="p-label">Nome</label>
+    <input class="p-input" id="pNome" type="text" placeholder="Nome do personagem">
+
+    <div class="p-row">
+      <div>
+        <label class="p-label">Rank (ex: P0, P7)</label>
+        <input class="p-input" id="pRank" type="text" placeholder="Opcional">
+      </div>
+      <div>
+        <label class="p-label">Subtítulo</label>
+        <input class="p-input" id="pSubtitulo" type="text" placeholder="Opcional">
+      </div>
+    </div>
+
+    <label class="p-label">Tags (separadas por vírgula)</label>
+    <input class="p-input" id="pTags" type="text" placeholder="Ex: Criador, Fundador, Obscuro">
+
+    <label class="p-label">URL da Foto (opcional)</label>
+    <input class="p-input" id="pFoto" type="text" placeholder="https://...">
+
+    <label class="p-label">Conteúdo do Artigo</label>
+    <textarea class="p-textarea" id="pConteudo" placeholder="Escreva o artigo aqui. Use Enter para separar parágrafos..."></textarea>
+
+    <button class="p-submit" id="btnPublicar" onclick="publicarArtigo()">Publicar Artigo</button>
+    <div class="p-msg" id="pMsg"></div>
+  </div>
 </div>
 
 <script>
+  /* ============================================================
+     SUPABASE — Artigos dinâmicos
+     ============================================================ */
+  const sb = supabase.createClient(
+    'https://jkxhqtvugpbxplsswuut.supabase.co',
+    'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl'
+  );
+
+  function esc(t) {
+    if (!t) return '';
+    return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  }
+
+  function renderArtigo(a) {
+    const secId = 'artigo-' + a.id;
+    const tagsHTML = a.tags
+      ? a.tags.split(',').map(t => `<span class="tag gold">${esc(t.trim())}</span>`).join('')
+      : '';
+    const fotoHTML = a.foto && a.foto.trim()
+      ? `<img class="profile-photo" src="${esc(a.foto)}" alt="${esc(a.nome)}" onerror="this.style.display='none'">`
+      : '';
+    const rankDisplay = a.rank ? `<div class="profile-rank top1">${esc(a.rank)}</div>` : '';
+    const paragrafos = a.conteudo.split('\n').filter(p => p.trim()).map(p => `<p>${esc(p)}</p>`).join('');
+    return `
+    <div id="${secId}" class="section">
+      <div class="profile-hero">
+        ${fotoHTML}
+        ${rankDisplay}
+        <div class="profile-name">${esc(a.nome)}</div>
+        ${a.subtitulo ? `<div class="profile-subtitle">${esc(a.subtitulo)}</div>` : ''}
+        ${tagsHTML ? `<div class="profile-tags">${tagsHTML}</div>` : ''}
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">📄</span> Artigo</div>
+        <div class="entry"><div class="entry-body">${paragrafos}</div></div>
+      </div>
+      <button class="artigo-delete-btn" onclick="excluirArtigo(${a.id}, this)">🗑 Excluir Artigo</button>
+    </div>`;
+  }
+
+  function injetarArtigo(a) {
+    const secId = 'artigo-' + a.id;
+    const label = (a.emoji || '📄') + ' ' + a.nome;
+
+    const navBtn = document.createElement('button');
+    navBtn.className = 'nav-btn';
+    navBtn.setAttribute('data-artigo-id', a.id);
+    navBtn.textContent = label;
+    navBtn.onclick = function() { mostrar(secId, navBtn); };
+    document.getElementById('artigos-nav-container').appendChild(navBtn);
+
+    const drwBtn = document.createElement('button');
+    drwBtn.className = 'drawer-btn';
+    drwBtn.setAttribute('data-artigo-id', a.id);
+    drwBtn.textContent = label;
+    drwBtn.onclick = function() { mostrarDrawer(secId, drwBtn); };
+    document.getElementById('artigos-drawer-container').appendChild(drwBtn);
+
+    document.getElementById('artigos-sections-container').insertAdjacentHTML('beforeend', renderArtigo(a));
+
+    document.getElementById('artigos-nav-label').style.display     = '';
+    document.getElementById('artigos-drawer-label').style.display   = '';
+    document.getElementById('artigos-drawer-divider').style.display = '';
+  }
+
+  async function carregarArtigos() {
+    const { data, error } = await sb.from('artigos_trollgers').select('*').order('created_at', { ascending: true });
+    if (error) { console.error('[Artigos]', error); return; }
+    if (data) data.forEach(injetarArtigo);
+  }
+
+  async function publicarArtigo() {
+    const nome      = document.getElementById('pNome').value.trim();
+    const emoji     = document.getElementById('pEmoji').value.trim() || '📄';
+    const categoria = document.getElementById('pCategoria').value;
+    const rank      = document.getElementById('pRank').value.trim();
+    const subtitulo = document.getElementById('pSubtitulo').value.trim();
+    const tags      = document.getElementById('pTags').value.trim();
+    const foto      = document.getElementById('pFoto').value.trim();
+    const conteudo  = document.getElementById('pConteudo').value.trim();
+    const msg       = document.getElementById('pMsg');
+    const btn       = document.getElementById('btnPublicar');
+
+    msg.className = 'p-msg';
+    if (!nome || !conteudo) { msg.textContent = 'Preencha o nome e o conteúdo.'; msg.className = 'p-msg erro'; return; }
+
+    btn.disabled = true; btn.textContent = 'Publicando...';
+    const { data, error } = await sb.from('artigos_trollgers').insert([{ nome, emoji, categoria, rank, subtitulo, tags, foto, conteudo }]).select().single();
+    btn.disabled = false; btn.textContent = 'Publicar Artigo';
+
+    if (error) { msg.textContent = 'Erro: ' + error.message; msg.className = 'p-msg erro'; return; }
+
+    msg.textContent = '✅ Artigo publicado!';
+    msg.className = 'p-msg ok';
+    injetarArtigo(data);
+    ['pNome','pEmoji','pRank','pSubtitulo','pTags','pFoto','pConteudo'].forEach(id => { document.getElementById(id).value = ''; });
+    setTimeout(fecharPublicar, 1200);
+  }
+
+  async function excluirArtigo(id, btn) {
+    if (!confirm('Excluir este artigo? Não pode ser desfeito.')) return;
+    btn.disabled = true; btn.textContent = 'Excluindo...';
+    const { error } = await sb.from('artigos_trollgers').delete().eq('id', id);
+    if (error) { alert('Erro: ' + error.message); btn.disabled = false; btn.textContent = '🗑 Excluir Artigo'; return; }
+    const sec = document.getElementById('artigo-' + id);
+    if (sec) sec.remove();
+    document.querySelectorAll('[data-artigo-id="' + id + '"]').forEach(el => el.remove());
+    if (!document.querySelector('.section.ativo')) mostrar('kauan', document.querySelector('.nav-btn'));
+    if (!document.getElementById('artigos-nav-container').children.length) {
+      document.getElementById('artigos-nav-label').style.display     = 'none';
+      document.getElementById('artigos-drawer-label').style.display   = 'none';
+      document.getElementById('artigos-drawer-divider').style.display = 'none';
+    }
+  }
+
+  function abrirPublicar() { document.getElementById('publishOverlay').classList.add('open'); }
+  function fecharPublicar() { document.getElementById('publishOverlay').classList.remove('open'); document.getElementById('pMsg').className = 'p-msg'; }
+
+  /* ============================================================
+     SISTEMA ORIGINAL
+     ============================================================ */
   function aceitarTermos() {
     document.getElementById('termsStep1').style.display = 'none';
     const step2 = document.getElementById('termsStep2');
@@ -1194,6 +1472,10 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     carregarSection('kauan');
+    carregarArtigos();
+    document.getElementById('publishOverlay').addEventListener('click', function(e) {
+      if (e.target === this) fecharPublicar();
+    });
   });
 
   function toggleUserMenu(e) {
