@@ -8,6 +8,17 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * { outline: none !important; -webkit-tap-highlight-color: transparent !important; }
+
+    /* ══ TEMAS ══ */
+    [data-tema="azul"]   { --bg:#08101a;--surface:#0d1a2a;--surface2:#122030;--border:#1e3a5a;--gold:#2a7fd4;--gold-light:#55aaff;--gold-dim:#1a4a8a;--text:#c4d8e0;--text-dim:#4a6a8a; }
+    [data-tema="roxo"]   { --bg:#100a1a;--surface:#1a0d2a;--surface2:#241230;--border:#3a1e5a;--gold:#7d2ad4;--gold-light:#aa55ff;--gold-dim:#4a1a8a;--text:#d4c4e0;--text-dim:#6a4a8a; }
+    [data-tema="vermelho"]{ --bg:#1a0808;--surface:#2a0d0d;--surface2:#301212;--border:#5a1e1e;--gold:#d42a2a;--gold-light:#ff5555;--gold-dim:#8a1a1a;--text:#e0c4c4;--text-dim:#8a4a4a; }
+    [data-tema="verde"]  { --bg:#081a0e;--surface:#0d2a14;--surface2:#12301a;--border:#1e5a2e;--gold:#2ad47a;--gold-light:#55ff99;--gold-dim:#1a8a4a;--text:#c4e0cc;--text-dim:#4a8a5a; }
+    [data-tema="dourado"]{ --bg:#1a1408;--surface:#2a1f0d;--surface2:#302612;--border:#5a421e;--gold:#d4922a;--gold-light:#ffbb55;--gold-dim:#8a5a1a;--text:#e0d8c4;--text-dim:#8a744a; }
+    [data-tema="rosa"]   { --bg:#1a0810;--surface:#2a0d18;--surface2:#30121f;--border:#5a1e38;--gold:#d42a7a;--gold-light:#ff55aa;--gold-dim:#8a1a4a;--text:#e0c4d4;--text-dim:#8a4a6a; }
+    [data-tema="ciano"]  { --bg:#081a1a;--surface:#0d2a2a;--surface2:#123030;--border:#1e5a5a;--gold:#2ad4d4;--gold-light:#55ffff;--gold-dim:#1a8a8a;--text:#c4e0e0;--text-dim:#4a8a8a; }
+    [data-tema="laranja"]{ --bg:#1a0e08;--surface:#2a160d;--surface2:#301b12;--border:#5a311e;--gold:#d4622a;--gold-light:#ff8855;--gold-dim:#8a3a1a;--text:#e0d0c4;--text-dim:#8a604a; }
+
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     button { outline: none; }
 
@@ -580,6 +591,22 @@
     .adm-artigo-cat  { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; margin-top: 2px; }
     .adm-del-btn { background: rgba(204,51,51,0.1); border: 1px solid #5a1a1a; border-radius: 4px; color: #cc4444; font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; padding: 6px 12px; transition: all 0.2s; outline: none; white-space: nowrap; flex-shrink: 0; }
     .adm-del-btn:hover { background: rgba(204,51,51,0.25); border-color: #aa3333; color: #ff5555; }
+
+    /* ── SELETOR DE TEMA ── */
+    .tema-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0; }
+    .tema-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 12px 6px; border-radius: 6px;
+      background: var(--bg); border: 2px solid var(--border);
+      cursor: pointer; transition: all 0.2s; outline: none;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-dim);
+    }
+    .tema-btn:hover { border-color: var(--gold-dim); color: var(--text); }
+    .tema-btn.ativo { border-color: var(--gold); color: var(--gold-light); box-shadow: 0 0 12px rgba(42,127,212,0.25); }
+    .tema-circulo { width: 28px; height: 28px; border-radius: 50%; display: block; }
+    .adm-section-label { font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin: 20px 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
     .adm-empty { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim); text-align: center; padding: 24px; }
   </style>
 </head>
@@ -808,13 +835,27 @@
     </div>
 
     <!-- PAINEL LOGADO -->
-    <div id="admPainel" style="display:none">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;color:var(--gold-light)">📝 Artigos Publicados</div>
-        <button onclick="logoutAdm()" style="background:none;border:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;outline:none">Sair</button>
+      <div id="admPainel" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+          <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;color:var(--gold-light)">⚙️ Painel ADM</div>
+          <button onclick="logoutAdm()" style="background:none;border:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;outline:none">Sair</button>
+        </div>
+
+        <div class="adm-section-label">🎨 Tema do Site</div>
+        <div class="tema-grid" id="temaGrid">
+          <button class="tema-btn" data-tema="azul"    onclick="aplicarTema('azul')">   <span class="tema-circulo" style="background:linear-gradient(135deg,#55aaff,#1a4a8a)"></span>Azul</button>
+          <button class="tema-btn" data-tema="roxo"    onclick="aplicarTema('roxo')">   <span class="tema-circulo" style="background:linear-gradient(135deg,#aa55ff,#4a1a8a)"></span>Roxo</button>
+          <button class="tema-btn" data-tema="vermelho"onclick="aplicarTema('vermelho')"><span class="tema-circulo" style="background:linear-gradient(135deg,#ff5555,#8a1a1a)"></span>Vermelho</button>
+          <button class="tema-btn" data-tema="verde"   onclick="aplicarTema('verde')">  <span class="tema-circulo" style="background:linear-gradient(135deg,#55ff99,#1a8a4a)"></span>Verde</button>
+          <button class="tema-btn" data-tema="dourado" onclick="aplicarTema('dourado')"><span class="tema-circulo" style="background:linear-gradient(135deg,#ffbb55,#8a5a1a)"></span>Dourado</button>
+          <button class="tema-btn" data-tema="rosa"    onclick="aplicarTema('rosa')">   <span class="tema-circulo" style="background:linear-gradient(135deg,#ff55aa,#8a1a4a)"></span>Rosa</button>
+          <button class="tema-btn" data-tema="ciano"   onclick="aplicarTema('ciano')">  <span class="tema-circulo" style="background:linear-gradient(135deg,#55ffff,#1a8a8a)"></span>Ciano</button>
+          <button class="tema-btn" data-tema="laranja" onclick="aplicarTema('laranja')"><span class="tema-circulo" style="background:linear-gradient(135deg,#ff8855,#8a3a1a)"></span>Laranja</button>
+        </div>
+
+        <div class="adm-section-label">📝 Artigos Publicados</div>
+        <div id="admLista"></div>
       </div>
-      <div id="admLista"></div>
-    </div>
   </div>
 </div>
 
@@ -1338,6 +1379,9 @@
     document.getElementById('admLogin').style.display  = 'none';
     document.getElementById('admPainel').style.display = 'block';
     renderAdmLista();
+    // Marca tema ativo
+    var tAtual = document.documentElement.getAttribute('data-tema') || 'azul';
+    setTemaLocal(tAtual);
   }
 
   async function logoutAdm() {
@@ -1369,6 +1413,28 @@
 
   function abrirPublicar() { document.getElementById('publishOverlay').classList.add('open'); }
   function fecharPublicar() { document.getElementById('publishOverlay').classList.remove('open'); document.getElementById('pMsg').className = 'p-msg'; }
+
+
+  /* ============================================================
+     SISTEMA DE TEMAS
+     ============================================================ */
+  async function carregarTema() {
+    const { data } = await sb.from('site_config').select('tema').eq('id', 1).single();
+    if (data && data.tema) setTemaLocal(data.tema);
+  }
+
+  function setTemaLocal(tema) {
+    document.documentElement.setAttribute('data-tema', tema);
+    document.querySelectorAll('.tema-btn').forEach(btn => {
+      btn.classList.toggle('ativo', btn.dataset.tema === tema);
+    });
+  }
+
+  async function aplicarTema(tema) {
+    setTemaLocal(tema);
+    const { error } = await sb.from('site_config').update({ tema }).eq('id', 1);
+    if (error) console.error('[Tema]', error);
+  }
 
   /* ============================================================
      SISTEMA ORIGINAL
@@ -1641,6 +1707,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     carregarSection('kauan');
     carregarArtigos();
+    carregarTema();
     document.getElementById('publishOverlay').addEventListener('click', function(e) {
       if (e.target === this) fecharPublicar();
     });
