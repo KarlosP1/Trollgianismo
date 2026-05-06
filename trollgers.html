@@ -525,6 +525,62 @@
     }
     .artigo-delete-btn:hover { background: rgba(204,51,51,0.2); border-color: #aa3333; color: #ff5555; }
     .artigo-delete-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── ENGRENAGEM ADM ── */
+    .drawer-gear {
+      display: flex; align-items: center; gap: 10px;
+      margin: 16px 16px 0; padding: 10px 14px;
+      border-radius: 6px; background: var(--surface2);
+      border: 1px solid var(--border);
+      cursor: pointer; transition: border-color 0.2s;
+      font-family: 'Cinzel', serif; font-size: 11px;
+      letter-spacing: 0.1em; color: var(--text-dim);
+      outline: none; width: calc(100% - 32px);
+    }
+    .drawer-gear:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+    .adm-overlay {
+      position: fixed; inset: 0; z-index: 4000;
+      background: rgba(0,0,0,0.85);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .adm-overlay.open { opacity: 1; pointer-events: all; }
+
+    .adm-modal {
+      background: linear-gradient(160deg, var(--surface2), var(--surface));
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 32px; width: 100%; max-width: 480px;
+      max-height: 85vh; overflow-y: auto; position: relative;
+      animation: fadeIn 0.3s ease both;
+    }
+    .adm-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
+    .adm-modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; outline: none; transition: color 0.2s; }
+    .adm-modal-close:hover { color: var(--gold-light); }
+    .adm-modal-title { font-family: 'Cinzel Decorative', serif; font-size: 15px; color: var(--gold-light); margin-bottom: 8px; }
+    .adm-modal-sub { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 24px; }
+
+    .adm-login { display: flex; flex-direction: column; gap: 14px; }
+    .adm-input { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 11px 14px; font-family: 'Raleway', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.2s; width: 100%; }
+    .adm-input:focus { border-color: var(--gold-dim); }
+    .adm-input::placeholder { color: var(--text-dim); opacity: 0.6; }
+    .adm-btn { padding: 12px; background: linear-gradient(135deg, rgba(42,127,212,0.2), rgba(42,127,212,0.08)); border: 1px solid var(--gold-dim); border-radius: 4px; color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; outline: none; }
+    .adm-btn:hover { background: linear-gradient(135deg, rgba(42,127,212,0.35), rgba(42,127,212,0.15)); box-shadow: 0 0 16px rgba(42,127,212,0.25); }
+    .adm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .adm-err { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.1em; color: #ff6699; text-align: center; }
+
+    .adm-artigo-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px; border-radius: 4px;
+      background: var(--bg); border: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+    .adm-artigo-nome { font-family: 'Cinzel', serif; font-size: 12px; color: var(--text); }
+    .adm-artigo-cat  { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; margin-top: 2px; }
+    .adm-del-btn { background: rgba(204,51,51,0.1); border: 1px solid #5a1a1a; border-radius: 4px; color: #cc4444; font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; padding: 6px 12px; transition: all 0.2s; outline: none; white-space: nowrap; flex-shrink: 0; }
+    .adm-del-btn:hover { background: rgba(204,51,51,0.25); border-color: #aa3333; color: #ff5555; }
+    .adm-empty { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim); text-align: center; padding: 24px; }
   </style>
 </head>
 <body>
@@ -653,6 +709,7 @@
   <button class="drawer-btn" onclick="mostrarDrawer('bryan', this)">🐶 Bryan — P8</button>
   <button class="drawer-btn" onclick="mostrarDrawer('josefernando', this)">🏫 José Fernando — P9</button>
   <button class="drawer-btn" onclick="mostrarDrawer('emanuel', this)">⚔️ Emanuel — Ex-P2</button>
+  <div id="drw-cat-trollgers"></div>
 
   <hr class="drawer-divider">
   <div class="drawer-section-label">Plebeus</div>
@@ -669,6 +726,7 @@
   <button class="drawer-btn" onclick="mostrarDrawer('tiachiquinha', this)">🌍 Tia Chiquinha</button>
   <button class="drawer-btn" onclick="mostrarDrawer('prfoem', this)">🔢 Prof-OEM</button>
   <button class="drawer-btn" onclick="mostrarDrawer('prfomp', this)">📒 Prof-OMP</button>
+  <div id="drw-cat-plebeus"></div>
 
   <hr class="drawer-divider">
   <div class="drawer-section-label">Civis &amp; Externos</div>
@@ -687,15 +745,18 @@
   <button class="drawer-btn" onclick="mostrarDrawer('profiara', this)">🐡 Profª Íara</button>
   <button class="drawer-btn" onclick="mostrarDrawer('viadinho', this)">🔪 Viadinho do 7º</button>
   <button class="drawer-btn" onclick="mostrarDrawer('paidokevin', this)">🏋️‍♂️ Pai do Kevin</button>
+  <div id="drw-cat-civis"></div>
 
   <hr class="drawer-divider">
   <div class="drawer-section-label">Desviados &amp; Pré-Trollgers</div>
   <button class="drawer-btn" onclick="mostrarDrawer('cs', this)">🎮 Jogador CS</button>
   <button class="drawer-btn" onclick="mostrarDrawer('davif', this)">🐒 Davi Friendsh</button>
+  <div id="drw-cat-desviados"></div>
 
   <hr class="drawer-divider">
   <div class="drawer-section-label">Candidatos</div>
   <button class="drawer-btn" onclick="mostrarDrawer('branquelao', this)">🟪 Branquelão Altão</button>
+  <div id="drw-cat-candidatos"></div>
 
   <hr class="drawer-divider">
   <div class="drawer-section-label">Enciclopédia</div>
@@ -725,6 +786,36 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#5865f2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.031.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
     <span style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;color:#5865f2">Discord</span>
   </a>
+
+  <!-- ENGRENAGEM ADM -->
+  <button class="drawer-gear" onclick="abrirAdm(); closeDrawer()">⚙️ Painel ADM</button>
+
+</div>
+
+<!-- ── MODAL ADM ── -->
+<div class="adm-overlay" id="admOverlay">
+  <div class="adm-modal">
+    <button class="adm-modal-close" onclick="fecharAdm()">✕</button>
+    <div class="adm-modal-title">⚙️ Painel ADM</div>
+    <div class="adm-modal-sub">Acesso restrito — Trollgianismo</div>
+
+    <!-- LOGIN ADM -->
+    <div id="admLogin" class="adm-login">
+      <input class="adm-input" id="admEmail" type="email" placeholder="E-mail ADM">
+      <input class="adm-input" id="admSenha" type="password" placeholder="Senha">
+      <button class="adm-btn" id="admLoginBtn" onclick="loginAdm()">Entrar</button>
+      <div class="adm-err" id="admErr"></div>
+    </div>
+
+    <!-- PAINEL LOGADO -->
+    <div id="admPainel" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;color:var(--gold-light)">📝 Artigos Publicados</div>
+        <button onclick="logoutAdm()" style="background:none;border:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;outline:none">Sair</button>
+      </div>
+      <div id="admLista"></div>
+    </div>
+  </div>
 </div>
 
 <div class="page">
@@ -777,6 +868,7 @@
     <button class="nav-btn" onclick="mostrar('bryan', this)">Bryan P8</button>
     <button class="nav-btn" onclick="mostrar('josefernando', this)">José Fernando P9</button>
     <button class="nav-btn" onclick="mostrar('emanuel', this)">⚔️ Emanuel</button>
+    <div id="nav-cat-trollgers"></div>
 
     <div style="width:100%;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px">Plebeus</div>
     <button class="nav-btn" onclick="mostrar('lazaro', this)">🦠 Lázaro</button>
@@ -792,6 +884,7 @@
     <button class="nav-btn" onclick="mostrar('tiachiquinha', this)">🌍 Tia Chiquinha</button>
     <button class="nav-btn" onclick="mostrar('prfoem', this)">🔢 Prof-OEM</button>
     <button class="nav-btn" onclick="mostrar('prfomp', this)">📒 Prof-OMP</button>
+    <div id="nav-cat-plebeus"></div>
 
     <div style="width:100%;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px">Civis &amp; Externos</div>
     <button class="nav-btn" onclick="mostrar('bigfat', this)">🐖 Big Fat</button>
@@ -809,13 +902,16 @@
     <button class="nav-btn" onclick="mostrar('profiara', this)">🐡 Profª Íara</button>
     <button class="nav-btn" onclick="mostrar('viadinho', this)">🔪 Viadinho do 7º</button>
     <button class="nav-btn" onclick="mostrar('paidokevin', this)">🏋️‍♂️ Pai do Kevin</button>
+    <div id="nav-cat-civis"></div>
 
     <div style="width:100%;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px">Desviados &amp; Pré-Trollgers</div>
     <button class="nav-btn" onclick="mostrar('cs', this)">🎮 Jogador CS</button>
     <button class="nav-btn" onclick="mostrar('davif', this)">🐒 Davi Friendsh</button>
+    <div id="nav-cat-desviados"></div>
 
     <div style="width:100%;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px">Candidatos</div>
     <button class="nav-btn" onclick="mostrar('branquelao', this)">🟪 Branquelão Altão</button>
+    <div id="nav-cat-candidatos"></div>
 
     <div style="width:100%;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px">Enciclopédia</div>
     <button class="nav-btn" onclick="mostrar('objetos', this)">📜 Objetos</button>
@@ -1127,29 +1223,42 @@
     </div>`;
   }
 
+  // Mapa de categoria → ID dos containers
+  const CAT_MAP = {
+    'Trollgers Oficiais': { nav: 'nav-cat-trollgers', drw: 'drw-cat-trollgers' },
+    'Plebeus':            { nav: 'nav-cat-plebeus',   drw: 'drw-cat-plebeus'   },
+    'Civis & Externos':   { nav: 'nav-cat-civis',     drw: 'drw-cat-civis'     },
+    'Desviados':          { nav: 'nav-cat-desviados', drw: 'drw-cat-desviados' },
+    'Candidatos':         { nav: 'nav-cat-candidatos',drw: 'drw-cat-candidatos'},
+  };
+
   function injetarArtigo(a) {
     const secId = 'artigo-' + a.id;
     const label = (a.emoji || '📄') + ' ' + a.nome;
+    const cat   = CAT_MAP[a.categoria] || { nav: 'artigos-nav-container', drw: 'artigos-drawer-container' };
 
     const navBtn = document.createElement('button');
     navBtn.className = 'nav-btn';
     navBtn.setAttribute('data-artigo-id', a.id);
     navBtn.textContent = label;
     navBtn.onclick = function() { mostrar(secId, navBtn); };
-    document.getElementById('artigos-nav-container').appendChild(navBtn);
+    document.getElementById(cat.nav).appendChild(navBtn);
 
     const drwBtn = document.createElement('button');
     drwBtn.className = 'drawer-btn';
     drwBtn.setAttribute('data-artigo-id', a.id);
     drwBtn.textContent = label;
     drwBtn.onclick = function() { mostrarDrawer(secId, drwBtn); };
-    document.getElementById('artigos-drawer-container').appendChild(drwBtn);
+    document.getElementById(cat.drw).appendChild(drwBtn);
 
     document.getElementById('artigos-sections-container').insertAdjacentHTML('beforeend', renderArtigo(a));
 
-    document.getElementById('artigos-nav-label').style.display     = '';
-    document.getElementById('artigos-drawer-label').style.display   = '';
-    document.getElementById('artigos-drawer-divider').style.display = '';
+    // Só mostra "Artigos Publicados" se categoria for "Outros" ou sem mapa
+    if (!CAT_MAP[a.categoria]) {
+      document.getElementById('artigos-nav-label').style.display     = '';
+      document.getElementById('artigos-drawer-label').style.display   = '';
+      document.getElementById('artigos-drawer-divider').style.display = '';
+    }
   }
 
   async function carregarArtigos() {
@@ -1186,20 +1295,76 @@
     setTimeout(fecharPublicar, 1200);
   }
 
-  async function excluirArtigo(id, btn) {
+  async function excluirArtigo(id) {
     if (!confirm('Excluir este artigo? Não pode ser desfeito.')) return;
-    btn.disabled = true; btn.textContent = 'Excluindo...';
     const { error } = await sb.from('artigos_trollgers').delete().eq('id', id);
-    if (error) { alert('Erro: ' + error.message); btn.disabled = false; btn.textContent = '🗑 Excluir Artigo'; return; }
+    if (error) { alert('Erro: ' + error.message); return; }
     const sec = document.getElementById('artigo-' + id);
-    if (sec) sec.remove();
+    if (sec) { sec.remove(); secaoCarregada['artigo-' + id] = false; }
     document.querySelectorAll('[data-artigo-id="' + id + '"]').forEach(el => el.remove());
     if (!document.querySelector('.section.ativo')) mostrar('kauan', document.querySelector('.nav-btn'));
-    if (!document.getElementById('artigos-nav-container').children.length) {
-      document.getElementById('artigos-nav-label').style.display     = 'none';
-      document.getElementById('artigos-drawer-label').style.display   = 'none';
-      document.getElementById('artigos-drawer-divider').style.display = 'none';
+    renderAdmLista(); // atualiza lista no painel ADM
+  }
+
+  /* ── ADM ── */
+  const ADM_EMAIL = 'trollgianismo@gmail.com';
+  let admLogado = false;
+
+  function abrirAdm() {
+    document.getElementById('admOverlay').classList.add('open');
+    if (admLogado) renderAdmLista();
+  }
+  function fecharAdm() { document.getElementById('admOverlay').classList.remove('open'); }
+
+  async function loginAdm() {
+    const email = document.getElementById('admEmail').value.trim();
+    const senha = document.getElementById('admSenha').value;
+    const err   = document.getElementById('admErr');
+    const btn   = document.getElementById('admLoginBtn');
+
+    err.textContent = '';
+    if (email.toLowerCase() !== ADM_EMAIL) { err.textContent = 'Acesso negado.'; return; }
+
+    btn.disabled = true; btn.textContent = 'Entrando...';
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: senha });
+    btn.disabled = false; btn.textContent = 'Entrar';
+
+    if (error || !data.user) { err.textContent = 'Credenciais inválidas.'; return; }
+    if (data.user.email.toLowerCase() !== ADM_EMAIL) {
+      await sb.auth.signOut(); err.textContent = 'Acesso negado.'; return;
     }
+
+    admLogado = true;
+    document.getElementById('admLogin').style.display  = 'none';
+    document.getElementById('admPainel').style.display = 'block';
+    renderAdmLista();
+  }
+
+  async function logoutAdm() {
+    await sb.auth.signOut();
+    admLogado = false;
+    document.getElementById('admLogin').style.display  = 'block';
+    document.getElementById('admPainel').style.display = 'none';
+    document.getElementById('admEmail').value = '';
+    document.getElementById('admSenha').value = '';
+  }
+
+  async function renderAdmLista() {
+    const lista = document.getElementById('admLista');
+    lista.innerHTML = '<div class="adm-empty">Carregando...</div>';
+    const { data, error } = await sb.from('artigos_trollgers').select('id,nome,categoria,emoji').order('created_at', { ascending: true });
+    if (error || !data || data.length === 0) {
+      lista.innerHTML = '<div class="adm-empty">Nenhum artigo publicado.</div>';
+      return;
+    }
+    lista.innerHTML = data.map(a => `
+      <div class="adm-artigo-item">
+        <div>
+          <div class="adm-artigo-nome">${esc(a.emoji || '📄')} ${esc(a.nome)}</div>
+          <div class="adm-artigo-cat">${esc(a.categoria)}</div>
+        </div>
+        <button class="adm-del-btn" onclick="excluirArtigo(${a.id})">🗑 Excluir</button>
+      </div>`).join('');
   }
 
   function abrirPublicar() { document.getElementById('publishOverlay').classList.add('open'); }
@@ -1424,6 +1589,9 @@
   function carregarSection(id) {
     if (secaoCarregada[id]) return;
     secaoCarregada[id] = true;
+
+    // Artigos dinâmicos do Supabase já têm conteúdo injetado, não buscar JSON
+    if (id.startsWith('artigo-')) return;
 
     var semJSON = ['sophia','elefante','ocenot'];
     if (semJSON.indexOf(id) !== -1) return;
