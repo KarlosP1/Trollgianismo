@@ -9,32 +9,73 @@
   <style>
     * { outline: none !important; -webkit-tap-highlight-color: transparent !important; }
 
-    /* ══ TEMAS ══ */
-    [data-tema="azul"]   { --bg:#08101a;--surface:#0d1a2a;--surface2:#122030;--border:#1e3a5a;--gold:#2a7fd4;--gold-light:#55aaff;--gold-dim:#1a4a8a;--text:#c4d8e0;--text-dim:#4a6a8a; }
-    [data-tema="roxo"]   { --bg:#100a1a;--surface:#1a0d2a;--surface2:#241230;--border:#3a1e5a;--gold:#7d2ad4;--gold-light:#aa55ff;--gold-dim:#4a1a8a;--text:#d4c4e0;--text-dim:#6a4a8a; }
-    [data-tema="vermelho"]{ --bg:#1a0808;--surface:#2a0d0d;--surface2:#301212;--border:#5a1e1e;--gold:#d42a2a;--gold-light:#ff5555;--gold-dim:#8a1a1a;--text:#e0c4c4;--text-dim:#8a4a4a; }
-    [data-tema="verde"]  { --bg:#081a0e;--surface:#0d2a14;--surface2:#12301a;--border:#1e5a2e;--gold:#2ad47a;--gold-light:#55ff99;--gold-dim:#1a8a4a;--text:#c4e0cc;--text-dim:#4a8a5a; }
-    [data-tema="dourado"]{ --bg:#1a1408;--surface:#2a1f0d;--surface2:#302612;--border:#5a421e;--gold:#d4922a;--gold-light:#ffbb55;--gold-dim:#8a5a1a;--text:#e0d8c4;--text-dim:#8a744a; }
-    [data-tema="rosa"]   { --bg:#1a0810;--surface:#2a0d18;--surface2:#30121f;--border:#5a1e38;--gold:#d42a7a;--gold-light:#ff55aa;--gold-dim:#8a1a4a;--text:#e0c4d4;--text-dim:#8a4a6a; }
-    [data-tema="ciano"]  { --bg:#081a1a;--surface:#0d2a2a;--surface2:#123030;--border:#1e5a5a;--gold:#2ad4d4;--gold-light:#55ffff;--gold-dim:#1a8a8a;--text:#c4e0e0;--text-dim:#4a8a8a; }
-    [data-tema="laranja"]{ --bg:#1a0e08;--surface:#2a160d;--surface2:#301b12;--border:#5a311e;--gold:#d4622a;--gold-light:#ff8855;--gold-dim:#8a3a1a;--text:#e0d0c4;--text-dim:#8a604a; }
+    /* ══ TEMAS — html[data-tema] tem especificidade 0-1-1, ganha de :root (0-1-0) ══ */
+    :root, html {
+      --bg:#08101a; --surface:#0d1a2a; --surface2:#122030; --border:#1e3a5a;
+      --gold:#2a7fd4; --gold-light:#55aaff; --gold-dim:#1a4a8a;
+      --text:#c4d8e0; --text-dim:#4a6a8a; --red:#ff5555;
+      --ov1:rgba(8,16,26,0.75); --ov2:rgba(8,16,26,0.92); --ov3:rgba(8,16,26,0.97);
+      --gl1:rgba(30,100,200,0.12); --gl2:rgba(20,70,160,0.09);
+    }
+    html[data-tema="azul"] {
+      --bg:#08101a; --surface:#0d1a2a; --surface2:#122030; --border:#1e3a5a;
+      --gold:#2a7fd4; --gold-light:#55aaff; --gold-dim:#1a4a8a;
+      --text:#c4d8e0; --text-dim:#4a6a8a;
+      --ov1:rgba(8,16,26,0.75); --ov2:rgba(8,16,26,0.92); --ov3:rgba(8,16,26,0.97);
+      --gl1:rgba(30,100,200,0.12); --gl2:rgba(20,70,160,0.09);
+    }
+    html[data-tema="roxo"] {
+      --bg:#100a1a; --surface:#1a0d2a; --surface2:#241230; --border:#3a1e5a;
+      --gold:#7d2ad4; --gold-light:#aa55ff; --gold-dim:#4a1a8a;
+      --text:#d4c4e0; --text-dim:#6a4a8a;
+      --ov1:rgba(16,10,26,0.75); --ov2:rgba(16,10,26,0.92); --ov3:rgba(16,10,26,0.97);
+      --gl1:rgba(100,30,200,0.12); --gl2:rgba(70,20,160,0.09);
+    }
+    html[data-tema="vermelho"] {
+      --bg:#1a0808; --surface:#2a0d0d; --surface2:#301212; --border:#5a1e1e;
+      --gold:#d42a2a; --gold-light:#ff5555; --gold-dim:#8a1a1a;
+      --text:#e0c4c4; --text-dim:#8a4a4a;
+      --ov1:rgba(26,8,8,0.75); --ov2:rgba(26,8,8,0.92); --ov3:rgba(26,8,8,0.97);
+      --gl1:rgba(200,30,30,0.12); --gl2:rgba(160,20,20,0.09);
+    }
+    html[data-tema="verde"] {
+      --bg:#081a0e; --surface:#0d2a14; --surface2:#12301a; --border:#1e5a2e;
+      --gold:#2ad47a; --gold-light:#55ff99; --gold-dim:#1a8a4a;
+      --text:#c4e0cc; --text-dim:#4a8a5a;
+      --ov1:rgba(8,26,14,0.75); --ov2:rgba(8,26,14,0.92); --ov3:rgba(8,26,14,0.97);
+      --gl1:rgba(30,200,80,0.12); --gl2:rgba(20,160,60,0.09);
+    }
+    html[data-tema="dourado"] {
+      --bg:#1a1408; --surface:#2a1f0d; --surface2:#302612; --border:#5a421e;
+      --gold:#d4922a; --gold-light:#ffbb55; --gold-dim:#8a5a1a;
+      --text:#e0d8c4; --text-dim:#8a744a;
+      --ov1:rgba(26,20,8,0.75); --ov2:rgba(26,20,8,0.92); --ov3:rgba(26,20,8,0.97);
+      --gl1:rgba(200,150,30,0.12); --gl2:rgba(160,120,20,0.09);
+    }
+    html[data-tema="rosa"] {
+      --bg:#1a0810; --surface:#2a0d18; --surface2:#30121f; --border:#5a1e38;
+      --gold:#d42a7a; --gold-light:#ff55aa; --gold-dim:#8a1a4a;
+      --text:#e0c4d4; --text-dim:#8a4a6a;
+      --ov1:rgba(26,8,16,0.75); --ov2:rgba(26,8,16,0.92); --ov3:rgba(26,8,16,0.97);
+      --gl1:rgba(200,30,100,0.12); --gl2:rgba(160,20,80,0.09);
+    }
+    html[data-tema="ciano"] {
+      --bg:#081a1a; --surface:#0d2a2a; --surface2:#123030; --border:#1e5a5a;
+      --gold:#2ad4d4; --gold-light:#55ffff; --gold-dim:#1a8a8a;
+      --text:#c4e0e0; --text-dim:#4a8a8a;
+      --ov1:rgba(8,26,26,0.75); --ov2:rgba(8,26,26,0.92); --ov3:rgba(8,26,26,0.97);
+      --gl1:rgba(30,200,200,0.12); --gl2:rgba(20,160,160,0.09);
+    }
+    html[data-tema="laranja"] {
+      --bg:#1a0e08; --surface:#2a160d; --surface2:#301b12; --border:#5a311e;
+      --gold:#d4622a; --gold-light:#ff8855; --gold-dim:#8a3a1a;
+      --text:#e0d0c4; --text-dim:#8a604a;
+      --ov1:rgba(26,14,8,0.75); --ov2:rgba(26,14,8,0.92); --ov3:rgba(26,14,8,0.97);
+      --gl1:rgba(200,100,30,0.12); --gl2:rgba(160,80,20,0.09);
+    }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     button { outline: none; }
-
-    :root {
-      --bg: #08101a;
-      --surface: #0d1a2a;
-      --surface2: #122030;
-      --border: #1e3a5a;
-      --gold: #2a7fd4;
-      --gold-light: #55aaff;
-      --gold-dim: #1a4a8a;
-      --blue-glow: #66ccff;
-      --text: #c4d8e0;
-      --text-dim: #4a6a8a;
-      --red: #ff5555;
-    }
 
     @font-face {
       font-family: 'FaithCollapsing';
@@ -50,8 +91,8 @@
       background-color: var(--bg);
       background-image:
         url('https://i.imgur.com/mJoCBsb.png'),
-        radial-gradient(ellipse at 20% 0%, rgba(30,100,200,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 100%, rgba(20,70,160,0.09) 0%, transparent 60%);
+        radial-gradient(ellipse at 20% 0%, var(--gl1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, var(--gl2) 0%, transparent 60%);
       background-repeat: no-repeat;
       background-position: center top;
       background-size: cover;
@@ -66,7 +107,7 @@
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background: linear-gradient(to bottom, rgba(8,16,26,0.75) 0%, rgba(8,16,26,0.90) 40%, rgba(8,16,26,0.97) 100%);
+      background: linear-gradient(to bottom, var(--ov1) 0%, var(--ov2) 40%, var(--ov3) 100%);
       pointer-events: none; z-index: 0;
     }
 
