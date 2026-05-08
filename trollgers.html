@@ -654,43 +654,39 @@
 <body>
 
 <!-- TERMS OVERLAY -->
-<div id="termsOverlay" style="position:fixed;inset:0;z-index:9999;background:#0a0908;display:flex;align-items:center;justify-content:center;padding:20px;">
-  <div style="max-width:460px;width:100%;background:linear-gradient(160deg,#1e1c18,#161410);border:1px solid #2e2b22;border-radius:8px;padding:40px;text-align:center;position:relative;overflow:hidden;">
-    <!-- gold top line -->
-    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent)"></div>
-    <!-- glow -->
-    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(30,100,200,0.10) 0%,transparent 70%);pointer-events:none"></div>
+<div id="termsOverlay" style="position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:460px;width:100%;background:linear-gradient(160deg,var(--surface2),var(--surface));border:1px solid var(--border);border-radius:8px;padding:40px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent)"></div>
+    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--gl1) 0%,transparent 70%);pointer-events:none"></div>
 
-    <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent);margin:0 auto 20px"></div>
+    <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 20px"></div>
 
-    <h2 style="font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:clamp(18px,4vw,26px);letter-spacing:0.08em;background:linear-gradient(135deg,#55aaff,#2a7fd4,#1a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 16px rgba(42,127,212,0.40));margin-bottom:8px">TROLLGIANISMO</h2>
+    <h2 style="font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:clamp(18px,4vw,26px);letter-spacing:0.08em;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dim));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 16px var(--gold-dim));margin-bottom:8px">TROLLGIANISMO</h2>
 
-    <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#7a756a;margin-bottom:28px">Aviso de Conteúdo</p>
+    <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);margin-bottom:28px">Aviso de Conteúdo</p>
 
-    <div style="background:#0e0d0b;border:1px solid #2e2b22;border-radius:4px;padding:20px;margin-bottom:28px;text-align:left">
-      <p style="font-family:'Raleway',sans-serif;font-size:14px;line-height:1.8;color:#d4cfc5;font-weight:300">
-        Este site contém <strong style="color:#55aaff">conteúdo sensível e obscuro</strong>, incluindo linguagem informal, resenhas pesadas e referências internas ao universo do Trollgianismo.<br><br>
-        Ao entrar, você declara estar <strong style="color:#55aaff">ciente do que vai ler</strong> e assume total responsabilidade pelo acesso a este conteúdo.
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:20px;margin-bottom:28px;text-align:left">
+      <p style="font-family:'Raleway',sans-serif;font-size:14px;line-height:1.8;color:var(--text);font-weight:300">
+        Este site contém <strong style="color:var(--gold-light)">conteúdo sensível e obscuro</strong>, incluindo linguagem informal, resenhas pesadas e referências internas ao universo do Trollgianismo.<br><br>
+        Ao entrar, você declara estar <strong style="color:var(--gold-light)">ciente do que vai ler</strong> e assume total responsabilidade pelo acesso a este conteúdo.
       </p>
     </div>
 
-    <!-- Passo 1: aceitar termos -->
     <div id="termsStep1" style="display:flex;gap:12px;justify-content:center">
-      <button onclick="aceitarTermos()" style="padding:12px 28px;border-radius:4px;background:linear-gradient(135deg,#122030,#0d1a2a);border:1px solid #2a7fd4;color:#55aaff;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px rgba(42,127,212,0.25);outline:none" onmouseover="this.style.boxShadow='0 0 28px rgba(42,127,212,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(42,127,212,0.25)'">
+      <button onclick="aceitarTermos()" style="padding:12px 28px;border-radius:4px;background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--gold);color:var(--gold-light);font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px var(--gold-dim);outline:none">
         Aceitar e Entrar
       </button>
-      <button onclick="rejeitarTermos()" style="padding:12px 28px;border-radius:4px;background:#161410;border:1px solid #2e2b22;color:#7a756a;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;outline:none" onmouseover="this.style.borderColor='#5a2020';this.style.color='#cc3333'" onmouseout="this.style.borderColor='#2e2b22';this.style.color='#7a756a'">
+      <button onclick="rejeitarTermos()" style="padding:12px 28px;border-radius:4px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;outline:none">
         Recusar
       </button>
     </div>
 
-    <!-- Passo 2: escolha de perfil (oculto até aceitar) -->
     <div id="termsStep2" style="display:none;flex-direction:column;align-items:center;gap:10px">
-      <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:#7a756a;margin-bottom:6px">Quem é você?</p>
-      <button onclick="entrarComoTrollger()" style="width:100%;padding:14px 28px;border-radius:4px;background:linear-gradient(135deg,#122030,#0d1a2a);border:1px solid #2a7fd4;color:#55aaff;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px rgba(42,127,212,0.25);outline:none" onmouseover="this.style.boxShadow='0 0 28px rgba(42,127,212,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(42,127,212,0.25)'">
+      <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px">Quem é você?</p>
+      <button onclick="entrarComoTrollger()" style="width:100%;padding:14px 28px;border-radius:4px;background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--gold);color:var(--gold-light);font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;box-shadow:0 0 18px var(--gold-dim);outline:none">
         👑 Já sou um Trollger
       </button>
-      <button onclick="window.location.href='index.html'" style="width:100%;padding:14px 28px;border-radius:4px;background:#161410;border:1px solid #2e2b22;color:#7a756a;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;outline:none" onmouseover="this.style.borderColor='#2a7fd4';this.style.color='#55aaff'" onmouseout="this.style.borderColor='#2e2b22';this.style.color='#7a756a'">
+      <button onclick="window.location.href='index.html'" style="width:100%;padding:14px 28px;border-radius:4px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;outline:none">
         🌱 Sou novo aqui
       </button>
     </div>
