@@ -474,7 +474,7 @@
     header { padding: 10px 0 36px; text-align: center; }
     .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
     header h1 {
-      font-family: 'FaithCollapsing', 'Cinzel Decorative', serif;
+      font-family: var(--font-title);
       font-size: clamp(26px, 6vw, 52px);
       letter-spacing: 0.08em;
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
@@ -561,7 +561,7 @@
     .profile-rank.top3 { color: #c87532; filter: drop-shadow(0 0 16px rgba(200,117,50,0.4)); }
 
     .profile-name {
-      font-family: 'FaithCollapsing', 'Cinzel Decorative', serif;
+      font-family: var(--font-title);
       font-size: clamp(22px, 5vw, 42px);
       letter-spacing: 0.08em;
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, var(--gold-dim) 100%);
@@ -994,7 +994,7 @@
 
     <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 20px"></div>
 
-    <h2 style="font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:clamp(18px,4vw,26px);letter-spacing:0.08em;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dim));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 16px var(--gold-dim));margin-bottom:8px">TROLLGIANISMO</h2>
+    <h2 style="font-family: var(--font-title);font-size:clamp(18px,4vw,26px);letter-spacing:0.08em;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dim));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 16px var(--gold-dim));margin-bottom:8px">TROLLGIANISMO</h2>
 
     <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);margin-bottom:28px">Aviso de Conteúdo</p>
 
@@ -1268,6 +1268,20 @@
           <button class="tema-btn" data-tema="abismo"     onclick="aplicarTema('abismo')">     <span class="tema-circulo" style="background:linear-gradient(135deg,#6868d8,#202070)"></span>Abismo</button>
           <button class="tema-btn" data-tema="toxic"      onclick="aplicarTema('toxic')">      <span class="tema-circulo" style="background:linear-gradient(135deg,#c0ff30,#589000)"></span>Tóxico</button>
           <button class="tema-btn" data-tema="universe"   onclick="aplicarTema('universe')">   <span class="tema-circulo" style="background:linear-gradient(135deg,#a880ff,#402890)"></span>Universo</button>
+        </div>
+
+        <div class="adm-section-label">🔤 Fonte do Título</div>
+        <div style="display:flex;gap:10px;margin-bottom:4px">
+          <button class="adm-btn fonte-opt" data-fonte="faith"
+            onclick="aplicarFonte('faith')"
+            style="flex:1;font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:14px;letter-spacing:0.05em;padding:14px">
+            FaithCollapsing
+          </button>
+          <button class="adm-btn fonte-opt" data-fonte="dropshadow"
+            onclick="aplicarFonte('dropshadow')"
+            style="flex:1;font-family:'DropShade','Cinzel Decorative',serif;font-size:14px;letter-spacing:0.05em;padding:14px">
+            DropShade
+          </button>
         </div>
 
         <div class="adm-section-label">📝 Artigos Publicados</div>
@@ -1796,9 +1810,11 @@
     document.getElementById('admLogin').style.display  = 'none';
     document.getElementById('admPainel').style.display = 'block';
     renderAdmLista();
-    // Marca tema ativo
+    // Marca tema e fonte ativos
     var tAtual = document.documentElement.getAttribute('data-tema') || 'azul';
     setTemaLocal(tAtual);
+    var fAtual = document.documentElement.getAttribute('data-fonte') || 'faith';
+    setFonteLocal(fAtual);
   }
 
   async function logoutAdm() {
@@ -1831,6 +1847,28 @@
   function abrirPublicar() { document.getElementById('publishOverlay').classList.add('open'); }
   function fecharPublicar() { document.getElementById('publishOverlay').classList.remove('open'); document.getElementById('pMsg').className = 'p-msg'; }
 
+
+
+  /* ============================================================
+     FONTE GLOBAL
+     ============================================================ */
+  async function carregarFonte() {
+    const { data } = await sb.from('site_config').select('fonte').eq('id',1).single();
+    if (data && data.fonte) setFonteLocal(data.fonte);
+  }
+
+  function setFonteLocal(fonte) {
+    document.documentElement.setAttribute('data-fonte', fonte);
+    document.querySelectorAll('.fonte-opt').forEach(btn => {
+      btn.classList.toggle('ativo', btn.dataset.fonte === fonte);
+    });
+  }
+
+  async function aplicarFonte(fonte) {
+    setFonteLocal(fonte);
+    const { error } = await sb.from('site_config').update({ fonte }).eq('id', 1);
+    if (error) console.error('[Fonte]', error);
+  }
 
   /* ============================================================
      SISTEMA DE TEMAS
@@ -2125,6 +2163,7 @@
     carregarSection('kauan');
     carregarArtigos();
     carregarTema();
+    carregarFonte();
     document.getElementById('publishOverlay').addEventListener('click', function(e) {
       if (e.target === this) fecharPublicar();
     });

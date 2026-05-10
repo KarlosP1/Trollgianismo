@@ -7,124 +7,300 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;outline:none!important;-webkit-tap-highlight-color:transparent!important}
-    :root{
-      --bg:#08101a;--surface:#0d1a2a;--surface2:#122030;--border:#1e3a5a;
-      --gold:#2a7fd4;--gold-light:#55aaff;--gold-dim:#1a4a8a;
-      --text:#c4d8e0;--text-dim:#4a6a8a;--red:#ff5555;
-    }
-    @font-face{font-family:'FaithCollapsing';src:url('https://db.onlinewebfonts.com/t/3c05bb5d9e0ef68e8e6c40aa88adf19e.ttf') format('truetype')}
-    @font-face{font-family:'DropShade';src:url('https://files.catbox.moe/bsplgq.ttf')}
+    * { outline: none !important; -webkit-tap-highlight-color: transparent !important; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    button { outline: none; }
 
-    body{
-      background-color:var(--bg);
-      background-image:url('https://i.imgur.com/mJoCBsb.png'),radial-gradient(ellipse at 20% 0%,rgba(30,100,200,.12) 0%,transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(20,70,160,.09) 0%,transparent 60%);
-      background-repeat:no-repeat;background-position:center top;background-size:cover;background-attachment:fixed;
-      color:var(--text);font-family:'Raleway',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;
+    :root {
+      --bg: #08101a;
+      --surface: #0d1a2a;
+      --surface2: #122030;
+      --border: #1e3a5a;
+      --gold: #2a7fd4;
+      --gold-light: #55aaff;
+      --gold-dim: #1a4a8a;
+      --blue-glow: #66ccff;
+      --text: #c4d8e0;
+      --text-dim: #4a6a8a;
+      --red: #ff5555;
     }
-    body::before{content:'';position:fixed;inset:0;background:linear-gradient(to bottom,rgba(8,16,26,.75) 0%,rgba(8,16,26,.92) 40%,rgba(8,16,26,.97) 100%);pointer-events:none;z-index:0}
-    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
 
-    .page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 20px 80px}
+    @font-face {
+      font-family: 'FaithCollapsing';
+      src: url('https://db.onlinewebfonts.com/t/3c05bb5d9e0ef68e8e6c40aa88adf19e.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'DropShade';
+      src: url('https://files.catbox.moe/bsplgq.ttf');
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        url('https://i.imgur.com/mJoCBsb.png'),
+        radial-gradient(ellipse at 20% 0%, rgba(30,100,200,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(20,70,160,0.09) 0%, transparent 60%);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,16,26,0.75) 0%, rgba(8,16,26,0.90) 40%, rgba(8,16,26,0.97) 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
 
     /* HEADER */
-    header{padding:50px 0 36px;text-align:center}
-    .header-line{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 18px}
-    header h1{font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:clamp(26px,6vw,52px);letter-spacing:.08em;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dim) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 24px rgba(42,127,212,.5))}
-    header p{margin-top:10px;font-family:'Cinzel',serif;font-size:clamp(10px,2vw,13px);letter-spacing:.3em;text-transform:uppercase;color:var(--text-dim)}
+    header { padding: 50px 0 36px; text-align: center; }
+    .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
+    header h1 {
+      font-family: var(--font-title);
+      font-size: clamp(26px, 6vw, 52px);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 24px rgba(42,127,212,0.50));
+    }
+    header p { margin-top: 10px; font-family: 'Cinzel', serif; font-size: clamp(10px, 2vw, 13px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
 
     /* BACK LINK */
-    .back-link{display:inline-flex;align-items:center;gap:8px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;border:1px solid var(--border);background:var(--surface2);padding:8px 16px;border-radius:4px;transition:all .2s;margin-bottom:28px}
-    .back-link:hover{color:var(--gold-light);border-color:var(--gold-dim)}
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-dim); text-decoration: none;
+      border: 1px solid var(--border); background: var(--surface2);
+      padding: 8px 16px; border-radius: 4px; transition: all 0.2s; margin-bottom: 28px;
+    }
+    .back-link:hover { color: var(--gold-light); border-color: var(--gold-dim); }
 
-    /* PUBLISH FORM */
-    .publish-toggle{width:100%;padding:13px;background:linear-gradient(135deg,rgba(42,127,212,.12),rgba(42,127,212,.04));border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold-light);font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-bottom:20px}
-    .publish-toggle:hover{background:linear-gradient(135deg,rgba(42,127,212,.25),rgba(42,127,212,.10));box-shadow:0 0 16px rgba(42,127,212,.2)}
-    .publish-form{background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:28px;margin-bottom:32px;position:relative;display:none}
-    .publish-form::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)}
-    .publish-form.visivel{display:block;animation:fadeIn .3s ease both}
-    .publish-form-title{font-family:'Cinzel Decorative',serif;font-size:14px;color:var(--gold-light);letter-spacing:.06em;margin-bottom:22px}
-    .form-label{display:block;font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
-    .form-input,.form-textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:12px 14px;font-family:'Raleway',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:18px}
-    .form-input:focus,.form-textarea:focus{border-color:var(--gold-dim);box-shadow:0 0 10px rgba(42,127,212,.15)}
-    .form-input::placeholder,.form-textarea::placeholder{color:var(--text-dim);opacity:.6}
-    .form-textarea{min-height:140px;resize:vertical;line-height:1.6}
-    .form-submit{width:100%;padding:13px;background:linear-gradient(135deg,rgba(42,127,212,.2),rgba(42,127,212,.08));border:1px solid var(--gold-dim);border-radius:4px;color:var(--gold-light);font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .2s}
-    .form-submit:hover{background:linear-gradient(135deg,rgba(42,127,212,.35),rgba(42,127,212,.15));box-shadow:0 0 18px rgba(42,127,212,.25)}
-    .form-submit:disabled{opacity:.5;cursor:not-allowed}
-    .form-msg{margin-top:14px;padding:10px 14px;border-radius:4px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:center;display:none}
-    .form-msg.ok{background:rgba(51,204,102,.08);border:1px solid #1a5a2a;color:#55cc77;display:block}
-    .form-msg.erro{background:rgba(204,51,102,.08);border:1px solid #5a1a40;color:#ff6699;display:block}
+    /* CARD — NOTÍCIA */
+    .news-card {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 32px; margin-bottom: 24px;
+      position: relative; overflow: hidden;
+      animation: fadeIn 0.5s ease both; transition: all 0.3s;
+    }
+    .news-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+    .news-card::after {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,100,200,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .news-card:hover { border-color: var(--gold-dim); box-shadow: 0 0 20px rgba(42,127,212,0.15); }
 
-    /* CARD */
-    .news-card{background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;padding:32px;margin-bottom:24px;position:relative;overflow:hidden;animation:fadeIn .5s ease both;transition:all .3s}
-    .news-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)}
-    .news-card::after{content:'';position:absolute;top:-80px;right:-80px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(30,100,200,.09) 0%,transparent 70%);pointer-events:none}
-    .news-card:hover{border-color:var(--gold-dim);box-shadow:0 0 20px rgba(42,127,212,.15)}
-    .news-title{font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:clamp(20px,4.5vw,32px);letter-spacing:.06em;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 60%,var(--gold-dim) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;line-height:1.2}
-    .news-date{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:inline-block;padding-bottom:12px;border-bottom:1px solid var(--border)}
-    .news-img-wrap{width:100%;margin:4px 0 20px;border-radius:4px;overflow:hidden;border:1px solid var(--border);position:relative;z-index:1}
-    .news-img-wrap img{width:100%;max-height:420px;object-fit:cover;display:block;border-radius:4px}
-    .news-content{font-size:clamp(13px,2vw,15px);line-height:1.8;color:var(--text);position:relative;z-index:1}
-    .news-content p{margin-bottom:16px}
-    .news-content p:last-child{margin-bottom:0}
-    .news-delete-btn{margin-top:20px;padding:8px 18px;background:rgba(204,51,51,.08);border:1px solid #5a1a1a;border-radius:4px;color:#cc4444;font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .2s;position:relative;z-index:2}
-    .news-delete-btn:hover{background:rgba(204,51,51,.2);border-color:#aa3333;color:#ff5555}
-    .news-delete-btn:disabled{opacity:.5;cursor:not-allowed}
+    .news-title {
+      font-family: var(--font-title);
+      font-size: clamp(20px, 4.5vw, 32px); letter-spacing: 0.06em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, var(--gold-dim) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 12px; line-height: 1.2;
+    }
 
-    /* STATES */
-    .loading{text-align:center;padding:60px 20px;color:var(--text-dim);font-family:'Cinzel',serif;letter-spacing:.1em}
-    .loading::after{content:'';display:inline-block;width:8px;height:8px;background:var(--gold);border-radius:50%;margin-left:8px;animation:pulse 1.5s ease-in-out infinite}
-    .error-message{background:linear-gradient(160deg,#0d2030,#081420);border:1px solid #1a4a8a;border-radius:6px;padding:24px;text-align:center;color:var(--gold-light);font-family:'Cinzel',serif;margin:40px 0}
-    .empty-state{text-align:center;padding:60px 20px;color:var(--text-dim)}
-    .empty-state-icon{font-size:48px;margin-bottom:16px}
-    .empty-state-text{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.1em}
-    #feed{min-height:200px}
+    .news-date {
+      font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+      display: inline-block; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+
+    /* IMAGEM DA NOTÍCIA */
+    .news-img-wrap {
+      width: 100%; margin: 4px 0 20px;
+      border-radius: 4px; overflow: hidden;
+      border: 1px solid var(--border); position: relative; z-index: 1;
+    }
+    .news-img-wrap img {
+      width: 100%; max-height: 420px; object-fit: cover; display: block; border-radius: 4px;
+    }
+
+    .news-content { font-size: clamp(13px, 2vw, 15px); line-height: 1.8; color: var(--text); position: relative; z-index: 1; }
+    .news-content p { margin-bottom: 16px; }
+    .news-content p:last-child { margin-bottom: 0; }
+
+    /* LOADING */
+    .loading { text-align: center; padding: 60px 20px; color: var(--text-dim); font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+    .loading::after { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; margin-left: 8px; animation: pulse 1.5s ease-in-out infinite; }
+
+    /* ERROR */
+    .error-message {
+      background: linear-gradient(160deg, #0d2030 0%, #081420 100%);
+      border: 1px solid #1a4a8a; border-radius: 6px; padding: 24px;
+      text-align: center; color: var(--gold-light); font-family: 'Cinzel', serif; margin: 40px 0;
+    }
+
+    /* EMPTY */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-dim); }
+    .empty-state-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state-text { font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 0.1em; }
+
+    #feed { min-height: 200px; }
+
+    /* ── FORMULÁRIO DE PUBLICAÇÃO ── */
+    .publish-toggle {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg, rgba(42,127,212,0.12), rgba(42,127,212,0.04));
+      border: 1px solid var(--gold-dim); border-radius: 4px;
+      color: var(--gold-light); font-family: 'Cinzel', serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s; margin-bottom: 20px;
+    }
+    .publish-toggle:hover { background: linear-gradient(135deg, rgba(42,127,212,0.25), rgba(42,127,212,0.10)); box-shadow: 0 0 16px rgba(42,127,212,0.2); }
+
+    .publish-form {
+      background: linear-gradient(160deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 28px; margin-bottom: 32px;
+      position: relative; overflow: hidden;
+      display: none;
+      animation: fadeIn 0.3s ease both;
+    }
+    .publish-form::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
+    .publish-form.visivel { display: block; }
+
+    .publish-form-title {
+      font-family: 'Cinzel Decorative', serif; font-size: 14px;
+      color: var(--gold-light); letter-spacing: 0.06em; margin-bottom: 22px;
+    }
+
+    .form-label {
+      display: block; font-family: 'Cinzel', serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 8px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px; padding: 12px 14px;
+      font-family: 'Raleway', sans-serif; font-size: 14px; color: var(--text);
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s; margin-bottom: 18px;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--gold-dim); box-shadow: 0 0 10px rgba(42,127,212,0.15); }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); opacity: 0.6; }
+    .form-textarea { min-height: 140px; resize: vertical; line-height: 1.6; }
+
+    .form-submit {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg, rgba(42,127,212,0.2), rgba(42,127,212,0.08));
+      border: 1px solid var(--gold-dim); border-radius: 4px;
+      color: var(--gold-light); font-family: 'Cinzel', serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .form-submit:hover { background: linear-gradient(135deg, rgba(42,127,212,0.35), rgba(42,127,212,0.15)); box-shadow: 0 0 18px rgba(42,127,212,0.25); }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .form-msg { margin-top: 14px; padding: 10px 14px; border-radius: 4px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; display: none; }
+    .form-msg.ok   { background: rgba(51,204,102,0.08); border: 1px solid #1a5a2a; color: #55cc77; display: block; }
+    .form-msg.erro { background: rgba(204,51,102,0.08); border: 1px solid #5a1a40; color: #ff6699; display: block; }
 
     /* HAMBURGER */
-    .hamburger{position:fixed;top:16px;left:16px;z-index:1000;width:42px;height:42px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color .2s,box-shadow .2s}
-    .hamburger:hover{border-color:var(--gold-dim);box-shadow:0 0 12px rgba(42,127,212,.2)}
-    .hamburger span{display:block;width:18px;height:1.5px;background:var(--text-dim);border-radius:2px;transition:all .3s ease}
-    .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);background:var(--gold-light)}
-    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-    .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);background:var(--gold-light)}
+    .hamburger {
+      position: fixed; top: 16px; left: 16px; z-index: 1000;
+      width: 42px; height: 42px;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
+      cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none; -webkit-tap-highlight-color: transparent;
+    }
+    .hamburger:hover { border-color: var(--gold-dim); box-shadow: 0 0 12px rgba(42,127,212,0.20); }
+    .hamburger span { display: block; width: 18px; height: 1.5px; background: var(--text-dim); border-radius: 2px; transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--gold-light); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--gold-light); }
 
     /* DRAWER */
-    .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:998;opacity:0;pointer-events:none;transition:opacity .3s}
-    .drawer-overlay.open{opacity:1;pointer-events:all}
-    .drawer{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--surface);border-right:1px solid var(--border);z-index:999;transform:translateX(-100%);transition:transform .3s;overflow-y:auto;padding:70px 0 40px}
-    .drawer.open{transform:translateX(0)}
-    .drawer-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);padding:0 20px 10px;border-bottom:1px solid var(--border);margin-bottom:8px}
-    .drawer-btn{display:block;width:100%;text-align:left;padding:12px 20px;background:none;border:none;color:var(--text-dim);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;cursor:pointer;transition:all .2s;border-left:2px solid transparent}
-    .drawer-btn:hover{color:var(--gold-light);border-left-color:var(--gold);background:rgba(42,127,212,.05)}
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .drawer { position: fixed; top: 0; left: 0; width: 260px; height: 100vh; background: var(--surface); border-right: 1px solid var(--border); z-index: 999; transform: translateX(-100%); transition: transform 0.3s ease; overflow-y: auto; padding: 70px 0 40px; }
+    .drawer.open { transform: translateX(0); }
+    .drawer-title { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); padding: 0 20px 10px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+    .drawer-btn { display: block; width: 100%; text-align: left; padding: 12px 20px; background: none; border: none; color: var(--text-dim); font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s; border-left: 2px solid transparent; }
+    .drawer-btn:hover { color: var(--gold-light); border-left-color: var(--gold); background: rgba(42,127,212,0.05); }
 
     /* MODAL */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
-    .modal-overlay.open{opacity:1;pointer-events:all}
-    .modal{background:linear-gradient(160deg,var(--surface2),var(--surface));border:1px solid var(--border);border-radius:8px;padding:32px;width:100%;max-width:500px;max-height:80vh;overflow-y:auto;position:relative}
-    .modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;transition:color .2s}
-    .modal-close:hover{color:var(--gold-light)}
-    .modal-title{font-family:'Cinzel Decorative',serif;font-size:16px;color:var(--gold-light);margin-bottom:20px}
-    .modal-content{font-size:14px;line-height:1.7;color:var(--text)}
-    .modal-content ul{padding-left:20px}
-    .modal-content li{margin-bottom:10px}
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: linear-gradient(160deg, var(--surface2), var(--surface)); border: 1px solid var(--border); border-radius: 8px; padding: 32px; width: 100%; max-width: 500px; max-height: 80vh; overflow-y: auto; position: relative; }
+    .modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; transition: color 0.2s; }
+    .modal-close:hover { color: var(--gold-light); }
+    .modal-title { font-family: 'Cinzel Decorative', serif; font-size: 16px; color: var(--gold-light); margin-bottom: 20px; }
+    .modal-content { font-size: 14px; line-height: 1.7; color: var(--text); }
+    .modal-content ul { padding-left: 20px; }
+    .modal-content li { margin-bottom: 10px; }
 
     /* FOOTER */
-    footer{position:relative;z-index:1;text-align:center;padding:40px 0;border-top:1px solid var(--border);margin-top:60px}
-    .footer-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px}
-    .footer-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-    .footer-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;border:1px solid var(--border);background:transparent;padding:8px 16px;border-radius:4px;transition:all .2s;cursor:pointer}
-    .footer-btn:hover{color:var(--gold-light);border-color:var(--gold-dim)}
-    footer p{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;color:var(--text-dim);margin-top:28px}
+    footer { position: relative; z-index: 1; text-align: center; padding: 40px 0; border-top: 1px solid var(--border); margin-top: 60px; }
+    .footer-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; }
+    .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; border: 1px solid var(--border); background: transparent; padding: 8px 16px; border-radius: 4px; transition: all 0.2s; cursor: pointer; }
+    .footer-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    footer p { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.15em; color: var(--text-dim); margin-top: 28px; }
 
-    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes pulse{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
-    @media(max-width:768px){.news-card{padding:24px}header{padding:40px 0 28px}}
+    .news-delete-btn {
+      margin-top: 20px;
+      padding: 8px 18px;
+      background: rgba(204,51,51,0.08);
+      border: 1px solid #5a1a1a;
+      border-radius: 4px;
+      color: #cc4444;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      z-index: 2;
+    }
+    .news-delete-btn:hover {
+      background: rgba(204,51,51,0.2);
+      border-color: #aa3333;
+      color: #ff5555;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+
+    @media (max-width: 768px) {
+      .news-card { padding: 24px; }
+      header { padding: 40px 0 28px; }
+    }
   </style>
 </head>
 <body>
 
 <div class="page">
+
   <header>
     <div class="header-line"></div>
     <h1>NOTÍCIAS</h1>
@@ -133,22 +309,29 @@
 
   <a href="index.html" class="back-link">← Voltar</a>
 
+  <!-- BOTÃO + FORMULÁRIO DE PUBLICAÇÃO -->
   <button class="publish-toggle" onclick="toggleForm()">✚ Publicar Nova Notícia</button>
 
   <div class="publish-form" id="publishForm">
     <div class="publish-form-title">📰 Nova Notícia</div>
+
     <label class="form-label">Título</label>
     <input class="form-input" id="pTitulo" type="text" placeholder="Título da notícia">
+
     <label class="form-label">Data (dd/mm/aaaa)</label>
     <input class="form-input" id="pData" type="text" placeholder="01/01/2026">
+
     <label class="form-label">URL da Imagem (opcional)</label>
     <input class="form-input" id="pFoto" type="text" placeholder="https://... ou imagens/foto.jpg">
+
     <label class="form-label">Conteúdo</label>
     <textarea class="form-textarea" id="pConteudo" placeholder="Escreva o conteúdo da notícia aqui..."></textarea>
+
     <button class="form-submit" id="btnPublicar" onclick="publicarNoticia()">Publicar</button>
     <div class="form-msg" id="formMsg"></div>
   </div>
 
+  <!-- FEED -->
   <div id="feed">
     <div class="loading">Carregando notícias</div>
   </div>
@@ -160,11 +343,13 @@
     </div>
     <p>Sistema de notícias — Trollgers © 2026</p>
   </footer>
+
 </div>
 
 <button id="hamburger" class="hamburger" onclick="toggleDrawer()">
   <span></span><span></span><span></span>
 </button>
+
 <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer()"></div>
 <div id="drawer" class="drawer">
   <div class="drawer-title">Navegação</div>
@@ -181,67 +366,73 @@
 </div>
 
 <script>
+  /* ============================================================
+     SUPABASE
+     ============================================================ */
   const sb = supabase.createClient(
     'https://jkxhqtvugpbxplsswuut.supabase.co',
     'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl'
   );
 
-  function esc(t) {
-    if (!t) return '';
-    return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-  }
-
+  /* ============================================================
+     CARREGAR NOTÍCIAS DO SUPABASE
+     ============================================================ */
   async function carregarNoticias() {
     const feed = document.getElementById('feed');
-    const { data, error } = await sb
+
+    const { data: noticias, error } = await sb
       .from('noticias')
-      .select('id,titulo,data,conteudo,foto')
+      .select('id, titulo, data, conteudo, foto')
       .order('created_at', { ascending: false });
 
     if (error) {
-      feed.innerHTML = `<div class="error-message">⚠️ Erro ao carregar notícias<br><small>${esc(error.message)}</small></div>`;
-      return;
-    }
-    if (!data || data.length === 0) {
-      feed.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📰</div><div class="empty-state-text">Nenhuma notícia publicada ainda</div></div>`;
+      console.error('[Notícias] Erro:', error);
+      feed.innerHTML = `
+        <div class="error-message">
+          ⚠️ Erro ao carregar as notícias<br>
+          <small>${escapeHtml(error.message)}</small>
+        </div>`;
       return;
     }
 
-    feed.innerHTML = data.map((n, i) => {
+    if (!noticias || noticias.length === 0) {
+      feed.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📰</div>
+          <div class="empty-state-text">Nenhuma notícia publicada ainda</div>
+        </div>`;
+      return;
+    }
+
+    feed.innerHTML = noticias.map((n, i) => {
       const src = (n.foto && n.foto.trim()) ? n.foto.trim() : 'imagens/padrao.jpg';
-      return `
-      <div class="news-card" style="animation-delay:${i*0.08}s">
-        <div class="news-title">${esc(n.titulo)}</div>
-        <div class="news-date">📅 ${esc(n.data)}</div>
+      const imgHtml = `
         <div class="news-img-wrap">
-          <img src="${esc(src)}" alt="${esc(n.titulo)}" onerror="this.parentElement.style.display='none'">
-        </div>
-        <div class="news-content">
-          ${n.conteudo.split('\n').filter(p=>p.trim()).map(p=>`<p>${esc(p)}</p>`).join('')}
-        </div>
-        <button class="news-delete-btn" onclick="excluirNoticia(${n.id},this)">🗑 Excluir</button>
-      </div>`;
+          <img src="${escapeHtml(src)}"
+               alt="${escapeHtml(n.titulo)}"
+               onerror="this.parentElement.style.display='none'">
+        </div>`;
+
+      const paragrafos = n.conteudo
+        .split('\n')
+        .filter(p => p.trim())
+        .map(p => `<p>${escapeHtml(p)}</p>`)
+        .join('');
+
+      return `
+        <div class="news-card" style="animation-delay:${i * 0.08}s">
+          <div class="news-title">${escapeHtml(n.titulo)}</div>
+          <div class="news-date">📅 ${escapeHtml(n.data)}</div>
+          ${imgHtml}
+          <div class="news-content">${paragrafos}</div>
+          <button class="news-delete-btn" onclick="excluirNoticia(${n.id}, this)">🗑 Excluir Notícia</button>
+        </div>`;
     }).join('');
   }
 
-  async function excluirNoticia(id, btn) {
-    if (!confirm('Excluir esta notícia? Não pode ser desfeito.')) return;
-    btn.disabled = true;
-    btn.textContent = 'Excluindo...';
-    const { error } = await sb.from('noticias').delete().eq('id', id);
-    if (error) {
-      alert('Erro: ' + error.message);
-      btn.disabled = false;
-      btn.textContent = '🗑 Excluir';
-      return;
-    }
-    const card = btn.closest('.news-card');
-    card.style.transition = 'opacity .3s,transform .3s';
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(-8px)';
-    setTimeout(() => card.remove(), 300);
-  }
-
+  /* ============================================================
+     PUBLICAR NOTÍCIA
+     ============================================================ */
   async function publicarNoticia() {
     const titulo   = document.getElementById('pTitulo').value.trim();
     const data     = document.getElementById('pData').value.trim();
@@ -249,57 +440,151 @@
     const conteudo = document.getElementById('pConteudo').value.trim();
     const msg      = document.getElementById('formMsg');
     const btn      = document.getElementById('btnPublicar');
-    msg.className  = 'form-msg';
+
+    msg.className = 'form-msg';
+
     if (!titulo || !data || !conteudo) {
       msg.textContent = 'Preencha título, data e conteúdo.';
       msg.className = 'form-msg erro';
       return;
     }
-    btn.disabled = true; btn.textContent = 'Publicando...';
-    const { error } = await sb.from('noticias').insert([{ titulo, data, foto: foto||'', conteudo }]);
-    btn.disabled = false; btn.textContent = 'Publicar';
+
+    btn.disabled = true;
+    btn.textContent = 'Publicando...';
+
+    const { error } = await sb.from('noticias').insert([{
+      titulo,
+      data,
+      foto: foto || '',
+      conteudo
+    }]);
+
+    btn.disabled = false;
+    btn.textContent = 'Publicar';
+
     if (error) {
-      msg.textContent = 'Erro: ' + error.message;
+      console.error('[Publicar] Erro:', error);
+      msg.textContent = 'Erro ao publicar: ' + error.message;
       msg.className = 'form-msg erro';
       return;
     }
-    msg.textContent = '✅ Notícia publicada!';
+
+    msg.textContent = '✅ Notícia publicada com sucesso!';
     msg.className = 'form-msg ok';
-    document.getElementById('pTitulo').value = '';
-    document.getElementById('pData').value   = '';
-    document.getElementById('pFoto').value   = '';
+
+    document.getElementById('pTitulo').value   = '';
+    document.getElementById('pData').value     = '';
+    document.getElementById('pFoto').value     = '';
     document.getElementById('pConteudo').value = '';
+
     await carregarNoticias();
   }
 
-  function toggleForm() {
-    document.getElementById('publishForm').classList.toggle('visivel');
+  /* ============================================================
+     EXCLUIR NOTÍCIA
+     ============================================================ */
+  async function excluirNoticia(id, btn) {
+    if (!confirm('Tem certeza que deseja excluir esta notícia? Esta ação não pode ser desfeita.')) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Excluindo...';
+
+    const { error } = await sb.from('noticias').delete().eq('id', id);
+
+    if (error) {
+      console.error('[Excluir] Erro:', error);
+      alert('Erro ao excluir: ' + error.message);
+      btn.disabled = false;
+      btn.textContent = '🗑 Excluir Notícia';
+      return;
+    }
+
+    // Remove o card da tela com animação
+    const card = btn.closest('.news-card');
+    card.style.transition = 'opacity 0.3s, transform 0.3s';
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(-8px)';
+    setTimeout(() => card.remove(), 300);
   }
 
+  /* ============================================================
+     FORMULÁRIO TOGGLE
+     ============================================================ */
+  function toggleForm() {
+    const form = document.getElementById('publishForm');
+    form.classList.toggle('visivel');
+  }
+
+  /* ============================================================
+     ESCAPE HTML
+     ============================================================ */
+  function escapeHtml(texto) {
+    if (!texto) return '';
+    return String(texto).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+    }[c]));
+  }
+
+  /* ============================================================
+     DRAWER
+     ============================================================ */
   function toggleDrawer() {
-    ['drawer','drawerOverlay','hamburger'].forEach(id => document.getElementById(id).classList.toggle('open'));
+    document.getElementById('drawer').classList.toggle('open');
+    document.getElementById('drawerOverlay').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
   }
+
   function closeDrawer() {
-    ['drawer','drawerOverlay','hamburger'].forEach(id => document.getElementById(id).classList.remove('open'));
+    document.getElementById('drawer').classList.remove('open');
+    document.getElementById('drawerOverlay').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
   }
+
   function abrirMetas() {
     closeDrawer();
     carregarMetas();
     document.getElementById('metasModal').classList.add('open');
   }
-  function fecharMetas() { document.getElementById('metasModal').classList.remove('open'); }
+
+  function fecharMetas() {
+    document.getElementById('metasModal').classList.remove('open');
+  }
+
   async function carregarMetas() {
     try {
-      const r = await fetch('metas.json');
-      const d = await r.json();
+      const response = await fetch('metas.json');
+      const data = await response.json();
       const el = document.getElementById('metasContent');
-      el.innerHTML = d.metas && d.metas.length
-        ? '<ul>' + d.metas.map(m=>`<li>${esc(m)}</li>`).join('') + '</ul>'
-        : '<p>Nenhuma meta registrada.</p>';
-    } catch { document.getElementById('metasContent').innerHTML = '<p style="color:var(--gold-light)">Erro ao carregar metas.</p>'; }
+      el.innerHTML = data.metas && data.metas.length > 0
+        ? '<ul>' + data.metas.map(m => `<li>${escapeHtml(m)}</li>`).join('') + '</ul>'
+        : '<p>Nenhuma meta registrada no momento.</p>';
+    } catch {
+      document.getElementById('metasContent').innerHTML = '<p style="color:var(--gold-light)">Erro ao carregar metas.</p>';
+    }
   }
-  document.getElementById('metasModal').addEventListener('click', function(e){ if(e.target===this) fecharMetas(); });
+
+  document.getElementById('metasModal').addEventListener('click', function(e) {
+    if (e.target === this) fecharMetas();
+  });
+
+  /* ── INIT ── */
   document.addEventListener('DOMContentLoaded', carregarNoticias);
+</script>
+
+<script>
+  /* ── FONTE GLOBAL ── */
+  (function() {
+    var _sb2 = supabase.createClient(
+      'https://jkxhqtvugpbxplsswuut.supabase.co',
+      'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl'
+    );
+    _sb2.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r){
+      if (r.data) {
+        if (r.data.tema)  document.documentElement.setAttribute('data-tema', r.data.tema);
+        if (r.data.fonte) document.documentElement.setAttribute('data-fonte', r.data.fonte);
+      }
+    });
+  })();
 </script>
 </body>
 </html>

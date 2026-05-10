@@ -11,6 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ══ FONTE DO TÍTULO ══ */
+    :root { --font-title: 'FaithCollapsing', 'Cinzel Decorative', serif; }
+    html[data-fonte="dropshadow"] { --font-title: 'DropShade', 'Cinzel Decorative', serif; }
+
     /* ══ TEMAS ══ */
     :root, html {
       --bg:#08101a; --surface:#0d1a2a; --surface2:#122030; --border:#1e3a5a;
@@ -123,7 +128,7 @@
     header { padding: 50px 0 36px; text-align: center; }
     .header-line { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 18px; }
     header h1 {
-      font-family: 'FaithCollapsing', 'Cinzel Decorative', serif;
+      font-family: var(--font-title);
       font-size: clamp(26px, 6vw, 52px);
       letter-spacing: 0.08em;
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
@@ -267,7 +272,7 @@
 
     <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent);margin:0 auto 20px"></div>
 
-    <h2 style="font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:clamp(18px,4vw,26px);letter-spacing:0.08em;background:linear-gradient(135deg,#55aaff,#2a7fd4,#1a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 16px rgba(42,127,212,0.40));margin-bottom:8px">TROLLGIANISMO</h2>
+    <h2 style="font-family: var(--font-title);font-size:clamp(18px,4vw,26px);letter-spacing:0.08em;background:linear-gradient(135deg,#55aaff,#2a7fd4,#1a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 16px rgba(42,127,212,0.40));margin-bottom:8px">TROLLGIANISMO</h2>
 
     <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#7a756a;margin-bottom:28px">Aviso de Conteúdo</p>
 
@@ -533,15 +538,16 @@
 </script>
 
 <script>
-  /* ── TEMA GLOBAL ── */
+  /* ── FONTE GLOBAL ── */
   (function() {
-    var _sb = supabase.createClient(
+    var _sb2 = supabase.createClient(
       'https://jkxhqtvugpbxplsswuut.supabase.co',
       'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl'
     );
-    _sb.from('site_config').select('tema').eq('id',1).single().then(function(r){
-      if (r.data && r.data.tema) {
-        document.documentElement.setAttribute('data-tema', r.data.tema);
+    _sb2.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r){
+      if (r.data) {
+        if (r.data.tema)  document.documentElement.setAttribute('data-tema', r.data.tema);
+        if (r.data.fonte) document.documentElement.setAttribute('data-fonte', r.data.fonte);
       }
     });
   })();
