@@ -602,6 +602,8 @@
   function carregarFonte() {
     // Aplica cache local instantaneamente para zero FOUC
     try {
+      var cachedTema = localStorage.getItem('tg-tema');
+      if (cachedTema) document.documentElement.setAttribute('data-tema', cachedTema);
       var cached = localStorage.getItem('tg-fonte');
       if (cached) setFonteLocal(cached);
     } catch(e) {}
@@ -614,9 +616,12 @@
       );
     }
     if (!_sb) return;
-    _sb.from('site_config').select('fonte').eq('id',1).single().then(function(r) {
-      if (r.data && r.data.fonte) setFonteLocal(r.data.fonte);
-      else setFonteLocal('faith');
+    _sb.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r) {
+      if (r.data) {
+        if (r.data.tema)  document.documentElement.setAttribute('data-tema', r.data.tema);
+        if (r.data.fonte) setFonteLocal(r.data.fonte);
+        else setFonteLocal('faith');
+      }
     });
   }
 
