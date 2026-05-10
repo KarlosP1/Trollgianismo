@@ -2,6 +2,13 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // Aplica tema salvo ANTES de qualquer CSS ser renderizado
+    try {
+      var _t = localStorage.getItem('tg-tema');
+      if (_t) document.documentElement.setAttribute('data-tema', _t);
+    } catch(e) {}
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Download — Trollgianismo</title>
   <style>
@@ -363,7 +370,7 @@
     if (!_sb) return;
     _sb.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r) {
       if (r.data) {
-        if (r.data.tema)  document.documentElement.setAttribute('data-tema', r.data.tema);
+        if (r.data.tema)  document.documentElement.setAttribute('data-tema', r.data.tema); try { localStorage.setItem('tg-tema', r.data.tema); } catch(e) {}
         if (r.data.fonte) setFonteLocal(r.data.fonte);
         else setFonteLocal('faith');
       }

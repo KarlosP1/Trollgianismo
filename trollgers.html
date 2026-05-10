@@ -2,6 +2,13 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // Aplica tema salvo ANTES de qualquer CSS ser renderizado
+    try {
+      var _t = localStorage.getItem('tg-tema');
+      if (_t) document.documentElement.setAttribute('data-tema', _t);
+    } catch(e) {}
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trollgers — Arquivos</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
@@ -1924,6 +1931,7 @@
 
   async function aplicarTema(tema) {
     setTemaLocal(tema);
+    try { localStorage.setItem('tg-tema', tema); } catch(e) {}
     const { error } = await sb.from('site_config').update({ tema }).eq('id', 1);
     if (error) console.error('[Tema]', error);
   }
