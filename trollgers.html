@@ -1959,7 +1959,7 @@
      BOTÕES DE COPIAR — injeta em cada parágrafo e título
      ============================================================ */
   function injetarBotoesCopiar(container) {
-    var alvos = container.querySelectorAll('.entry-body p, .entry-title');
+    var alvos = container.querySelectorAll('.entry-body, .entry-title');
     alvos.forEach(function(el) {
       // Evita duplicar
       if (el.parentNode.classList.contains('copy-wrap')) return;
