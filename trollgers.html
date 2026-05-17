@@ -624,7 +624,25 @@
       gap: 10px;
     }
     .entry-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold-dim), transparent); }
-    .entry-body { font-size: clamp(14px, 2vw, 15px); line-height: 1.9; color: var(--text); }
+    /* ── BOTÃO COPIAR ── */
+    .copy-wrap { position: relative; display: block; }
+    .copy-btn {
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 4px; padding: 3px 8px;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-dim);
+      cursor: pointer; opacity: 0; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+      outline: none; white-space: nowrap; line-height: 1.6;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .copy-wrap:hover .copy-btn,
+    .copy-wrap:focus-within .copy-btn { opacity: 1; }
+    .copy-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .copy-btn.copiado { color: #55cc77; border-color: #1a5a2a; opacity: 1; }
+
+    .entry-title { padding-right: 80px; }
+    .entry-body p { padding-right: 80px; }
     .entry-body ul { list-style: none; padding: 0; }
     .entry-body ul li { padding: 4px 0 4px 18px; position: relative; }
     .entry-body ul li::before { content: '▸'; position: absolute; left: 0; color: var(--gold-dim); font-size: 11px; top: 7px; }
@@ -1735,6 +1753,7 @@
     document.getElementById(cat.drw).appendChild(drwBtn);
 
     document.getElementById('artigos-sections-container').insertAdjacentHTML('beforeend', renderArtigo(a));
+    injetarBotoesCopiar(document.getElementById('artigo-' + a.id));
 
     // Só mostra "Artigos Publicados" se categoria for "Outros" ou sem mapa
     if (!CAT_MAP[a.categoria]) {
@@ -1937,8 +1956,53 @@
   }
 
   /* ============================================================
-     SISTEMA ORIGINAL
+     BOTÕES DE COPIAR — injeta em cada parágrafo e título
      ============================================================ */
+  function injetarBotoesCopiar(container) {
+    var alvos = container.querySelectorAll('.entry-body p, .entry-title');
+    alvos.forEach(function(el) {
+      // Evita duplicar
+      if (el.parentNode.classList.contains('copy-wrap')) return;
+
+      var wrap = document.createElement('div');
+      wrap.className = 'copy-wrap';
+      el.parentNode.insertBefore(wrap, el);
+      wrap.appendChild(el);
+
+      var btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = '📋 Copiar';
+      btn.addEventListener('click', function() {
+        var texto = el.innerText || el.textContent;
+        navigator.clipboard.writeText(texto.trim()).then(function() {
+          btn.textContent = '✅ Copiado';
+          btn.classList.add('copiado');
+          setTimeout(function() {
+            btn.textContent = '📋 Copiar';
+            btn.classList.remove('copiado');
+          }, 2000);
+        }).catch(function() {
+          // fallback para celular sem clipboard API
+          var ta = document.createElement('textarea');
+          ta.value = texto.trim();
+          ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select(); ta.setSelectionRange(0, 99999);
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          btn.textContent = '✅ Copiado';
+          btn.classList.add('copiado');
+          setTimeout(function() {
+            btn.textContent = '📋 Copiar';
+            btn.classList.remove('copiado');
+          }, 2000);
+        });
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+
   function aceitarTermos() {
     document.getElementById('termsStep1').style.display = 'none';
     const step2 = document.getElementById('termsStep2');
@@ -2172,6 +2236,7 @@
       })
       .then(function(data) {
         sec.innerHTML = renderJSON(data);
+        injetarBotoesCopiar(sec);
       })
       .catch(function() {
         sec.innerHTML = '<div class="card"><div class="entry-body" style="color:var(--text-dim);text-align:center">Arquivo nao encontrado: ' + id + '.json</div></div>';

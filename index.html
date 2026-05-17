@@ -191,6 +191,24 @@
     .entry-title { font-family: 'Cinzel', serif; font-size: clamp(13px, 2.2vw, 15px); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
     .entry-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold-dim), transparent); }
     .entry-body { font-size: clamp(14px, 2vw, 16px); line-height: 1.8; color: var(--text); }
+
+    /* ── BOTÃO COPIAR ── */
+    .copy-wrap { position: relative; display: block; }
+    .copy-btn {
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 4px; padding: 3px 8px;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-dim);
+      cursor: pointer; opacity: 0; transition: opacity 0.2s, color 0.2s;
+      outline: none; white-space: nowrap; line-height: 1.6;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .copy-wrap:hover .copy-btn { opacity: 1; }
+    .copy-btn:hover { color: var(--gold-light); border-color: var(--gold-dim); }
+    .copy-btn.copiado { color: #55cc77; border-color: #1a5a2a; opacity: 1; }
+    .entry-title { padding-right: 80px; }
+    .entry-body > p, .entry-body > div { padding-right: 80px; }
     .entry-body ul { list-style: none; padding: 0; }
     .entry-body ul li { padding: 4px 0 4px 18px; position: relative; }
     .entry-body ul li::before { content: '▸'; position: absolute; left: 0; color: var(--gold-dim); font-size: 11px; top: 7px; }
@@ -608,6 +626,44 @@
   }
 
   document.addEventListener('DOMContentLoaded', carregarFonte);
+
+  /* ── Botões de copiar ── */
+  document.addEventListener('DOMContentLoaded', function() {
+    function injetarCopiar(container) {
+      container.querySelectorAll('.entry-body, .entry-title').forEach(function(el) {
+        if (el.parentNode.classList.contains('copy-wrap')) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'copy-wrap';
+        el.parentNode.insertBefore(wrap, el);
+        wrap.appendChild(el);
+        var btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = '📋 Copiar';
+        btn.addEventListener('click', function() {
+          var texto = (el.innerText || el.textContent).trim();
+          var ok = function() {
+            btn.textContent = '✅ Copiado'; btn.classList.add('copiado');
+            setTimeout(function() { btn.textContent = '📋 Copiar'; btn.classList.remove('copiado'); }, 2000);
+          };
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(texto).then(ok).catch(function() {
+              var ta = document.createElement('textarea'); ta.value = texto;
+              ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta);
+              ta.select(); ta.setSelectionRange(0,99999); document.execCommand('copy');
+              document.body.removeChild(ta); ok();
+            });
+          } else {
+            var ta = document.createElement('textarea'); ta.value = texto;
+            ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta);
+            ta.select(); ta.setSelectionRange(0,99999); document.execCommand('copy');
+            document.body.removeChild(ta); ok();
+          }
+        });
+        wrap.appendChild(btn);
+      });
+    }
+    injetarCopiar(document);
+  });
 </script>
 </body>
 </html>
