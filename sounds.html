@@ -235,7 +235,7 @@
      Base URL: URL raw do seu repositório GitHub
      Exemplo:  https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/
   ============================================================ */
-  var BASE = 'https://github.com/KarlosP1/Trollgianismo/tree/main/sounds';
+  var BASE = 'https://karlosp1.github.io/Trollgianismo/';
 
   var FAIXAS = [
 
@@ -244,7 +244,7 @@
        autor  : artista / autor
        capa   : URL da imagem de capa (deixe '' para sem capa)
        src    : ↓ COLOQUE AQUI O CAMINHO DO ARQUIVO DE ÁUDIO          */
-    { titulo:'Rap Do Juan', autor:'JuanMC. Prod.KarlosDJ', capa:'', src: BASE + 'https://github.com/KarlosP1/Trollgianismo/blob/main/sounds/Kauan%20-%20Rap%20Do%20Juan.mp3' },
+    { titulo:'Rap Do Juan', autor:'JuanMC Prod.KarlosDJ', capa:'', src: BASE + 'sounds/Kauan%20-%20Rap%20Do%20Juan.mp3' },
 
     /* ── FAIXA 02 ──────────────────────────────────────────────────── */
     { titulo:'Nome da Faixa 02', autor:'Artista', capa:'', src: BASE + 'sounds/faixa02.mp3' },
@@ -397,7 +397,11 @@
     cover.classList.remove('tocando');
     if(f.capa) cover.innerHTML='<img src="'+f.capa+'" alt="" onerror="this.parentElement.innerHTML=\'<span class=np-cover-placeholder>🎵</span>\'">';
     else cover.innerHTML='<span class="np-cover-placeholder">🎵</span>';
-    audio.play().then(function(){tocando=true;atualizarUI();}).catch(function(e){console.warn(e);});
+    audio.load();
+    audio.addEventListener('canplay', function handler(){
+      audio.removeEventListener('canplay', handler);
+      audio.play().then(function(){tocando=true;atualizarUI();}).catch(function(e){console.warn(e);});
+    }, {once:true});
   }
 
   function togglePlay() {
