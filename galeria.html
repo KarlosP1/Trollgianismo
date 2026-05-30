@@ -12,7 +12,6 @@
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; outline:none !important; -webkit-tap-highlight-color:transparent !important; }
 
-    /* ══ TEMAS ══ */
     :root, html {
       --bg:#08101a;--surface:#0d1a2a;--surface2:#122030;--border:#1e3a5a;
       --gold:#2a7fd4;--gold-light:#55aaff;--gold-dim:#1a4a8a;
@@ -61,6 +60,34 @@
 
     .page{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 20px 80px;}
 
+    /* HAMBURGER */
+    .hamburger {
+      position:fixed;top:16px;left:16px;z-index:1000;
+      width:42px;height:42px;
+      background:var(--surface2);border:1px solid var(--border);border-radius:6px;
+      cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+      transition:border-color 0.2s,box-shadow 0.2s;
+    }
+    .hamburger:hover{border-color:var(--gold-dim);box-shadow:0 0 12px rgba(42,127,212,0.20);}
+    .hamburger span{display:block;width:18px;height:1.5px;background:var(--text-dim);border-radius:2px;transition:all 0.3s ease;}
+    .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);background:var(--gold-light);}
+    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+    .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);background:var(--gold-light);}
+
+    /* DRAWER */
+    .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:998;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+    .drawer-overlay.open{opacity:1;pointer-events:all;}
+    .drawer{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--surface);border-right:1px solid var(--border);z-index:999;transform:translateX(-100%);transition:transform 0.3s ease;overflow-y:auto;padding:70px 0 40px;}
+    .drawer.open{transform:translateX(0);}
+    .drawer-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);padding:0 20px 10px;border-bottom:1px solid var(--border);margin-bottom:8px;}
+    .drawer-section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dim);padding:12px 20px 4px;}
+    .drawer-btn{display:block;width:100%;text-align:left;background:none;border:none;padding:9px 20px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.08em;color:var(--text-dim);cursor:pointer;transition:background 0.15s,color 0.15s;}
+    .drawer-btn:hover{background:var(--surface2);color:var(--gold-light);}
+    .drawer-btn.ativo{color:var(--gold-light);background:var(--surface2);border-left:2px solid var(--gold);}
+    .drawer-divider{border:none;border-top:1px solid var(--border);margin:8px 0;}
+    .drawer-gear{display:flex;align-items:center;gap:10px;margin:16px 16px 0;padding:10px 14px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;transition:border-color 0.2s;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;color:var(--text-dim);width:calc(100% - 32px);}
+    .drawer-gear:hover{border-color:var(--gold-dim);color:var(--gold-light);}
+
     /* HEADER */
     header{padding:50px 0 36px;text-align:center;}
     .header-line{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 18px;}
@@ -78,9 +105,8 @@
     .filtro-btn{background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);cursor:pointer;padding:8px 16px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:6px;}
     .filtro-btn:hover{color:var(--gold-light);border-color:var(--gold-dim);}
     .filtro-btn.ativo{background:linear-gradient(135deg,rgba(42,127,212,.2),rgba(42,127,212,.06));border-color:var(--gold);color:var(--gold-light);}
-    .filtro-emoji{font-size:16px;}
 
-    /* GALERIA GRID */
+    /* GALERIA */
     .galeria-grid{columns:3;gap:12px;column-gap:12px;}
     @media(max-width:600px){.galeria-grid{columns:2;}}
     @media(max-width:380px){.galeria-grid{columns:1;}}
@@ -93,12 +119,10 @@
     .foto-overlay{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);opacity:0;transition:opacity .2s;}
     .foto-item:hover .foto-overlay{opacity:1;}
     .foto-pessoa{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;color:var(--gold-light);}
-
-    /* ESTADO VAZIO */
     .sem-fotos{text-align:center;padding:60px 20px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);}
 
     /* LIGHTBOX */
-    .lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);align-items:center;justify-content:center;}
+    .lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.92);align-items:center;justify-content:center;}
     .lightbox.aberto{display:flex;}
     .lb-inner{position:relative;max-width:92vw;max-height:92vh;display:flex;flex-direction:column;align-items:center;gap:14px;}
     .lb-img{max-width:100%;max-height:78vh;border-radius:8px;border:1px solid var(--border);display:block;}
@@ -112,43 +136,41 @@
     .lb-download{display:inline-flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;border:1px solid var(--border);padding:8px 16px;border-radius:4px;transition:all .2s;cursor:pointer;background:none;}
     .lb-download:hover{color:var(--gold-light);border-color:var(--gold-dim);}
 
-    /* MODAL ADMIN */
-    .modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:20px;}
-    .modal-overlay.aberto{display:flex;}
-    .modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px;width:100%;max-width:480px;position:relative;}
-    .modal-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:24px;text-align:center;}
-    .modal label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;}
-    .modal input,.modal select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:10px 14px;font-family:'Raleway',sans-serif;font-size:14px;margin-bottom:18px;transition:border-color .2s;}
-    .modal input:focus,.modal select:focus{border-color:var(--gold-dim);}
-    .modal select option{background:var(--bg);}
-    .modal-btn{width:100%;background:linear-gradient(135deg,rgba(42,127,212,.25),rgba(42,127,212,.08));border:1px solid var(--gold-dim);border-radius:5px;color:var(--gold-light);cursor:pointer;padding:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.15em;text-transform:uppercase;transition:all .2s;margin-top:4px;}
-    .modal-btn:hover{box-shadow:0 0 16px var(--gold-dim);}
-    .modal-btn:disabled{opacity:.5;cursor:not-allowed;}
-    .modal-fechar{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:20px;}
-    .modal-msg{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;text-align:center;margin-top:12px;min-height:18px;}
-    .modal-msg.ok{color:var(--gold-light);}
-    .modal-msg.err{color:var(--red);}
+    /* MODAL ADM */
+    .adm-overlay{position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+    .adm-overlay.open{opacity:1;pointer-events:all;}
+    .adm-modal{background:linear-gradient(160deg,var(--surface2),var(--surface));border:1px solid var(--border);border-radius:8px;padding:32px;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;position:relative;}
+    .adm-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent);}
+    .adm-modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;transition:color 0.2s;}
+    .adm-modal-close:hover{color:var(--gold-light);}
+    .adm-modal-title{font-family:'Cinzel Decorative',serif;font-size:15px;color:var(--gold-light);margin-bottom:8px;}
+    .adm-modal-sub{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:24px;}
 
-    /* MODAL NOVA PESSOA */
-    .modal-tabs{display:flex;gap:0;margin-bottom:24px;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
-    .modal-tab{flex:1;background:none;border:none;color:var(--text-dim);cursor:pointer;padding:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;}
-    .modal-tab.ativo{background:linear-gradient(135deg,rgba(42,127,212,.2),rgba(42,127,212,.06));color:var(--gold-light);}
+    /* TABS ADM */
+    .adm-tabs{display:flex;gap:0;margin-bottom:24px;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+    .adm-tab{flex:1;background:none;border:none;color:var(--text-dim);cursor:pointer;padding:10px 6px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;}
+    .adm-tab.ativo{background:linear-gradient(135deg,rgba(42,127,212,.2),rgba(42,127,212,.06));color:var(--gold-light);}
     .tab-panel{display:none;}
     .tab-panel.ativo{display:block;}
 
-    /* ADM BTN */
-    .adm-fab{position:fixed;bottom:28px;right:24px;z-index:500;background:linear-gradient(135deg,rgba(42,127,212,.3),rgba(42,127,212,.1));border:1px solid var(--gold-dim);border-radius:50px;color:var(--gold-light);cursor:pointer;padding:12px 20px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;display:none;align-items:center;gap:8px;transition:all .2s;box-shadow:0 4px 24px rgba(0,0,0,.4);}
-    .adm-fab.visivel{display:flex;}
-    .adm-fab:hover{box-shadow:0 0 20px var(--gold-dim);}
+    .adm-label{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;}
+    .adm-input,.adm-select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:10px 14px;font-family:'Raleway',sans-serif;font-size:14px;margin-bottom:18px;transition:border-color .2s;}
+    .adm-input:focus,.adm-select:focus{border-color:var(--gold-dim);}
+    .adm-select option{background:var(--bg);}
+    .adm-btn{width:100%;background:linear-gradient(135deg,rgba(42,127,212,.2),rgba(42,127,212,.08));border:1px solid var(--gold-dim);border-radius:5px;color:var(--gold-light);cursor:pointer;padding:12px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;transition:all .2s;margin-top:4px;}
+    .adm-btn:hover{box-shadow:0 0 16px var(--gold-dim);}
+    .adm-btn:disabled{opacity:.5;cursor:not-allowed;}
+    .adm-btn-danger{background:linear-gradient(135deg,rgba(255,85,85,.15),rgba(255,85,85,.05));border-color:#aa3333;color:#ff5555;}
+    .adm-btn-danger:hover{box-shadow:0 0 16px rgba(255,85,85,.3);}
+    .adm-btn-outline{background:none;border-color:var(--border);color:var(--text-dim);}
+    .adm-msg{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;text-align:center;margin-top:12px;min-height:18px;}
+    .adm-msg.ok{color:var(--gold-light);}
+    .adm-msg.err{color:var(--red);}
 
-    /* LOGIN ADM */
-    .adm-login-wrap{text-align:center;margin-bottom:28px;}
-    .adm-login-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);background:none;border:1px solid var(--border);border-radius:4px;padding:7px 14px;cursor:pointer;transition:all .2s;}
-    .adm-login-btn:hover{color:var(--gold-light);border-color:var(--gold-dim);}
-
-    /* PROGRESS UPLOAD */
     .upload-progress{height:4px;background:var(--border);border-radius:2px;margin-top:-10px;margin-bottom:18px;overflow:hidden;display:none;}
     .upload-progress-fill{height:100%;background:linear-gradient(to right,var(--gold-dim),var(--gold-light));width:0%;transition:width .2s;}
+
+    .adm-section-label{font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin:20px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
 
     /* FOOTER */
     footer{position:relative;z-index:1;text-align:center;padding:40px 0;border-top:1px solid var(--border);margin-top:60px;}
@@ -157,70 +179,97 @@
     .footer-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;border:1px solid var(--border);padding:8px 16px;border-radius:4px;transition:all .2s;}
     .footer-btn:hover{color:var(--gold-light);border-color:var(--gold-dim);}
 
-    @font-face {
-      font-family: 'FaithCollapsing';
-      src: url('FaithCollapsing.ttf') format('truetype');
-      font-weight: normal; font-style: normal;
-    }
-    @font-face {
-      font-family: 'DropShade';
-      src: url('DropShade.ttf') format('truetype');
-      font-weight: normal; font-style: normal;
-    }
+    @font-face{font-family:'FaithCollapsing';src:url('FaithCollapsing.ttf') format('truetype');font-weight:normal;font-style:normal;}
+    @font-face{font-family:'DropShade';src:url('DropShade.ttf') format('truetype');font-weight:normal;font-style:normal;}
   </style>
 </head>
 <body>
-<div class="page">
 
-  <header>
-    <div class="header-line"></div>
-    <h1>Galeria</h1>
-    <p>Memórias do Universo Trollger</p>
-  </header>
-
-  <div class="adm-login-wrap">
-    <button class="adm-login-btn" id="btnAdmLogin" onclick="abrirModalLogin()">⚙ Área Admin</button>
-  </div>
-
-  <div class="section-divider">
-    <div class="section-divider-line"></div>
-    <span class="section-divider-label">📸 Pessoas</span>
-    <div class="section-divider-line r"></div>
-  </div>
-
-  <div class="filtros" id="filtrosWrap">
-    <button class="filtro-btn ativo" data-id="todos" onclick="filtrar('todos', this)">
-      <span class="filtro-emoji">🌐</span> Todos
-    </button>
-  </div>
-
-  <div class="section-divider">
-    <div class="section-divider-line"></div>
-    <span class="section-divider-label">🖼 Fotos</span>
-    <div class="section-divider-line r"></div>
-  </div>
-
-  <div class="galeria-grid" id="galeriaGrid">
-    <div class="sem-fotos">Carregando...</div>
-  </div>
-
-</div>
-
-<footer>
-  <div class="footer-label">Trollgianismo — Universo Oficial</div>
-  <div class="footer-links">
-    <a href="index.html" class="footer-btn">← Início</a>
-    <a href="trollgers.html" class="footer-btn">Trollgers</a>
-  </div>
-</footer>
-
-<!-- FAB ADMIN -->
-<button class="adm-fab" id="admFab" onclick="abrirModalUpload()">
-  📤 Upload de Foto
+<!-- HAMBURGUER -->
+<button class="hamburger" id="hamburger" onclick="toggleDrawer()">
+  <span></span><span></span><span></span>
 </button>
 
+<!-- OVERLAY -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-title">Navegação</div>
+
+  <div class="drawer-section-label">Páginas</div>
+  <button class="drawer-btn" onclick="location.href='index.html';closeDrawer()">🏠 Início</button>
+  <button class="drawer-btn ativo" onclick="closeDrawer()">📸 Galeria</button>
+  <button class="drawer-btn" onclick="location.href='trollgers.html';closeDrawer()">📖 Trollgers</button>
+  <button class="drawer-btn" onclick="location.href='sounds.html';closeDrawer()">🎵 Sons</button>
+
+  <hr class="drawer-divider">
+
+  <!-- ENGRENAGEM ADM -->
+  <button class="drawer-gear" id="drawerGearBtn" onclick="abrirAdm();closeDrawer()">⚙️ Painel ADM</button>
+</div>
+
+<!-- MODAL ADM -->
+<div class="adm-overlay" id="admOverlay">
+  <div class="adm-modal">
+    <button class="adm-modal-close" onclick="fecharAdm()">✕</button>
+    <div class="adm-modal-title">⚙️ Painel ADM</div>
+    <div class="adm-modal-sub">Acesso restrito — Trollgianismo</div>
+
+    <!-- LOGIN -->
+    <div id="admLoginPanel">
+      <label class="adm-label">E-mail</label>
+      <input class="adm-input" id="admEmail" type="email" placeholder="trollgianismo@gmail.com">
+      <label class="adm-label">Senha</label>
+      <input class="adm-input" id="admSenha" type="password" placeholder="••••••••">
+      <button class="adm-btn" onclick="loginAdm()">Entrar</button>
+      <div class="adm-msg" id="loginMsg"></div>
+    </div>
+
+    <!-- PAINEL LOGADO -->
+    <div id="admPainelLogado" style="display:none;">
+      <div class="adm-tabs">
+        <button class="adm-tab ativo" id="tabUpload" onclick="mudarTab('upload')">Upload</button>
+        <button class="adm-tab" id="tabPessoa" onclick="mudarTab('pessoa')">Nova Pessoa</button>
+        <button class="adm-tab" id="tabGerenciar" onclick="mudarTab('gerenciar')">Gerenciar</button>
+      </div>
+
+      <!-- TAB UPLOAD -->
+      <div class="tab-panel ativo" id="panelUpload">
+        <label class="adm-label">Foto</label>
+        <input class="adm-input" type="file" id="inputFoto" accept="image/*">
+        <div class="upload-progress" id="uploadProgress"><div class="upload-progress-fill" id="uploadProgressFill"></div></div>
+        <label class="adm-label">Pessoa</label>
+        <select class="adm-select" id="selectPessoa"><option value="">Carregando...</option></select>
+        <button class="adm-btn" id="btnEnviar" onclick="enviarFoto()">Enviar Foto</button>
+        <div class="adm-msg" id="uploadMsg"></div>
+      </div>
+
+      <!-- TAB NOVA PESSOA -->
+      <div class="tab-panel" id="panelPessoa">
+        <label class="adm-label">Nome</label>
+        <input class="adm-input" id="novaPessoaNome" placeholder="Ex: Davi">
+        <label class="adm-label">Emoji</label>
+        <input class="adm-input" id="novaPessoaEmoji" placeholder="Ex: ⚡" maxlength="4">
+        <button class="adm-btn" onclick="criarPessoa()">Criar Pessoa</button>
+        <div class="adm-msg" id="pessoaMsg"></div>
+      </div>
+
+      <!-- TAB GERENCIAR -->
+      <div class="tab-panel" id="panelGerenciar">
+        <label class="adm-label">ID da foto a excluir</label>
+        <input class="adm-input" id="inputExcluirId" placeholder="Número do ID">
+        <button class="adm-btn adm-btn-danger" onclick="excluirFoto()">Excluir Foto</button>
+        <div class="adm-msg" id="gerenciarMsg"></div>
+        <div class="adm-section-label"></div>
+        <button class="adm-btn adm-btn-outline" onclick="fazerLogout()">Sair da Conta Admin</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="fecharLightbox(event)">
+<div class="lightbox" id="lightbox" onclick="fecharLightboxBg(event)">
   <button class="lb-fechar" onclick="fecharLightbox()">✕</button>
   <div class="lb-inner" onclick="event.stopPropagation()">
     <img class="lb-img" id="lbImg" src="" alt="">
@@ -235,284 +284,194 @@
   </div>
 </div>
 
-<!-- MODAL ADMIN (login + upload + nova pessoa) -->
-<div class="modal-overlay" id="modalOverlay" onclick="fecharModalOverlay(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-fechar" onclick="fecharModal()">✕</button>
+<div class="page">
+  <header>
+    <div class="header-line"></div>
+    <h1>Galeria</h1>
+    <p>Memórias do Universo Trollger</p>
+  </header>
 
-    <!-- PAINEL LOGIN -->
-    <div id="painelLogin">
-      <div class="modal-title">Acesso Admin</div>
-      <label>E-mail</label>
-      <input type="email" id="admEmail" placeholder="trollgianismo@gmail.com">
-      <label>Senha</label>
-      <input type="password" id="admSenha" placeholder="••••••••">
-      <button class="modal-btn" onclick="fazerLogin()">Entrar</button>
-      <div class="modal-msg" id="loginMsg"></div>
-    </div>
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">📸 Pessoas</span>
+    <div class="section-divider-line r"></div>
+  </div>
 
-    <!-- PAINEL UPLOAD -->
-    <div id="painelUpload" style="display:none;">
-      <div class="modal-title">Upload de Foto</div>
-      <div class="modal-tabs">
-        <button class="modal-tab ativo" id="tabUpload" onclick="mudarTab('upload')">Upload</button>
-        <button class="modal-tab" id="tabPessoa" onclick="mudarTab('pessoa')">Nova Pessoa</button>
-        <button class="modal-tab" id="tabAdm" onclick="mudarTab('adm')">Gerenciar</button>
-      </div>
+  <div class="filtros" id="filtrosWrap">
+    <button class="filtro-btn ativo" data-id="todos" onclick="filtrar('todos',this)">🌐 Todos</button>
+  </div>
 
-      <!-- TAB UPLOAD -->
-      <div class="tab-panel ativo" id="tabPanelUpload">
-        <label>Foto</label>
-        <input type="file" id="inputFoto" accept="image/*" onchange="previewFoto(this)">
-        <div class="upload-progress" id="uploadProgress">
-          <div class="upload-progress-fill" id="uploadProgressFill"></div>
-        </div>
-        <label>Pessoa</label>
-        <select id="selectPessoa">
-          <option value="">Carregando...</option>
-        </select>
-        <button class="modal-btn" id="btnEnviar" onclick="enviarFoto()">Enviar Foto</button>
-        <div class="modal-msg" id="uploadMsg"></div>
-      </div>
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">🖼 Fotos</span>
+    <div class="section-divider-line r"></div>
+  </div>
 
-      <!-- TAB NOVA PESSOA -->
-      <div class="tab-panel" id="tabPanelPessoa">
-        <label>Nome</label>
-        <input type="text" id="novaPessoaNome" placeholder="Ex: Davi">
-        <label>Emoji</label>
-        <input type="text" id="novaPessoaEmoji" placeholder="Ex: 🔥" maxlength="4">
-        <button class="modal-btn" onclick="criarPessoa()">Criar Pessoa</button>
-        <div class="modal-msg" id="pessoaMsg"></div>
-      </div>
-
-      <!-- TAB GERENCIAR -->
-      <div class="tab-panel" id="tabPanelAdm">
-        <label>Excluir Foto (cole a URL ou ID)</label>
-        <input type="text" id="inputExcluirId" placeholder="ID da foto (número)">
-        <button class="modal-btn" style="background:linear-gradient(135deg,rgba(255,85,85,.2),rgba(255,85,85,.06));border-color:#ff5555;color:#ff5555;" onclick="excluirFoto()">Excluir Foto</button>
-        <div class="modal-msg" id="gerenciarMsg"></div>
-        <div style="margin-top:20px;">
-          <button class="modal-btn" style="background:none;border-color:var(--border);color:var(--text-dim);" onclick="fazerLogout()">Sair da Conta Admin</button>
-        </div>
-      </div>
-    </div>
+  <div class="galeria-grid" id="galeriaGrid">
+    <div class="sem-fotos">Carregando...</div>
   </div>
 </div>
 
+<footer>
+  <div class="footer-label">Trollgianismo — Universo Oficial</div>
+  <div class="footer-links">
+    <a href="index.html" class="footer-btn">← Início</a>
+    <a href="trollgers.html" class="footer-btn">Trollgers</a>
+    <a href="sounds.html" class="footer-btn">Sons</a>
+  </div>
+</footer>
+
 <script>
-  /* ══ SUPABASE ══ */
-  var SUPA_URL  = 'https://jkxhqtvugpbxplsswuut.supabase.co';
-  var SUPA_KEY  = 'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl';
-  var BUCKET    = 'galeria';
-  var sb        = supabase.createClient(SUPA_URL, SUPA_KEY);
+  var SUPA_URL = 'https://jkxhqtvugpbxplsswuut.supabase.co';
+  var SUPA_KEY = 'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl';
+  var BUCKET   = 'galeria';
+  var sb       = supabase.createClient(SUPA_URL, SUPA_KEY);
 
-  var pessoas   = [];   // { id, nome, emoji }
-  var fotos     = [];   // { id, url, pessoa_id }
-  var fotosFiltradas = [];
-  var filtroAtual = 'todos';
-  var lbIdx     = 0;
-  var admLogado = false;
+  var pessoas         = [];
+  var fotos           = [];
+  var fotosFiltradas  = [];
+  var filtroAtual     = 'todos';
+  var lbIdx           = 0;
+  var admLogado       = false;
 
-  /* ══ INIT ══ */
+  /* ── INIT ── */
   document.addEventListener('DOMContentLoaded', function() {
     carregarTemaFonte();
-    verificarSessao();
-    carregarPessoas().then(function() {
-      carregarFotos();
+    sb.auth.getSession().then(function(r) {
+      if (r.data && r.data.session) { admLogado = true; mostrarPainelLogado(); }
     });
+    carregarPessoas().then(function() { carregarFotos(); });
   });
 
-  /* ══ SESSÃO ══ */
-  function verificarSessao() {
-    sb.auth.getSession().then(function(r) {
-      if (r.data && r.data.session) {
-        admLogado = true;
-        document.getElementById('admFab').classList.add('visivel');
-        document.getElementById('btnAdmLogin').style.display = 'none';
-      }
+  /* ── DRAWER ── */
+  function toggleDrawer() {
+    document.getElementById('drawer').classList.toggle('open');
+    document.getElementById('drawerOverlay').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  function closeDrawer() {
+    document.getElementById('drawer').classList.remove('open');
+    document.getElementById('drawerOverlay').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  /* ── ADM MODAL ── */
+  function abrirAdm() {
+    document.getElementById('admOverlay').classList.add('open');
+  }
+  function fecharAdm() {
+    document.getElementById('admOverlay').classList.remove('open');
+  }
+  document.getElementById('admOverlay').addEventListener('click', function(e) {
+    if (e.target === this) fecharAdm();
+  });
+
+  function mostrarPainelLogado() {
+    document.getElementById('admLoginPanel').style.display = 'none';
+    document.getElementById('admPainelLogado').style.display = '';
+    popularSelectPessoa();
+  }
+
+  function mudarTab(tab) {
+    ['Upload','Pessoa','Gerenciar'].forEach(function(t) {
+      document.getElementById('panel'+t).classList.toggle('ativo', t.toLowerCase()===tab);
+      document.getElementById('tab'+t).classList.toggle('ativo', t.toLowerCase()===tab);
     });
   }
 
-  /* ══ CARREGAR PESSOAS ══ */
-  function carregarPessoas() {
-    return sb.from('galeria_pessoas').select('*').order('nome').then(function(r) {
-      if (r.error) { console.error(r.error); return; }
-      pessoas = r.data || [];
-      renderFiltros();
-      popularSelectPessoa();
-    });
+  /* ── LOGIN ── */
+  async function loginAdm() {
+    var email = document.getElementById('admEmail').value.trim();
+    var senha = document.getElementById('admSenha').value;
+    var msg   = document.getElementById('loginMsg');
+    msg.textContent = 'Entrando...'; msg.className = 'adm-msg';
+    var r = await sb.auth.signInWithPassword({ email: email, password: senha });
+    if (r.error) { msg.textContent = r.error.message; msg.className = 'adm-msg err'; return; }
+    admLogado = true;
+    mostrarPainelLogado();
+  }
+
+  async function fazerLogout() {
+    await sb.auth.signOut();
+    admLogado = false;
+    document.getElementById('admLoginPanel').style.display = '';
+    document.getElementById('admPainelLogado').style.display = 'none';
+    fecharAdm();
+  }
+
+  /* ── PESSOAS ── */
+  async function carregarPessoas() {
+    var r = await sb.from('galeria_pessoas').select('*').order('nome');
+    if (r.error) { console.error(r.error); return; }
+    pessoas = r.data || [];
+    renderFiltros();
+    popularSelectPessoa();
   }
 
   function renderFiltros() {
     var wrap = document.getElementById('filtrosWrap');
-    wrap.innerHTML = '<button class="filtro-btn' + (filtroAtual==='todos'?' ativo':'') + '" data-id="todos" onclick="filtrar(\'todos\', this)"><span class="filtro-emoji">🌐</span> Todos</button>';
+    var html = '<button class="filtro-btn'+(filtroAtual==='todos'?' ativo':'')+'" data-id="todos" onclick="filtrar(\'todos\',this)">🌐 Todos</button>';
     pessoas.forEach(function(p) {
-      var ativo = filtroAtual == p.id ? ' ativo' : '';
-      wrap.innerHTML += '<button class="filtro-btn'+ativo+'" data-id="'+p.id+'" onclick="filtrar('+p.id+', this)">'
-        + '<span class="filtro-emoji">'+esc(p.emoji||'👤')+'</span> '+esc(p.nome)+'</button>';
+      html += '<button class="filtro-btn'+(filtroAtual==p.id?' ativo':'')+'" data-id="'+p.id+'" onclick="filtrar('+p.id+',this)">'
+        +esc(p.emoji||'👤')+' '+esc(p.nome)+'</button>';
     });
+    wrap.innerHTML = html;
   }
 
   function popularSelectPessoa() {
     var sel = document.getElementById('selectPessoa');
+    if (!sel) return;
     sel.innerHTML = '<option value="">Selecione...</option>';
     pessoas.forEach(function(p) {
       sel.innerHTML += '<option value="'+p.id+'">'+esc(p.emoji||'')+' '+esc(p.nome)+'</option>';
     });
   }
 
-  /* ══ CARREGAR FOTOS ══ */
-  function carregarFotos() {
-    sb.from('galeria_fotos').select('*').order('criado_em', {ascending:false}).then(function(r) {
-      if (r.error) { console.error(r.error); renderGaleria([]); return; }
-      fotos = r.data || [];
-      filtrar(filtroAtual, null);
-    });
+  async function criarPessoa() {
+    var nome  = document.getElementById('novaPessoaNome').value.trim();
+    var emoji = document.getElementById('novaPessoaEmoji').value.trim();
+    var msg   = document.getElementById('pessoaMsg');
+    if (!nome) { msg.textContent='Digite um nome.'; msg.className='adm-msg err'; return; }
+    msg.textContent='Criando...'; msg.className='adm-msg';
+    var r = await sb.from('galeria_pessoas').insert({ nome:nome, emoji:emoji||'👤' }).select().single();
+    if (r.error) { msg.textContent=r.error.message; msg.className='adm-msg err'; return; }
+    msg.textContent=nome+' adicionado(a)!'; msg.className='adm-msg ok';
+    document.getElementById('novaPessoaNome').value='';
+    document.getElementById('novaPessoaEmoji').value='';
+    await carregarPessoas();
   }
 
-  /* ══ FILTRAR ══ */
+  /* ── FOTOS ── */
+  async function carregarFotos() {
+    var r = await sb.from('galeria_fotos').select('*').order('criado_em', {ascending:false});
+    if (r.error) { renderGaleria([]); return; }
+    fotos = r.data || [];
+    filtrar(filtroAtual, null);
+  }
+
   function filtrar(id, btn) {
     filtroAtual = id;
-    // atualiza botões
-    document.querySelectorAll('.filtro-btn').forEach(function(b) { b.classList.remove('ativo'); });
+    document.querySelectorAll('.filtro-btn').forEach(function(b){ b.classList.remove('ativo'); });
     if (btn) btn.classList.add('ativo');
-    else {
-      var target = document.querySelector('.filtro-btn[data-id="'+id+'"]');
-      if (target) target.classList.add('ativo');
-    }
-    if (id === 'todos') {
-      fotosFiltradas = fotos.slice();
-    } else {
-      fotosFiltradas = fotos.filter(function(f) { return f.pessoa_id == id; });
-    }
+    else { var t=document.querySelector('.filtro-btn[data-id="'+id+'"]'); if(t) t.classList.add('ativo'); }
+    fotosFiltradas = id==='todos' ? fotos.slice() : fotos.filter(function(f){ return f.pessoa_id==id; });
     renderGaleria(fotosFiltradas);
   }
 
-  /* ══ RENDER GALERIA ══ */
   function renderGaleria(lista) {
     var grid = document.getElementById('galeriaGrid');
-    if (!lista.length) {
-      grid.innerHTML = '<div class="sem-fotos">Nenhuma foto ainda.</div>';
-      return;
-    }
-    grid.innerHTML = lista.map(function(f, i) {
-      var p = pessoas.find(function(x){ return x.id == f.pessoa_id; });
-      var nome = p ? (esc(p.emoji||'')+ ' ' + esc(p.nome)) : '';
+    if (!lista.length) { grid.innerHTML='<div class="sem-fotos">Nenhuma foto ainda.</div>'; return; }
+    grid.innerHTML = lista.map(function(f,i) {
+      var p = pessoas.find(function(x){ return x.id==f.pessoa_id; });
+      var nome = p ? esc(p.emoji||'')+ ' ' + esc(p.nome) : '';
       return '<div class="foto-item" onclick="abrirLightbox('+i+')">'
-        + '<img src="'+esc(f.url)+'" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'">'
-        + '<div class="foto-overlay"><div class="foto-pessoa">'+nome+'</div></div>'
-        + '</div>';
+        +'<img src="'+esc(f.url)+'" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'">'
+        +'<div class="foto-overlay"><div class="foto-pessoa">'+nome+'</div></div>'
+        +'</div>';
     }).join('');
   }
 
-  /* ══ LIGHTBOX ══ */
-  function abrirLightbox(idx) {
-    lbIdx = idx;
-    atualizarLightbox();
-    document.getElementById('lightbox').classList.add('aberto');
-    document.body.style.overflow = 'hidden';
-  }
-  function atualizarLightbox() {
-    var f = fotosFiltradas[lbIdx];
-    if (!f) return;
-    document.getElementById('lbImg').src = f.url;
-    var p = pessoas.find(function(x){ return x.id == f.pessoa_id; });
-    document.getElementById('lbPessoa').textContent = p ? (p.emoji||'')+ ' ' + p.nome : '';
-  }
-  function fecharLightbox(e) {
-    if (e && e.target !== document.getElementById('lightbox') && !e.currentTarget.classList.contains('lb-fechar')) return;
-    document.getElementById('lightbox').classList.remove('aberto');
-    document.getElementById('lbImg').src = '';
-    document.body.style.overflow = '';
-  }
-  function lbNavegar(dir) {
-    lbIdx = (lbIdx + dir + fotosFiltradas.length) % fotosFiltradas.length;
-    atualizarLightbox();
-  }
-  async function baixarFoto() {
-    var f = fotosFiltradas[lbIdx];
-    if (!f) return;
-    try {
-      var resp = await fetch(f.url);
-      var blob = await resp.blob();
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'trollgianismo_foto_' + f.id + '.' + (blob.type.split('/')[1] || 'jpg');
-      a.click();
-      URL.revokeObjectURL(a.href);
-    } catch(e) {
-      window.open(f.url, '_blank');
-    }
-  }
-  document.addEventListener('keydown', function(e) {
-    if (!document.getElementById('lightbox').classList.contains('aberto')) return;
-    if (e.key === 'ArrowLeft')  lbNavegar(-1);
-    if (e.key === 'ArrowRight') lbNavegar(1);
-    if (e.key === 'Escape')     fecharLightbox();
-  });
-
-  /* ══ MODAL ══ */
-  function abrirModalLogin() {
-    document.getElementById('painelLogin').style.display = '';
-    document.getElementById('painelUpload').style.display = 'none';
-    document.getElementById('modalOverlay').classList.add('aberto');
-  }
-  function abrirModalUpload() {
-    document.getElementById('painelLogin').style.display = 'none';
-    document.getElementById('painelUpload').style.display = '';
-    document.getElementById('modalOverlay').classList.add('aberto');
-    mudarTab('upload');
-  }
-  function fecharModal() {
-    document.getElementById('modalOverlay').classList.remove('aberto');
-  }
-  function fecharModalOverlay(e) {
-    if (e.target === document.getElementById('modalOverlay')) fecharModal();
-  }
-  function mudarTab(tab) {
-    ['upload','pessoa','adm'].forEach(function(t) {
-      document.getElementById('tabPanelUpload').style.display  = t==='upload'&&tab==='upload'  ? '' : 'none';
-      document.getElementById('tabPanelPessoa').style.display  = t==='pessoa'&&tab==='pessoa'  ? '' : 'none';
-      document.getElementById('tabPanelAdm').style.display     = t==='adm'&&tab==='adm'        ? '' : 'none';
-    });
-    document.getElementById('tabPanelUpload').style.display = tab==='upload' ? '' : 'none';
-    document.getElementById('tabPanelPessoa').style.display = tab==='pessoa' ? '' : 'none';
-    document.getElementById('tabPanelAdm').style.display    = tab==='adm'    ? '' : 'none';
-    ['tabUpload','tabPessoa','tabAdm'].forEach(function(id) { document.getElementById(id).classList.remove('ativo'); });
-    document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('ativo');
-  }
-
-  /* ══ LOGIN ══ */
-  function fazerLogin() {
-    var email = document.getElementById('admEmail').value.trim();
-    var senha = document.getElementById('admSenha').value;
-    var msg   = document.getElementById('loginMsg');
-    msg.textContent = 'Entrando...'; msg.className = 'modal-msg';
-    sb.auth.signInWithPassword({ email: email, password: senha }).then(function(r) {
-      if (r.error) { msg.textContent = r.error.message; msg.className = 'modal-msg err'; return; }
-      admLogado = true;
-      document.getElementById('admFab').classList.add('visivel');
-      document.getElementById('btnAdmLogin').style.display = 'none';
-      fecharModal();
-      setTimeout(abrirModalUpload, 200);
-    });
-  }
-
-  function fazerLogout() {
-    sb.auth.signOut().then(function() {
-      admLogado = false;
-      document.getElementById('admFab').classList.remove('visivel');
-      document.getElementById('btnAdmLogin').style.display = '';
-      fecharModal();
-    });
-  }
-
-  /* ══ UPLOAD FOTO ══ */
-  function previewFoto(input) {
-    // apenas valida
-    if (!input.files[0]) return;
-  }
-
+  /* ── UPLOAD ── */
   async function enviarFoto() {
     var input    = document.getElementById('inputFoto');
     var pessoaId = document.getElementById('selectPessoa').value;
@@ -520,108 +479,101 @@
     var btn      = document.getElementById('btnEnviar');
     var prog     = document.getElementById('uploadProgress');
     var fill     = document.getElementById('uploadProgressFill');
-
-    if (!input.files[0]) { msg.textContent = 'Selecione uma foto.'; msg.className = 'modal-msg err'; return; }
-    if (!pessoaId)        { msg.textContent = 'Selecione a pessoa.'; msg.className = 'modal-msg err'; return; }
-
+    if (!input.files[0]) { msg.textContent='Selecione uma foto.'; msg.className='adm-msg err'; return; }
+    if (!pessoaId)        { msg.textContent='Selecione a pessoa.'; msg.className='adm-msg err'; return; }
     var file = input.files[0];
     var ext  = file.name.split('.').pop();
-    var path = 'fotos/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.' + ext;
-
-    btn.disabled = true;
-    prog.style.display = 'block';
-    fill.style.width = '30%';
-    msg.textContent = 'Enviando...'; msg.className = 'modal-msg';
-
-    var upResp = await sb.storage.from(BUCKET).upload(path, file, { upsert: false });
-    if (upResp.error) {
-      msg.textContent = upResp.error.message; msg.className = 'modal-msg err';
-      btn.disabled = false; prog.style.display = 'none'; return;
-    }
-
-    fill.style.width = '70%';
-
-    var urlData = sb.storage.from(BUCKET).getPublicUrl(path);
-    var url = urlData.data.publicUrl;
-
-    fill.style.width = '90%';
-
-    var insResp = await sb.from('galeria_fotos').insert({ url: url, pessoa_id: parseInt(pessoaId) });
-    if (insResp.error) {
-      msg.textContent = insResp.error.message; msg.className = 'modal-msg err';
-      btn.disabled = false; prog.style.display = 'none'; return;
-    }
-
-    fill.style.width = '100%';
-    msg.textContent = 'Foto enviada com sucesso!'; msg.className = 'modal-msg ok';
-    btn.disabled = false;
-    input.value = '';
+    var path = 'fotos/'+Date.now()+'_'+Math.random().toString(36).slice(2)+'.'+ext;
+    btn.disabled=true; prog.style.display='block'; fill.style.width='30%';
+    msg.textContent='Enviando...'; msg.className='adm-msg';
+    var upR = await sb.storage.from(BUCKET).upload(path, file, {upsert:false});
+    if (upR.error) { msg.textContent=upR.error.message; msg.className='adm-msg err'; btn.disabled=false; prog.style.display='none'; return; }
+    fill.style.width='70%';
+    var url = sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+    fill.style.width='90%';
+    var insR = await sb.from('galeria_fotos').insert({url:url, pessoa_id:parseInt(pessoaId)});
+    if (insR.error) { msg.textContent=insR.error.message; msg.className='adm-msg err'; btn.disabled=false; prog.style.display='none'; return; }
+    fill.style.width='100%';
+    msg.textContent='Foto enviada!'; msg.className='adm-msg ok';
+    btn.disabled=false; input.value='';
     setTimeout(function(){ prog.style.display='none'; fill.style.width='0%'; }, 600);
     carregarFotos();
   }
 
-  /* ══ CRIAR PESSOA ══ */
-  async function criarPessoa() {
-    var nome  = document.getElementById('novaPessoaNome').value.trim();
-    var emoji = document.getElementById('novaPessoaEmoji').value.trim();
-    var msg   = document.getElementById('pessoaMsg');
-    if (!nome) { msg.textContent = 'Digite um nome.'; msg.className = 'modal-msg err'; return; }
-    msg.textContent = 'Criando...'; msg.className = 'modal-msg';
-    var r = await sb.from('galeria_pessoas').insert({ nome: nome, emoji: emoji || '👤' }).select().single();
-    if (r.error) { msg.textContent = r.error.message; msg.className = 'modal-msg err'; return; }
-    msg.textContent = nome + ' adicionado(a)!'; msg.className = 'modal-msg ok';
-    document.getElementById('novaPessoaNome').value = '';
-    document.getElementById('novaPessoaEmoji').value = '';
-    await carregarPessoas();
-  }
-
-  /* ══ EXCLUIR FOTO ══ */
   async function excluirFoto() {
     var id  = document.getElementById('inputExcluirId').value.trim();
     var msg = document.getElementById('gerenciarMsg');
-    if (!id) { msg.textContent = 'Digite o ID da foto.'; msg.className = 'modal-msg err'; return; }
-    var foto = fotos.find(function(f){ return f.id == id; });
-    if (!foto) { msg.textContent = 'Foto não encontrada.'; msg.className = 'modal-msg err'; return; }
+    if (!id) { msg.textContent='Digite o ID.'; msg.className='adm-msg err'; return; }
+    var foto = fotos.find(function(f){ return f.id==id; });
+    if (!foto) { msg.textContent='Foto não encontrada.'; msg.className='adm-msg err'; return; }
     if (!confirm('Excluir esta foto permanentemente?')) return;
-    msg.textContent = 'Excluindo...'; msg.className = 'modal-msg';
-
-    // Extrai path do bucket da URL
+    msg.textContent='Excluindo...'; msg.className='adm-msg';
     var path = foto.url.split('/object/public/'+BUCKET+'/')[1];
     if (path) await sb.storage.from(BUCKET).remove([path]);
-
     var r = await sb.from('galeria_fotos').delete().eq('id', id);
-    if (r.error) { msg.textContent = r.error.message; msg.className = 'modal-msg err'; return; }
-    msg.textContent = 'Foto excluída.'; msg.className = 'modal-msg ok';
-    document.getElementById('inputExcluirId').value = '';
+    if (r.error) { msg.textContent=r.error.message; msg.className='adm-msg err'; return; }
+    msg.textContent='Foto excluída.'; msg.className='adm-msg ok';
+    document.getElementById('inputExcluirId').value='';
     carregarFotos();
   }
 
-  /* ══ UTILS ══ */
-  function esc(s) {
-    return String(s||'').replace(/[&<>"']/g, function(c){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];
-    });
+  /* ── LIGHTBOX ── */
+  function abrirLightbox(idx) {
+    lbIdx=idx; atualizarLightbox();
+    document.getElementById('lightbox').classList.add('aberto');
+    document.body.style.overflow='hidden';
   }
-
-  /* ══ TEMA + FONTE ══ */
-  var _fs = null;
-  function setFonteLocal(f) {
-    document.documentElement.setAttribute('data-fonte', f);
-    if (!_fs) { _fs = document.createElement('style'); _fs.id = 'fonte-runtime'; document.head.appendChild(_fs); }
-    var ff = f==='dropshadow' ? "'DropShade','Cinzel Decorative',serif" : "'FaithCollapsing','Cinzel Decorative',serif";
-    _fs.textContent = 'h1,.np-title,[class*="-title"]{font-family:'+ff+' !important;}';
-    try { localStorage.setItem('tg-fonte', f); } catch(e) {}
+  function atualizarLightbox() {
+    var f=fotosFiltradas[lbIdx]; if(!f) return;
+    document.getElementById('lbImg').src=f.url;
+    var p=pessoas.find(function(x){ return x.id==f.pessoa_id; });
+    document.getElementById('lbPessoa').textContent=p?(p.emoji||'')+' '+p.nome:'';
   }
-  function carregarTemaFonte() {
+  function fecharLightbox() {
+    document.getElementById('lightbox').classList.remove('aberto');
+    document.getElementById('lbImg').src='';
+    document.body.style.overflow='';
+  }
+  function fecharLightboxBg(e) { if(e.target===document.getElementById('lightbox')) fecharLightbox(); }
+  function lbNavegar(dir) { lbIdx=(lbIdx+dir+fotosFiltradas.length)%fotosFiltradas.length; atualizarLightbox(); }
+  async function baixarFoto() {
+    var f=fotosFiltradas[lbIdx]; if(!f) return;
     try {
-      var ct = localStorage.getItem('tg-tema'); if (ct) document.documentElement.setAttribute('data-tema', ct);
-      var cf = localStorage.getItem('tg-fonte'); if (cf) setFonteLocal(cf);
-    } catch(e) {}
-    var sb2 = supabase.createClient(SUPA_URL, SUPA_KEY);
-    sb2.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r) {
-      if (r.data) {
-        if (r.data.tema)  { document.documentElement.setAttribute('data-tema', r.data.tema); try { localStorage.setItem('tg-tema', r.data.tema); } catch(e){} }
-        if (r.data.fonte) setFonteLocal(r.data.fonte); else setFonteLocal('faith');
+      var resp=await fetch(f.url); var blob=await resp.blob();
+      var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+      a.download='trollgianismo_'+f.id+'.'+(blob.type.split('/')[1]||'jpg');
+      a.click(); URL.revokeObjectURL(a.href);
+    } catch(e){ window.open(f.url,'_blank'); }
+  }
+  document.addEventListener('keydown',function(e){
+    if(!document.getElementById('lightbox').classList.contains('aberto')) return;
+    if(e.key==='ArrowLeft') lbNavegar(-1);
+    if(e.key==='ArrowRight') lbNavegar(1);
+    if(e.key==='Escape') fecharLightbox();
+  });
+
+  /* ── UTILS ── */
+  function esc(s){ return String(s||'').replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];}); }
+
+  /* ── TEMA + FONTE ── */
+  var _fs=null;
+  function setFonteLocal(f){
+    document.documentElement.setAttribute('data-fonte',f);
+    if(!_fs){_fs=document.createElement('style');_fs.id='fonte-runtime';document.head.appendChild(_fs);}
+    var ff=f==='dropshadow'?"'DropShade','Cinzel Decorative',serif":"'FaithCollapsing','Cinzel Decorative',serif";
+    _fs.textContent='h1{font-family:'+ff+' !important;}';
+    try{localStorage.setItem('tg-fonte',f);}catch(e){}
+  }
+  function carregarTemaFonte(){
+    try{
+      var ct=localStorage.getItem('tg-tema'); if(ct) document.documentElement.setAttribute('data-tema',ct);
+      var cf=localStorage.getItem('tg-fonte'); if(cf) setFonteLocal(cf);
+    }catch(e){}
+    var sb2=supabase.createClient(SUPA_URL,SUPA_KEY);
+    sb2.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r){
+      if(r.data){
+        if(r.data.tema){document.documentElement.setAttribute('data-tema',r.data.tema);try{localStorage.setItem('tg-tema',r.data.tema);}catch(e){}}
+        if(r.data.fonte) setFonteLocal(r.data.fonte); else setFonteLocal('faith');
       }
     });
   }
