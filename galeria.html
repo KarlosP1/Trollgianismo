@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    try { var _t = localStorage.getItem('tg-tema'); if (_t) document.documentElement.setAttribute('data-tema', _t); } catch(e) {}
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trollgers — Galeria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; outline:none !important; -webkit-tap-highlight-color:transparent !important; }
+
+    /* ══ TEMAS ══ */
+    :root, html {
+      --bg:#08101a;--surface:#0d1a2a;--surface2:#122030;--border:#1e3a5a;
+      --gold:#2a7fd4;--gold-light:#55aaff;--gold-dim:#1a4a8a;
+      --text:#c4d8e0;--text-dim:#4a6a8a;--red:#ff5555;
+      --ov1:rgba(8,16,26,.75);--ov2:rgba(8,16,26,.92);--ov3:rgba(8,16,26,.97);
+      --gl1:rgba(30,100,200,.12);--gl2:rgba(20,70,160,.09);
+    }
+    html[data-tema="azul"]        {--bg:#08101a;--surface:#0d1a2a;--surface2:#122030;--border:#1e3a5a;--gold:#2a7fd4;--gold-light:#55aaff;--gold-dim:#1a4a8a;--text:#c4d8e0;--text-dim:#4a6a8a;--ov1:rgba(8,16,26,.75);--ov2:rgba(8,16,26,.92);--ov3:rgba(8,16,26,.97);--gl1:rgba(30,100,200,.12);--gl2:rgba(20,70,160,.09);}
+    html[data-tema="roxo"]        {--bg:#100a1a;--surface:#1a0d2a;--surface2:#241230;--border:#3a1e5a;--gold:#7d2ad4;--gold-light:#aa55ff;--gold-dim:#4a1a8a;--text:#d4c4e0;--text-dim:#6a4a8a;--ov1:rgba(16,10,26,.75);--ov2:rgba(16,10,26,.92);--ov3:rgba(16,10,26,.97);--gl1:rgba(100,30,200,.12);--gl2:rgba(70,20,160,.09);}
+    html[data-tema="vermelho"]    {--bg:#1a0808;--surface:#2a0d0d;--surface2:#301212;--border:#5a1e1e;--gold:#d42a2a;--gold-light:#ff5555;--gold-dim:#8a1a1a;--text:#e0c4c4;--text-dim:#8a4a4a;--ov1:rgba(26,8,8,.75);--ov2:rgba(26,8,8,.92);--ov3:rgba(26,8,8,.97);--gl1:rgba(200,30,30,.12);--gl2:rgba(160,20,20,.09);}
+    html[data-tema="verde"]       {--bg:#081a0e;--surface:#0d2a14;--surface2:#12301a;--border:#1e5a2e;--gold:#2ad47a;--gold-light:#55ff99;--gold-dim:#1a8a4a;--text:#c4e0cc;--text-dim:#4a8a5a;--ov1:rgba(8,26,14,.75);--ov2:rgba(8,26,14,.92);--ov3:rgba(8,26,14,.97);--gl1:rgba(30,200,80,.12);--gl2:rgba(20,160,60,.09);}
+    html[data-tema="dourado"]     {--bg:#1a1408;--surface:#2a1f0d;--surface2:#302612;--border:#5a421e;--gold:#d4922a;--gold-light:#ffbb55;--gold-dim:#8a5a1a;--text:#e0d8c4;--text-dim:#8a744a;--ov1:rgba(26,20,8,.75);--ov2:rgba(26,20,8,.92);--ov3:rgba(26,20,8,.97);--gl1:rgba(200,150,30,.12);--gl2:rgba(160,120,20,.09);}
+    html[data-tema="rosa"]        {--bg:#1a0810;--surface:#2a0d18;--surface2:#30121f;--border:#5a1e38;--gold:#d42a7a;--gold-light:#ff55aa;--gold-dim:#8a1a4a;--text:#e0c4d4;--text-dim:#8a4a6a;--ov1:rgba(26,8,16,.75);--ov2:rgba(26,8,16,.92);--ov3:rgba(26,8,16,.97);--gl1:rgba(200,30,100,.12);--gl2:rgba(160,20,80,.09);}
+    html[data-tema="ciano"]       {--bg:#081a1a;--surface:#0d2a2a;--surface2:#123030;--border:#1e5a5a;--gold:#2ad4d4;--gold-light:#55ffff;--gold-dim:#1a8a8a;--text:#c4e0e0;--text-dim:#4a8a8a;--ov1:rgba(8,26,26,.75);--ov2:rgba(8,26,26,.92);--ov3:rgba(8,26,26,.97);--gl1:rgba(30,200,200,.12);--gl2:rgba(20,160,160,.09);}
+    html[data-tema="laranja"]     {--bg:#1a0e08;--surface:#2a160d;--surface2:#301b12;--border:#5a311e;--gold:#d4622a;--gold-light:#ff8855;--gold-dim:#8a3a1a;--text:#e0d0c4;--text-dim:#8a604a;--ov1:rgba(26,14,8,.75);--ov2:rgba(26,14,8,.92);--ov3:rgba(26,14,8,.97);--gl1:rgba(200,100,30,.12);--gl2:rgba(160,80,20,.09);}
+    html[data-tema="roxo-escuro"] {--bg:#0d0814;--surface:#160d22;--surface2:#1e1230;--border:#2e1a50;--gold:#9b40e8;--gold-light:#c070ff;--gold-dim:#5a1a9a;--text:#ddd0f0;--text-dim:#7060a0;--ov1:rgba(13,8,20,.75);--ov2:rgba(13,8,20,.92);--ov3:rgba(13,8,20,.97);--gl1:rgba(130,40,220,.12);--gl2:rgba(90,20,170,.09);}
+    html[data-tema="esmeralda"]   {--bg:#061410;--surface:#0a2018;--surface2:#0e2a20;--border:#164a30;--gold:#22c97a;--gold-light:#44ffaa;--gold-dim:#128a50;--text:#c0e8d8;--text-dim:#408060;--ov1:rgba(6,20,16,.75);--ov2:rgba(6,20,16,.92);--ov3:rgba(6,20,16,.97);--gl1:rgba(20,180,100,.12);--gl2:rgba(10,140,70,.09);}
+    html[data-tema="gelo"]        {--bg:#0a1220;--surface:#121e30;--surface2:#18263c;--border:#2a4060;--gold:#60b8e8;--gold-light:#90d8ff;--gold-dim:#2a6090;--text:#d0e8f8;--text-dim:#507090;--ov1:rgba(10,18,32,.75);--ov2:rgba(10,18,32,.92);--ov3:rgba(10,18,32,.97);--gl1:rgba(60,140,220,.12);--gl2:rgba(30,100,180,.09);}
+    html[data-tema="coral"]       {--bg:#1a0808;--surface:#2a1010;--surface2:#301515;--border:#5a2020;--gold:#e85040;--gold-light:#ff8070;--gold-dim:#9a2010;--text:#f0d0cc;--text-dim:#906050;--ov1:rgba(26,8,8,.75);--ov2:rgba(26,8,8,.92);--ov3:rgba(26,8,8,.97);--gl1:rgba(220,60,40,.12);--gl2:rgba(180,40,20,.09);}
+    html[data-tema="safira"]      {--bg:#060a1a;--surface:#0c1230;--surface2:#101840;--border:#1a2860;--gold:#3060e8;--gold-light:#6090ff;--gold-dim:#1030a0;--text:#c0ccf8;--text-dim:#405090;--ov1:rgba(6,10,26,.75);--ov2:rgba(6,10,26,.92);--ov3:rgba(6,10,26,.97);--gl1:rgba(30,70,220,.12);--gl2:rgba(20,50,180,.09);}
+    html[data-tema="bronze"]      {--bg:#140e04;--surface:#201608;--surface2:#2c1c0c;--border:#503010;--gold:#c07820;--gold-light:#e8a030;--gold-dim:#804808;--text:#f0dcc0;--text-dim:#907040;--ov1:rgba(20,14,4,.75);--ov2:rgba(20,14,4,.92);--ov3:rgba(20,14,4,.97);--gl1:rgba(180,100,20,.12);--gl2:rgba(140,70,10,.09);}
+    html[data-tema="magenta"]     {--bg:#180814;--surface:#260d20;--surface2:#30122a;--border:#581e4a;--gold:#d030a0;--gold-light:#ff60cc;--gold-dim:#8a1060;--text:#f0c0e0;--text-dim:#905080;--ov1:rgba(24,8,20,.75);--ov2:rgba(24,8,20,.92);--ov3:rgba(24,8,20,.97);--gl1:rgba(200,30,150,.12);--gl2:rgba(160,20,110,.09);}
+    html[data-tema="oliva"]       {--bg:#101408;--surface:#1a2010;--surface2:#222a14;--border:#3a4818;--gold:#90b030;--gold-light:#c0e050;--gold-dim:#507010;--text:#d8e0c0;--text-dim:#708040;--ov1:rgba(16,20,8,.75);--ov2:rgba(16,20,8,.92);--ov3:rgba(16,20,8,.97);--gl1:rgba(120,160,30,.12);--gl2:rgba(90,130,20,.09);}
+    html[data-tema="aurora"]      {--bg:#080e18;--surface:#0e1628;--surface2:#141e34;--border:#203050;--gold:#40c8c0;--gold-light:#70f0e8;--gold-dim:#208880;--text:#c0ecf0;--text-dim:#408890;--ov1:rgba(8,14,24,.75);--ov2:rgba(8,14,24,.92);--ov3:rgba(8,14,24,.97);--gl1:rgba(40,180,180,.12);--gl2:rgba(20,140,140,.09);}
+    html[data-tema="sangue"]      {--bg:#120404;--surface:#200606;--surface2:#2c0808;--border:#480c0c;--gold:#cc1010;--gold-light:#ff3030;--gold-dim:#880808;--text:#f0c0c0;--text-dim:#884040;--ov1:rgba(18,4,4,.75);--ov2:rgba(18,4,4,.92);--ov3:rgba(18,4,4,.97);--gl1:rgba(200,10,10,.12);--gl2:rgba(160,8,8,.09);}
+    html[data-tema="perola"]      {--bg:#141418;--surface:#1e1e24;--surface2:#262630;--border:#3c3c4c;--gold:#c0b8e0;--gold-light:#e8e0ff;--gold-dim:#8080b0;--text:#f0eeff;--text-dim:#807090;--ov1:rgba(20,20,24,.75);--ov2:rgba(20,20,24,.92);--ov3:rgba(20,20,24,.97);--gl1:rgba(160,150,220,.12);--gl2:rgba(120,110,190,.09);}
+    html[data-tema="abobora"]     {--bg:#160c04;--surface:#221404;--surface2:#2e1a06;--border:#5a2e08;--gold:#e06010;--gold-light:#ff8030;--gold-dim:#903808;--text:#f0d8c0;--text-dim:#906040;--ov1:rgba(22,12,4,.75);--ov2:rgba(22,12,4,.92);--ov3:rgba(22,12,4,.97);--gl1:rgba(210,80,10,.12);--gl2:rgba(170,60,8,.09);}
+    html[data-tema="lilas"]       {--bg:#120e1a;--surface:#1c1628;--surface2:#261e34;--border:#402e58;--gold:#a060d8;--gold-light:#cc90ff;--gold-dim:#6030a0;--text:#e8d8f8;--text-dim:#806898;--ov1:rgba(18,14,26,.75);--ov2:rgba(18,14,26,.92);--ov3:rgba(18,14,26,.97);--gl1:rgba(140,70,210,.12);--gl2:rgba(100,50,170,.09);}
+    html[data-tema="cyber"]       {--bg:#020c08;--surface:#041810;--surface2:#062018;--border:#0a4028;--gold:#00ff88;--gold-light:#60ffb8;--gold-dim:#00a850;--text:#c0ffe0;--text-dim:#208860;--ov1:rgba(2,12,8,.75);--ov2:rgba(2,12,8,.92);--ov3:rgba(2,12,8,.97);--gl1:rgba(0,220,110,.15);--gl2:rgba(0,180,80,.10);}
+    html[data-tema="universe"]    {--bg:#020408;--surface:#060810;--surface2:#0a0c18;--border:#141828;--gold:#7050d0;--gold-light:#a880ff;--gold-dim:#402890;--text:#e0d8ff;--text-dim:#605090;--ov1:rgba(2,4,8,.80);--ov2:rgba(2,4,8,.95);--ov3:rgba(2,4,8,.99);--gl1:rgba(90,60,200,.12);--gl2:rgba(60,40,160,.09);}
+    html[data-tema="abismo"]      {--bg:#020204;--surface:#060608;--surface2:#08080c;--border:#141420;--gold:#3838a8;--gold-light:#6868d8;--gold-dim:#202070;--text:#c0c0e0;--text-dim:#404060;--ov1:rgba(2,2,4,.80);--ov2:rgba(2,2,4,.95);--ov3:rgba(2,2,4,.99);--gl1:rgba(40,40,140,.10);--gl2:rgba(25,25,100,.07);}
+    html[data-tema="lava"]        {--bg:#100202;--surface:#1e0404;--surface2:#2a0606;--border:#4e0e0e;--gold:#f02020;--gold-light:#ff5050;--gold-dim:#a00808;--text:#ffc8c8;--text-dim:#984040;--ov1:rgba(16,2,2,.75);--ov2:rgba(16,2,2,.92);--ov3:rgba(16,2,2,.97);--gl1:rgba(230,20,20,.15);--gl2:rgba(190,10,10,.10);}
+
+    body {
+      background-color:var(--bg);
+      background-image:url('https://i.imgur.com/mJoCBsb.png'),
+        radial-gradient(ellipse at 20% 0%,var(--gl1) 0%,transparent 60%),
+        radial-gradient(ellipse at 80% 100%,var(--gl2) 0%,transparent 60%);
+      background-repeat:no-repeat;background-position:center top;
+      background-size:cover;background-attachment:fixed;
+      color:var(--text);font-family:'Raleway',sans-serif;
+      font-weight:300;min-height:100vh;overflow-x:hidden;
+    }
+    body::before{content:'';position:fixed;inset:0;background:linear-gradient(to bottom,var(--ov1) 0%,var(--ov2) 40%,var(--ov3) 100%);pointer-events:none;z-index:0;}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+    .page{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 20px 80px;}
+
+    /* HEADER */
+    header{padding:50px 0 36px;text-align:center;}
+    .header-line{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 18px;}
+    header h1{font-family:'FaithCollapsing','Cinzel Decorative',serif;font-size:clamp(28px,7vw,54px);letter-spacing:.08em;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dim) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 24px var(--gold-dim));}
+    header p{margin-top:10px;font-family:'Cinzel',serif;font-size:clamp(10px,2vw,12px);letter-spacing:.3em;text-transform:uppercase;color:var(--text-dim);}
+
+    /* SECTION DIVIDER */
+    .section-divider{display:flex;align-items:center;gap:16px;margin:32px 0 20px;}
+    .section-divider-line{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--border));}
+    .section-divider-line.r{background:linear-gradient(to left,transparent,var(--border));}
+    .section-divider-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap;}
+
+    /* FILTROS */
+    .filtros{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+    .filtro-btn{background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);cursor:pointer;padding:8px 16px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:6px;}
+    .filtro-btn:hover{color:var(--gold-light);border-color:var(--gold-dim);}
+    .filtro-btn.ativo{background:linear-gradient(135deg,rgba(42,127,212,.2),rgba(42,127,212,.06));border-color:var(--gold);color:var(--gold-light);}
+    .filtro-emoji{font-size:16px;}
+
+    /* GALERIA GRID */
+    .galeria-grid{columns:3;gap:12px;column-gap:12px;}
+    @media(max-width:600px){.galeria-grid{columns:2;}}
+    @media(max-width:380px){.galeria-grid{columns:1;}}
+    .foto-item{break-inside:avoid;margin-bottom:12px;position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:all .2s;background:var(--surface);}
+    .foto-item::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent);opacity:0;transition:opacity .2s;z-index:1;}
+    .foto-item:hover{border-color:var(--gold-dim);}
+    .foto-item:hover::before{opacity:1;}
+    .foto-item img{width:100%;display:block;transition:transform .3s;}
+    .foto-item:hover img{transform:scale(1.03);}
+    .foto-overlay{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);opacity:0;transition:opacity .2s;}
+    .foto-item:hover .foto-overlay{opacity:1;}
+    .foto-pessoa{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;color:var(--gold-light);}
+
+    /* ESTADO VAZIO */
+    .sem-fotos{text-align:center;padding:60px 20px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);}
+
+    /* LIGHTBOX */
+    .lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);align-items:center;justify-content:center;}
+    .lightbox.aberto{display:flex;}
+    .lb-inner{position:relative;max-width:92vw;max-height:92vh;display:flex;flex-direction:column;align-items:center;gap:14px;}
+    .lb-img{max-width:100%;max-height:78vh;border-radius:8px;border:1px solid var(--border);display:block;}
+    .lb-info{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;}
+    .lb-pessoa{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);}
+    .lb-fechar{position:fixed;top:20px;right:20px;background:none;border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;padding:8px 14px;font-size:18px;line-height:1;transition:all .2s;}
+    .lb-fechar:hover{color:var(--gold-light);border-color:var(--gold-dim);}
+    .lb-nav{background:none;border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;padding:10px 16px;font-size:20px;line-height:1;transition:all .2s;}
+    .lb-nav:hover{color:var(--gold-light);border-color:var(--gold-dim);}
+    .lb-nav-wrap{display:flex;gap:10px;align-items:center;}
+    .lb-download{display:inline-flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;border:1px solid var(--border);padding:8px 16px;border-radius:4px;transition:all .2s;cursor:pointer;background:none;}
+    .lb-download:hover{color:var(--gold-light);border-color:var(--gold-dim);}
+
+    /* MODAL ADMIN */
+    .modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:20px;}
+    .modal-overlay.aberto{display:flex;}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px;width:100%;max-width:480px;position:relative;}
+    .modal-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:24px;text-align:center;}
+    .modal label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;}
+    .modal input,.modal select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:10px 14px;font-family:'Raleway',sans-serif;font-size:14px;margin-bottom:18px;transition:border-color .2s;}
+    .modal input:focus,.modal select:focus{border-color:var(--gold-dim);}
+    .modal select option{background:var(--bg);}
+    .modal-btn{width:100%;background:linear-gradient(135deg,rgba(42,127,212,.25),rgba(42,127,212,.08));border:1px solid var(--gold-dim);border-radius:5px;color:var(--gold-light);cursor:pointer;padding:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.15em;text-transform:uppercase;transition:all .2s;margin-top:4px;}
+    .modal-btn:hover{box-shadow:0 0 16px var(--gold-dim);}
+    .modal-btn:disabled{opacity:.5;cursor:not-allowed;}
+    .modal-fechar{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:20px;}
+    .modal-msg{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;text-align:center;margin-top:12px;min-height:18px;}
+    .modal-msg.ok{color:var(--gold-light);}
+    .modal-msg.err{color:var(--red);}
+
+    /* MODAL NOVA PESSOA */
+    .modal-tabs{display:flex;gap:0;margin-bottom:24px;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+    .modal-tab{flex:1;background:none;border:none;color:var(--text-dim);cursor:pointer;padding:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;}
+    .modal-tab.ativo{background:linear-gradient(135deg,rgba(42,127,212,.2),rgba(42,127,212,.06));color:var(--gold-light);}
+    .tab-panel{display:none;}
+    .tab-panel.ativo{display:block;}
+
+    /* ADM BTN */
+    .adm-fab{position:fixed;bottom:28px;right:24px;z-index:500;background:linear-gradient(135deg,rgba(42,127,212,.3),rgba(42,127,212,.1));border:1px solid var(--gold-dim);border-radius:50px;color:var(--gold-light);cursor:pointer;padding:12px 20px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;display:none;align-items:center;gap:8px;transition:all .2s;box-shadow:0 4px 24px rgba(0,0,0,.4);}
+    .adm-fab.visivel{display:flex;}
+    .adm-fab:hover{box-shadow:0 0 20px var(--gold-dim);}
+
+    /* LOGIN ADM */
+    .adm-login-wrap{text-align:center;margin-bottom:28px;}
+    .adm-login-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);background:none;border:1px solid var(--border);border-radius:4px;padding:7px 14px;cursor:pointer;transition:all .2s;}
+    .adm-login-btn:hover{color:var(--gold-light);border-color:var(--gold-dim);}
+
+    /* PROGRESS UPLOAD */
+    .upload-progress{height:4px;background:var(--border);border-radius:2px;margin-top:-10px;margin-bottom:18px;overflow:hidden;display:none;}
+    .upload-progress-fill{height:100%;background:linear-gradient(to right,var(--gold-dim),var(--gold-light));width:0%;transition:width .2s;}
+
+    /* FOOTER */
+    footer{position:relative;z-index:1;text-align:center;padding:40px 0;border-top:1px solid var(--border);margin-top:60px;}
+    .footer-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px;}
+    .footer-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+    .footer-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;border:1px solid var(--border);padding:8px 16px;border-radius:4px;transition:all .2s;}
+    .footer-btn:hover{color:var(--gold-light);border-color:var(--gold-dim);}
+
+    @font-face {
+      font-family: 'FaithCollapsing';
+      src: url('FaithCollapsing.ttf') format('truetype');
+      font-weight: normal; font-style: normal;
+    }
+    @font-face {
+      font-family: 'DropShade';
+      src: url('DropShade.ttf') format('truetype');
+      font-weight: normal; font-style: normal;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="header-line"></div>
+    <h1>Galeria</h1>
+    <p>Memórias do Universo Trollger</p>
+  </header>
+
+  <div class="adm-login-wrap">
+    <button class="adm-login-btn" id="btnAdmLogin" onclick="abrirModalLogin()">⚙ Área Admin</button>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">📸 Pessoas</span>
+    <div class="section-divider-line r"></div>
+  </div>
+
+  <div class="filtros" id="filtrosWrap">
+    <button class="filtro-btn ativo" data-id="todos" onclick="filtrar('todos', this)">
+      <span class="filtro-emoji">🌐</span> Todos
+    </button>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">🖼 Fotos</span>
+    <div class="section-divider-line r"></div>
+  </div>
+
+  <div class="galeria-grid" id="galeriaGrid">
+    <div class="sem-fotos">Carregando...</div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-label">Trollgianismo — Universo Oficial</div>
+  <div class="footer-links">
+    <a href="index.html" class="footer-btn">← Início</a>
+    <a href="trollgers.html" class="footer-btn">Trollgers</a>
+  </div>
+</footer>
+
+<!-- FAB ADMIN -->
+<button class="adm-fab" id="admFab" onclick="abrirModalUpload()">
+  📤 Upload de Foto
+</button>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="fecharLightbox(event)">
+  <button class="lb-fechar" onclick="fecharLightbox()">✕</button>
+  <div class="lb-inner" onclick="event.stopPropagation()">
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <div class="lb-info">
+      <div class="lb-nav-wrap">
+        <button class="lb-nav" onclick="lbNavegar(-1)">◀</button>
+        <span class="lb-pessoa" id="lbPessoa"></span>
+        <button class="lb-nav" onclick="lbNavegar(1)">▶</button>
+      </div>
+      <button class="lb-download" onclick="baixarFoto()">⬇ Baixar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADMIN (login + upload + nova pessoa) -->
+<div class="modal-overlay" id="modalOverlay" onclick="fecharModalOverlay(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-fechar" onclick="fecharModal()">✕</button>
+
+    <!-- PAINEL LOGIN -->
+    <div id="painelLogin">
+      <div class="modal-title">Acesso Admin</div>
+      <label>E-mail</label>
+      <input type="email" id="admEmail" placeholder="trollgianismo@gmail.com">
+      <label>Senha</label>
+      <input type="password" id="admSenha" placeholder="••••••••">
+      <button class="modal-btn" onclick="fazerLogin()">Entrar</button>
+      <div class="modal-msg" id="loginMsg"></div>
+    </div>
+
+    <!-- PAINEL UPLOAD -->
+    <div id="painelUpload" style="display:none;">
+      <div class="modal-title">Upload de Foto</div>
+      <div class="modal-tabs">
+        <button class="modal-tab ativo" id="tabUpload" onclick="mudarTab('upload')">Upload</button>
+        <button class="modal-tab" id="tabPessoa" onclick="mudarTab('pessoa')">Nova Pessoa</button>
+        <button class="modal-tab" id="tabAdm" onclick="mudarTab('adm')">Gerenciar</button>
+      </div>
+
+      <!-- TAB UPLOAD -->
+      <div class="tab-panel ativo" id="tabPanelUpload">
+        <label>Foto</label>
+        <input type="file" id="inputFoto" accept="image/*" onchange="previewFoto(this)">
+        <div class="upload-progress" id="uploadProgress">
+          <div class="upload-progress-fill" id="uploadProgressFill"></div>
+        </div>
+        <label>Pessoa</label>
+        <select id="selectPessoa">
+          <option value="">Carregando...</option>
+        </select>
+        <button class="modal-btn" id="btnEnviar" onclick="enviarFoto()">Enviar Foto</button>
+        <div class="modal-msg" id="uploadMsg"></div>
+      </div>
+
+      <!-- TAB NOVA PESSOA -->
+      <div class="tab-panel" id="tabPanelPessoa">
+        <label>Nome</label>
+        <input type="text" id="novaPessoaNome" placeholder="Ex: Davi">
+        <label>Emoji</label>
+        <input type="text" id="novaPessoaEmoji" placeholder="Ex: 🔥" maxlength="4">
+        <button class="modal-btn" onclick="criarPessoa()">Criar Pessoa</button>
+        <div class="modal-msg" id="pessoaMsg"></div>
+      </div>
+
+      <!-- TAB GERENCIAR -->
+      <div class="tab-panel" id="tabPanelAdm">
+        <label>Excluir Foto (cole a URL ou ID)</label>
+        <input type="text" id="inputExcluirId" placeholder="ID da foto (número)">
+        <button class="modal-btn" style="background:linear-gradient(135deg,rgba(255,85,85,.2),rgba(255,85,85,.06));border-color:#ff5555;color:#ff5555;" onclick="excluirFoto()">Excluir Foto</button>
+        <div class="modal-msg" id="gerenciarMsg"></div>
+        <div style="margin-top:20px;">
+          <button class="modal-btn" style="background:none;border-color:var(--border);color:var(--text-dim);" onclick="fazerLogout()">Sair da Conta Admin</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ══ SUPABASE ══ */
+  var SUPA_URL  = 'https://jkxhqtvugpbxplsswuut.supabase.co';
+  var SUPA_KEY  = 'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl';
+  var BUCKET    = 'galeria';
+  var sb        = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+  var pessoas   = [];   // { id, nome, emoji }
+  var fotos     = [];   // { id, url, pessoa_id }
+  var fotosFiltradas = [];
+  var filtroAtual = 'todos';
+  var lbIdx     = 0;
+  var admLogado = false;
+
+  /* ══ INIT ══ */
+  document.addEventListener('DOMContentLoaded', function() {
+    carregarTemaFonte();
+    verificarSessao();
+    carregarPessoas().then(function() {
+      carregarFotos();
+    });
+  });
+
+  /* ══ SESSÃO ══ */
+  function verificarSessao() {
+    sb.auth.getSession().then(function(r) {
+      if (r.data && r.data.session) {
+        admLogado = true;
+        document.getElementById('admFab').classList.add('visivel');
+        document.getElementById('btnAdmLogin').style.display = 'none';
+      }
+    });
+  }
+
+  /* ══ CARREGAR PESSOAS ══ */
+  function carregarPessoas() {
+    return sb.from('galeria_pessoas').select('*').order('nome').then(function(r) {
+      if (r.error) { console.error(r.error); return; }
+      pessoas = r.data || [];
+      renderFiltros();
+      popularSelectPessoa();
+    });
+  }
+
+  function renderFiltros() {
+    var wrap = document.getElementById('filtrosWrap');
+    wrap.innerHTML = '<button class="filtro-btn' + (filtroAtual==='todos'?' ativo':'') + '" data-id="todos" onclick="filtrar(\'todos\', this)"><span class="filtro-emoji">🌐</span> Todos</button>';
+    pessoas.forEach(function(p) {
+      var ativo = filtroAtual == p.id ? ' ativo' : '';
+      wrap.innerHTML += '<button class="filtro-btn'+ativo+'" data-id="'+p.id+'" onclick="filtrar('+p.id+', this)">'
+        + '<span class="filtro-emoji">'+esc(p.emoji||'👤')+'</span> '+esc(p.nome)+'</button>';
+    });
+  }
+
+  function popularSelectPessoa() {
+    var sel = document.getElementById('selectPessoa');
+    sel.innerHTML = '<option value="">Selecione...</option>';
+    pessoas.forEach(function(p) {
+      sel.innerHTML += '<option value="'+p.id+'">'+esc(p.emoji||'')+' '+esc(p.nome)+'</option>';
+    });
+  }
+
+  /* ══ CARREGAR FOTOS ══ */
+  function carregarFotos() {
+    sb.from('galeria_fotos').select('*').order('criado_em', {ascending:false}).then(function(r) {
+      if (r.error) { console.error(r.error); renderGaleria([]); return; }
+      fotos = r.data || [];
+      filtrar(filtroAtual, null);
+    });
+  }
+
+  /* ══ FILTRAR ══ */
+  function filtrar(id, btn) {
+    filtroAtual = id;
+    // atualiza botões
+    document.querySelectorAll('.filtro-btn').forEach(function(b) { b.classList.remove('ativo'); });
+    if (btn) btn.classList.add('ativo');
+    else {
+      var target = document.querySelector('.filtro-btn[data-id="'+id+'"]');
+      if (target) target.classList.add('ativo');
+    }
+    if (id === 'todos') {
+      fotosFiltradas = fotos.slice();
+    } else {
+      fotosFiltradas = fotos.filter(function(f) { return f.pessoa_id == id; });
+    }
+    renderGaleria(fotosFiltradas);
+  }
+
+  /* ══ RENDER GALERIA ══ */
+  function renderGaleria(lista) {
+    var grid = document.getElementById('galeriaGrid');
+    if (!lista.length) {
+      grid.innerHTML = '<div class="sem-fotos">Nenhuma foto ainda.</div>';
+      return;
+    }
+    grid.innerHTML = lista.map(function(f, i) {
+      var p = pessoas.find(function(x){ return x.id == f.pessoa_id; });
+      var nome = p ? (esc(p.emoji||'')+ ' ' + esc(p.nome)) : '';
+      return '<div class="foto-item" onclick="abrirLightbox('+i+')">'
+        + '<img src="'+esc(f.url)+'" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'">'
+        + '<div class="foto-overlay"><div class="foto-pessoa">'+nome+'</div></div>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* ══ LIGHTBOX ══ */
+  function abrirLightbox(idx) {
+    lbIdx = idx;
+    atualizarLightbox();
+    document.getElementById('lightbox').classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+  }
+  function atualizarLightbox() {
+    var f = fotosFiltradas[lbIdx];
+    if (!f) return;
+    document.getElementById('lbImg').src = f.url;
+    var p = pessoas.find(function(x){ return x.id == f.pessoa_id; });
+    document.getElementById('lbPessoa').textContent = p ? (p.emoji||'')+ ' ' + p.nome : '';
+  }
+  function fecharLightbox(e) {
+    if (e && e.target !== document.getElementById('lightbox') && !e.currentTarget.classList.contains('lb-fechar')) return;
+    document.getElementById('lightbox').classList.remove('aberto');
+    document.getElementById('lbImg').src = '';
+    document.body.style.overflow = '';
+  }
+  function lbNavegar(dir) {
+    lbIdx = (lbIdx + dir + fotosFiltradas.length) % fotosFiltradas.length;
+    atualizarLightbox();
+  }
+  async function baixarFoto() {
+    var f = fotosFiltradas[lbIdx];
+    if (!f) return;
+    try {
+      var resp = await fetch(f.url);
+      var blob = await resp.blob();
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'trollgianismo_foto_' + f.id + '.' + (blob.type.split('/')[1] || 'jpg');
+      a.click();
+      URL.revokeObjectURL(a.href);
+    } catch(e) {
+      window.open(f.url, '_blank');
+    }
+  }
+  document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('aberto')) return;
+    if (e.key === 'ArrowLeft')  lbNavegar(-1);
+    if (e.key === 'ArrowRight') lbNavegar(1);
+    if (e.key === 'Escape')     fecharLightbox();
+  });
+
+  /* ══ MODAL ══ */
+  function abrirModalLogin() {
+    document.getElementById('painelLogin').style.display = '';
+    document.getElementById('painelUpload').style.display = 'none';
+    document.getElementById('modalOverlay').classList.add('aberto');
+  }
+  function abrirModalUpload() {
+    document.getElementById('painelLogin').style.display = 'none';
+    document.getElementById('painelUpload').style.display = '';
+    document.getElementById('modalOverlay').classList.add('aberto');
+    mudarTab('upload');
+  }
+  function fecharModal() {
+    document.getElementById('modalOverlay').classList.remove('aberto');
+  }
+  function fecharModalOverlay(e) {
+    if (e.target === document.getElementById('modalOverlay')) fecharModal();
+  }
+  function mudarTab(tab) {
+    ['upload','pessoa','adm'].forEach(function(t) {
+      document.getElementById('tabPanelUpload').style.display  = t==='upload'&&tab==='upload'  ? '' : 'none';
+      document.getElementById('tabPanelPessoa').style.display  = t==='pessoa'&&tab==='pessoa'  ? '' : 'none';
+      document.getElementById('tabPanelAdm').style.display     = t==='adm'&&tab==='adm'        ? '' : 'none';
+    });
+    document.getElementById('tabPanelUpload').style.display = tab==='upload' ? '' : 'none';
+    document.getElementById('tabPanelPessoa').style.display = tab==='pessoa' ? '' : 'none';
+    document.getElementById('tabPanelAdm').style.display    = tab==='adm'    ? '' : 'none';
+    ['tabUpload','tabPessoa','tabAdm'].forEach(function(id) { document.getElementById(id).classList.remove('ativo'); });
+    document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('ativo');
+  }
+
+  /* ══ LOGIN ══ */
+  function fazerLogin() {
+    var email = document.getElementById('admEmail').value.trim();
+    var senha = document.getElementById('admSenha').value;
+    var msg   = document.getElementById('loginMsg');
+    msg.textContent = 'Entrando...'; msg.className = 'modal-msg';
+    sb.auth.signInWithPassword({ email: email, password: senha }).then(function(r) {
+      if (r.error) { msg.textContent = r.error.message; msg.className = 'modal-msg err'; return; }
+      admLogado = true;
+      document.getElementById('admFab').classList.add('visivel');
+      document.getElementById('btnAdmLogin').style.display = 'none';
+      fecharModal();
+      setTimeout(abrirModalUpload, 200);
+    });
+  }
+
+  function fazerLogout() {
+    sb.auth.signOut().then(function() {
+      admLogado = false;
+      document.getElementById('admFab').classList.remove('visivel');
+      document.getElementById('btnAdmLogin').style.display = '';
+      fecharModal();
+    });
+  }
+
+  /* ══ UPLOAD FOTO ══ */
+  function previewFoto(input) {
+    // apenas valida
+    if (!input.files[0]) return;
+  }
+
+  async function enviarFoto() {
+    var input    = document.getElementById('inputFoto');
+    var pessoaId = document.getElementById('selectPessoa').value;
+    var msg      = document.getElementById('uploadMsg');
+    var btn      = document.getElementById('btnEnviar');
+    var prog     = document.getElementById('uploadProgress');
+    var fill     = document.getElementById('uploadProgressFill');
+
+    if (!input.files[0]) { msg.textContent = 'Selecione uma foto.'; msg.className = 'modal-msg err'; return; }
+    if (!pessoaId)        { msg.textContent = 'Selecione a pessoa.'; msg.className = 'modal-msg err'; return; }
+
+    var file = input.files[0];
+    var ext  = file.name.split('.').pop();
+    var path = 'fotos/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.' + ext;
+
+    btn.disabled = true;
+    prog.style.display = 'block';
+    fill.style.width = '30%';
+    msg.textContent = 'Enviando...'; msg.className = 'modal-msg';
+
+    var upResp = await sb.storage.from(BUCKET).upload(path, file, { upsert: false });
+    if (upResp.error) {
+      msg.textContent = upResp.error.message; msg.className = 'modal-msg err';
+      btn.disabled = false; prog.style.display = 'none'; return;
+    }
+
+    fill.style.width = '70%';
+
+    var urlData = sb.storage.from(BUCKET).getPublicUrl(path);
+    var url = urlData.data.publicUrl;
+
+    fill.style.width = '90%';
+
+    var insResp = await sb.from('galeria_fotos').insert({ url: url, pessoa_id: parseInt(pessoaId) });
+    if (insResp.error) {
+      msg.textContent = insResp.error.message; msg.className = 'modal-msg err';
+      btn.disabled = false; prog.style.display = 'none'; return;
+    }
+
+    fill.style.width = '100%';
+    msg.textContent = 'Foto enviada com sucesso!'; msg.className = 'modal-msg ok';
+    btn.disabled = false;
+    input.value = '';
+    setTimeout(function(){ prog.style.display='none'; fill.style.width='0%'; }, 600);
+    carregarFotos();
+  }
+
+  /* ══ CRIAR PESSOA ══ */
+  async function criarPessoa() {
+    var nome  = document.getElementById('novaPessoaNome').value.trim();
+    var emoji = document.getElementById('novaPessoaEmoji').value.trim();
+    var msg   = document.getElementById('pessoaMsg');
+    if (!nome) { msg.textContent = 'Digite um nome.'; msg.className = 'modal-msg err'; return; }
+    msg.textContent = 'Criando...'; msg.className = 'modal-msg';
+    var r = await sb.from('galeria_pessoas').insert({ nome: nome, emoji: emoji || '👤' }).select().single();
+    if (r.error) { msg.textContent = r.error.message; msg.className = 'modal-msg err'; return; }
+    msg.textContent = nome + ' adicionado(a)!'; msg.className = 'modal-msg ok';
+    document.getElementById('novaPessoaNome').value = '';
+    document.getElementById('novaPessoaEmoji').value = '';
+    await carregarPessoas();
+  }
+
+  /* ══ EXCLUIR FOTO ══ */
+  async function excluirFoto() {
+    var id  = document.getElementById('inputExcluirId').value.trim();
+    var msg = document.getElementById('gerenciarMsg');
+    if (!id) { msg.textContent = 'Digite o ID da foto.'; msg.className = 'modal-msg err'; return; }
+    var foto = fotos.find(function(f){ return f.id == id; });
+    if (!foto) { msg.textContent = 'Foto não encontrada.'; msg.className = 'modal-msg err'; return; }
+    if (!confirm('Excluir esta foto permanentemente?')) return;
+    msg.textContent = 'Excluindo...'; msg.className = 'modal-msg';
+
+    // Extrai path do bucket da URL
+    var path = foto.url.split('/object/public/'+BUCKET+'/')[1];
+    if (path) await sb.storage.from(BUCKET).remove([path]);
+
+    var r = await sb.from('galeria_fotos').delete().eq('id', id);
+    if (r.error) { msg.textContent = r.error.message; msg.className = 'modal-msg err'; return; }
+    msg.textContent = 'Foto excluída.'; msg.className = 'modal-msg ok';
+    document.getElementById('inputExcluirId').value = '';
+    carregarFotos();
+  }
+
+  /* ══ UTILS ══ */
+  function esc(s) {
+    return String(s||'').replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];
+    });
+  }
+
+  /* ══ TEMA + FONTE ══ */
+  var _fs = null;
+  function setFonteLocal(f) {
+    document.documentElement.setAttribute('data-fonte', f);
+    if (!_fs) { _fs = document.createElement('style'); _fs.id = 'fonte-runtime'; document.head.appendChild(_fs); }
+    var ff = f==='dropshadow' ? "'DropShade','Cinzel Decorative',serif" : "'FaithCollapsing','Cinzel Decorative',serif";
+    _fs.textContent = 'h1,.np-title,[class*="-title"]{font-family:'+ff+' !important;}';
+    try { localStorage.setItem('tg-fonte', f); } catch(e) {}
+  }
+  function carregarTemaFonte() {
+    try {
+      var ct = localStorage.getItem('tg-tema'); if (ct) document.documentElement.setAttribute('data-tema', ct);
+      var cf = localStorage.getItem('tg-fonte'); if (cf) setFonteLocal(cf);
+    } catch(e) {}
+    var sb2 = supabase.createClient(SUPA_URL, SUPA_KEY);
+    sb2.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r) {
+      if (r.data) {
+        if (r.data.tema)  { document.documentElement.setAttribute('data-tema', r.data.tema); try { localStorage.setItem('tg-tema', r.data.tema); } catch(e){} }
+        if (r.data.fonte) setFonteLocal(r.data.fonte); else setFonteLocal('faith');
+      }
+    });
+  }
+</script>
+</body>
+</html>
