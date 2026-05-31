@@ -634,6 +634,11 @@
     fill.style.width='70%';
     var url = sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
     fill.style.width='90%';
+    var sessR = await sb.auth.getSession();
+    if (!sessR.data || !sessR.data.session) {
+      msg.textContent='Sessão expirada. Faça login novamente.'; msg.className='adm-msg err';
+      btn.disabled=false; prog.style.display='none'; return;
+    }
     var insR = await sb.from('galeria_fotos').insert({url:url, pessoa_id:parseInt(pessoaId)});
     if (insR.error) { msg.textContent=insR.error.message; msg.className='adm-msg err'; btn.disabled=false; prog.style.display='none'; return; }
     fill.style.width='100%';
