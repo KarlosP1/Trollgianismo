@@ -479,6 +479,10 @@
     .enfeite-wrap { display:none; justify-content:center; align-items:flex-end; gap:6px; margin-bottom:10px; min-height:40px; user-select:none; pointer-events:none; }
     [data-sazonal="natal"] .enfeite-natal { display:flex; }
     [data-sazonal="halloween"] .enfeite-halloween { display:flex; }
+    [data-sazonal="pascoa"] .enfeite-pascoa { display:flex; }
+    [data-sazonal="escola"] .enfeite-escola { display:flex; }
+    [data-sazonal="macaco"] .enfeite-macaco { display:flex; }
+    [data-sazonal="f1"] .enfeite-f1 { display:flex; }
     .enfeite { font-size:clamp(20px,5vw,32px); animation:enfeite-flutua 2.5s ease-in-out infinite; }
     .enfeite:nth-child(2){animation-delay:.3s;} .enfeite:nth-child(3){animation-delay:.6s;} .enfeite:nth-child(4){animation-delay:.9s;} .enfeite:nth-child(5){animation-delay:1.2s;} .enfeite:nth-child(6){animation-delay:1.5s;} .enfeite:nth-child(7){animation-delay:1.8s;}
     @keyframes enfeite-flutua { 0%,100%{transform:translateY(0) rotate(-4deg);} 50%{transform:translateY(-6px) rotate(4deg);} }
@@ -1323,9 +1327,13 @@
 
         <div class="adm-section-label">🎄 Tema Sazonal</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px">
-          <button class="adm-btn sazonal-opt" data-sazonal="nenhum" onclick="aplicarSazonal('nenhum')" style="flex:1;min-width:80px;">❌ Nenhum</button>
-          <button class="adm-btn sazonal-opt" data-sazonal="natal" onclick="aplicarSazonal('natal')" style="flex:1;min-width:80px;">🎄 Natal</button>
+          <button class="adm-btn sazonal-opt" data-sazonal="nenhum"    onclick="aplicarSazonal('nenhum')"    style="flex:1;min-width:80px;">❌ Nenhum</button>
+          <button class="adm-btn sazonal-opt" data-sazonal="natal"     onclick="aplicarSazonal('natal')"     style="flex:1;min-width:80px;">🎄 Natal</button>
           <button class="adm-btn sazonal-opt" data-sazonal="halloween" onclick="aplicarSazonal('halloween')" style="flex:1;min-width:80px;">🎃 Halloween</button>
+          <button class="adm-btn sazonal-opt" data-sazonal="pascoa"    onclick="aplicarSazonal('pascoa')"    style="flex:1;min-width:80px;">🐣 Páscoa</button>
+          <button class="adm-btn sazonal-opt" data-sazonal="escola"    onclick="aplicarSazonal('escola')"    style="flex:1;min-width:80px;">🏫 Escola</button>
+          <button class="adm-btn sazonal-opt" data-sazonal="macaco"    onclick="aplicarSazonal('macaco')"    style="flex:1;min-width:80px;">🐒 Macaco</button>
+          <button class="adm-btn sazonal-opt" data-sazonal="f1"        onclick="aplicarSazonal('f1')"        style="flex:1;min-width:80px;">🏎️ Fórmula 1</button>
         </div>
 
         <div class="adm-section-label">📝 Artigos Publicados</div>
@@ -1370,6 +1378,10 @@
     <div class="header-line"></div>
     <div class="enfeite-wrap enfeite-natal">🎄<span class="enfeite">🎅</span><span class="enfeite">🧦</span><span class="enfeite">🍬</span><span class="enfeite">❄️</span><span class="enfeite">⭐</span><span class="enfeite">🎁</span></div>
     <div class="enfeite-wrap enfeite-halloween">🎃<span class="enfeite">👻</span><span class="enfeite">🕷️</span><span class="enfeite">🦇</span><span class="enfeite">🕸️</span><span class="enfeite">💀</span><span class="enfeite">🍬</span></div>
+    <div class="enfeite-wrap enfeite-pascoa">🐣<span class="enfeite">🐰</span><span class="enfeite">🥚</span><span class="enfeite">🌸</span><span class="enfeite">🍫</span><span class="enfeite">🌷</span><span class="enfeite">🐥</span></div>
+    <div class="enfeite-wrap enfeite-escola">🏫<span class="enfeite">📚</span><span class="enfeite">✏️</span><span class="enfeite">📐</span><span class="enfeite">🎒</span><span class="enfeite">📝</span><span class="enfeite">🔬</span></div>
+    <div class="enfeite-wrap enfeite-macaco">🐒<span class="enfeite">🦍</span><span class="enfeite">🐒</span><span class="enfeite">🦧</span><span class="enfeite">🐒</span><span class="enfeite">🦍</span><span class="enfeite">🐒</span></div>
+    <div class="enfeite-wrap enfeite-f1">🏎️<span class="enfeite">🏁</span><span class="enfeite">🔥</span><span class="enfeite">🏆</span><span class="enfeite">⚡</span><span class="enfeite">🏎️</span><span class="enfeite">🏁</span></div>
     <h1>TROLLGERS</h1>
     <p>Arquivos Oficiais — Perfis Completos</p>
   </header>
