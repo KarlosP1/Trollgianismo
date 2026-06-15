@@ -202,6 +202,14 @@
 
     .adm-section-label{font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin:20px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
 
+    /* ══ ENFEITES SAZONAIS ══ */
+    .enfeite-wrap { display:none; justify-content:center; align-items:flex-end; gap:6px; margin-bottom:10px; min-height:40px; user-select:none; pointer-events:none; }
+    [data-sazonal="natal"] .enfeite-natal { display:flex; }
+    [data-sazonal="halloween"] .enfeite-halloween { display:flex; }
+    .enfeite { font-size:clamp(20px,5vw,32px); animation:enfeite-flutua 2.5s ease-in-out infinite; }
+    .enfeite:nth-child(2){animation-delay:.3s;} .enfeite:nth-child(3){animation-delay:.6s;} .enfeite:nth-child(4){animation-delay:.9s;} .enfeite:nth-child(5){animation-delay:1.2s;} .enfeite:nth-child(6){animation-delay:1.5s;} .enfeite:nth-child(7){animation-delay:1.8s;}
+    @keyframes enfeite-flutua { 0%,100%{transform:translateY(0) rotate(-4deg);} 50%{transform:translateY(-6px) rotate(4deg);} }
+
     /* TEMA GRID */
     .tema-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:12px 0; max-height:300px; overflow-y:auto; padding-right:4px; }
     .tema-grid::-webkit-scrollbar { width:4px; }
@@ -401,6 +409,8 @@
 <div class="page">
   <header>
     <div class="header-line"></div>
+    <div class="enfeite-wrap enfeite-natal">🎄<span class="enfeite">🎅</span><span class="enfeite">🧦</span><span class="enfeite">🍬</span><span class="enfeite">❄️</span><span class="enfeite">⭐</span><span class="enfeite">🎁</span></div>
+    <div class="enfeite-wrap enfeite-halloween">🎃<span class="enfeite">👻</span><span class="enfeite">🕷️</span><span class="enfeite">🦇</span><span class="enfeite">🕸️</span><span class="enfeite">💀</span><span class="enfeite">🍬</span></div>
     <h1>Galeria</h1>
     <p>Memórias do Universo Trollger</p>
   </header>
@@ -709,7 +719,7 @@
     document.documentElement.setAttribute('data-fonte',f);
     if(!_fs){_fs=document.createElement('style');_fs.id='fonte-runtime';document.head.appendChild(_fs);}
     var ff=f==='dropshadow'?"'DropShade','Cinzel Decorative',serif":"'FaithCollapsing','Cinzel Decorative',serif";
-    _fs.textContent='h1,[class*="-title"]{font-family:'+ff+' !important;}';
+    _fs.textContent='h1,header h1{font-family:'+ff+' !important;}';
     try{localStorage.setItem('tg-fonte',f);}catch(e){}
   }
   function setTemaLocal(tema){
@@ -732,12 +742,13 @@
   function carregarTemaFonte(){
     try{
       var ct=localStorage.getItem('tg-tema'); if(ct) document.documentElement.setAttribute('data-tema',ct);
-      var cf=localStorage.getItem('tg-fonte'); if(cf) setFonteLocal(cf);
-    }catch(e){}
-    sb.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r){
+      var cf=localStorage.getItem('tg-fonte'); if(cf) setFonteLocal(cf); else setFonteLocal('faith');
+    }catch(e){ setFonteLocal('faith'); }
+    sb.from('site_config').select('tema,fonte,sazonal').eq('id',1).single().then(function(r){
       if(r.data){
         if(r.data.tema) setTemaLocal(r.data.tema);
         if(r.data.fonte) setFonteLocal(r.data.fonte); else setFonteLocal('faith');
+        if(r.data.sazonal) document.documentElement.setAttribute('data-sazonal', r.data.sazonal);
       }
     });
   }

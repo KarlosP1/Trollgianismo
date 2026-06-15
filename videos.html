@@ -127,6 +127,14 @@
       margin: 0 auto 18px;
     }
 
+    /* ══ ENFEITES SAZONAIS ══ */
+    .enfeite-wrap { display:none; justify-content:center; align-items:flex-end; gap:6px; margin-bottom:10px; min-height:40px; user-select:none; pointer-events:none; }
+    [data-sazonal="natal"] .enfeite-natal { display:flex; }
+    [data-sazonal="halloween"] .enfeite-halloween { display:flex; }
+    .enfeite { font-size:clamp(20px,5vw,32px); animation:enfeite-flutua 2.5s ease-in-out infinite; }
+    .enfeite:nth-child(2){animation-delay:.3s;} .enfeite:nth-child(3){animation-delay:.6s;} .enfeite:nth-child(4){animation-delay:.9s;} .enfeite:nth-child(5){animation-delay:1.2s;} .enfeite:nth-child(6){animation-delay:1.5s;} .enfeite:nth-child(7){animation-delay:1.8s;}
+    @keyframes enfeite-flutua { 0%,100%{transform:translateY(0) rotate(-4deg);} 50%{transform:translateY(-6px) rotate(4deg);} }
+
     header h1 {
       font-family: 'FaithCollapsing', 'Cinzel Decorative', serif;
       font-size: clamp(26px, 6vw, 48px);
@@ -280,6 +288,8 @@
 
   <header>
     <div class="header-line"></div>
+    <div class="enfeite-wrap enfeite-natal">🎄<span class="enfeite">🎅</span><span class="enfeite">🧦</span><span class="enfeite">🍬</span><span class="enfeite">❄️</span><span class="enfeite">⭐</span><span class="enfeite">🎁</span></div>
+    <div class="enfeite-wrap enfeite-halloween">🎃<span class="enfeite">👻</span><span class="enfeite">🕷️</span><span class="enfeite">🦇</span><span class="enfeite">🕸️</span><span class="enfeite">💀</span><span class="enfeite">🍬</span></div>
     <h1>TROLLGIANISMO</h1>
     <p>Resenhas em Vídeo</p>
     <div class="header-line-bottom"></div>
@@ -385,11 +395,12 @@
       );
     }
     if (!_sb) return;
-    _sb.from('site_config').select('tema,fonte').eq('id',1).single().then(function(r) {
+    _sb.from('site_config').select('tema,fonte,sazonal').eq('id',1).single().then(function(r) {
       if (r.data) {
         if (r.data.tema)  document.documentElement.setAttribute('data-tema', r.data.tema); try { localStorage.setItem('tg-tema', r.data.tema); } catch(e) {}
         if (r.data.fonte) setFonteLocal(r.data.fonte);
         else setFonteLocal('faith');
+        if (r.data.sazonal) document.documentElement.setAttribute('data-sazonal', r.data.sazonal);
       }
     });
   }
