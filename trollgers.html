@@ -1321,6 +1321,13 @@
           </button>
         </div>
 
+        <div class="adm-section-label">🎄 Tema Sazonal</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px">
+          <button class="adm-btn sazonal-opt" data-sazonal="nenhum" onclick="aplicarSazonal('nenhum')" style="flex:1;min-width:80px;">❌ Nenhum</button>
+          <button class="adm-btn sazonal-opt" data-sazonal="natal" onclick="aplicarSazonal('natal')" style="flex:1;min-width:80px;">🎄 Natal</button>
+          <button class="adm-btn sazonal-opt" data-sazonal="halloween" onclick="aplicarSazonal('halloween')" style="flex:1;min-width:80px;">🎃 Halloween</button>
+        </div>
+
         <div class="adm-section-label">📝 Artigos Publicados</div>
         <div id="admLista"></div>
       </div>
@@ -1824,7 +1831,13 @@
 
   function abrirAdm() {
     document.getElementById('admOverlay').classList.add('open');
-    if (admLogado) renderAdmLista();
+    if (admLogado) {
+      renderAdmLista();
+      var sAtual = document.documentElement.getAttribute('data-sazonal') || 'nenhum';
+      document.querySelectorAll('.sazonal-opt').forEach(function(b) {
+        b.classList.toggle('ativo', b.dataset.sazonal === sAtual);
+      });
+    }
   }
   function fecharAdm() { document.getElementById('admOverlay').classList.remove('open'); }
 
@@ -1964,6 +1977,15 @@
     try { localStorage.setItem('tg-tema', tema); } catch(e) {}
     const { error } = await sb.from('site_config').update({ tema }).eq('id', 1);
     if (error) console.error('[Tema]', error);
+  }
+
+  async function aplicarSazonal(sazonal) {
+    document.documentElement.setAttribute('data-sazonal', sazonal);
+    document.querySelectorAll('.sazonal-opt').forEach(function(b) {
+      b.classList.toggle('ativo', b.dataset.sazonal === sazonal);
+    });
+    const { error } = await sb.from('site_config').update({ sazonal: sazonal }).eq('id', 1);
+    if (error) console.error('[Sazonal]', error);
   }
 
   /* ============================================================
