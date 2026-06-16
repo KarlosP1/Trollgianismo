@@ -229,7 +229,8 @@
         <option value="Desktop">Desktop</option>
         <option value="Tablet">Tablet</option>
       </select>
-      <button class="filtro-btn-clear" onclick="limparFiltros()">✕ Limpar</button>
+      <button class="filtro-btn-clear" onclick="limparFiltros()">✕ Limpar filtros</button>
+      <button class="filtro-btn-clear" style="color:#ff5555;border-color:#aa3333;" onclick="apagarTudo()">🗑 Apagar tudo</button>
     </div>
 
     <!-- TABELA -->
@@ -247,6 +248,7 @@
             <th>1º Acesso</th>
             <th>Último Acesso</th>
             <th>Acessos</th>
+            <th></th>
           </tr>
         </thead>
         <tbody id="tabelaBody">
@@ -378,7 +380,7 @@
     var body = document.getElementById('tabelaBody');
     var inicio = (pagAtual-1)*porPagina;
     var pagina = visitasFiltradas.slice(inicio, inicio+porPagina);
-    if (!pagina.length) { body.innerHTML = '<tr><td colspan="9" class="sem-dados">Nenhuma visita encontrada.</td></tr>'; return; }
+    if (!pagina.length) { body.innerHTML = '<tr><td colspan="10" class="sem-dados">Nenhuma visita encontrada.</td></tr>'; return; }
     body.innerHTML = pagina.map(function(v, i) {
       var primeiro = v.entrada_em    ? new Date(v.entrada_em).toLocaleString('pt-BR')    : '—';
       var ultimo   = v.ultimo_acesso ? new Date(v.ultimo_acesso).toLocaleString('pt-BR') : '—';
@@ -394,6 +396,7 @@
         + '<td class="td-dim">'+esc(primeiro)+'</td>'
         + '<td class="td-dim">'+esc(ultimo)+'</td>'
         + '<td class="td-tempo" style="text-align:center;">'+esc(String(v.acessos||1))+'</td>'
+        + '<td><button onclick="apagarRegistro('+v.id+')" style="background:none;border:1px solid #aa3333;border-radius:4px;color:#ff5555;cursor:pointer;padding:4px 10px;font-family:Cinzel,serif;font-size:10px;transition:all .2s;" onmouseover="this.style.background=\'rgba(255,85,85,.15)\'" onmouseout="this.style.background=\'none\'">✕</button></td>'
         + '</tr>';
     }).join('');
   }
@@ -418,6 +421,30 @@
     renderTabela();
     renderPaginacao();
     window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  async function apagarRegistro(id) {
+    if (!confirm('Apagar este registro?')) return;
+    await fetch(SUPA_URL + '/rest/v1/visitas?id=eq.' + id, {
+      method: 'DELETE',
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+    });
+    todasVisitas = todasVisitas.filter(function(v){ return v.id !== id; });
+    aplicarFiltros();
+    renderStats();
+  }
+
+  async function apagarTudo() {
+    if (!confirm('Apagar TODOS os registros de visitas? Essa ação não pode ser desfeita.')) return;
+    await fetch(SUPA_URL + '/rest/v1/visitas?id=gt.0', {
+      method: 'DELETE',
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+    });
+    todasVisitas = [];
+    visitasFiltradas = [];
+    renderTabela();
+    renderPaginacao();
+    renderStats();
   }
 
   /* ── UTILS ── */
