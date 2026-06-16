@@ -196,10 +196,10 @@
 
     <!-- STATS -->
     <div class="stats-grid" id="statsGrid">
-      <div class="stat-card"><div class="stat-num" id="statTotal">—</div><div class="stat-label">Total de Visitas</div></div>
-      <div class="stat-card"><div class="stat-num" id="statHoje">—</div><div class="stat-label">Hoje</div></div>
+      <div class="stat-card"><div class="stat-num" id="statTotal">—</div><div class="stat-label">Dispositivos Únicos</div></div>
+      <div class="stat-card"><div class="stat-num" id="statHoje">—</div><div class="stat-label">Acessos Hoje</div></div>
       <div class="stat-card"><div class="stat-num" id="statPaises">—</div><div class="stat-label">Países</div></div>
-      <div class="stat-card"><div class="stat-num" id="statTempoMedio">—</div><div class="stat-label">Tempo Médio (s)</div></div>
+      <div class="stat-card"><div class="stat-num" id="statTempoMedio">—</div><div class="stat-label">Total de Acessos</div></div>
     </div>
 
     <div class="section-divider">
@@ -244,8 +244,9 @@
             <th>Dispositivo</th>
             <th>Navegador</th>
             <th>Sistema</th>
-            <th>Quando</th>
-            <th>Tempo</th>
+            <th>1º Acesso</th>
+            <th>Último Acesso</th>
+            <th>Acessos</th>
           </tr>
         </thead>
         <tbody id="tabelaBody">
@@ -350,22 +351,27 @@
   }
 
   function limparFiltros() {
-    document.getElementById('filtroPagina').value = '';
-    document.getElementById('filtroPais').value = '';
-    document.getElementById('filtroDisp').value = '';
-    aplicarFiltros();
+    document.getElementById('filtroPagina').selectedIndex = 0;
+    document.getElementById('filtroPais').selectedIndex   = 0;
+    document.getElementById('filtroDisp').selectedIndex   = 0;
+    visitasFiltradas = todasVisitas.slice();
+    pagAtual = 1;
+    renderTabela();
+    renderPaginacao();
   }
 
   function renderStats() {
     var hoje = new Date().toISOString().slice(0,10);
-    var visitasHoje = todasVisitas.filter(function(v){ return v.entrada_em && v.entrada_em.startsWith(hoje); });
+    var acessosHoje = todasVisitas.reduce(function(acc, v) {
+      if (v.ultimo_acesso && v.ultimo_acesso.startsWith(hoje)) acc += (v.acessos||1);
+      return acc;
+    }, 0);
     var paises = new Set(todasVisitas.map(function(v){ return v.pais; }).filter(Boolean));
-    var tempos = todasVisitas.map(function(v){ return v.tempo_seg; }).filter(function(t){ return t && t > 0; });
-    var tempoMedio = tempos.length ? Math.round(tempos.reduce(function(a,b){ return a+b; },0)/tempos.length) : 0;
+    var totalAcessos = todasVisitas.reduce(function(acc,v){ return acc + (v.acessos||1); }, 0);
     document.getElementById('statTotal').textContent = todasVisitas.length;
-    document.getElementById('statHoje').textContent = visitasHoje.length;
+    document.getElementById('statHoje').textContent = acessosHoje;
     document.getElementById('statPaises').textContent = paises.size;
-    document.getElementById('statTempoMedio').textContent = tempoMedio;
+    document.getElementById('statTempoMedio').textContent = totalAcessos;
   }
 
   function renderTabela() {
@@ -374,9 +380,9 @@
     var pagina = visitasFiltradas.slice(inicio, inicio+porPagina);
     if (!pagina.length) { body.innerHTML = '<tr><td colspan="9" class="sem-dados">Nenhuma visita encontrada.</td></tr>'; return; }
     body.innerHTML = pagina.map(function(v, i) {
-      var quando = v.entrada_em ? new Date(v.entrada_em).toLocaleString('pt-BR') : '—';
-      var tempo  = v.tempo_seg  ? v.tempo_seg + 's' : '—';
-      var num    = inicio + i + 1;
+      var primeiro = v.entrada_em    ? new Date(v.entrada_em).toLocaleString('pt-BR')    : '—';
+      var ultimo   = v.ultimo_acesso ? new Date(v.ultimo_acesso).toLocaleString('pt-BR') : '—';
+      var num      = inicio + i + 1;
       return '<tr>'
         + '<td class="td-dim">'+num+'</td>'
         + '<td class="td-pagina">'+esc(v.pagina||'—')+'</td>'
@@ -385,8 +391,9 @@
         + '<td><span class="td-badge">'+esc(v.dispositivo||'—')+'</span></td>'
         + '<td class="td-dim">'+esc(v.navegador||'—')+'</td>'
         + '<td class="td-dim">'+esc(v.sistema||'—')+'</td>'
-        + '<td class="td-dim">'+esc(quando)+'</td>'
-        + '<td class="td-tempo">'+esc(tempo)+'</td>'
+        + '<td class="td-dim">'+esc(primeiro)+'</td>'
+        + '<td class="td-dim">'+esc(ultimo)+'</td>'
+        + '<td class="td-tempo" style="text-align:center;">'+esc(String(v.acessos||1))+'</td>'
         + '</tr>';
     }).join('');
   }
