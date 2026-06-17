@@ -239,12 +239,12 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Página</th>
             <th>País</th>
             <th>Cidade / Região</th>
             <th>Dispositivo</th>
             <th>Navegador</th>
             <th>Sistema</th>
+            <th>Páginas Visitadas</th>
             <th>1º Acesso</th>
             <th>Último Acesso</th>
             <th>Acessos</th>
@@ -380,19 +380,20 @@
     var body = document.getElementById('tabelaBody');
     var inicio = (pagAtual-1)*porPagina;
     var pagina = visitasFiltradas.slice(inicio, inicio+porPagina);
-    if (!pagina.length) { body.innerHTML = '<tr><td colspan="10" class="sem-dados">Nenhuma visita encontrada.</td></tr>'; return; }
+    if (!pagina.length) { body.innerHTML = '<tr><td colspan="11" class="sem-dados">Nenhuma visita encontrada.</td></tr>'; return; }
     body.innerHTML = pagina.map(function(v, i) {
       var primeiro = v.entrada_em    ? new Date(v.entrada_em).toLocaleString('pt-BR')    : '—';
       var ultimo   = v.ultimo_acesso ? new Date(v.ultimo_acesso).toLocaleString('pt-BR') : '—';
+      var pags     = (v.paginas && v.paginas.length) ? v.paginas.join(', ') : (v.pagina || '—');
       var num      = inicio + i + 1;
       return '<tr>'
         + '<td class="td-dim">'+num+'</td>'
-        + '<td class="td-pagina">'+esc(v.pagina||'—')+'</td>'
         + '<td><span class="td-badge">'+esc(v.pais||'—')+'</span></td>'
         + '<td class="td-dim">'+esc(v.cidade||'—')+' / '+esc(v.regiao||'—')+'</td>'
         + '<td><span class="td-badge">'+esc(v.dispositivo||'—')+'</span></td>'
         + '<td class="td-dim">'+esc(v.navegador||'—')+'</td>'
         + '<td class="td-dim">'+esc(v.sistema||'—')+'</td>'
+        + '<td class="td-dim" style="font-size:11px;">'+esc(pags)+'</td>'
         + '<td class="td-dim">'+esc(primeiro)+'</td>'
         + '<td class="td-dim">'+esc(ultimo)+'</td>'
         + '<td class="td-tempo" style="text-align:center;">'+esc(String(v.acessos||1))+'</td>'
