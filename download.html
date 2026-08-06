@@ -86,7 +86,7 @@
     html[data-tema="universe"]    { --bg:#020408;--surface:#060810;--surface2:#0a0c18;--border:#141828;--gold:#7050d0;--gold-light:#a880ff;--gold-dim:#402890;--text:#e0d8ff;--text-dim:#605090;--ov1:rgba(2,4,8,.80);--ov2:rgba(2,4,8,.95);--ov3:rgba(2,4,8,.99);--gl1:rgba(90,60,200,.12);--gl2:rgba(60,40,160,.09); }
 
 
-    /* Variáveis extras usadas só nesta página (mensagens de sucesso/erro) */
+    /* Variáveis extras usadas só nesta página */
     :root, html { --green:#2ad47a; --green-light:#55ff99; }
 
     body {
@@ -171,6 +171,7 @@
     .entry-body ul { list-style: none; padding: 0; margin-top: 6px; }
     .entry-body ul li { padding: 4px 0 4px 18px; position: relative; }
     .entry-body ul li::before { content: '▸'; position: absolute; left: 0; color: var(--gold-dim); font-size: 11px; top: 7px; }
+    .entry-body code { background: var(--bg); border: 1px solid var(--border); border-radius: 3px; padding: 1px 6px; font-size: 12px; color: var(--gold-light); }
     .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
 
     .hero-download { text-align: center; padding: 46px 24px; }
@@ -230,48 +231,6 @@
     .footer-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
     .credits { font-size: 11px; color: var(--text-dim); line-height: 1.8; }
     .credits strong { color: var(--gold-dim); }
-    .admin-link { display: block; margin-top: 18px; font-size: 10px; letter-spacing: 0.2em; color: var(--text-dim); opacity: 0.5; text-transform: uppercase; font-family: 'Cinzel', serif; background: none; border: none; cursor: pointer; }
-    .admin-link:hover { opacity: 1; color: var(--gold-dim); }
-
-    .overlay { position: fixed; inset: 0; z-index: 999; background: rgba(4,8,14,0.85); display: none; align-items: center; justify-content: center; padding: 20px; }
-    .overlay.open { display: flex; }
-    .modal { max-width: 440px; width: 100%; max-height: 88vh; overflow-y: auto; background: linear-gradient(160deg,var(--surface2),var(--surface)); border: 1px solid var(--border); border-radius: 8px; padding: 34px; position: relative; }
-    .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right,transparent,var(--gold),transparent); }
-    .modal-title { font-family: 'FaithCollapsing', 'Cinzel Decorative', serif; font-size: 18px; color: var(--gold-light); margin-bottom: 20px; text-align: center; }
-    .modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--text-dim); font-size: 18px; cursor: pointer; }
-    .modal-close:hover { color: var(--gold-light); }
-
-    label { display: block; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; margin-top: 16px; }
-    label:first-of-type { margin-top: 0; }
-    input, textarea {
-      width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 4px; color: var(--text); font-family: 'Raleway', sans-serif; font-size: 14px; outline: none;
-    }
-    input:focus, textarea:focus { border-color: var(--gold-dim); }
-    textarea { resize: vertical; min-height: 70px; }
-    input[type="file"] { padding: 10px; font-size: 12px; }
-
-    .btn-primary {
-      width: 100%; margin-top: 22px; padding: 13px; border-radius: 4px;
-      background: linear-gradient(135deg,var(--surface2),var(--surface)); border: 1px solid var(--gold);
-      color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.2s;
-    }
-    .btn-primary:hover { box-shadow: 0 0 18px rgba(42,127,212,0.3); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-ghost { width: 100%; margin-top: 10px; padding: 11px; border-radius: 4px; background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; }
-    .btn-ghost:hover { color: var(--gold-light); border-color: var(--gold-dim); }
-
-    .msg { font-size: 12px; margin-top: 12px; text-align: center; font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
-    .msg.error { color: var(--red); }
-    .msg.ok { color: var(--green-light); }
-
-    .adm-versions { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 18px; }
-    .adm-version-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; font-size: 12px; border-bottom: 1px solid var(--border); }
-    .adm-version-row .v { color: var(--gold-light); font-family: 'Cinzel', serif; }
-    .adm-version-row .latest-badge { font-size: 9px; color: var(--green-light); border: 1px solid #1a5a2a; border-radius: 3px; padding: 1px 6px; margin-left: 6px; }
-    .adm-del { background: none; border: none; color: var(--red); cursor: pointer; font-size: 11px; }
-    .adm-del:hover { text-decoration: underline; }
 
     @media (max-width: 600px) {
       .card { padding: 26px 18px; }
@@ -358,7 +317,7 @@
   <div class="card" id="historico">
     <div class="card-title">Histórico de Versões</div>
     <div id="versionList">
-      <div class="empty-state">Carregando versões...</div>
+      <div class="empty-state">Carregando versões do GitHub...</div>
     </div>
   </div>
 
@@ -383,51 +342,12 @@
       Trollgianismo criado por <strong>Kauan</strong> (Trollger nº1)<br>
       Créditos especiais: <strong>Juan</strong>
     </div>
-    <button class="admin-link" id="openAdmin">Área do Administrador</button>
   </footer>
-</div>
-
-<div class="overlay" id="admOverlay">
-  <div class="modal">
-    <button class="modal-close" id="closeAdmin">✕</button>
-
-    <div id="loginStep">
-      <div class="modal-title">Acesso ADM</div>
-      <label>E-mail</label>
-      <input type="email" id="admEmail" placeholder="seuemail@dominio.com" autocomplete="username">
-      <label>Senha</label>
-      <input type="password" id="admPassword" placeholder="••••••••" autocomplete="current-password">
-      <button class="btn-primary" id="loginBtn">Entrar</button>
-      <div class="msg" id="loginMsg"></div>
-    </div>
-
-    <div id="panelStep" style="display:none">
-      <div class="modal-title">Publicar Nova Versão</div>
-      <label>Número da versão (ex: 1.4.0)</label>
-      <input type="text" id="newVersion" placeholder="1.4.0">
-      <label>Notas de atualização</label>
-      <textarea id="newChangelog" placeholder="- Corrigido crash na Galeria&#10;- Novo player de música"></textarea>
-      <label>Arquivo APK</label>
-      <input type="file" id="newApkFile" accept=".apk">
-      <button class="btn-primary" id="publishBtn">Publicar Versão</button>
-      <div class="msg" id="publishMsg"></div>
-
-      <div class="adm-versions">
-        <div class="entry-title" style="font-size:11px">Gerenciar Versões</div>
-        <div id="admVersionList"></div>
-      </div>
-
-      <button class="btn-ghost" id="logoutBtn">Sair</button>
-    </div>
-  </div>
 </div>
 
 <script>
   const SUPABASE_URL = 'https://jkxhqtvugpbxplsswuut.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_X008-K40SDB9uSb7h1eS3w_9uTc11yl';
-  const ADMIN_EMAIL = 'trollgianismo@gmail.com';
-  const BUCKET = 'apks';
-
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   /* ══ TEMA + FONTE + SAZONAL (idêntico ao sistema do site) ══ */
@@ -444,20 +364,18 @@
       ? "'DropShade', 'Cinzel Decorative', serif"
       : "'FaithCollapsing', 'Cinzel Decorative', serif";
     _fonteStyle.textContent =
-      'h1, h2, h3, header h1, .card-title, .modal-title, .hero-download h2,' +
+      'h1, h2, h3, header h1, .card-title, .hero-download h2,' +
       '.version-tag, [class*="-title"] { font-family: ' + ff + ' !important; }';
     try { localStorage.setItem('tg-fonte', fonte); } catch(e) {}
   }
 
   function carregarTemaFonteSazonal() {
-    // aplica cache local instantaneamente (o tema já foi aplicado no <head>)
     try {
       var cachedFonte = localStorage.getItem('tg-fonte');
       if (cachedFonte) setFonteLocal(cachedFonte);
       else setFonteLocal('faith');
     } catch(e) { setFonteLocal('faith'); }
 
-    // busca a config atual do site no Supabase
     sb.from('site_config').select('tema,fonte,sazonal').eq('id', 1).single().then(function(r) {
       if (r.data) {
         if (r.data.tema) {
@@ -479,194 +397,138 @@
 
   document.addEventListener('DOMContentLoaded', carregarTemaFonteSazonal);
 
-  /* ══ FORMATAÇÃO ══ */
+  /* ══════════════════════════════════════════════════════════
+     VERSÕES LIDAS DIRETO DE UMA PASTA NO GITHUB
+     Convenção de pastas no repositório:
+
+       apks/
+         latest.txt          <- (opcional) só o número da versão atual, ex: 1.2.0
+         1.0.0/
+           trollgianismo.apk
+           changelog.txt      <- (opcional) notas da versão
+         1.1.0/
+           trollgianismo.apk
+           changelog.txt
+
+     Publicar = subir os arquivos nessa estrutura direto pelo
+     github.com (Add file > Upload files) ou por git push.
+     Nada aqui precisa de login: o repositório é público e a
+     página só LÊ os arquivos via API do GitHub.
+     ══════════════════════════════════════════════════════════ */
+
+  const GH_OWNER = 'KarlosP1';
+  const GH_REPO = 'Trollgianismo';
+  const GH_BRANCH = 'main'; // troque para 'master' se for o nome do seu branch padrão
+  const GH_APKS_PATH = 'apks';
+  const GH_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents`;
+
   function formatBytes(bytes) {
     if (!bytes) return '—';
     const mb = bytes / (1024 * 1024);
     return mb.toFixed(1) + ' MB';
   }
 
-  function formatDate(iso) {
-    return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+  // compara "1.10.2" vs "1.2.0" corretamente (não como texto)
+  function compareVersions(a, b) {
+    const pa = a.split('.').map(n => parseInt(n, 10) || 0);
+    const pb = b.split('.').map(n => parseInt(n, 10) || 0);
+    for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+      const diff = (pb[i] || 0) - (pa[i] || 0);
+      if (diff !== 0) return diff;
+    }
+    return 0;
   }
 
-  /* ══ VERSÕES (público) ══ */
-  async function loadVersions() {
-    const { data, error } = await sb
-      .from('apk_versions')
-      .select('*')
-      .order('created_at', { ascending: false });
+  async function ghGetJson(path) {
+    const res = await fetch(`${GH_API}/${path}?ref=${GH_BRANCH}`, {
+      headers: { 'Accept': 'application/vnd.github+json' }
+    });
+    if (!res.ok) throw new Error('GitHub retornou ' + res.status);
+    return res.json();
+  }
 
+  async function ghGetText(downloadUrl) {
+    const res = await fetch(downloadUrl);
+    if (!res.ok) return '';
+    return res.text();
+  }
+
+  async function loadVersions() {
     const listEl = document.getElementById('versionList');
     const btn = document.getElementById('downloadBtn');
     const btnLabel = document.getElementById('downloadBtnLabel');
 
-    if (error || !data || data.length === 0) {
-      listEl.innerHTML = '<div class="empty-state">Nenhuma versão publicada ainda.</div>';
-      btn.classList.add('disabled');
-      btnLabel.textContent = 'Em breve';
-      return data || [];
-    }
+    try {
+      const rootItems = await ghGetJson(GH_APKS_PATH);
 
-    const latest = data.find(v => v.is_latest) || data[0];
-    document.getElementById('currentVersion').textContent = latest.version;
-    document.getElementById('currentSize').textContent = formatBytes(latest.file_size);
-    btn.href = latest.file_url;
-    btn.setAttribute('download', 'Trollgianismo-' + latest.version + '.apk');
-    btn.classList.remove('disabled');
-    btnLabel.textContent = 'Baixar';
+      const versionDirs = rootItems.filter(i => i.type === 'dir');
+      const latestFile = rootItems.find(i => i.type === 'file' && i.name.toLowerCase() === 'latest.txt');
 
-    listEl.innerHTML = data.map(v => `
-      <div class="version-item">
-        <div class="version-tag">v${v.version}</div>
-        <div class="version-info">
-          <div class="version-date">${formatDate(v.created_at)} · ${formatBytes(v.file_size)}</div>
-          <div class="version-changelog">${(v.changelog || 'Sem notas de atualização.').replace(/</g,'&lt;')}</div>
+      if (versionDirs.length === 0) {
+        listEl.innerHTML = '<div class="empty-state">Nenhuma versão publicada ainda.</div>';
+        btn.classList.add('disabled');
+        btnLabel.textContent = 'Em breve';
+        return;
+      }
+
+      let pinnedLatest = null;
+      if (latestFile) {
+        pinnedLatest = (await ghGetText(latestFile.download_url)).trim();
+      }
+
+      // busca o conteúdo de cada pasta de versão em paralelo
+      const versions = await Promise.all(versionDirs.map(async (dir) => {
+        const files = await ghGetJson(`${GH_APKS_PATH}/${dir.name}`);
+        const apkFile = files.find(f => f.type === 'file' && f.name.toLowerCase().endsWith('.apk'));
+        const changelogFile = files.find(f => f.type === 'file' && f.name.toLowerCase() === 'changelog.txt');
+        const changelog = changelogFile ? await ghGetText(changelogFile.download_url) : '';
+        return apkFile ? {
+          version: dir.name,
+          fileUrl: apkFile.download_url,
+          fileName: apkFile.name,
+          size: apkFile.size,
+          changelog: changelog.trim()
+        } : null;
+      }));
+
+      const validVersions = versions.filter(Boolean).sort((a, b) => compareVersions(a.version, b.version));
+
+      if (validVersions.length === 0) {
+        listEl.innerHTML = '<div class="empty-state">Nenhum .apk encontrado nas pastas de versão.</div>';
+        btn.classList.add('disabled');
+        btnLabel.textContent = 'Em breve';
+        return;
+      }
+
+      const latest = (pinnedLatest && validVersions.find(v => v.version === pinnedLatest)) || validVersions[0];
+
+      document.getElementById('currentVersion').textContent = latest.version;
+      document.getElementById('currentSize').textContent = formatBytes(latest.size);
+      btn.href = latest.fileUrl;
+      btn.setAttribute('download', 'Trollgianismo-' + latest.version + '.apk');
+      btn.classList.remove('disabled');
+      btnLabel.textContent = 'Baixar';
+
+      listEl.innerHTML = validVersions.map(v => `
+        <div class="version-item">
+          <div class="version-tag">v${v.version}</div>
+          <div class="version-info">
+            <div class="version-date">${formatBytes(v.size)}</div>
+            <div class="version-changelog">${(v.changelog || 'Sem notas de atualização.').replace(/</g,'&lt;')}</div>
+          </div>
+          <a class="version-dl" href="${v.fileUrl}" download>Baixar</a>
         </div>
-        <a class="version-dl" href="${v.file_url}" download>Baixar</a>
-      </div>
-    `).join('');
+      `).join('');
 
-    return data;
+    } catch (err) {
+      console.error(err);
+      listEl.innerHTML = '<div class="empty-state">Não foi possível carregar as versões do GitHub agora.</div>';
+      btn.classList.add('disabled');
+      btnLabel.textContent = 'Indisponível';
+    }
   }
 
   loadVersions();
-
-  /* ══ MODAL ADM ══ */
-  const overlay = document.getElementById('admOverlay');
-  document.getElementById('openAdmin').addEventListener('click', () => overlay.classList.add('open'));
-  document.getElementById('closeAdmin').addEventListener('click', () => overlay.classList.remove('open'));
-  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
-
-  const loginStep = document.getElementById('loginStep');
-  const panelStep = document.getElementById('panelStep');
-  const loginMsg = document.getElementById('loginMsg');
-  const publishMsg = document.getElementById('publishMsg');
-
-  document.getElementById('loginBtn').addEventListener('click', async () => {
-    const email = document.getElementById('admEmail').value.trim();
-    const password = document.getElementById('admPassword').value;
-    loginMsg.textContent = '';
-    loginMsg.className = 'msg';
-
-    if (!email || !password) {
-      loginMsg.textContent = 'Preencha e-mail e senha.';
-      loginMsg.classList.add('error');
-      return;
-    }
-
-    const { data, error } = await sb.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      loginMsg.textContent = 'Erro ao entrar: ' + error.message;
-      loginMsg.classList.add('error');
-      return;
-    }
-
-    if (data.user.email !== ADMIN_EMAIL) {
-      loginMsg.textContent = 'Este e-mail não tem permissão de administrador.';
-      loginMsg.classList.add('error');
-      await sb.auth.signOut();
-      return;
-    }
-
-    loginStep.style.display = 'none';
-    panelStep.style.display = 'block';
-    loadAdmVersionList();
-  });
-
-  document.getElementById('logoutBtn').addEventListener('click', async () => {
-    await sb.auth.signOut();
-    panelStep.style.display = 'none';
-    loginStep.style.display = 'block';
-    document.getElementById('admEmail').value = '';
-    document.getElementById('admPassword').value = '';
-  });
-
-  /* ══ PUBLICAR NOVA VERSÃO ══ */
-  document.getElementById('publishBtn').addEventListener('click', async () => {
-    const version = document.getElementById('newVersion').value.trim();
-    const changelog = document.getElementById('newChangelog').value.trim();
-    const fileInput = document.getElementById('newApkFile');
-    const file = fileInput.files[0];
-    const publishBtn = document.getElementById('publishBtn');
-
-    publishMsg.textContent = '';
-    publishMsg.className = 'msg';
-
-    if (!version || !file) {
-      publishMsg.textContent = 'Informe a versão e selecione o arquivo APK.';
-      publishMsg.classList.add('error');
-      return;
-    }
-
-    publishBtn.disabled = true;
-    publishBtn.textContent = 'Enviando...';
-
-    try {
-      const filePath = `v${version}/${Date.now()}-${file.name}`;
-
-      const { error: uploadError } = await sb.storage
-        .from(BUCKET)
-        .upload(filePath, file, { cacheControl: '3600', upsert: false });
-
-      if (uploadError) throw uploadError;
-
-      const { data: urlData } = sb.storage.from(BUCKET).getPublicUrl(filePath);
-
-      await sb.from('apk_versions').update({ is_latest: false }).eq('is_latest', true);
-
-      const { error: insertError } = await sb.from('apk_versions').insert({
-        version,
-        changelog,
-        file_url: urlData.publicUrl,
-        file_size: file.size,
-        is_latest: true
-      });
-
-      if (insertError) throw insertError;
-
-      publishMsg.textContent = 'Versão publicada com sucesso!';
-      publishMsg.classList.add('ok');
-      document.getElementById('newVersion').value = '';
-      document.getElementById('newChangelog').value = '';
-      fileInput.value = '';
-
-      await loadVersions();
-      await loadAdmVersionList();
-    } catch (err) {
-      publishMsg.textContent = 'Erro ao publicar: ' + err.message;
-      publishMsg.classList.add('error');
-    } finally {
-      publishBtn.disabled = false;
-      publishBtn.textContent = 'Publicar Versão';
-    }
-  });
-
-  /* ══ GERENCIAR VERSÕES (ADM) ══ */
-  async function loadAdmVersionList() {
-    const { data } = await sb.from('apk_versions').select('*').order('created_at', { ascending: false });
-    const el = document.getElementById('admVersionList');
-    if (!data || data.length === 0) {
-      el.innerHTML = '<div class="empty-state">Nenhuma versão ainda.</div>';
-      return;
-    }
-    el.innerHTML = data.map(v => `
-      <div class="adm-version-row">
-        <span><span class="v">v${v.version}</span>${v.is_latest ? '<span class="latest-badge">ATUAL</span>' : ''}</span>
-        <button class="adm-del" data-id="${v.id}">Remover</button>
-      </div>
-    `).join('');
-
-    el.querySelectorAll('.adm-del').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        if (!confirm('Remover esta versão?')) return;
-        await sb.from('apk_versions').delete().eq('id', btn.dataset.id);
-        await loadVersions();
-        await loadAdmVersionList();
-      });
-    });
-  }
 </script>
 </body>
 </html>
