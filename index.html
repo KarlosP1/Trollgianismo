@@ -684,6 +684,63 @@
     injetarCopiar(document);
   });
 </script>
-<script src="tracker.js"></script>
+  <!-- Estilos do Chat -->
+<style>
+    #chat-widget { position: fixed; bottom: 20px; right: 20px; width: 300px; background: #fff; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-family: Arial, sans-serif; display: flex; flex-direction: column; overflow: hidden; z-index: 9999; }
+    #chat-header { background: #333; color: #fff; padding: 10px; font-weight: bold; text-align: center; }
+    #chat-messages { height: 200px; padding: 10px; overflow-y: auto; font-size: 14px; background: #f9f9f9; }
+    #chat-input-area { display: flex; border-top: 1px solid #ccc; }
+    #chat-input { flex: 1; padding: 10px; border: none; outline: none; }
+    #chat-send { background: #007bff; color: #fff; border: none; padding: 10px; cursor: pointer; }
+</style>
+
+<!-- Interface do Chat -->
+<div id="chat-widget">
+    <div id="chat-header">Assistente Trollgianismo</div>
+    <div id="chat-messages"><div><strong>Bot:</strong> Olá! Como posso te ajudar com dúvidas ou pedidos hoje?</div></div>
+    <div id="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
+        <button id="chat-send">></button>
+    </div>
+</div>
+
+<!-- Lógica de Comunicação -->
+<script>
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+    const chatMessages = document.getElementById('chat-messages');
+
+    // Mude para a URL do seu servidor Python quando fizer o deploy (ex: Render)
+    const API_URL = "http://127.0.0"; 
+
+    async function sendMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        // Exibe mensagem do usuário
+        chatMessages.innerHTML += `<div><strong>Você:</strong> ${text}</div>`;
+        chatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            // Envia para o back-end Python
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await response.json();
+            
+            // Exibe resposta do Bot
+            chatMessages.innerHTML += `<div><strong>Bot:</strong> ${data.response}</div>`;
+        } catch (error) {
+            chatMessages.innerHTML += `<div><strong>Bot:</strong> Erro ao conectar ao servidor.</div>`;
+        }
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+</script>
 </body>
 </html>
