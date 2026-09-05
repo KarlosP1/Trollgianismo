@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trollytter</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #08101A;
+    color: #C4D8E0;
+    font-family: -apple-system, Roboto, Arial, sans-serif;
+    text-align: center;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  .card {
+    max-width: 360px;
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  p {
+    font-size: 14px;
+    color: #4A6A8A;
+    margin-bottom: 24px;
+  }
+  a.botao {
+    display: block;
+    padding: 14px 20px;
+    border-radius: 10px;
+    background: #2A7FD4;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  a.link-secundario {
+    color: #4A6A8A;
+    font-size: 13px;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Abrir no Trollytter</h1>
+    <p>Esse link abre um post direto no app. Se ele não abriu sozinho, toca no botão abaixo.</p>
+    <a class="botao" id="botaoAbrir" href="#">Abrir no app</a>
+    <br>
+    <a class="link-secundario" href="https://github.com/KarlosP1/TrollytterApp">Ainda não tenho o Trollytter</a>
+  </div>
+
+  <script>
+    // Extrai o id do post da URL, ex:
+    // /Trollgianismo/trollytter-post/abc123 -> "abc123"
+    var partes = window.location.pathname.split('/').filter(Boolean);
+    var postId = partes[partes.length - 1];
+    var linkApp = 'trollytter://post/' + encodeURIComponent(postId);
+
+    document.getElementById('botaoAbrir').href = linkApp;
+
+    // Tenta abrir o app automaticamente assim que a página carrega.
+    // Se o app estiver instalado mas o App Link ainda não tiver sido
+    // verificado pelo Android, isso serve de reforço.
+    window.location.href = linkApp;
+  </script>
+</body>
+</html>
