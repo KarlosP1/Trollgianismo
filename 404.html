@@ -1,74 +1,262 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trollytter</title>
-<style>
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #08101A;
-    color: #C4D8E0;
-    font-family: -apple-system, Roboto, Arial, sans-serif;
-    text-align: center;
-    padding: 24px;
-    box-sizing: border-box;
-  }
-  .card {
-    max-width: 360px;
-  }
-  h1 {
-    font-size: 22px;
-    margin-bottom: 8px;
-  }
-  p {
-    font-size: 14px;
-    color: #4A6A8A;
-    margin-bottom: 24px;
-  }
-  a.botao {
-    display: block;
-    padding: 14px 20px;
-    border-radius: 10px;
-    background: #2A7FD4;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    margin-bottom: 12px;
-  }
-  a.link-secundario {
-    color: #4A6A8A;
-    font-size: 13px;
-    text-decoration: underline;
-  }
-</style>
-</head>
-<body>
-  <div class="card">
-    <h1>Abrir no Trollytter</h1>
-    <p>Esse link abre um post direto no app. Se ele não abriu sozinho, toca no botão abaixo.</p>
-    <a class="botao" id="botaoAbrir" href="#">Abrir no app</a>
-    <br>
-    <a class="link-secundario" href="https://github.com/KarlosP1/TrollytterApp">Ainda não tenho o Trollytter</a>
-  </div>
+package com.trollgianismo.trollytter.ui.trollytter
 
-  <script>
-    // Extrai o id do post da URL, ex:
-    // /Trollgianismo/trollytter-post/abc123 -> "abc123"
-    var partes = window.location.pathname.split('/').filter(Boolean);
-    var postId = partes[partes.length - 1];
-    var linkApp = 'trollytter://post/' + encodeURIComponent(postId);
+import androidx.compose.foundation.clickable
+import android.content.Intent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil3.compose.AsyncImage
+import com.trollgianismo.trollytter.data.model.TrollytterComentario
+import com.trollgianismo.trollytter.ui.theme.VisualizadorFotoTelaCheia
+import com.trollgianismo.trollytter.util.formatarTempoRelativo
 
-    document.getElementById('botaoAbrir').href = linkApp;
+@Composable
+fun DetalhePostScreen(
+    postId: String,
+    aoVoltar: () -> Unit = {},
+    aoAbrirPerfil: (String) -> Unit = {},
+    viewModel: DetalhePostViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    val contexto = LocalContext.current
+    var mostrarConfirmacao by remember { mutableStateOf(false) }
+    var fotoParaExibir by remember { mutableStateOf<String?>(null) }
 
-    // Tenta abrir o app automaticamente assim que a página carrega.
-    // Se o app estiver instalado mas o App Link ainda não tiver sido
-    // verificado pelo Android, isso serve de reforço.
-    window.location.href = linkApp;
-  </script>
-</body>
-</html>
+    LaunchedEffect(postId) {
+        viewModel.carregar(postId)
+    }
+
+    var comentario by remember { mutableStateOf("") }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = aoVoltar) {
+                Icon(Icons.Filled.ArrowBack, contentDescription = "Voltar")
+            }
+            Text(text = "Post", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.weight(1f))
+            if (uiState.souAutor) {
+                IconButton(onClick = { mostrarConfirmacao = true }, enabled = !uiState.deletando) {
+                    Icon(Icons.Filled.Delete, contentDescription = "Apagar post")
+                }
+            }
+            IconButton(onClick = {
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        "Olha esse post no Trollytter: https://karlosp1.github.io/Trollgianismo/trollytter-post/$postId"
+                    )
+                }
+                contexto.startActivity(Intent.createChooser(intent, "Compartilhar post"))
+            }) {
+                Icon(Icons.Filled.Share, contentDescription = "Compartilhar")
+            }
+        }
+
+        if (uiState.carregando) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+            return@Column
+        }
+
+        uiState.erro?.let { mensagem ->
+            Text(
+                text = mensagem,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
+        val post = uiState.post
+
+        LazyColumn(
+            modifier = Modifier.weight(1f),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            if (post != null) {
+                item {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = uiState.nomeAutorAtual,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.clickable { post.autorId?.let(aoAbrirPerfil) }
+                        )
+                        val tempo = formatarTempoRelativo(post.criadoEm)
+                        if (tempo.isNotBlank()) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "· $tempo",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                    if (!post.legenda.isNullOrBlank()) {
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(text = post.legenda)
+                    }
+                    if (!post.urlFoto.isNullOrBlank()) {
+                        Spacer(modifier = Modifier.height(10.dp))
+                        AsyncImage(
+                            model = post.urlFoto,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(260.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .clickable { fotoParaExibir = post.urlFoto }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(
+                            onClick = { viewModel.alternarCurtida(postId) },
+                            modifier = Modifier.size(32.dp)
+                        ) {
+                            Icon(
+                                imageVector = if (uiState.curtido) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                                contentDescription = "Curtir",
+                                tint = if (uiState.curtido) Color(0xFFE0245E) else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Text(text = "${post.curtidas}", style = MaterialTheme.typography.bodySmall)
+
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        IconButton(
+                            onClick = { viewModel.alternarFavorito(postId) },
+                            modifier = Modifier.size(32.dp)
+                        ) {
+                            Icon(
+                                imageVector = if (uiState.favoritado) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
+                                contentDescription = "Favoritar",
+                                tint = if (uiState.favoritado) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(4.dp))
+                    HorizontalDivider()
+                }
+            }
+
+            item {
+                Text(
+                    text = "Comentários (${uiState.comentarios.size})",
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+
+            items(uiState.comentarios) { comentarioItem ->
+                CardComentario(comentarioItem)
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            OutlinedTextField(
+                value = comentario,
+                onValueChange = { comentario = it },
+                placeholder = { Text("Comentar como ${uiState.meuNome}...") },
+                modifier = Modifier.weight(1f)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            IconButton(
+                onClick = {
+                    viewModel.comentar(postId, comentario)
+                    comentario = ""
+                },
+                enabled = !uiState.comentando && comentario.isNotBlank()
+            ) {
+                Icon(Icons.Filled.Send, contentDescription = "Enviar comentário")
+            }
+        }
+    }
+
+    if (mostrarConfirmacao) {
+        AlertDialog(
+            onDismissRequest = { mostrarConfirmacao = false },
+            title = { Text("Apagar post?") },
+            text = { Text("Essa ação não pode ser desfeita.") },
+            confirmButton = {
+                TextButton(onClick = {
+                    mostrarConfirmacao = false
+                    viewModel.deletarPost(postId) { aoVoltar() }
+                }) {
+                    Text("Apagar", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { mostrarConfirmacao = false }) {
+                    Text("Cancelar")
+                }
+            }
+        )
+    }
+
+    fotoParaExibir?.let { url ->
+        VisualizadorFotoTelaCheia(urlFoto = url, aoFechar = { fotoParaExibir = null })
+    }
+}
+
+@Composable
+private fun CardComentario(comentario: TrollytterComentario) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
+            .padding(10.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(text = comentario.autorNome, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.bodySmall)
+            val tempo = formatarTempoRelativo(comentario.criadoEm)
+            if (tempo.isNotBlank()) {
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "· $tempo",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(text = comentario.texto, style = MaterialTheme.typography.bodyMedium)
+    }
+}
