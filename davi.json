@@ -1,0 +1,72 @@
+{
+  "id": "davi",
+  "nome": "DAVI",
+  "rank": "P2",
+  "rankDisplay": "II",
+  "subtitulo": "O Jack Absoluto da Obscuridade — P2",
+  "classificacao": "Trollger",
+  "emoji": "🌪️",
+  "foto": "imagens/IMG-20260331-WA0025.jpg",
+  "codigoTrollger": "TRG-P2-29034",
+  "tags": [
+    { "texto": "Plebeu", "tipo": "red" },
+    { "texto": "O Mais Jack", "tipo": "gold" },
+    { "texto": "Resenha Obscura", "tipo": "gold" },
+    { "texto": "Abuso Max", "tipo": "blue" },
+    { "texto": "Caos Absoluto", "tipo": "red" }
+  ],
+  "identidade": "Davi ocupa o posto de Trollger P2 dentro do Trollgianismo, onde é reconhecido como o ser mais 'Jack' da história. Sua existência não é apenas relevante — é instável, imprevisível e, acima de tudo, perigosa.",
+  "personalidade": "Davi possui uma personalidade extrema. Altamente imprevisível, absurdamente ousado e sem filtros. Sua presença causa desconforto, impacto e surpresa ao mesmo tempo. Há uma definição que resume sua essência: A existência dele é um crime contra as mulheres. Uma forma de descrever o nível de caos, ousadia e comportamento completamente fora do padrão social.",
+  "feitos": [
+    {
+      "titulo": "O Estupro da Melancia",
+      "descricao": "Um dos momentos mais absurdos já registrados na história do Trollgianismo. Davi protagonizou uma situação tão fora da realidade que se tornou lendária dentro do grupo — lembrada não pelos detalhes, mas pelo impacto: quebra total de lógica, nível extremo de ousadia e consolidação definitiva do título de 'Jack'."
+    },
+    {
+      "titulo": "O Convencimento de Kauan",
+      "descricao": "Davi foi o responsável por convencer Kauan a entrar para um grupo. Antes disso, Kauan era uma entidade isolada. Após esse evento, surgiu a base do Trollgianismo em grupo e os mais fortes passaram a coexistir. Davi, sozinho, alterou o rumo da história."
+    },
+    {
+      "titulo": "Vencer o Jotape e o Cesar no Auge na BDA 11 Anos",
+      "descricao": "Em plena BDA 11 Anos, Davi enfrentou Jotape e Cesar no auge de ambos e venceu os dois. Um feito que consolidou de vez seu nome entre os Trollgers capazes de virar o jogo mesmo contra adversários em seu melhor momento."
+    },
+    {
+      "titulo": "O Maior Filósofo, Físico, Químico e Astrônomo da História",
+      "descricao": "Davi se tornou, dentro do Trollgianismo, reconhecido como o maior filósofo, físico, químico e astrônomo da história. Um título tão absurdo quanto tudo que ele representa — a prova de que sua influência vai além do caos e alcança até o intelecto."
+    },
+    {
+      "titulo": "A Derrota de Donald Trump",
+      "descricao": "Davi derrotou Donald Trump. Um dos feitos mais surreais já atribuídos a um Trollger, reforçando ainda mais seu status de 'O Mais Jack' — capaz de encarar qualquer figura, por maior que seja, e sair vitorioso."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "Resenha Obscura — Principal",
+      "descricao": "Davi é um dos maiores usuários de Resenha Obscura já registrados. Extremamente pesada, fora de qualquer limite convencional e imprevisível. Seu nível é tão alto que: muitas de suas falas nem podem ser citadas."
+    },
+    {
+      "titulo": "Resenha Normal",
+      "descricao": "Apesar do foco na obscuridade, domina também a resenha normal. Mas mesmo quando usa o 'normal', ainda carrega traços do caos."
+    }
+  ],
+  "aura": {
+    "descricao": "O nível de aura de Davi é: Incalculável. E aqui surge uma das maiores contradições do Trollgianismo.",
+    "stats": [
+      { "label": "Aura Bruta", "valor": "∞", "percentual": 100, "tipo": "infinite" },
+      { "label": "Resenha Obscura", "valor": "Máximo", "percentual": 100, "tipo": "infinite" },
+      { "label": "Resenha Normal", "valor": "80/100", "percentual": 80, "tipo": "normal" },
+      { "label": "Controle", "valor": "Baixo", "percentual": 20, "tipo": "negativo" }
+    ],
+    "especial": {
+      "titulo": "Poder Bruto, Zero Controle",
+      "descricao": "Davi (P2) é a prova de que aura bruta e controle são coisas diferentes. Ele possui poder absurdo em cima da mesa, mas não tem o mesmo nível de controle e perfeição de José ou Kauan — seu ponto forte é justamente essa instabilidade."
+    }
+  },
+  "relacaoTrollgers": "Sua relação com os outros membros é baseada em respeito absoluto, reconhecimento de perigo e presença dominante. Mesmo sendo caótico, ele não é descartado — pelo contrário, é respeitado como uma força essencial.",
+  "fraseMarcante": "O Kauan mora na pensão.",
+  "descricaoFrase": "Representa humor absurdo, quebra de imagem do P0 e capacidade de atingir até o topo com resenha.",
+  "apelidos": ["Macaquinho"],
+  "descricaoApelidos": "Apelido baseado exclusivamente em aparência, usado dentro do contexto interno do grupo.",
+  "defeitos": "Davi é praticamente o oposto de perfeição. Seus defeitos incluem aparência, falas e falta de limite. Diferente de outros Trollgers que possuem falhas específicas: Davi é definido por suas falhas.",
+  "veredicto": "Davi P2 não é apenas um membro forte. Ele é o caos em forma de Trollger, o maior usuário de Resenha Obscura e o portador de uma aura absurda… porém instável. Se Kauan é perfeição e José é controle… Davi é o colapso do sistema funcionando perfeitamente."
+}
