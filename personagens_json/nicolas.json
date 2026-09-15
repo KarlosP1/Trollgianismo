@@ -3,46 +3,46 @@
   "nome": "NICOLLAS",
   "rank": "P4",
   "rankDisplay": "IV",
-  "subtitulo": "O Random — P4",
+  "subtitulo": "A Obscuridade Silenciosa — P4",
   "classificacao": "Trollger",
-  "emoji": "🎲",
+  "emoji": "🌑",
   "foto": "imagens/NIC.jpg",
   "codigoTrollger": "TRG-P4-44192",
   "tags": [
     { "texto": "Trollger P4", "tipo": "gold" },
-    { "texto": "Aura Alta", "tipo": "gold" },
-    { "texto": "Humor Random", "tipo": "blue" },
+    { "texto": "Aura Obscura Extrema", "tipo": "red" },
     { "texto": "Shape de Deus Grego", "tipo": "gold" },
-    { "texto": "Irmão de Consideração de Davi", "tipo": "normal" }
+    { "texto": "Irmão de Consideração de Davi", "tipo": "normal" },
+    { "texto": "Humor Aleatório", "tipo": "normal" }
   ],
-  "identidade": "Nicollas ocupa o posto de Trollger P4 dentro do Trollgianismo. Sua presença é marcada por um humor completamente Random — imprevisível não pela violência, mas pela forma como sai do óbvio a qualquer momento, surpreendendo quem está por perto.",
-  "personalidade": "Nicollas tem um jeito único: humor Random, capaz de mudar de assunto ou de tom do nada e ainda assim manter a resenha. Fisicamente é conhecido por dois extremos — quem não o conhece direito às vezes acha que ele parece uma mulher à primeira vista, mas de perto tem um shape de Deus grego, esculpido e impossível de ignorar.",
+  "identidade": "Nicollas ocupa o posto de Trollger P4 dentro do Trollgianismo. É um dos poucos que carrega uma Aura Obscura extrema — não pela frequência, mas pela intensidade: uma única vez, ele soltou coisas tão horrendas que marcaram o grupo permanentemente, e nunca mais repetiu. Não precisou de uma segunda vez.",
+  "personalidade": "Na maior parte do tempo, Nicollas é tranquilo, com um humor aleatório — solta comentários sem lógica ou timing, do tipo que nem sempre rende risada, às vezes só deixa todo mundo sem reação. Mas por trás dessa aleatoriedade sem graça existe uma Aura Obscura extrema, que aparece raramente e, quando aparece, é inesquecível. Fisicamente, é conhecido por dois extremos: quem não o conhece direito às vezes acha que ele parece uma mulher à primeira vista, mas de perto tem um shape de Deus grego, esculpido e impossível de ignorar.",
   "feitos": [
     {
-      "titulo": "Comportamento Fora do Padrão",
-      "descricao": "Nicollas é reconhecido por diversas situações em que seu humor Random surpreendeu o grupo, consolidando sua reputação de imprevisível — não pelo caos, mas pela originalidade."
+      "titulo": "A Única Vez",
+      "descricao": "Houve um episódio em que Nicollas disparou uma sequência de falas tão obscuras e pesadas que ninguém no grupo esqueceu. O impacto foi tão grande que ele nunca mais repetiu — ficou registrado como prova de que sua Aura Obscura é extrema, mesmo estando quase sempre adormecida."
     }
   ],
   "estiloResenha": [
     {
-      "titulo": "Resenha Random",
-      "descricao": "Utiliza resenha de forma totalmente Random, sem padrão fixo. Alto impacto, alta imprevisibilidade de conteúdo."
+      "titulo": "Resenha Normal",
+      "descricao": "No dia a dia, participa da resenha normalmente, sem se destacar por caos ou obscuridade — o humor aleatório que solta de vez em quando não chega a virar resenha, é só um comentário solto."
     },
     {
-      "titulo": "Resenha Normal — Rara",
-      "descricao": "Raramente usa resenha normal. Quando usa, ainda carrega traços do seu humor Random natural."
+      "titulo": "Resenha Obscura — Rara e Extrema",
+      "descricao": "Quase nunca usa. Mas quando usa, é de um nível tão pesado que se torna evento único, como aconteceu na 'Única Vez'."
     }
   ],
   "aura": {
-    "descricao": "Aura alta, com forte presença física. Shape de Deus grego reforça sua aura mesmo fora da resenha.",
+    "descricao": "Aura Obscura extrema, praticamente adormecida na maior parte do tempo — mas de intensidade máxima quando se manifesta.",
     "stats": [
-      { "label": "Aura Bruta", "valor": "Alta", "percentual": 78, "tipo": "normal" },
-      { "label": "Humor Random", "valor": "Alto", "percentual": 82, "tipo": "normal" },
+      { "label": "Aura Obscura", "valor": "Extrema", "percentual": 98, "tipo": "infinite" },
+      { "label": "Frequência de Uso", "valor": "Baixíssima", "percentual": 5, "tipo": "negativo" },
       { "label": "Shape", "valor": "Deus Grego", "percentual": 95, "tipo": "infinite" },
-      { "label": "Imprevisibilidade", "valor": "∞", "percentual": 100, "tipo": "infinite" }
+      { "label": "Aura Bruta", "valor": "Alta", "percentual": 78, "tipo": "normal" }
     ]
   },
-  "relacaoTrollgers": "É considerado irmão de Davi dentro da lore do Trollgianismo — não por sangue, mas por consideração e proximidade construída dentro do grupo. Com os demais, a relação é leve, movida pelo humor Random que ele carrega em qualquer interação.",
-  "defeitos": "O humor Random às vezes sai do timing certo, e a discrepância entre a primeira impressão e o shape real gera situações engraçadas dentro do grupo.",
-  "veredicto": "Nicollas P4 é aura, shape e humor Random em um só pacote. Irmão de consideração de Davi, ele prova que imprevisibilidade não precisa ser caos — pode ser só um jeito único de surpreender."
+  "relacaoTrollgers": "É considerado irmão de Davi dentro da lore do Trollgianismo — não por sangue, mas por consideração e proximidade construída dentro do grupo. Com os demais, mantém uma relação tranquila, quebrada de vez em quando por algum comentário aleatório sem graça.",
+  "defeitos": "O humor aleatório que solta no dia a dia costuma ser sem graça e fora de contexto. E a discrepância entre a primeira impressão e o shape real gera situações engraçadas dentro do grupo.",
+  "veredicto": "Nicollas P4 é a prova de que obscuridade não precisa ser constante pra ser extrema. Irmão de consideração de Davi, quieto na maior parte do tempo — mas quando sua Aura Obscura aparece, ninguém esquece."
 }
