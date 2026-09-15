@@ -784,11 +784,11 @@
     }
     .hamburger:hover { border-color: var(--gold-dim); box-shadow: 0 0 12px rgba(42,127,212,0.20); }
     .hamburger span {
-      display: block;Andrea Kimi Antonelli
+      display: block;
       width: 18px;
       height: 1.5px;
       background: var(--text-dim);
-      border-radius: 2px;Andrea Kimi Antonelli
+      border-radius: 2px;
       transition: all 0.3s ease;
     }
     .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--gold-light); }
@@ -1136,6 +1136,7 @@
   <div class="drawer-title">Navegação</div>
 
   <div class="drawer-section-label">Trollgers Oficiais</div>
+  <button class="drawer-btn" onclick="mostrarDrawer('bryandictador', this)">👑 Bryan Dictador — Ditador</button>
   <button class="drawer-btn ativo" onclick="mostrarDrawer('kauan', this)">👑 Kauan — P0</button>
   <button class="drawer-btn" onclick="mostrarDrawer('jose', this)">🔥 José — P1</button>
   <button class="drawer-btn" onclick="mostrarDrawer('davi', this)">⚡ Davi — P2</button>
@@ -1387,6 +1388,7 @@
   </header>
 
   <nav>
+    <button class="nav-btn" onclick="mostrar('bryandictador', this)">👑 Bryan Dictador</button>
     <button class="nav-btn ativo" onclick="mostrar('kauan', this)">Kauan P0</button>
     <button class="nav-btn" onclick="mostrar('jose', this)">José P1</button>
     <button class="nav-btn" onclick="mostrar('davi', this)">Davi P2</button>
@@ -1449,6 +1451,11 @@
     <div id="artigos-nav-label" style="display:none;width:100%;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px">Artigos Publicados</div>
     <div id="artigos-nav-container"></div>
   </nav>
+
+  <!-- ═══════════════════════════════════ BRYAN DICTADOR ═══════════════════════════════════ -->
+  <div id="bryandictador" class="section">
+    <div class="json-loader" data-json="bryandictador"></div>
+  </div>
 
   <!-- ═══════════════════════════════════ KAUAN ═══════════════════════════════════ -->
   <div id="kauan" class="section ativo">
