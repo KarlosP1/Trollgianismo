@@ -1,48 +1,48 @@
 {
   "id": "nicolas",
-  "nome": "NICOLAS",
-  "rank": "P6",
-  "rankDisplay": "VI",
-  "subtitulo": "O Selvagem — P6",
+  "nome": "NICOLLAS",
+  "rank": "P4",
+  "rankDisplay": "IV",
+  "subtitulo": "O Random — P4",
   "classificacao": "Trollger",
-  "emoji": "🐺",
+  "emoji": "🎲",
   "foto": "imagens/NIC.jpg",
-  "codigoTrollger": "TRG-P6-44192",
+  "codigoTrollger": "TRG-P4-44192",
   "tags": [
-    { "texto": "Trollger P6", "tipo": "gold" },
+    { "texto": "Trollger P4", "tipo": "gold" },
     { "texto": "Aura Alta", "tipo": "gold" },
-    { "texto": "Resenha Obscura", "tipo": "gold" },
-    { "texto": "Comportamento Selvagem", "tipo": "red" },
-    { "texto": "Plebeu de Alma", "tipo": "normal" }
+    { "texto": "Humor Random", "tipo": "blue" },
+    { "texto": "Shape de Deus Grego", "tipo": "gold" },
+    { "texto": "Irmão de Consideração de Davi", "tipo": "normal" }
   ],
-  "identidade": "Nicolas ocupa o posto de Trollger P6 — mesma posição de Davi. Sua presença dentro do Trollgianismo é marcada por um comportamento considerado selvagem, instintivo e sem filtros. Ele não calcula antes de agir — ele simplesmente age.",
-  "personalidade": "Extremamente impulsivo, sem noção de limite e com tendência ao caos. Diferente de Davi, que tem poder bruto com certa consciência, Nicolas opera no puro instinto. Isso o torna imprevisível — e ao mesmo tempo menos eficiente que outros do mesmo nível.",
+  "identidade": "Nicollas ocupa o posto de Trollger P4 dentro do Trollgianismo. Sua presença é marcada por um humor completamente Random — imprevisível não pela violência, mas pela forma como sai do óbvio a qualquer momento, surpreendendo quem está por perto.",
+  "personalidade": "Nicollas tem um jeito único: humor Random, capaz de mudar de assunto ou de tom do nada e ainda assim manter a resenha. Fisicamente é conhecido por dois extremos — quem não o conhece direito às vezes acha que ele parece uma mulher à primeira vista, mas de perto tem um shape de Deus grego, esculpido e impossível de ignorar.",
   "feitos": [
     {
       "titulo": "Comportamento Fora do Padrão",
-      "descricao": "Nicolas é reconhecido por diversas situações em que seu comportamento ultrapassou todos os limites sociais aceitos dentro do grupo, consolidando sua reputação de selvagem."
+      "descricao": "Nicollas é reconhecido por diversas situações em que seu humor Random surpreendeu o grupo, consolidando sua reputação de imprevisível — não pelo caos, mas pela originalidade."
     }
   ],
   "estiloResenha": [
     {
-      "titulo": "Resenha Obscura — Instintiva",
-      "descricao": "Utiliza resenha obscura de forma instintiva, sem estratégia. Alto impacto, baixo controle."
+      "titulo": "Resenha Random",
+      "descricao": "Utiliza resenha de forma totalmente Random, sem padrão fixo. Alto impacto, alta imprevisibilidade de conteúdo."
     },
     {
       "titulo": "Resenha Normal — Rara",
-      "descricao": "Raramente usa resenha normal. Quando usa, ainda carrega traços do caos natural."
+      "descricao": "Raramente usa resenha normal. Quando usa, ainda carrega traços do seu humor Random natural."
     }
   ],
   "aura": {
-    "descricao": "Aura alta, porém instável. Possui Aura Obscura ativa mas descontrolada.",
+    "descricao": "Aura alta, com forte presença física. Shape de Deus grego reforça sua aura mesmo fora da resenha.",
     "stats": [
       { "label": "Aura Bruta", "valor": "Alta", "percentual": 78, "tipo": "normal" },
-      { "label": "Resenha Obscura", "valor": "Instintiva", "percentual": 82, "tipo": "normal" },
-      { "label": "Controle", "valor": "Baixo", "percentual": 18, "tipo": "negativo" },
+      { "label": "Humor Random", "valor": "Alto", "percentual": 82, "tipo": "normal" },
+      { "label": "Shape", "valor": "Deus Grego", "percentual": 95, "tipo": "infinite" },
       { "label": "Imprevisibilidade", "valor": "∞", "percentual": 100, "tipo": "infinite" }
     ]
   },
-  "relacaoTrollgers": "Relação turbulenta com a maioria. Respeitado pelo poder, mas evitado pelo comportamento. Poucos conseguem interagir com ele de forma estável.",
-  "defeitos": "Falta de controle, impulsividade extrema e comportamento socialmente inaceitável em diversas situações.",
-  "veredicto": "Nicolas P6 é poder bruto sem direção. Ele possui aura e resenha obscura de alto nível — mas sem controle, tudo isso se torna caos puro. Perigoso, imprevisível e essencialmente selvagem."
+  "relacaoTrollgers": "É considerado irmão de Davi dentro da lore do Trollgianismo — não por sangue, mas por consideração e proximidade construída dentro do grupo. Com os demais, a relação é leve, movida pelo humor Random que ele carrega em qualquer interação.",
+  "defeitos": "O humor Random às vezes sai do timing certo, e a discrepância entre a primeira impressão e o shape real gera situações engraçadas dentro do grupo.",
+  "veredicto": "Nicollas P4 é aura, shape e humor Random em um só pacote. Irmão de consideração de Davi, ele prova que imprevisibilidade não precisa ser caos — pode ser só um jeito único de surpreender."
 }
