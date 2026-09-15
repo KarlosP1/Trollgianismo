@@ -1,0 +1,60 @@
+{
+  "id": "bryan-dictador",
+  "nome": "BRYAN DICTADOR",
+  "rank": "Ditador",
+  "rankDisplay": "★",
+  "subtitulo": "O Tipster Supremo — Rank Exclusivo: Ditador",
+  "classificacao": "Trollger",
+  "emoji": "👑",
+  "foto": "imagens/bryan_dictador.jpg",
+  "codigoTrollger": "TRG-DTD-00001",
+  "tags": [
+    { "texto": "Rank Exclusivo", "tipo": "gold" },
+    { "texto": "Tipster", "tipo": "blue" },
+    { "texto": "Ordem Suprema", "tipo": "gold" },
+    { "texto": "Aura Obscura", "tipo": "red" },
+    { "texto": "Autoridade Máxima", "tipo": "gold" }
+  ],
+  "identidade": "Bryan Dictador não ocupa uma posição na hierarquia numérica tradicional do Trollgianismo — ele está acima dela. Seu rank é exclusivo, criado especialmente para representar algo que nenhum outro Trollger alcançou: o controle absoluto através da ordem. Enquanto outros membros disputam espaço no caos, Bryan governa por cima dele.",
+  "personalidade": "Bryan é a personificação da autoridade. Frio, calculista e extremamente ordenado, ele não precisa gritar para ser temido — sua simples presença impõe hierarquia. É Tipster nato: enxerga padrões, prevê resultados e usa essa leitura fria da realidade tanto para dominar quanto para humilhar quem ousa desafiá-lo.",
+  "feitos": [
+    {
+      "titulo": "O Pedido do Pé",
+      "descricao": "Em um dos episódios mais obscuros e comentados do Trollgianismo, Bryan exigiu, com total naturalidade e autoridade de Ditador, fotos do pé de certas pessoas que não devem ser citadas. O episódio ficou marcado não pelo teor, mas pela forma: um pedido feito como ordem, não como súplica — e atendido."
+    },
+    {
+      "titulo": "A Batalha de Rima da Maior Aura",
+      "descricao": "Bryan participou da lendária Batalha de Rima considerada a de maior aura já registrada, enfrentando Breno, Juan e José simultaneamente. Kauan, presente no local, optou por apenas assistir — reconhecendo que entrar na batalha seria humilhar os demais participantes diante do nível de Bryan."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "Tipster Supremo",
+      "descricao": "Bryan domina a arte da leitura fria de padrões e resultados, usando sua visão de Tipster para prever e ditar o rumo das situações antes que aconteçam. Sua resenha não é caótica — é calculada, cirúrgica e devastadora."
+    },
+    {
+      "titulo": "Resenha da Ordem",
+      "descricao": "Diferente da Resenha Obscura tradicional, Bryan pratica uma forma própria: obscura em conteúdo, mas ordenada em execução. Ele não perde o controle — ele é o controle."
+    }
+  ],
+  "aura": {
+    "descricao": "O nível de aura de Bryan é: Enorme e Obscura. Um dos seres com mais ordem já vistos na história do Trollgianismo.",
+    "stats": [
+      { "label": "Aura Bruta", "valor": "Enorme", "percentual": 95, "tipo": "infinite" },
+      { "label": "Ordem", "valor": "Máxima", "percentual": 100, "tipo": "normal" },
+      { "label": "Resenha Obscura", "valor": "95/100", "percentual": 95, "tipo": "infinite" },
+      { "label": "Controle", "valor": "Absoluto", "percentual": 100, "tipo": "normal" }
+    ],
+    "especial": {
+      "titulo": "O Paradoxo da Ordem Suprema",
+      "descricao": "Enquanto a maioria dos Trollgers de alta aura opera através do caos, Bryan prova que é possível dominar através da ordem absoluta. Seu rank exclusivo de Ditador existe justamente porque nenhuma posição numérica tradicional conseguiria conter seu tipo de poder."
+    }
+  },
+  "relacaoTrollgers": "Bryan é respeitado com um misto de reverência e cautela. Mesmo os Trollgers mais fortes, como Kauan, reconhecem sua autoridade — a ponto de recuarem para não expor os demais diante dele, como ocorreu na Batalha de Rima.",
+  "fraseMarcante": "Manda o pé aí.",
+  "descricaoFrase": "Representa a autoridade natural de Bryan, capaz de transformar qualquer pedido em ordem através da pura presença de Ditador.",
+  "apelidos": ["O Ditador"],
+  "descricaoApelidos": "Apelido que reflete diretamente seu rank exclusivo e sua forma de comandar através da ordem.",
+  "defeitos": "Seu maior defeito é justamente sua maior força levada ao extremo: o controle excessivo pode beirar a tirania, e sua frieza de Tipster às vezes o torna imprevisível em como e quando vai impor sua autoridade.",
+  "veredicto": "Bryan Dictador não segue a hierarquia do Trollgianismo — ele a redefine. Se os demais Trollgers lutam pelo caos, Bryan prova que a ordem, quando levada ao extremo, pode ser igualmente ou mais assustadora. Ditador não é apenas um título. É uma declaração."
+}
