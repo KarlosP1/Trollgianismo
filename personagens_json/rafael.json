@@ -1,0 +1,42 @@
+{
+  "id": "rafael",
+  "nome": "RAFAEL",
+  "rank": "Desviado",
+  "rankDisplay": "—",
+  "subtitulo": "O Tipster da Língua Presa — Trollger Desviado",
+  "classificacao": "Trollger",
+  "emoji": "💰",
+  "foto": "imagens/RAFAEL.jpg",
+  "codigoTrollger": "TRG-DSV-77210",
+  "tags": [
+    { "texto": "Trollger Desviado", "tipo": "red" },
+    { "texto": "Tipster", "tipo": "blue" },
+    { "texto": "Língua Presa", "tipo": "normal" },
+    { "texto": "Piadinha Própria", "tipo": "red" }
+  ],
+  "identidade": "Rafael é um Trollger Desviado — não ocupa posição fixa na hierarquia numérica do Trollgianismo. É Tipster: vive de apostar em futebol e outras coisas, sempre de olho na próxima entrada certa. Reconhecido também por uma marca registrada bem particular: a língua presa.",
+  "personalidade": "Rafael fala com a língua presa, o que já vira piada só de ele abrir a boca. Mas o próprio Rafael faz questão de cutucar essa característica antes que alguém cutuque por ele: segundo as próprias palavras dele, não é só a língua que é presa — deixando no ar uma piadinha sexual que ele mesmo criou e repete sempre que alguém comenta do jeito dele falar.",
+  "feitos": [
+    {
+      "titulo": "A Piada Que Ele Mesmo Criou",
+      "descricao": "Rafael tomou a frente da própria língua presa antes que virasse motivo de zoação alheia, criando a piadinha 'não é só a língua que é presa' — que virou marca registrada dele dentro do Trollgianismo."
+    }
+  ],
+  "estiloResenha": [
+    {
+      "titulo": "Resenha de Tipster",
+      "descricao": "Rafael puxa resenha sempre com um pé nas apostas — futebol, odds, entrada certa. Fala com a língua presa, mas isso nunca tirou a confiança na hora de dar palpite."
+    }
+  ],
+  "aura": {
+    "descricao": "Aura de quem aposta e não se abala — nem com a própria língua presa, nem com o resultado do jogo. Como Desviado, não segue a escala numérica dos demais Trollgers.",
+    "stats": [
+      { "label": "Aura Bruta", "valor": "Média", "percentual": 55, "tipo": "normal" },
+      { "label": "Confiança de Tipster", "valor": "Alta", "percentual": 80, "tipo": "normal" },
+      { "label": "Carisma", "valor": "Alto", "percentual": 75, "tipo": "normal" }
+    ]
+  },
+  "relacaoTrollgers": "É querido no grupo justamente por não se levar a sério — a língua presa e a piadinha própria em cima dela viraram parte do clima leve que ele traz pra resenha. Como Desviado, transita entre os grupos sem estar preso a uma posição fixa na hierarquia.",
+  "defeitos": "A língua presa deixa algumas falas difíceis de entender de primeira, e a piadinha repetida com frequência já é esperada por todo mundo — o que tira um pouco da graça, mas ele continua usando mesmo assim.",
+  "veredicto": "Rafael é Tipster de carteirinha, Trollger Desviado e dono da língua presa mais famosa do Trollgianismo — e, nas próprias palavras dele, não é só a língua."
+}
