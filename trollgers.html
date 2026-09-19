@@ -1072,62 +1072,6 @@
   <span></span><span></span><span></span>
 </button>
 
-<!-- BOTÃO USUÁRIO -->
-<button id="userBtn" onclick="toggleUserMenu(event)" style="position:fixed;top:16px;right:16px;z-index:1000;width:42px;height:42px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s,box-shadow 0.2s;outline:none;-webkit-tap-highlight-color:transparent" onmouseover="this.style.borderColor='var(--gold-dim)';this.style.boxShadow='0 0 12px rgba(42,127,212,0.20)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">👤</button>
-
-<!-- DROPDOWN USUÁRIO -->
-<div id="userMenu" style="display:none;position:fixed;top:66px;right:16px;z-index:1001;background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;min-width:160px;box-shadow:0 8px 32px rgba(0,0,0,0.5)">
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)"></div>
-  <button id="btnLoginDropdown" onclick="abrirLogin()" style="display:block;width:100%;padding:13px 18px;background:none;border:none;text-align:left;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;transition:background 0.15s,color 0.15s;outline:none;-webkit-tap-highlight-color:transparent" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='none'">🔑 Logar / Criar Conta</button>
-</div>
-
-<!-- OVERLAY DO LOGIN -->
-<div id="loginOverlay" onclick="fecharLoginOverlay(event)" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;padding:20px">
-  <div onclick="event.stopPropagation()" style="max-width:420px;width:100%;background:linear-gradient(160deg,#1e1c18,#161410);border:1px solid #2e2b22;border-radius:8px;padding:40px;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent)"></div>
-    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(30,100,200,0.08) 0%,transparent 70%);pointer-events:none"></div>
-
-    <div style="display:flex;gap:0;margin-bottom:32px;border:1px solid var(--border);border-radius:4px;overflow:hidden">
-      <button id="tabLogin" onclick="trocarAba('login')" style="flex:1;padding:10px;background:linear-gradient(135deg,#122030,#0d1a2a);border:none;border-right:1px solid var(--border);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#55aaff;cursor:pointer;outline:none;transition:all 0.2s">Entrar</button>
-      <button id="tabCriar" onclick="trocarAba('criar')" style="flex:1;padding:10px;background:var(--surface);border:none;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;outline:none;transition:all 0.2s">Criar Conta</button>
-    </div>
-
-    <div id="formLogin">
-      <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent);margin:0 auto 20px"></div>
-      <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(14px,3vw,18px);letter-spacing:0.08em;text-align:center;background:linear-gradient(135deg,#55aaff,#2a7fd4,#1a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:28px">Bem-vindo de Volta</h2>
-      <div style="margin-bottom:16px">
-        <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Usuário</label>
-        <input type="text" placeholder="Seu nome de Trollger" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div style="margin-bottom:24px">
-        <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Senha</label>
-        <input type="password" placeholder="••••••••" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <button onclick="fecharLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#122030,#0d1a2a);border:1px solid #2a7fd4;border-radius:4px;color:#55aaff;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;outline:none;transition:box-shadow 0.2s;box-shadow:0 0 18px rgba(42,127,212,0.25)" onmouseover="this.style.boxShadow='0 0 28px rgba(42,127,212,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(42,127,212,0.25)'">Entrar</button>
-    </div>
-
-    <div id="formCriar" style="display:none">
-      <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,#2a7fd4,transparent);margin:0 auto 20px"></div>
-      <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(14px,3vw,18px);letter-spacing:0.08em;text-align:center;background:linear-gradient(135deg,#55aaff,#2a7fd4,#1a4a8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:28px">Criar Conta</h2>
-      <div style="margin-bottom:16px">
-        <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Usuário</label>
-        <input type="text" placeholder="Escolha um nome" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div style="margin-bottom:16px">
-        <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Senha</label>
-        <input type="password" placeholder="••••••••" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div style="margin-bottom:24px">
-        <label style="display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">Confirmar Senha</label>
-        <input type="password" placeholder="••••••••" style="width:100%;padding:12px 14px;background:#0e0d0b;border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='var(--gold-dim)'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <button onclick="fecharLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#122030,#0d1a2a);border:1px solid #2a7fd4;border-radius:4px;color:#55aaff;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;outline:none;transition:box-shadow 0.2s;box-shadow:0 0 18px rgba(42,127,212,0.25)" onmouseover="this.style.boxShadow='0 0 28px rgba(42,127,212,0.45)'" onmouseout="this.style.boxShadow='0 0 18px rgba(42,127,212,0.25)'">Criar Conta</button>
-    </div>
-
-    <button onclick="fecharLogin()" style="position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text-dim);font-size:18px;cursor:pointer;outline:none;line-height:1;padding:4px 6px;border-radius:4px;transition:color 0.2s" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--text-dim)'">✕</button>
-  </div>
-</div>
-
 <!-- OVERLAY -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 
@@ -1672,7 +1616,6 @@
     <div class="footer-links">
       <a href="index.html" class="footer-btn">← Voltar ao Índice</a>
     </div>
-    <a href="trollgers-cards.html" class="footer-btn" style="border-color:var(--gold-dim);color:var(--gold-light)">🃏 Álbum de Cartas</a>
     <p style="margin-top:28px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.15em;color:var(--text-dim);text-align:center">Créditos ao Juan que ajudou completamente a criar isso. :)</p>
   </footer>
 
@@ -2344,69 +2287,6 @@
       if (e.target === this) fecharPublicar();
     });
   });
-
-  function toggleUserMenu(e) {
-    e.stopPropagation();
-    const menu = document.getElementById('userMenu');
-    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-  }
-
-  document.addEventListener('click', function() {
-    document.getElementById('userMenu').style.display = 'none';
-  });
-
-  function abrirLogin() {
-    document.getElementById('userMenu').style.display = 'none';
-    const overlay = document.getElementById('loginOverlay');
-    overlay.style.display = 'flex';
-    trocarAba('login');
-  }
-
-  function fecharLogin() {
-    const overlay = document.getElementById('loginOverlay');
-    const inputUsuario = overlay.querySelector('#formLogin input[type="text"]');
-    const nome = inputUsuario ? inputUsuario.value.trim().toLowerCase() : '';
-
-    const emojis = { 'kauan': '1️⃣', 'josé': '🥈', 'jose': '🥈', 'duda': '🥉' };
-    const userBtn = document.getElementById('userBtn');
-    const btnDropdown = document.getElementById('btnLoginDropdown');
-
-    if (nome && !logado) {
-      logado = true;
-      if (emojis[nome]) userBtn.textContent = emojis[nome];
-      btnDropdown.textContent = '🚪 Sair';
-      btnDropdown.style.color = '#cc3366';
-      btnDropdown.onclick = sair;
-    }
-
-    overlay.style.display = 'none';
-  }
-
-  function fecharLoginOverlay(e) {
-    if (e.target === document.getElementById('loginOverlay')) fecharLogin();
-  }
-
-  let logado = false;
-
-  function trocarAba(aba) {
-    const isLogin = aba === 'login';
-    document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
-    document.getElementById('formCriar').style.display = isLogin ? 'none' : 'block';
-    document.getElementById('tabLogin').style.background = isLogin ? 'linear-gradient(135deg,#3a1515,#2a0f0f)' : 'var(--surface)';
-    document.getElementById('tabLogin').style.color = isLogin ? '#55aaff' : 'var(--text-dim)';
-    document.getElementById('tabCriar').style.background = isLogin ? 'var(--surface)' : 'linear-gradient(135deg,#3a1515,#2a0f0f)';
-    document.getElementById('tabCriar').style.color = isLogin ? 'var(--text-dim)' : '#55aaff';
-  }
-
-  function sair() {
-    logado = false;
-    document.getElementById('userBtn').textContent = '👤';
-    const btnDropdown = document.getElementById('btnLoginDropdown');
-    btnDropdown.textContent = '🔑 Logar / Criar Conta';
-    btnDropdown.style.color = 'var(--text-dim)';
-    btnDropdown.onclick = abrirLogin;
-    document.getElementById('userMenu').style.display = 'none';
-  }
 
   function toggleDrawer() {
     const drawer = document.getElementById('drawer');
