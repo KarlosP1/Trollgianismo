@@ -3,36 +3,28 @@
   "nome": "JOÃO FELIPE",
   "rank": null,
   "rankDisplay": "—",
-  "subtitulo": "O Irrelevante — Sem Classificação",
-  "classificacao": "Sem Classificação",
+  "subtitulo": "Seguidor de Kauan — Deus Trollger",
+  "classificacao": "Seguidor",
   "emoji": "👻",
   "foto": "",
   "codigoTrollger": null,
   "tags": [
-    { "texto": "Sem Rank", "tipo": "red" },
-    { "texto": "Irrelevante", "tipo": "red" },
-    { "texto": "Aura Nula", "tipo": "red" },
-    { "texto": "Apagado por Kauan (P0)", "tipo": "red" }
+    { "texto": "Seguidor de Kauan", "tipo": "red" },
+    { "texto": "Trollgianista", "tipo": "red" }
   ],
-  "identidade": "João Felipe é praticamente inexistente dentro do sistema Trollgianista. Motivo: Interferência direta de Kauan (P0). Não é reconhecido.",
-  "existenciaSistema": "Praticamente inexistente. Não é reconhecido. Motivo: Interferência direta de Kauan (P0).",
-  "feitosMarkantes": "Nenhum.",
-  "relacaoTrollgers": "Inexistente.",
-  "estiloResenha": [
-    {
-      "titulo": "Resenha de Randola",
-      "itens": ["Sem direção", "Sem impacto"]
-    }
-  ],
+  "identidade": "João Felipe é um seguidor de Kauan, o Deus Trollger.",
+  "existenciaSistema": "Reconhecido como seguidor de Kauan dentro do sistema Trollgianista.",
+  "feitosMarkantes": "Seguir Kauan e manter contato com figuras importantes do sistema Trollgianista.",
+  "relacaoTrollgers": "Fala somente com Emanuel (ex-Trollger P2) e Kauan (atual Deus Trollger).",
   "aura": {
     "stats": [
       { "label": "Tipo", "valor": "Padrão" },
       { "label": "Nível", "valor": "Nula" }
     ],
     "especial": {
-      "descricao": "Não entende aura."
+      "descricao": "Possui uma aura própria dentro do sistema Trollgianista."
     }
   },
-  "fraquezas": "Pensar.",
-  "veredicto": "João Felipe é irrelevante. Ser ignorado é pior do que ser derrotado."
+  "fraquezas": "Não ser homossexual.",
+  "veredicto": "João Felipe é um seguidor de Kauan, mantendo uma relação restrita a Emanuel e ao atual Deus Trollger."
 }
