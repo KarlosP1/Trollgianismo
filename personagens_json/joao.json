@@ -3,7 +3,7 @@
   "nome": "JOÃO FELIPE",
   "rank": null,
   "rankDisplay": "—",
-  "subtitulo": "Seguidor de Kauan — Deus Trollger",
+  "subtitulo": "Apenas um estudador trollgianista",
   "classificacao": "Seguidor",
   "emoji": "👻",
   "foto": "",
@@ -12,19 +12,19 @@
     { "texto": "Seguidor de Kauan", "tipo": "red" },
     { "texto": "Trollgianista", "tipo": "red" }
   ],
-  "identidade": "João Felipe é um seguidor de Kauan, o Deus Trollger.",
+  "identidade": "João Felipe é um estudador, que recentamente descobriu a obra de Kauan, o Deus Trollger.",
   "existenciaSistema": "Reconhecido como seguidor de Kauan dentro do sistema Trollgianista.",
   "feitosMarkantes": "Seguir Kauan e manter contato com figuras importantes do sistema Trollgianista.",
   "relacaoTrollgers": "Fala somente com Emanuel (ex-Trollger P2) e Kauan (atual Deus Trollger).",
   "aura": {
     "stats": [
       { "label": "Tipo", "valor": "Padrão" },
-      { "label": "Nível", "valor": "Nula" }
+      { "label": "Nível", "valor": "Baixo" }
     ],
     "especial": {
-      "descricao": "Possui uma aura própria dentro do sistema Trollgianista."
+      "descricao": "Possui uma aura basica, não importante, dentro do sistema Trollgianista."
     }
   },
-  "fraquezas": "Não ser homossexual.",
+  "fraquezas": "Não ser homossexual. Não ter comido a Raphaela",
   "veredicto": "João Felipe é um seguidor de Kauan, mantendo uma relação restrita a Emanuel e ao atual Deus Trollger."
 }
