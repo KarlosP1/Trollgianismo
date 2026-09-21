@@ -582,6 +582,15 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25em;
+    }
+    .verified-badge {
+      width: 0.62em;
+      height: 0.62em;
+      flex-shrink: 0;
+      vertical-align: middle;
     }
     .profile-subtitle {
       font-family: 'Cinzel', serif;
@@ -2035,6 +2044,13 @@
   // ══════════════════════════════════════════
   const JSON_PATH = 'personagens_json/';
 
+  // IDs dos Trollgers Oficiais (P0-P9) — únicos que recebem o selo verificado
+  const TROLLGERS_OFICIAIS_IDS = ['kauan','jose','davi','juan','nicolas','kevin','breno','bryan','josefernando','duda','emanuel'];
+
+  function verifiedBadgeHTML() {
+    return `<svg class="verified-badge" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" aria-label="Verificado"><path fill="#2a7fd4" d="M11 0l2.2 1.8 2.75-.7 1.3 2.5 2.75.85-.15 2.85 2.15 1.85-2.15 1.85.15 2.85-2.75.85-1.3 2.5-2.75-.7L11 22l-2.2-1.8-2.75.7-1.3-2.5-2.75-.85.15-2.85L0 11l2.15-1.85-.15-2.85 2.75-.85 1.3-2.5 2.75.7z"/><path fill="#fff" d="M9.6 14.6L6.3 11.3l1.1-1.1 2.2 2.2 4.9-4.9 1.1 1.1z"/></svg>`;
+  }
+
   function tagHTML(t) {
     return `<span class="tag ${t.tipo||''}">${t.texto}</span>`;
   }
@@ -2063,18 +2079,19 @@
     return `<div class="entry"><div class="entry-title">${title}</div><div class="entry-body">${body}</div></div>`;
   }
 
-  function renderJSON(data) {
+  function renderJSON(data, id) {
     let html = '';
 
     // ── HERO ──
     const rankClass = data.rank === 'P0' ? 'top1' : data.rank === 'P1' ? 'top2' : data.rank === 'P2' ? 'top3' : '';
     const fotoHTML = data.foto ? `<img src="${data.foto}" class="profile-photo" alt="${data.nome}" onerror="this.style.display='none'">` : '';
     const tagsHTML = (data.tags || []).map(tagHTML).join('');
+    const selo = TROLLGERS_OFICIAIS_IDS.indexOf(id) !== -1 ? verifiedBadgeHTML() : '';
     html += `
       <div class="profile-hero">
         ${fotoHTML}
         <div class="profile-rank ${rankClass}">${data.rankDisplay || data.rank || '—'}</div>
-        <div class="profile-name">${data.nome}</div>
+        <div class="profile-name">${data.nome}${selo}</div>
         <div class="profile-subtitle">${data.subtitulo || ''}</div>
         <div class="profile-tags">${tagsHTML}</div>
       </div>`;
@@ -2244,7 +2261,7 @@
         return res.json();
       })
       .then(function(data) {
-        sec.innerHTML = renderJSON(data);
+        sec.innerHTML = renderJSON(data, id);
         injetarBotoesCopiar(sec);
       })
       .catch(function() {
