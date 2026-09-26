@@ -1,0 +1,56 @@
+{
+    "info": {
+        "name": "FR Legends",
+        "size": {
+            "x": 1080,
+            "y": 2400
+        }
+    },
+    "keymap": [
+        {
+            "comment": "Virar Esquerda",
+            "type": "KMT_CLICK",
+            "key": "Key_A",
+            "pos": {
+                "x": 0.08,
+                "y": 0.85
+            }
+        },
+        {
+            "comment": "Virar Direita",
+            "type": "KMT_CLICK",
+            "key": "Key_D",
+            "pos": {
+                "x": 0.23,
+                "y": 0.85
+            }
+        },
+        {
+            "comment": "Acelerar",
+            "type": "KMT_CLICK",
+            "key": "Key_W",
+            "pos": {
+                "x": 0.93,
+                "y": 0.82
+            }
+        },
+        {
+            "comment": "Freio Normal",
+            "type": "KMT_CLICK",
+            "key": "Key_S",
+            "pos": {
+                "x": 0.82,
+                "y": 0.85
+            }
+        },
+        {
+            "comment": "Freio de Mao",
+            "type": "KMT_CLICK",
+            "key": "Key_Space",
+            "pos": {
+                "x": 0.91,
+                "y": 0.52
+            }
+        }
+    ]
+}
